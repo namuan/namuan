@@ -42,8 +42,8 @@ eval "$(pyenv init -)"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/nmn/.sdkman"
-[[ -s "/Users/nmn/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/nmn/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
