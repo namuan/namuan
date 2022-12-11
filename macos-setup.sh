@@ -70,6 +70,7 @@ visual-studio-code
 spectacle
 jetbrains-toolbox
 textmate
+setapp
 )
 
 echo "installing apps with Cask..."
@@ -79,8 +80,7 @@ Echo "Installing SDKMan for managing anything JVM"
 curl -s "https://get.sdkman.io" | bash
 
 echo “Installing Python”
-brew install python3
-brew install pyenv
+brew install python@3.10
 
 brew cleanup
 
