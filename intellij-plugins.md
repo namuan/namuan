@@ -39,3 +39,7 @@ Case switching, sorting, filtering, incrementing, aligning to columns, grepping,
 ## [Requirements](https://plugins.jetbrains.com/plugin/10837-requirements)
 
 Highlighting and Syntax check for requirements.txt files in IDE
+
+## [Cyan Light Theme](https://plugins.jetbrains.com/plugin/12102-cyan-light-theme)
+
+A light theme in cyan tones
