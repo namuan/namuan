@@ -80,6 +80,7 @@ curl -s "https://get.sdkman.io" | bash
 
 echo “Installing Python”
 brew install python3
+brew install pyenv
 
 brew cleanup
 
