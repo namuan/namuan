@@ -1,5 +1,4 @@
-echo "Installing xcode-stuff"
-xcode-select --install
+
 
 # Check for Homebrew,
 # Install if we don't have it
@@ -81,6 +80,10 @@ curl -s "https://get.sdkman.io" | bash
 
 echo “Installing Python”
 brew install python@3.10
+
+echo "Manim dependencies"
+brew install py3cairo ffmpeg pango scipy
+brew install cask mactex-no-gui
 
 brew cleanup
 
