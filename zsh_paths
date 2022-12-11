@@ -1,0 +1,50 @@
+export LOCAL="$HOME/local"
+export TOOLS_HOME=$HOME/tools
+export WORK_HOME=$HOME/workspace
+export MVN_HOME=$TOOLS_HOME/apache-maven-3.3.9
+export M2_HOME=$MVN_HOME
+export EDITOR='subl -w'
+
+# +++++ Application Specific environment Variables
+
+# GO tools
+export GOHOME=/usr/local/go
+export GOPATH=$WORK_HOME/gocode
+
+# pip should only run if there is a virtualenv currently activated
+# export PIP_REQUIRE_VIRTUALENV=true
+# cache pip-installed packages to avoid re-downloading
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+# NodeJs
+export NODE_PATH=$HOME/.node_modules_global/lib/node_modules
+
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+
+export NPM_PACKAGES="${HOME}/.npm-packages"
+
+# ---- Application Specific environment Variables
+
+# +++++ Expand PATH
+
+export PATH=$LOCAL/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH="$HOME/.node_modules_global/bin:$PATH"
+
+export PATH=$GOHOME/bin:$GOPATH/bin:$PATH
+
+export PATH=$HOME/.local/bin:$HOME/.local/bin/node_modules/.bin:$PATH
+export PATH=$TOOLS_HOME/homebrew/brew/bin:$PATH
+export PATH=$NPM_PACKAGES/bin:$PATH
+
+export PATH="$HOME/.pyenv/shims:$PATH"
+eval "$(pyenv init -)"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/nmn/.sdkman"
+[[ -s "/Users/nmn/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/nmn/.sdkman/bin/sdkman-init.sh"
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# ----- Expand PATH
