@@ -23,11 +23,16 @@ echo "Installing brew git utilities..."
 brew install git-extras
 
 echo "Installing other brew stuff..."
-brew install tree
-brew install wget
-brew install gron
-brew install jq
-brew install sd
+tools=(
+  tree
+  wget
+  gron
+  jq
+  sd
+  ripgrep
+  fzf
+)
+brew install cask "${tools[@]}"
 
 echo "Installing homebrew cask"
 # This may be required ? brew install --cask caskroom/cask/brew-cask
