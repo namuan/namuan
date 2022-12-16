@@ -27,6 +27,7 @@ brew install tree
 brew install wget
 brew install gron
 brew install jq
+brew install sd
 
 echo "Installing homebrew cask"
 # This may be required ? brew install --cask caskroom/cask/brew-cask
@@ -73,12 +74,13 @@ setapp
 )
 
 echo "installing apps with Cask..."
-brew install cask ${apps[@]}
+brew install cask "${apps[@]}"
 
 Echo "Installing SDKMan for managing anything JVM"
 curl -s "https://get.sdkman.io" | bash
 
-echo “Installing Python”
+echo "Installing Python"
+brew install python@3.9
 brew install python@3.10
 
 echo "Manim dependencies"
@@ -90,4 +92,4 @@ brew cleanup
 echo "Clone snippets-lib"
 echo "ln -s "
 
-echo "Done!"
+echo "Done"
