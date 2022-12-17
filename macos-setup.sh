@@ -76,6 +76,7 @@ spectacle
 jetbrains-toolbox
 textmate
 setapp
+inkscape
 )
 
 echo "installing apps with Cask..."
