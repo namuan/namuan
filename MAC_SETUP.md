@@ -9,18 +9,11 @@ xcode-select --install
 ## Install Homebrew and other tools
 
 ```shell
-./macos-macos.sh
+./macos-setup.sh
 ```
 
 ## Tweak Mac OS X
 
 ```shell
 ./macos-settings.sh
-```
-
-## Copy over zsh config
-
-```shell
-cp zshrc ~/.zshrc
-cp zsh_paths ~/.zsh_paths
 ```

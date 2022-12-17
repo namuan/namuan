@@ -97,4 +97,11 @@ brew cleanup
 echo "Clone snippets-lib"
 echo "ln -s "
 
+echo "Symlink zsh files"
+rm $HOME/.zshrc
+ln -s $PWD/zshrc $HOME/.zshrc
+
+rm $HOME/.zsh_paths
+ln -s $PWD/zsh_paths $HOME/.zsh_paths
+
 echo "Done"
