@@ -1,6 +1,7 @@
 ---
 markmap:
 colorFreezeLevel: 2
+maxWidth: 100
 ---
 
 # Complexity
@@ -11,10 +12,12 @@ colorFreezeLevel: 2
 
 ## Cognitive Load
 
-- Higher cognitive load means we need to remember and learn more things
+- Higher cognitive load means we need to remember 
+  and learn more things
 - Easy to miss important details which can lead to bugs
 
 ## Unknown Unknowns
 
 - There is something you need to know but you don't know what it is
-- There is no easy way to find out what it is and how it will impact your changes
+- There is no easy way to find out what it is and 
+  how it will impact your changes
