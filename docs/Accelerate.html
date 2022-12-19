@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.14.3/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.14.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.14.3/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[1,2]},"content":"Accelerate","children":[{"type":"heading","depth":1,"payload":{"lines":[3,4]},"content":"Onboarding","children":[{"type":"list_item","depth":2,"payload":{"lines":[5,6]},"content":"Setup Vagrant Box <a href=\"https://github.com/samael500/falstart\">Github</a>"},{"type":"list_item","depth":2,"payload":{"lines":[6,7]},"content":"DevOps in a Box <a href=\"https://github.com/Springjunky/docker-local-build-environment\">Github</a>"},{"type":"list_item","depth":2,"payload":{"lines":[7,8]},"content":"Project Guidelines <a href=\"https://github.com/elsewhencode/project-guidelines/blob/master/README.md\">Github</a>"}]},{"type":"heading","depth":1,"payload":{"lines":[9,10]},"content":"Build","children":[{"type":"heading","depth":2,"payload":{"lines":[11,12]},"content":"CI/CD Systems","children":[{"type":"list_item","depth":3,"payload":{"lines":[13,14]},"content":"<a href=\"https://www.jenkins.io/\">Jenkins</a>"},{"type":"list_item","depth":3,"payload":{"lines":[14,15]},"content":"<a href=\"https://about.gitlab.com/\">Gitlab</a>"},{"type":"list_item","depth":3,"payload":{"lines":[15,16]},"content":"<a href=\"https://circleci.com/\">CircleCI</a>"},{"type":"list_item","depth":3,"payload":{"lines":[16,17]},"content":"<a href=\"https://travis-ci.org/\">TravisCI</a>"},{"type":"list_item","depth":3,"payload":{"lines":[17,18]},"content":"<a href=\"https://github.com/features/actions\">GitHub Actions</a>"},{"type":"list_item","depth":3,"payload":{"lines":[18,19]},"content":"<a href=\"https://aws.amazon.com/codepipeline/\">AWS CodePipeline</a>"}]}]},{"type":"heading","depth":1,"payload":{"lines":[20,21]},"content":"Test"},{"type":"heading","depth":1,"payload":{"lines":[22,23]},"content":"Deploy"},{"type":"heading","depth":1,"payload":{"lines":[24,25]},"content":"Support"},{"type":"heading","depth":1,"payload":{"lines":[26,27]},"content":"Measure"},{"type":"heading","depth":1,"payload":{"lines":[28,29]},"content":"Priciples"}]},null)</script>
+</body>
+</html>
