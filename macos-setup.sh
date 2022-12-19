@@ -31,6 +31,7 @@ tools=(
   sd
   ripgrep
   fzf
+  imagemagick
 )
 brew install cask "${tools[@]}"
 
@@ -84,6 +85,11 @@ brew install cask "${apps[@]}"
 
 Echo "Installing SDKMan for managing anything JVM"
 curl -s "https://get.sdkman.io" | bash
+
+echo "Installing NodeJS"
+brew install node
+# shellcheck disable=SC2046
+test ! $(which npm) && npm install -g npx
 
 echo "Installing Python"
 brew install python@3.9
