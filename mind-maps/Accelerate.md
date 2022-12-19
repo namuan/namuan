@@ -24,6 +24,14 @@ colorFreezeLevel: 2
 
 ## Test
 
+- Unit Testing
+- Integration Testing
+- End-to-End Testing
+- Load Testing
+- Security Testing
+- Performance Testing
+- Smoke Testing
+
 ## Deploy
 
 ## Support
