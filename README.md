@@ -11,4 +11,4 @@ You can click the Preview link to take a look at your changes.
 
 ## MindMaps
 
-[Accelerate](docs/Accelerate.html)
+[Accelerate](https://namuan.github.io/namuan/Accelerate.html)
