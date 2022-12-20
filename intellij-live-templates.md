@@ -201,3 +201,13 @@ class $STEPNAME$(WorkflowBase):
         # output
         return {"greetings": f"Hello {self.username}"}
 ```
+
+## ktlog
+
+Define logger to use in Kotlin
+
+Applicable in Kotlin: top-level.
+
+```kotlin
+private val logger = mu.KotlinLogging.logger {}
+```
