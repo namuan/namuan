@@ -48,7 +48,7 @@ markmap:
 - Start simple
 - Work on things you like
 - If you have no clue what to do, fiddle around
-- Don't to afraid to experiment
+- Don't be afraid to experiment
 - Find a friend to work with and share ideas
 - It is OK to copy stuff
   - To give you an idea

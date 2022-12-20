@@ -1,14 +1,15 @@
 ---
 markmap:
     colorFreezeLevel: 2
+    maxWidth: 500
 ---
 
 # Accelerate
 
 ## Onboarding
 
-- Setup Vagrant Box [Github](https://github.com/samael500/falstart)
-- DevOps in a Box [Github](https://github.com/Springjunky/docker-local-build-environment)
+- Setup Vagrant Box [GitHub](https://github.com/samael500/falstart)
+- DevOps in a Box [GitHub](https://github.com/Springjunky/docker-local-build-environment)
 - Project Guidelines [Github](https://github.com/elsewhencode/project-guidelines/blob/master/README.md)
 
 ## Build
@@ -38,4 +39,4 @@ markmap:
 
 ## Measure
 
-## Priciples
+## Principles

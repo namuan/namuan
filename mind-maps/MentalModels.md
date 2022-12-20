@@ -16,7 +16,7 @@ markmap:
 ## Invert
 
 - Alternate path to the end goal
-  - Eg. Avoid low marks vs achieving high marks
+  - E.g. Avoid low marks vs achieving high marks
   - Focus on removing weak points
 - Money doesn't buy happiness
   - But **it removed anxiety surrounding security, housing, food, providing and hunger**
@@ -39,9 +39,9 @@ markmap:
 
 ### Black Hat **Eeyore, Donkey from Winnie the Pooh**
 
-- Untimate depressed pessimist
+- Ultimate depressed pessimist
 - What could go wrong?
-- Murphys Law: Anything that can go wrong, will go wrong
+- Murphy's Law: Anything that can go wrong, will go wrong
 - Planning for failure and worst case scenario
 
 ### Yellow Hat **Cheerleader**

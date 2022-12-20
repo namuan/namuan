@@ -20,7 +20,7 @@
 ### Informal Reasoning
 
 - **Inside Out**
-- Leads to less errors being created
+- Leads to fewer errors being created
 
 ### Formal Reasoning
 
@@ -46,5 +46,5 @@
 ### Code Volume
 
 - Not as important as state/control
-- **Law**?? for using the language with least amount of features to work
+- **Law**?? for using the language with the least amount of features to work
 
