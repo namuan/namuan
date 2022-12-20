@@ -37,7 +37,7 @@ markmap:
 - How do you feel about something?
 - How you do feel about options? -> Happy/UnHappy
 
-### Black Hat **Eeyore, Donkey from Winnie the Pooh)
+### Black Hat **Eeyore, Donkey from Winnie the Pooh**
 
 - Untimate depressed pessimist
 - What could go wrong?
