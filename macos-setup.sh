@@ -32,6 +32,7 @@ tools=(
   ripgrep
   fzf
   imagemagick
+  pandoc
 )
 brew install cask "${tools[@]}"
 
