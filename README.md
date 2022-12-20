@@ -18,8 +18,11 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 -->
 
 [Accelerate](https://namuan.github.io/namuan/Accelerate.html)
-[Complexity](https://namuan.github.io/namuan/Complexity.html)
-[LifelongKindergarten](https://namuan.github.io/namuan/LifelongKindergarten.html)
-[MentalModels](https://namuan.github.io/namuan/MentalModels.html)
-[OutOfTarPit](https://namuan.github.io/namuan/OutOfTarPit.html)
 
+[Complexity](https://namuan.github.io/namuan/Complexity.html)
+
+[LifelongKindergarten](https://namuan.github.io/namuan/LifelongKindergarten.html)
+
+[MentalModels](https://namuan.github.io/namuan/MentalModels.html)
+
+[OutOfTarPit](https://namuan.github.io/namuan/OutOfTarPit.html)
