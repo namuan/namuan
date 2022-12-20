@@ -1,6 +1,6 @@
 ---
 markmap:
-colorFreezeLevel: 2
+    colorFreezeLevel: 2
 ---
 
 # Accelerate

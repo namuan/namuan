@@ -1,3 +1,9 @@
+---
+markmap:
+    colorFreezeLevel: 2
+    maxWidth: 500
+---
+
 # Lifelong Kindergarten [Book](http://lifelongkindergarten.net)
 
 ## For P's

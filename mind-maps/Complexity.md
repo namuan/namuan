@@ -1,7 +1,7 @@
 ---
 markmap:
-colorFreezeLevel: 2
-maxWidth: 100
+  colorFreezeLevel: 2
+  maxWidth: 100
 ---
 
 # Complexity
