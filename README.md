@@ -35,3 +35,7 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 [MentalModels](https://namuan.github.io/namuan/MentalModels.html)
 
 [OutOfTarPit](https://namuan.github.io/namuan/OutOfTarPit.html)
+
+## Alfred Workflows
+
+[Alfred Workflows](alfred-workflows/)
