@@ -10,6 +10,12 @@ You can click the Preview link to take a look at your changes.
 
 [Search Own Tweets](https://twitter.com/search?q=from%3Adeskriders_twt%20MVVM&src=typed_query&f=top)
 
+[Github Search](https://cs.github.com/)
+```text
+language:java
+path:*.properties
+```
+
 ## MindMaps
 
 <!-- 
