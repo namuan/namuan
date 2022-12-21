@@ -1,13 +1,14 @@
-- 👋 Hi, I’m @namuan
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
+👋
 
 <!---
 namuan/namuan is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
 --->
+## CheatSheet
+
+[Search Own Github](https://github.com/search?q=pandoc%20user%3Anamuan&type=code)
+
+[Search Own Tweets](https://twitter.com/search?q=from%3Adeskriders_twt%20MVVM&src=typed_query&f=top)
 
 ## MindMaps
 
