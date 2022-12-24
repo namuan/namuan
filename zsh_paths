@@ -3,7 +3,7 @@ export TOOLS_HOME=$HOME/tools
 export WORK_HOME=$HOME/workspace
 export MVN_HOME=$TOOLS_HOME/apache-maven-3.3.9
 export M2_HOME=$MVN_HOME
-export EDITOR='subl -w'
+export EDITOR='mate -w'
 
 # +++++ Application Specific environment Variables
 
