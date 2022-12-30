@@ -96,6 +96,9 @@ echo "Installing Python"
 brew install python@3.9
 brew install python@3.10
 
+echo "Installing Poetry"
+curl -sSL https://install.python-poetry.org | python3 -
+
 echo "Manim dependencies"
 brew install py3cairo ffmpeg pango scipy
 brew install cask mactex-no-gui
