@@ -121,6 +121,22 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from py_executable_checklist.workflow import run_workflow, WorkflowBase
 
+def setup_logging(verbosity):
+    logging_level = logging.WARNING
+    if verbosity == 1:
+        logging_level = logging.INFO
+    elif verbosity >= 2:
+        logging_level = logging.DEBUG
+
+    logging.basicConfig(
+        handlers=[
+            logging.StreamHandler(),
+        ],
+        format="%(asctime)s - %(filename)s:%(lineno)d - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        level=logging_level,
+    )
+    logging.captureWarnings(capture=True)
 
 # Common functions across steps
 
@@ -163,10 +179,10 @@ def parse_args():
     parser.add_argument(
         "-v",
         "--verbose",
-        action="store_true",
-        default=False,
+        action="count",
+        default=0,
         dest="verbose",
-        help="Display context variables at each step",
+        help="Increase verbosity of logging output. Display context variables between each step run",
     )
     return parser.parse_args()
 
@@ -178,6 +194,7 @@ def main(args):
 
 if __name__ == "__main__":
     args = parse_args()
+    setup_logging(args.verbose)
     main(args)
 ```
 
