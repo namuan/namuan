@@ -33,6 +33,7 @@ tools=(
   fzf
   imagemagick
   pandoc
+  shellcheck
 )
 brew install cask "${tools[@]}"
 
