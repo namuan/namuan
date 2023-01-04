@@ -205,6 +205,9 @@ Workflow Step using py-executable-checklist
 Applicable in Python: top-level
 
 ```python
+from py_executable_checklist.workflow import WorkflowBase
+import logging
+
 class $STEPNAME$(WorkflowBase):
     """
     $DOCUMENT$
@@ -212,11 +215,11 @@ class $STEPNAME$(WorkflowBase):
 
     username: str
 
-    def execute(self):
-        logging.info(f"Hello {self.username}")
+    def execute(self) -> dict:
+        logging.info("Hello %s", self.username)
 
         # output
-        return {"greetings": f"Hello {self.username}"}
+        return {"todo": "Next Step"}
 ```
 
 ## ktlog
