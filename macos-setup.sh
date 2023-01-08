@@ -34,6 +34,7 @@ tools=(
   imagemagick
   pandoc
   shellcheck
+  graphviz
 )
 brew install cask "${tools[@]}"
 
