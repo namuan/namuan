@@ -35,6 +35,7 @@ tools=(
   pandoc
   shellcheck
   graphviz
+  git-lfs
 )
 brew install cask "${tools[@]}"
 
