@@ -36,17 +36,15 @@ tools=(
   shellcheck
   graphviz
   git-lfs
+  plantuml
 )
-brew install cask "${tools[@]}"
+brew install "${tools[@]}"
 
 echo "Installing homebrew cask"
 # This may be required ? brew install --cask caskroom/cask/brew-cask
 
 brew tap homebrew/cask-fonts
 brew install cask font-fira-code font-jetbrains-mono font-input
-
-echo "Cleaning up brew"
-brew cleanup
 
 #Install Zsh & Oh My Zsh
 if test ! $(which zsh); then
@@ -106,6 +104,7 @@ echo "Manim dependencies"
 brew install py3cairo ffmpeg pango scipy
 brew install cask mactex-no-gui
 
+echo "Cleaning up brew"
 brew cleanup
 
 echo "Clone snippets-lib"
