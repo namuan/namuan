@@ -1,0 +1,4 @@
+@startuml
+!define SPRITESURL https://raw.githubusercontent.com/plantuml-stdlib/gilbarbara-plantuml-sprites/v1.0/sprites
+listsprites
+@enduml
