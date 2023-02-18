@@ -118,6 +118,6 @@ rm $HOME/.zsh_paths
 ln -s $PWD/zsh_paths $HOME/.zsh_paths
 
 rm $HOME/shell_shortcuts
-ln -s $PWD/shell_shortcuts $HOME/shell_shortcuts
+ln -s $PWD/shell_shortcuts.sh $HOME/shell_shortcuts
 
 echo "Done"
