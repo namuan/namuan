@@ -98,6 +98,7 @@ echo "Installing Python"
 brew install python@3.8
 brew install python@3.9
 brew install python@3.10
+brew install python@3.11
 
 echo "Installing Poetry"
 curl -sSL https://install.python-poetry.org | python3 -
