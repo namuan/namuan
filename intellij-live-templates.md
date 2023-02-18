@@ -121,6 +121,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from py_executable_checklist.workflow import run_workflow, WorkflowBase
 
+
 def setup_logging(verbosity):
     logging_level = logging.WARNING
     if verbosity == 1:
@@ -137,6 +138,7 @@ def setup_logging(verbosity):
         level=logging_level,
     )
     logging.captureWarnings(capture=True)
+
 
 # Common functions across steps
 
@@ -187,15 +189,15 @@ def parse_args():
     return parser.parse_args()
 
 
-def main(args):
+def main() -> None:  # pragma: no cover
+    args = parse_args()
+    setup_logging(args.verbose)
     context = args.__dict__
     run_workflow(context, workflow())
 
 
-if __name__ == "__main__":
-    args = parse_args()
-    setup_logging(args.verbose)
-    main(args)
+if __name__ == "__main__":  # pragma: no cover
+    main()
 ```
 
 ## pystep
