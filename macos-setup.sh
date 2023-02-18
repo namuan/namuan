@@ -95,6 +95,7 @@ brew install node
 test ! $(which npm) && npm install -g npx
 
 echo "Installing Python"
+brew install python@3.8
 brew install python@3.9
 brew install python@3.10
 
