@@ -37,6 +37,7 @@ tools=(
   graphviz
   git-lfs
   plantuml
+  cookiecutter
 )
 brew install "${tools[@]}"
 
