@@ -34,6 +34,7 @@ alias gcom="gco master"
 
 alias mr="make run"
 alias mt="make test"
+alias mpc="make pre-commit"
 alias py="./venv/bin/python3"
 alias pyvenv="python3 -m venv venv"
 alias svenv="source venv/bin/activate"
