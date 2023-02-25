@@ -57,6 +57,11 @@ function tardir() {
   tar zcvf $DIR.tar.gz $DIR
 }
 
+function search_replace() {
+  SOURCE=${1}
+  TARGET=${2}
+  rg "${SOURCE}" -l | xargs sd "$SOURCE" "$TARGET"
+}
 
 function ktx() {
   kubectl config use-context `kubectl config get-contexts --output='name' | fzf`
