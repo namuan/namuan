@@ -38,6 +38,7 @@ tools=(
   git-lfs
   plantuml
   cookiecutter
+  yt-dlp
 )
 brew install "${tools[@]}"
 
