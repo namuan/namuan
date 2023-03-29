@@ -1,10 +1,8 @@
-
-
 # Check for Homebrew,
 # Install if we don't have it
 if test ! $(which brew); then
-    echo "Installing homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "Installing homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Update homebrew recipes
@@ -50,38 +48,38 @@ brew install cask font-fira-code font-jetbrains-mono font-input
 
 #Install Zsh & Oh My Zsh
 if test ! $(which zsh); then
-    echo "Installing Oh My ZSH..."
-    curl -L http://install.ohmyz.sh | sh
+  echo "Installing Oh My ZSH..."
+  curl -L http://install.ohmyz.sh | sh
 
-    # jump using j
-    brew install autojump
+  # jump using j
+  brew install autojump
 
-    echo "Setting up Zsh plugins..."
-    cd ~/.oh-my-zsh/custom/plugins
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
-    git clone https://github.com/zsh-users/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-completions
-    git clone https://github.com/nojhan/liquidprompt.git
+  echo "Setting up Zsh plugins..."
+  cd ~/.oh-my-zsh/custom/plugins
+  git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+  git clone https://github.com/zsh-users/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-completions
+  git clone https://github.com/nojhan/liquidprompt.git
 
-    echo "Setting ZSH as shell..."
-    chsh -s /bin/zsh
+  echo "Setting ZSH as shell..."
+  chsh -s /bin/zsh
 fi
 
 # Apps
 apps=(
-alfred
-diffmerge
-iterm2
-vivaldi
-keepingyouawake
-drawio
-telegram
-visual-studio-code
-spectacle
-jetbrains-toolbox
-textmate
-setapp
-inkscape
+  alfred
+  diffmerge
+  iterm2
+  vivaldi
+  keepingyouawake
+  drawio
+  telegram
+  visual-studio-code
+  spectacle
+  jetbrains-toolbox
+  textmate
+  setapp
+  inkscape
 )
 
 echo "installing apps with Cask..."
@@ -97,9 +95,16 @@ test ! $(which npm) && npm install -g npx
 
 echo "Installing Python"
 brew install python@3.8
+brew install python-tk@3.8
+
 brew install python@3.9
+brew install python-tk@3.9
+
 brew install python@3.10
+brew install python-tk@3.10
+
 brew install python@3.11
+brew install python-tk@3.11
 
 echo "Installing Poetry"
 curl -sSL https://install.python-poetry.org | python3 -
