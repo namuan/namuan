@@ -129,4 +129,8 @@ ln -s $PWD/zsh_paths $HOME/.zsh_paths
 rm $HOME/shell_shortcuts
 ln -s $PWD/shell_shortcuts.sh $HOME/shell_shortcuts
 
+# Global GitIgnore
+rm $HOME/.gitignore; ln -s $PWD/.gitignore $HOME/.gitignore
+git config --global core.excludesFile "$HOME/.gitignore"
+
 echo "Done"
