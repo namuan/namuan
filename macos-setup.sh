@@ -93,6 +93,9 @@ brew install node
 # shellcheck disable=SC2046
 test ! $(which npm) && npm install -g npx
 
+echo "Installing Rust"
+brew install rust
+
 echo "Installing Python"
 brew install python@3.8
 brew install python-tk@3.8
@@ -113,6 +116,10 @@ echo "Manim dependencies"
 brew install py3cairo ffmpeg pango scipy
 brew install cask mactex-no-gui
 
+echo "ChatGPT UI"
+brew tap lencx/chatgpt https://github.com/lencx/ChatGPT.git
+brew install --cask chatgpt --no-quarantine
+
 echo "Cleaning up brew"
 brew cleanup
 
@@ -130,7 +137,8 @@ rm $HOME/shell_shortcuts
 ln -s $PWD/shell_shortcuts.sh $HOME/shell_shortcuts
 
 # Global GitIgnore
-rm $HOME/.gitignore; ln -s $PWD/.gitignore $HOME/.gitignore
+rm $HOME/.gitignore
+ln -s $PWD/.gitignore $HOME/.gitignore
 git config --global core.excludesFile "$HOME/.gitignore"
 
 echo "Done"
