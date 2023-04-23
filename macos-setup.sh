@@ -93,6 +93,9 @@ brew install node
 # shellcheck disable=SC2046
 test ! $(which npm) && npm install -g npx
 
+echo "Installing GoLang"
+brew install go
+
 echo "Installing Rust"
 brew install rust
 
