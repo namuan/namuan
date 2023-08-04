@@ -119,10 +119,6 @@ echo "Manim dependencies"
 brew install py3cairo ffmpeg pango scipy
 brew install cask mactex-no-gui
 
-echo "ChatGPT UI"
-brew tap lencx/chatgpt https://github.com/lencx/ChatGPT.git
-brew install --cask chatgpt --no-quarantine
-
 echo "Cleaning up brew"
 brew cleanup
 
