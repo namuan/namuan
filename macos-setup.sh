@@ -37,6 +37,7 @@ tools=(
   plantuml
   cookiecutter
   yt-dlp
+  universal-ctags
 )
 brew install "${tools[@]}"
 
