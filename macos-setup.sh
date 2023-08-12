@@ -143,4 +143,11 @@ rm $HOME/.gitignore
 ln -s $PWD/.gitignore $HOME/.gitignore
 git config --global core.excludesFile "$HOME/.gitignore"
 
+# Bin folder
+mkdir -vp $HOME/bin
+for file in $PWD/home-bin/*; do
+  echo "Symlinking $file"
+  ln -s $file $HOME/bin
+done
+
 echo "Done"
