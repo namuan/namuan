@@ -38,6 +38,7 @@ tools=(
   cookiecutter
   yt-dlp
   universal-ctags
+  bat
 )
 brew install "${tools[@]}"
 
