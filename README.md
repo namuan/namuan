@@ -18,6 +18,8 @@ language:java
 path:*.properties
 ```
 
+[BookNotes](https://github.com/namuan/namuan/tree/main/book-notes)
+
 ## MindMaps
 
 <!-- 
