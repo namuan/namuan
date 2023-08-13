@@ -140,6 +140,14 @@ function yaml2json() {
   python3 -c "import json,sys,yaml; json.dump(yaml.safe_load(sys.stdin), sys.stdout, default=str)"
 }
 
+function pbfilter() {
+  if [ $# -gt 0 ]; then
+      pbpaste | "$@" | pbcopy
+  else
+      pbpaste | pbcopy
+  fi
+}
+
 # ----- Define custom bash functions
 
 PROMPT=$'%{$fg[white]%} %{$fg_bold[cyan]%}%~%{$reset_color%}$(git_prompt_info) %{$fg[cyan]%}%D{[%I:%M:%S]}\
