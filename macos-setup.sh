@@ -39,6 +39,7 @@ tools=(
   yt-dlp
   universal-ctags
   bat
+  chromedriver
 )
 brew install "${tools[@]}"
 
