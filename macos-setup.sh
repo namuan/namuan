@@ -81,7 +81,6 @@ apps=(
   spectacle
   jetbrains-toolbox
   textmate
-  setapp
   inkscape
 )
 
@@ -117,7 +116,7 @@ brew install python@3.11
 brew install python-tk@3.11
 
 echo "Installing Poetry"
-curl -sSL https://install.python-poetry.org | python3 -
+brew install poetry
 
 echo "Manim dependencies"
 brew install py3cairo ffmpeg pango scipy
