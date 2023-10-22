@@ -40,6 +40,7 @@ tools=(
   universal-ctags
   bat
   chromedriver
+  fd
 )
 brew install "${tools[@]}"
 
@@ -70,22 +71,25 @@ fi
 
 # Apps
 apps=(
-  alfred
   diffmerge
   iterm2
-  vivaldi
   keepingyouawake
   drawio
   telegram
   visual-studio-code
   spectacle
-  jetbrains-toolbox
   textmate
   inkscape
 )
 
 echo "installing apps with Cask..."
 brew install cask "${apps[@]}"
+
+# Install Apps once as they manage the updates themselves
+test -d "$HOME/Applications/JetBrains Toolbox.app" || brew install --cask jetbrains-toolbox
+test -d "$HOME/Applications/Vivaldi.app" || brew install --cask vivaldi
+test -d "$HOME/Applications/Alfred 5.app" || brew install --cask alfred
+test -d "$HOME/Applications/Setapp.app" || brew install --cask setapp
 
 Echo "Installing SDKMan for managing anything JVM"
 curl -s "https://get.sdkman.io" | bash
