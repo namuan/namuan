@@ -41,6 +41,7 @@ tools=(
   bat
   chromedriver
   fd
+  yarn
 )
 brew install "${tools[@]}"
 
