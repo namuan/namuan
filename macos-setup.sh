@@ -42,6 +42,7 @@ tools=(
   chromedriver
   fd
   yarn
+  pdm
 )
 brew install "${tools[@]}"
 
