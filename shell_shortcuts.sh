@@ -40,7 +40,7 @@ alias pyvenv="python3 -m venv venv"
 alias svenv="source venv/bin/activate"
 
 alias youtube_mp3="yt-dlp --extract-audio --audio-format mp3"
-alias youtube_mp4="yt-dlp -f best"
+alias youtube_mp4="yt-dlp -f best --restrict-filenames --trim-filenames 100"
 # ----- Define Aliases
 
 
