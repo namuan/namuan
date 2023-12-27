@@ -1,3 +1,9 @@
+---
+markmap:
+    colorFreezeLevel: 2
+    maxWidth: 500
+---
+
 # OutOfTarPit [Paper](https://curtclifton.net/papers/MoseleyMarks06a.pdf)
 
 ## Approaches to understanding complexity

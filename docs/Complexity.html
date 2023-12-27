@@ -16,25 +16,26 @@
   height: 100vh;
 }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.8/dist/style.css">
 </head>
 <body>
 <svg id="mindmap"></svg>
-<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/dist/index.js"></script><script>(r => {
-          setTimeout(r);
-        })(() => {
-  const {
-    markmap,
-    mm
-  } = window;
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.8/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.8/dist/index.js"></script><script>((r) => {
+            setTimeout(r);
+          })(() => {
+  const { markmap, mm } = window;
   const toolbar = new markmap.Toolbar();
   toolbar.attach(mm);
   const el = toolbar.render();
-  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  el.setAttribute("style", "position:absolute;bottom:20px;right:20px");
   document.body.append(el);
-})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
-          const markmap = getMarkmap();
-          window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
-        })(() => window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[1,2]},"content":"Complexity","children":[{"type":"heading","depth":1,"payload":{"lines":[3,4]},"content":"Change Amplification","children":[{"type":"list_item","depth":2,"payload":{"lines":[5,6]},"content":"Seeming simple change requires code modification in many places","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[7,8]},"content":"Cognitive Load","children":[{"type":"list_item","depth":2,"payload":{"lines":[9,11]},"content":"Higher cognitive load means we need to remember<br>\nand learn more things","children":[]},{"type":"list_item","depth":2,"payload":{"lines":[11,12]},"content":"Easy to miss important details which can lead to bugs","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[13,14]},"content":"Unknown Unknowns","children":[{"type":"list_item","depth":2,"payload":{"lines":[15,16]},"content":"There is something you need to know, but you don't know what it is","children":[]},{"type":"list_item","depth":2,"payload":{"lines":[16,18]},"content":"There is no easy way to find out what it is and<br>\nhow it will impact your changes","children":[]}]}]},{"colorFreezeLevel":2,"maxWidth":500})</script>
+})</script><script>((getMarkmap, getOptions, root2, jsonOptions) => {
+                const markmap = getMarkmap();
+                window.mm = markmap.Markmap.create(
+                  "svg#mindmap",
+                  (getOptions || markmap.deriveOptions)(jsonOptions),
+                  root2
+                );
+              })(() => window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[1,2]},"content":"Complexity","children":[{"type":"heading","depth":1,"payload":{"lines":[3,4]},"content":"Change Amplification","children":[{"type":"list_item","depth":2,"payload":{"lines":[5,6]},"content":"Seeming simple change requires code modification in many places","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[7,8]},"content":"Cognitive Load","children":[{"type":"list_item","depth":2,"payload":{"lines":[9,11]},"content":"Higher cognitive load means we need to remember<br>\nand learn more things","children":[]},{"type":"list_item","depth":2,"payload":{"lines":[11,12]},"content":"Easy to miss important details which can lead to bugs","children":[]}]},{"type":"heading","depth":1,"payload":{"lines":[13,14]},"content":"Unknown Unknowns","children":[{"type":"list_item","depth":2,"payload":{"lines":[15,16]},"content":"There is something you need to know, but you don't know what it is","children":[]},{"type":"list_item","depth":2,"payload":{"lines":[16,18]},"content":"There is no easy way to find out what it is and<br>\nhow it will impact your changes","children":[]}]}]},{"colorFreezeLevel":2,"maxWidth":500})</script>
 </body>
 </html>
