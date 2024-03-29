@@ -43,6 +43,8 @@ tools=(
   fd
   yarn
   pdm
+  duckdb
+  uv
 )
 brew install "${tools[@]}"
 
