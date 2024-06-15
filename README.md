@@ -40,6 +40,7 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 
 [Google Search Tips](https://namuan.github.io/namuan/Google-Tips.html)
 
-## Alfred Workflows
+## Alfred
 
-[Alfred Workflows](alfred-workflows/)
+[Alfred Snippets](alfred/snippets/)
+[Alfred Workflows](alfred/alfred-workflows/)
