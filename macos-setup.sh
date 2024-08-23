@@ -45,6 +45,7 @@ tools=(
   pdm
   duckdb
   uv
+  jless
 )
 brew install "${tools[@]}"
 
