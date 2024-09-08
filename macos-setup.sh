@@ -77,11 +77,7 @@ fi
 # Apps
 apps=(
   diffmerge
-  iterm2
   keepingyouawake
-  drawio
-  telegram
-  visual-studio-code
   spectacle
   textmate
   inkscape
@@ -95,6 +91,9 @@ test -d "$HOME/Applications/JetBrains Toolbox.app" || brew install --cask jetbra
 test -d "$HOME/Applications/Vivaldi.app" || brew install --cask vivaldi
 test -d "$HOME/Applications/Alfred 5.app" || brew install --cask alfred
 test -d "$HOME/Applications/Setapp.app" || brew install --cask setapp
+test -d "$HOME/Applications/Telegram.app" || brew install --cask telegram
+test -d "$HOME/Applications/draw.io.app" || brew install --cask drawio
+test -d "$HOME/Applications/iTerm.app" || brew install --cask iterm2
 
 Echo "Installing SDKMan for managing anything JVM"
 curl -s "https://get.sdkman.io" | bash
