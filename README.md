@@ -10,7 +10,7 @@ You can click the Preview link to take a look at your changes.
 
 [Search Own Github](https://github.com/search?q=pandoc%20user%3Anamuan&type=code)
 
-[Search Own Tweets](https://twitter.com/search?q=from%3Adeskriders_twt%20MVVM&src=typed_query&f=top)
+[Search Own Tweets](https://x.com/search?q=from%3Adeskriders_twt%20icons&src=typed_query&f=live)
 
 [Github Search](https://github.com/search?type=code)
 ```text
