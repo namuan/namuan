@@ -112,6 +112,13 @@
             margin-top: 20px;
             text-align: justify;
         }
+        .highlight {
+            background-color: #e6f3ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -128,7 +135,9 @@
             <li>Can indicate overall neurological health</li>
             <li>Useful for athletes and professionals who rely on quick reactions</li>
         </ul>
-        <p><strong>How to take the test:</strong> Focus on the center dot. Click anywhere as soon as you see a red dot appear in your peripheral vision. The test lasts for 30 seconds.</p>
+        <div class="highlight">
+            <p><strong>How to take the test:</strong> Focus on the center dot. Click anywhere as soon as you see a red dot appear in your peripheral vision. The test lasts for 30 seconds.</p>
+        </div>
         <button id="start-btn">Start Test</button>
         <p class="disclaimer">Disclaimer: This test is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. The test results should not be used for self-diagnosis or to make medical decisions. We are not responsible for any actions taken based on the test results. If you have concerns about your vision or overall health, please consult a qualified healthcare professional. By using this test, you agree that you understand and accept these terms and limitations.</p>
     </div>
@@ -200,7 +209,7 @@
             const shareBtn = document.getElementById('share-btn');
             shareBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const tweetText = encodeURIComponent(`I just completed a 30-second peripheral vision test! My average reaction time was ${avgReactionTime.toFixed(2)} ms. Try it yourself!`);
+                const tweetText = encodeURIComponent(`I just completed a 30-second peripheral vision test! My average reaction time was ${avgReactionTime.toFixed(2)} ms. Try it yourself at https://namuan.github.io/namuan/peripheral-vision-test.html`);
                 window.open(`https://twitter.com/intent/tweet?text=${tweetText}`, '_blank');
             });
         } else {
