@@ -148,6 +148,15 @@ function pbfilter() {
   fi
 }
 
+function pushover() {
+  curl -s \
+  --form-string "token=$PUSHOVER_API_TOKEN" \
+  --form-string "user=$PUSHOVER_USER_TOKEN" \
+  --form-string "message=$1" \
+  --form-string "title=MacTop" \
+  https://api.pushover.net/1/messages.json
+}
+
 # ----- Define custom bash functions
 
 PROMPT=$'%{$fg[white]%} %{$fg_bold[cyan]%}%~%{$reset_color%}$(git_prompt_info) %{$fg[cyan]%}%D{[%I:%M:%S]}\
