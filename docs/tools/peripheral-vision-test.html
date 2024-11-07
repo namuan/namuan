@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Second Full-Screen Peripheral Vision Test</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #test-area {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        #target {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            display: none;
+        }
+        #fixation {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #instructions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 60%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #start-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #timer-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+        }
+        #timer {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        #stop-btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #result {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            text-align: center;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            width: 250px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #share-btn {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #1DA1F2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .disclaimer {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            text-align: justify;
+        }
+        .highlight {
+            background-color: #e6f3ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div id="test-area">
+    <div id="target"></div>
+    <div id="fixation"></div>
+    <div id="instructions">
+        <h2>30-Second Full-Screen Peripheral Vision Test</h2>
+        <p>This test measures your peripheral vision and reaction time. Peripheral vision is crucial for everyday activities like driving, sports, and maintaining spatial awareness.</p>
+        <p>Why it's important:</p>
+        <ul style="text-align: left;">
+            <li>Helps detect potential vision problems early</li>
+            <li>Improves awareness of your visual capabilities</li>
+            <li>Can indicate overall neurological health</li>
+            <li>Useful for athletes and professionals who rely on quick reactions</li>
+        </ul>
+        <div class="highlight">
+            <p><strong>How to take the test:</strong> Focus on the center dot. Click anywhere as soon as you see a red dot appear in your peripheral vision. The test lasts for 30 seconds.</p>
+        </div>
+        <button id="start-btn">Start Test</button>
+        <p class="disclaimer">Disclaimer: This test is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. The test results should not be used for self-diagnosis or to make medical decisions. We are not responsible for any actions taken based on the test results. If you have concerns about your vision or overall health, please consult a qualified healthcare professional. By using this test, you agree that you understand and accept these terms and limitations.</p>
+    </div>
+    <div id="timer-container">
+        <span id="timer"></span>
+        <button id="stop-btn">Stop Test</button>
+    </div>
+    <div id="result"></div>
+</div>
+
+<script>
+    const testArea = document.getElementById('test-area');
+    const target = document.getElementById('target');
+    const startBtn = document.getElementById('start-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const result = document.getElementById('result');
+    const timerDisplay = document.getElementById('timer');
+    const timerContainer = document.getElementById('timer-container');
+    const instructions = document.getElementById('instructions');
+
+    let testRunning = false;
+    let testStart;
+    let reactionTimes = [];
+    let testDuration = 30000; // 30 seconds in milliseconds
+    let testEndTimeout;
+    let timerInterval;
+
+    function showTarget() {
+        const margin = 50;
+        const x = Math.random() * (window.innerWidth - 2 * margin - target.offsetWidth) + margin;
+        const y = Math.random() * (window.innerHeight - 2 * margin - target.offsetHeight) + margin;
+        target.style.left = `${x}px`;
+        target.style.top = `${y}px`;
+        target.style.display = 'block';
+        testStart = Date.now();
+    }
+
+    function hideTarget() {
+        target.style.display = 'none';
+    }
+
+    function runTest() {
+        if (testRunning) {
+            hideTarget();
+            setTimeout(showTarget, Math.random() * 2000 + 500);
+        }
+    }
+
+    function updateTimer(remainingTime) {
+        const seconds = Math.ceil(remainingTime / 1000);
+        timerDisplay.textContent = `Time left: ${seconds}s`;
+    }
+
+    function endTest() {
+        testRunning = false;
+        hideTarget();
+        clearTimeout(testEndTimeout);
+        clearInterval(timerInterval);
+        timerContainer.style.display = 'none';
+        instructions.style.display = 'block';
+        if (reactionTimes.length > 0) {
+            const avgReactionTime = reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length;
+            const resultText = `Test completed! Average reaction time: ${avgReactionTime.toFixed(2)} ms`;
+            result.innerHTML = `
+                    <h3>Results</h3>
+                    <p>${resultText}</p>
+                    <a href="#" id="share-btn">Share on Twitter</a>
+                `;
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tweetText = encodeURIComponent(`I just completed a 30-second peripheral vision test! My average reaction time was ${avgReactionTime.toFixed(2)} ms. Try it yourself at https://namuan.github.io/namuan/peripheral-vision-test.html`);
+                window.open(`https://twitter.com/intent/tweet?text=${tweetText}`, '_blank');
+            });
+        } else {
+            result.innerHTML = '<h3>Results</h3><p>Test completed! No data collected</p>';
+        }
+        result.style.display = 'block';
+    }
+
+    startBtn.addEventListener('click', () => {
+        if (!testRunning) {
+            testRunning = true;
+            reactionTimes = [];
+            result.style.display = 'none';
+            instructions.style.display = 'none';
+            timerContainer.style.display = 'block';
+
+            const startTime = Date.now();
+            timerInterval = setInterval(() => {
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = Math.max(0, testDuration - elapsedTime);
+                updateTimer(remainingTime);
+                if (remainingTime === 0) {
+                    endTest();
+                }
+            }, 100);
+
+            testEndTimeout = setTimeout(endTest, testDuration);
+            runTest();
+        }
+    });
+
+    stopBtn.addEventListener('click', endTest);
+
+    testArea.addEventListener('click', (e) => {
+        if (testRunning && target.style.display === 'block') {
+            const reactionTime = Date.now() - testStart;
+            reactionTimes.push(reactionTime);
+            runTest();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        testArea.style.width = `${window.innerWidth}px`;
+        testArea.style.height = `${window.innerHeight}px`;
+    });
+
+    testArea.style.width = `${window.innerWidth}px`;
+    testArea.style.height = `${window.innerHeight}px`;
+</script>
+</body>
+</html>

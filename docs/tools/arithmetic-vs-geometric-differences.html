@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .comparison {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .box {
+            flex: 1;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .arithmetic {
+            border-left: 5px solid #e74c3c;
+        }
+
+        .geometric {
+            border-left: 5px solid #3498db;
+        }
+
+        .example {
+            background: #eef2f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #34495e;
+            color: white;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Arithmetic vs Geometric Differences</h1>
+        <p>Understanding Market Movements in Different Ways</p>
+    </div>
+
+    <div class="comparison">
+        <div class="box arithmetic">
+            <h2>Arithmetic (Simple Counting)</h2>
+            <p>Looks at absolute differences</p>
+            <div class="example">
+                <strong>Example 1:</strong> 4 - 1 = 3<br>
+                <strong>Example 2:</strong> 10 - 7 = 3<br>
+                <strong>Result:</strong> Both differences are seen as equal (3)
+            </div>
+        </div>
+
+        <div class="box geometric">
+            <h2>Geometric (Growth Based)</h2>
+            <p>Looks at relative differences</p>
+            <div class="example">
+                <strong>Example 1:</strong> 4/1 = 400% (4x growth)<br>
+                <strong>Example 2:</strong> 10/7 ≈ 143% (1.43x growth)<br>
+                <strong>Result:</strong> Shows different magnitudes of change
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>Real World Application (VIX Example)</h2>
+        <div class="example">
+            <p><strong>Arithmetic View:</strong><br>
+                VIX 33 → 30 = 3 points<br>
+                VIX 18 → 15 = 3 points</p>
+
+            <p><strong>Geometric View:</strong><br>
+                33 → 30 = 10% change<br>
+                18 → 15 = 20% change</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>In finance, geometric differences often matter more than arithmetic differences</p>
+    </div>
+</div>
+</body>
+</html>

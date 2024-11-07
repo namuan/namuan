@@ -44,3 +44,11 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 
 [Alfred Snippets](alfred/snippets/)
 [Alfred Workflows](alfred/alfred-workflows/)
+
+## Mini Tools
+
+* [Arithmetic vs Geometric Differences](https://namuan.github.io/namuan/tools/arithmetic-vs-geometric-differences.html)
+* [Bet Expected Value Calculator](https://namuan.github.io/namuan/tools/bet-expected-value-calculator.html)
+* [Bet Loss Calculator](https://namuan.github.io/namuan/tools/bet-loss-calculator.html)
+* [Chaikins Algorithm Demo](https://namuan.github.io/namuan/tools/chaikins_algorithm_demo.html)
+* [Peripheral Vision Test](https://namuan.github.io/namuan/tools/peripheral-vision-test.html)
