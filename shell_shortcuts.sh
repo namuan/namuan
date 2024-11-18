@@ -42,6 +42,8 @@ alias svenv="source venv/bin/activate"
 alias youtube_mp3="yt-dlp --extract-audio --audio-format mp3"
 alias youtube_mp4="yt-dlp -f best --restrict-filenames --trim-filenames 100"
 
+alias uvr="uv run"
+
 # ----- Define Aliases
 
 
@@ -156,10 +158,6 @@ function pushover() {
   --form-string "message=$1" \
   --form-string "title=MacTop" \
   https://api.pushover.net/1/messages.json
-}
-
-function uvr() {
-    uv run "$1"
 }
 
 # ----- Define custom bash functions
