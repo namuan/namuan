@@ -160,6 +160,52 @@ function pushover() {
   https://api.pushover.net/1/messages.json
 }
 
+key() {
+    if [ -z "$1" ]; then
+        echo "Usage: key <service_name>"
+        return 1
+    fi
+
+    local service_name=$1
+    local api_key
+
+    : Use printf for the prompt to make it compatible with zsh
+    printf "Enter key for %s: " "$service_name"
+    read api_key
+
+    if [ -z "$api_key" ]; then
+        echo "Key cannot be empty."
+        return 1
+    fi
+
+    : Add or update the key in the Keychain
+    security add-generic-password -a "$USER" -s "$service_name" -w "$api_key" -U
+    if [ $? -eq 0 ]; then
+        echo "Key added successfully for service: $service_name"
+    else
+        echo "Failed to add key."
+    fi
+}
+
+getkey() {
+    if [ -z "$1" ]; then
+        echo "Usage: getkey <service_name>"
+        return 1
+    fi
+
+    local service_name=$1
+    local api_key
+
+    : Retrieve the key from the Keychain
+    api_key=$(security find-generic-password -a "$USER" -s "$service_name" -w 2>/dev/null)
+
+    if [ $? -eq 0 ]; then
+        echo "$api_key"
+    else
+        echo "No key found for service: $service_name"
+    fi
+}
+
 # ----- Define custom bash functions
 
 PROMPT=$'%{$fg[white]%} %{$fg_bold[cyan]%}%~%{$reset_color%}$(git_prompt_info) %{$fg[cyan]%}%D{[%I:%M:%S]}\
