@@ -9,7 +9,7 @@ You can click the Preview link to take a look at your changes.
 ## CheatSheet
 
 * [Search Own Github](https://github.com/search?q=pandoc%20user%3Anamuan&type=code)
-* [Search Own Tweets](https://x.com/search?q=from%3Adeskriders_twt%20icons&src=typed_query&f=live)
+* [Search Own Tweets](https://x.com/search?q=(from%3Adeskriders_twt%20OR%20from%3Anamuan_twt)%20network&src=typed_query&f=live)
 * [Github Search](https://github.com/search?type=code)
 
 ```text
