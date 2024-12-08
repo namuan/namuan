@@ -46,3 +46,5 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 * [Bet Loss Calculator](https://namuan.github.io/namuan/tools/bet-loss-calculator.html)
 * [Chaikins Algorithm Demo](https://namuan.github.io/namuan/tools/chaikins_algorithm_demo.html)
 * [Peripheral Vision Test](https://namuan.github.io/namuan/tools/peripheral-vision-test.html)
+* [Profit Take Calculator](https://namuan.github.io/namuan/tools/profit-take.html)
+* [VIX Implied Move Calculator](https://namuan.github.io/namuan/tools/vix-implied-move.html)

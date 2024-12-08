@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' 'unsafe-inline' https://fonts.gstatic.com; img-src 'self' data: blob: https://pfst.cf2.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com; media-src 'self' data: blob: https://pfst.cf2.poecdn.net https://i.imgur.com https://wikimedia.org; frame-src 'self' https://www.youtube.com; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIX Implied Move Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .calculator {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>VIX Implied Move Calculator</h1>
+    <div class="calculator">
+        <label for="vix">Current VIX:</label>
+        <input type="number" id="vix" step="0.01" required="">
+        
+        <button onclick="calculateImpliedMoves()">Calculate Implied Moves</button>
+        
+        <table id="resultTable">
+            <thead>
+                <tr>
+                    <th>Timeframe</th>
+                    <th>Implied Move</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1 Year</td>
+                    <td id="yearMove">-</td>
+                </tr>
+                <tr>
+                    <td>1 Month</td>
+                    <td id="monthMove">-</td>
+                </tr>
+                <tr>
+                    <td>1 Week</td>
+                    <td id="weekMove">-</td>
+                </tr>
+                <tr>
+                    <td>1 Day</td>
+                    <td id="dayMove">-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function calculateImpliedMoves() {
+            const vix = parseFloat(document.getElementById('vix').value);
+            
+            if (isNaN(vix)) {
+                alert("Please enter a valid VIX value.");
+                return;
+            }
+
+            document.getElementById('yearMove').textContent = vix.toFixed(2) + '%';
+            document.getElementById('monthMove').textContent = (vix / 3.46).toFixed(2) + '%';
+            document.getElementById('weekMove').textContent = (vix / 7.21).toFixed(2) + '%';
+            document.getElementById('dayMove').textContent = (vix / 15.87).toFixed(2) + '%';
+        }
+    </script>
+
+
+</body></html>
