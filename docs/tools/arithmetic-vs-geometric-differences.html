@@ -155,45 +155,32 @@
     </div>
 
     <div class="box">
-        <h2>Real World Application (VIX Example)</h2>
-        <div class="example">
-            <p><strong>Arithmetic View:</strong><br>
-                VIX 33 → 30 = 3 points<br>
-                VIX 18 → 15 = 3 points</p>
+        <div class="calculators-container">
+            <div class="calculator">
+                <h3>VIX Example 1</h3>
+                <div class="input-group">
+                    <label>Start Value:</label>
+                    <input type="number" id="num1_ex1" value="33">
+                </div>
+                <div class="input-group">
+                    <label>End Value:</label>
+                    <input type="number" id="num2_ex1" value="30">
+                </div>
+                <div class="result" id="result1"></div>
+            </div>
 
-            <p><strong>Geometric View:</strong><br>
-                33 → 30 = 10% change<br>
-                18 → 15 = 20% change</p>
-        </div>
-    </div>
-
-    <div class="calculators-container">
-        <div class="calculator">
-            <h3>VIX Example 1</h3>
-            <div class="input-group">
-                <label>Start Value:</label>
-                <input type="number" id="num1_ex1" value="33">
+            <div class="calculator">
+                <h3>VIX Example 2</h3>
+                <div class="input-group">
+                    <label>Start Value:</label>
+                    <input type="number" id="num1_ex2" step="any" value="18">
+                </div>
+                <div class="input-group">
+                    <label>End Value:</label>
+                    <input type="number" id="num2_ex2" step="any" value="15">
+                </div>
+                <div class="result" id="result2"></div>
             </div>
-            <div class="input-group">
-                <label>End Value:</label>
-                <input type="number" id="num2_ex1" value="30">
-            </div>
-            <div class="result" id="result1"></div>
-            <button class="reset-button" onclick="resetValues(1)">Reset to VIX Example</button>
-        </div>
-
-        <div class="calculator">
-            <h3>VIX Example 2</h3>
-            <div class="input-group">
-                <label>Start Value:</label>
-                <input type="number" id="num1_ex2" step="any" value="18">
-            </div>
-            <div class="input-group">
-                <label>End Value:</label>
-                <input type="number" id="num2_ex2" step="any" value="15">
-            </div>
-            <div class="result" id="result2"></div>
-            <button class="reset-button" onclick="resetValues(2)">Reset to VIX Example</button>
         </div>
     </div>
 
@@ -226,13 +213,6 @@
         setTimeout(() => {
             resultElement.classList.remove('updated');
         }, 300);
-    }
-
-    function resetValues(example) {
-        const values = defaultValues[example];
-        document.getElementById(`num1_ex${example}`).value = values.start;
-        document.getElementById(`num2_ex${example}`).value = values.end;
-        calculate(values.start, values.end, `result${example}`);
     }
 
     // Add event listeners for real-time updates
