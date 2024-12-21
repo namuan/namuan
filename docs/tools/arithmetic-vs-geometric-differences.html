@@ -62,6 +62,67 @@
             border-radius: 10px;
             margin-top: 20px;
         }
+        .calculators-container {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        .calculator {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .input-group label {
+            display: inline-block;
+            width: 120px;
+        }
+        input {
+            width: 100px;
+            padding: 8px;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input:focus {
+            outline: 2px solid #4CAF50;
+            border-color: #4CAF50;
+        }
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #e8e8e8;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .result.updated {
+            background-color: #d4edda;
+        }
+        .reset-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .reset-button:hover {
+            background-color: #45a049;
+        }
+        @media (max-width: 768px) {
+            .calculators-container {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -106,9 +167,90 @@
         </div>
     </div>
 
+    <div class="calculators-container">
+        <div class="calculator">
+            <h3>VIX Example 1</h3>
+            <div class="input-group">
+                <label>Start Value:</label>
+                <input type="number" id="num1_ex1" value="33">
+            </div>
+            <div class="input-group">
+                <label>End Value:</label>
+                <input type="number" id="num2_ex1" value="30">
+            </div>
+            <div class="result" id="result1"></div>
+            <button class="reset-button" onclick="resetValues(1)">Reset to VIX Example</button>
+        </div>
+
+        <div class="calculator">
+            <h3>VIX Example 2</h3>
+            <div class="input-group">
+                <label>Start Value:</label>
+                <input type="number" id="num1_ex2" step="any" value="18">
+            </div>
+            <div class="input-group">
+                <label>End Value:</label>
+                <input type="number" id="num2_ex2" step="any" value="15">
+            </div>
+            <div class="result" id="result2"></div>
+            <button class="reset-button" onclick="resetValues(2)">Reset to VIX Example</button>
+        </div>
+    </div>
+
     <div class="footer">
         <p>In finance, geometric differences often matter more than arithmetic differences</p>
     </div>
 </div>
+<script>
+    const defaultValues = {
+        1: { start: 33, end: 30 },
+        2: { start: 18, end: 15 }
+    };
+
+    function calculate(num1, num2, resultId) {
+        if (isNaN(num1) || isNaN(num2) || num1 === 0) {
+            document.getElementById(resultId).innerHTML = 'Please enter valid numbers';
+            return;
+        }
+
+        const arithmeticDiff = Math.abs(num2 - num1);
+        const geometricChange = ((num2 / num1) * 100 - 100).toFixed(2);
+
+        const resultElement = document.getElementById(resultId);
+        resultElement.innerHTML =
+            `Arithmetic difference: ${arithmeticDiff} points<br>
+                 Geometric change: ${geometricChange}%`;
+
+        // Add highlight effect
+        resultElement.classList.add('updated');
+        setTimeout(() => {
+            resultElement.classList.remove('updated');
+        }, 300);
+    }
+
+    function resetValues(example) {
+        const values = defaultValues[example];
+        document.getElementById(`num1_ex${example}`).value = values.start;
+        document.getElementById(`num2_ex${example}`).value = values.end;
+        calculate(values.start, values.end, `result${example}`);
+    }
+
+    // Add event listeners for real-time updates
+    ['1', '2'].forEach(example => {
+        ['num1_ex', 'num2_ex'].forEach(inputId => {
+            document.getElementById(inputId + example).addEventListener('input', function() {
+                const num1 = parseFloat(document.getElementById(`num1_ex${example}`).value);
+                const num2 = parseFloat(document.getElementById(`num2_ex${example}`).value);
+                calculate(num1, num2, `result${example}`);
+            });
+        });
+    });
+
+    // Initial calculation
+    window.onload = function() {
+        calculate(33, 30, 'result1');
+        calculate(18, 15, 'result2');
+    };
+</script>
 </body>
 </html>
