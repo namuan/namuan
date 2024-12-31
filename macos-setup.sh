@@ -49,10 +49,7 @@ tools=(
 )
 brew install "${tools[@]}"
 
-echo "Installing homebrew cask"
-# This may be required ? brew install --cask caskroom/cask/brew-cask
-
-brew tap homebrew/cask-fonts
+# Setup fonts
 brew install cask font-fira-code font-jetbrains-mono font-input
 
 #Install Zsh & Oh My Zsh

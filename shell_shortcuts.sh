@@ -160,7 +160,7 @@ function pushover() {
   https://api.pushover.net/1/messages.json
 }
 
-key() {
+function key() {
     if [ -z "$1" ]; then
         echo "Usage: key <service_name>"
         return 1
@@ -187,7 +187,7 @@ key() {
     fi
 }
 
-getkey() {
+function getkey() {
     if [ -z "$1" ]; then
         echo "Usage: getkey <service_name>"
         return 1
@@ -204,6 +204,10 @@ getkey() {
     else
         echo "No key found for service: $service_name"
     fi
+}
+
+function ai {
+  ollama run llama3.2:latest "$1"
 }
 
 # ----- Define custom bash functions
