@@ -210,6 +210,18 @@ function ai {
   ollama run llama3.2:latest "$1"
 }
 
+function blogsearch() {
+  local query="$1"
+
+  if [ $# -eq 2 ]; then
+    shift # Remove the first argument which should be `query`
+  fi
+
+  echo "Executing: search $query"
+  cmd="rg \"$query\" $HOME/workspace/deskriders-web/content -H | fzf -e"
+  eval "$cmd"
+}
+
 # ----- Define custom bash functions
 
 PROMPT=$'%{$fg[white]%} %{$fg_bold[cyan]%}%~%{$reset_color%}$(git_prompt_info) %{$fg[cyan]%}%D{[%I:%M:%S]}\
