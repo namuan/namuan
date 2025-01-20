@@ -218,7 +218,7 @@ function blogsearch() {
   fi
 
   echo "Executing: search $query"
-  cmd="rg \"$query\" $HOME/workspace/deskriders-web/content -H | fzf -e"
+  cmd="rg \"$query\" $HOME/workspace/deskriders-web/content $HOME/workspace/namuan -H | fzf -i -e"
   eval "$cmd"
 }
 
