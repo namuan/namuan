@@ -123,6 +123,9 @@ brew install python-tk@3.11
 brew install python@3.12
 brew install python-tk@3.12
 
+brew install python@3.13
+brew install python-tk@3.13
+
 echo "Installing Poetry"
 brew install poetry
 
