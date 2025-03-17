@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure QR Code Generator and Decryptor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    h2 {
+      color: #2c3e50;
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-align: center;
+      grid-column: span 2; /* Span across both columns */
+    }
+    .section {
+      padding: 20px;
+      border-radius: 10px;
+      background: #f9fbfc;
+      transition: transform 0.2s ease;
+    }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    h3 {
+      color: #34495e;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #dcdcdc;
+      border-radius: 5px;
+      font-size: 1em;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+    button {
+      background: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    #qrcode {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    #decryptedOutput {
+      margin-top: 15px;
+      font-size: 1em;
+      word-wrap: break-word;
+      text-align: center;
+    }
+    #decryptedOutput strong {
+      color: #27ae60;
+    }
+    #decryptedOutput span {
+      color: #e74c3c;
+    }
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        padding: 20px;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+      h3 {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Secure QR Code Generator & Decryptor</h2>
+
+  <!-- Encryption Section (Left Column) -->
+  <div class="section">
+    <h3>Generate QR Code</h3>
+    <label for="sensitiveText">Sensitive Text:</label>
+    <input type="text" id="sensitiveText" placeholder="e.g., SECRET">
+
+    <label for="passphrase">Passphrase (Key):</label>
+    <input type="text" id="passphrase" placeholder="e.g., mysecretkey">
+
+    <button onclick="generateQR()">Generate QR Code</button>
+    <div id="qrcode"></div>
+  </div>
+
+  <!-- Decryption Section (Right Column) -->
+  <div class="section">
+    <h3>Decrypt Text</h3>
+    <label for="encryptedText">Encrypted Text (from QR):</label>
+    <input type="text" id="encryptedText" placeholder="e.g., U2FsdGVkX1...">
+
+    <label for="decryptPassphrase">Passphrase (Key):</label>
+    <input type="text" id="decryptPassphrase" placeholder="e.g., mysecretkey">
+
+    <button onclick="decryptText()">Decrypt Text</button>
+    <div id="decryptedOutput"></div>
+  </div>
+</div>
+
+<!-- Libraries loaded from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
+<script>
+  // Generate QR Code with AES Encryption
+  function generateQR() {
+    const text = document.getElementById("sensitiveText").value;
+    const passphrase = document.getElementById("passphrase").value;
+    if (!text || !passphrase) {
+      alert("Please enter both sensitive text and a passphrase.");
+      return;
+    }
+
+    const encryptedText = CryptoJS.AES.encrypt(text, passphrase).toString();
+    document.getElementById("qrcode").innerHTML = "";
+
+    new QRCode(document.getElementById("qrcode"), {
+      text: encryptedText,
+      width: 256,
+      height: 256,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  // Decrypt Text with AES
+  function decryptText() {
+    const encryptedText = document.getElementById("encryptedText").value;
+    const passphrase = document.getElementById("decryptPassphrase").value;
+    if (!encryptedText || !passphrase) {
+      alert("Please enter both encrypted text and a passphrase.");
+      return;
+    }
+
+    try {
+      const bytes = CryptoJS.AES.decrypt(encryptedText, passphrase);
+      const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+      if (!decryptedText) {
+        throw new Error("Decryption failed - wrong passphrase or invalid text?");
+      }
+      document.getElementById("decryptedOutput").innerHTML =
+              `Decrypted Text: <strong>${decryptedText}</strong>`;
+    } catch (e) {
+      document.getElementById("decryptedOutput").innerHTML =
+              `<span>Error: ${e.message}</span>`;
+    }
+  }
+</script>
+</body>
+</html>
