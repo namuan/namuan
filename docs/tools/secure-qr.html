@@ -100,6 +100,13 @@
     #decryptedOutput span {
       color: #e74c3c;
     }
+    #encryptedOutput {
+      margin-top: 15px;
+      font-size: 1em;
+      word-wrap: break-word;
+      text-align: center;
+      color: #2980b9;
+    }
     @media (max-width: 768px) {
       .container {
         grid-template-columns: 1fr; /* Stack columns on smaller screens */
@@ -129,6 +136,7 @@
 
     <button onclick="generateQR()">Generate QR Code</button>
     <div id="qrcode"></div>
+    <div id="encryptedOutput"></div>
   </div>
 
   <!-- Decryption Section (Right Column) -->
@@ -161,6 +169,8 @@
 
     const encryptedText = CryptoJS.AES.encrypt(text, passphrase).toString();
     document.getElementById("qrcode").innerHTML = "";
+    document.getElementById("encryptedOutput").innerHTML =
+            `Encrypted Text: <strong>${encryptedText}</strong>`; // Display encrypted text
 
     new QRCode(document.getElementById("qrcode"), {
       text: encryptedText,
