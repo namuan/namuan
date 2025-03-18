@@ -83,6 +83,26 @@
     button:hover {
       background: #2980b9;
     }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #dcdcdc;
+      border-radius: 5px;
+      font-size: 1em;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+      resize: vertical; /* Allows vertical resizing only */
+      font-family: inherit; /* Matches the font of other inputs */
+    }
+    textarea:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+    textarea[readonly] {
+      background-color: #f0f0f0; /* Light gray background to indicate readonly */
+      color: #2980b9; /* Matches the original encrypted text color */
+    }
     #qrcode {
       margin-top: 20px;
       display: flex;
@@ -129,14 +149,14 @@
   <div class="section">
     <h3>Generate QR Code</h3>
     <label for="sensitiveText">Sensitive Text:</label>
-    <input type="text" id="sensitiveText" placeholder="e.g., SECRET">
+    <textarea id="sensitiveText" placeholder="e.g., Enter your secret message here&#10;Supports multiple lines" rows="4"></textarea>
 
     <label for="passphrase">Passphrase (Key):</label>
     <input type="text" id="passphrase" placeholder="e.g., mysecretkey">
 
     <button onclick="generateQR()">Generate QR Code</button>
     <div id="qrcode"></div>
-    <div id="encryptedOutput"></div>
+    <textarea id="encryptedOutput" rows="4" readonly></textarea>
   </div>
 
   <!-- Decryption Section (Right Column) -->
@@ -169,8 +189,8 @@
 
     const encryptedText = CryptoJS.AES.encrypt(text, passphrase).toString();
     document.getElementById("qrcode").innerHTML = "";
-    document.getElementById("encryptedOutput").innerHTML =
-            `Encrypted Text: <strong>${encryptedText}</strong>`; // Display encrypted text
+    const encryptedOutput = document.getElementById("encryptedOutput");
+    encryptedOutput.value = encryptedText; // Set the value of the textarea
 
     new QRCode(document.getElementById("qrcode"), {
       text: encryptedText,
