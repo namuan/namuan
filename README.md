@@ -17,6 +17,12 @@ language:java
 path:*.properties
 ```
 
+## Awesome Language Models 
+
+[Grok](https://grok.com/chat) | [AI Studio](https://aistudio.google.com/prompts/new_chat) | [ChatGPT](https://chatgpt.com) | [Claude](https://claude.ai/new) | [Perplexity](https://www.perplexity.ai) | [DeekSeek](https://chat.deepseek.com) | [Le Chat](https://chat.mistral.ai/chat) | [Phind](https://www.phind.com) | [Gemini](https://gemini.google.com/u/0/app) | [Poe](https://poe.com) | [OpenRouter](https://openrouter.ai/chat)
+
+## Book Notes
+
 * [BookNotes](https://github.com/namuan/namuan/tree/main/book-notes)
 
 ## MindMaps
