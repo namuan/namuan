@@ -1,6 +1,6 @@
 👋
 
-[Projects](https://github.com/namuan?tab=repositories)
+[Projects](https://github.com/namuan?tab=repositories) | [Dashboard](https://github.com/dashboard)
 
 <!---
 namuan/namuan is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
