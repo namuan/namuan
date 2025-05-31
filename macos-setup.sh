@@ -100,6 +100,7 @@ brew install node
 
 # shellcheck disable=SC2046
 test ! $(which npm) && npm install -g npx
+test ! $(which pnpm) && npm install -g pnpm
 
 echo "Installing GoLang"
 brew install go
