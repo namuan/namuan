@@ -55,3 +55,5 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 * [Profit Take Calculator](https://namuan.github.io/namuan/tools/profit-take.html)
 * [VIX Implied Move Calculator](https://namuan.github.io/namuan/tools/vix-implied-move.html)
 * [Encrypt/Decrypt with QR Code](https://namuan.github.io/namuan/tools/secure-qr.html)
+* [JSON Editor](https://namuan.github.io/jsonify/)
+* [Image Stitch/CanvasCraft](https://namuan.github.io/CanvasCraft/)
