@@ -1,6 +1,6 @@
 # Check for Homebrew,
 # Install if we don't have it
-if test ! $(which brew); then
+if test ! "$(which brew)"; then
   echo "Installing homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -53,7 +53,7 @@ brew install "${tools[@]}"
 brew install cask font-fira-code font-jetbrains-mono font-input
 
 #Install Zsh & Oh My Zsh
-if test ! $(which zsh); then
+if test ! "$(which zsh)"; then
   echo "Installing Oh My ZSH..."
   curl -L http://install.ohmyz.sh | sh
 
@@ -61,7 +61,7 @@ if test ! $(which zsh); then
   brew install autojump
 
   echo "Setting up Zsh plugins..."
-  cd ~/.oh-my-zsh/custom/plugins
+  cd ~/.oh-my-zsh/custom/plugins || return
   git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
   git clone https://github.com/zsh-users/zsh-autosuggestions
   git clone https://github.com/zsh-users/zsh-completions
@@ -99,8 +99,8 @@ echo "Installing NodeJS"
 brew install node
 
 # shellcheck disable=SC2046
-test ! $(which npm) && npm install -g npx
-test ! $(which pnpm) && npm install -g pnpm
+test ! "$(which npm)" && npm install -g npx
+test ! "$(which pnpm)" && npm install -g pnpm
 
 echo "Installing GoLang"
 brew install go
@@ -158,7 +158,7 @@ git config --global core.excludesFile "$HOME/.gitignore"
 # Bin folder
 mkdir -vp $HOME/bin
 for file in $PWD/home-bin/*; do
-  echo "Symlinking $file"
+  echo "Symlink $file"
   ln -s $file $HOME/bin
 done
 
