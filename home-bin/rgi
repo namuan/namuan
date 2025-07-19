@@ -1,12 +1,45 @@
 #!/usr/bin/env bash
 
-# 1. Search for text in files using Ripgrep
+# Generic script to:
+# 1. Run ripgrep with passed arguments (supports text search or file listing via --files)
 # 2. Interactively narrow down the list using fzf
-# 3. Open the file in IntelliJ IDEA light edit mode
-rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+# 3. Open the selected file in IntelliJ IDEA light edit mode
+#
+# Usage:
+# - For text search: rgi <pattern> [other rg args]
+# - For file search: rgi --files [--glob '*.ext'] [--max-depth N] [other rg args]
+# - Handles any valid ripgrep arguments; invalid combinations will cause rg to error.
+
+# Detect if --files is used
+uses_files=false
+for arg in "$@"; do
+  if [[ "$arg" == "--files" ]]; then
+    uses_files=true
+    break
+  fi
+done
+
+# Build rg command
+rg_cmd="rg --color=always --no-heading --smart-case"
+if ! $uses_files; then
+  rg_cmd="$rg_cmd --line-number"
+fi
+
+# Build fzf options conditionally
+preview='bat --color=always {1}'
+preview_window='up,60%,border-bottom,~3'
+delimiter=''
+if ! $uses_files; then
+  preview="$preview --highlight-line {2}"
+  preview_window='up,60%,border-bottom,+{2}+3/3,~3'
+  delimiter='--delimiter :'
+fi
+
+# Run rg and pipe to fzf
+$rg_cmd "$@" |
   fzf --ansi \
       --color "hl:-1:underline,hl+:-1:underline:reverse" \
-      --delimiter : \
-      --preview 'bat --color=always {1} --highlight-line {2}' \
-      --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+      $delimiter \
+      --preview "$preview" \
+      --preview-window "$preview_window" \
       --bind 'enter:become(idea -e {1})'
