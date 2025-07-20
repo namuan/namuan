@@ -79,8 +79,14 @@
         </div>
 
         <div class="input-group">
-            <label for="hourlyRate">Hourly Rate ($):</label>
-            <input type="number" id="hourlyRate" value="100" min="0">
+            <label>Hourly Rate ($):</label>
+            <div id="hourlyRateOptions" style="display: flex; flex-wrap: wrap; gap: 20px; width: 100%; justify-content: space-around;">
+                <input type="radio" id="rate60" name="hourlyRate" value="60"><label for="rate60" style="font-size: 1.2em;">60</label>
+                <input type="radio" id="rate80" name="hourlyRate" value="80"><label for="rate80" style="font-size: 1.2em;">80</label>
+                <input type="radio" id="rate100" name="hourlyRate" value="100"><label for="rate100" style="font-size: 1.2em;">100</label>
+                <input type="radio" id="rate120" name="hourlyRate" value="120"><label for="rate120" style="font-size: 1.2em;">120</label>
+                <input type="radio" id="rate140" name="hourlyRate" value="140"><label for="rate140" style="font-size: 1.2em;">140</label>
+            </div>
         </div>
 
         <div class="results">
@@ -109,11 +115,14 @@
 
             const hours = totalDays * 8;
 
-            const hourlyRateInput = document.getElementById('hourlyRate');
-            let rate = parseFloat(hourlyRateInput.value);
-            if (isNaN(rate) || rate <= 0) {
-                rate = 100; // Default rate
-                hourlyRateInput.value = 100; // Update input field to reflect default
+            const selectedRate = document.querySelector('input[name="hourlyRate"]:checked');
+            let rate = 100; // Default rate
+            if (selectedRate) {
+                rate = parseFloat(selectedRate.value);
+            } else {
+                // If no radio button is selected, select the 100 option by default
+                document.getElementById('rate100').checked = true;
+                rate = 100;
             }
 
             const services = hours * rate;
@@ -128,10 +137,13 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const daysInput = document.getElementById('daysInput');
-            const hourlyRateInput = document.getElementById('hourlyRate');
+            const hourlyRateOptions = document.getElementById('hourlyRateOptions');
 
             daysInput.addEventListener('input', calculateInvoice);
-            hourlyRateInput.addEventListener('input', calculateInvoice);
+            hourlyRateOptions.addEventListener('change', calculateInvoice); // Use 'change' event for radio buttons
+
+            // Set default selected rate to 100 on page load
+            document.getElementById('rate100').checked = true;
 
             calculateInvoice(); // Initial calculation on page load
         });
