@@ -56,9 +56,6 @@
         }
         .results p:last-child {
             border-bottom: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #0056b3;
         }
         .results span:first-child {
             flex-basis: 70%;
@@ -90,14 +87,22 @@
         </div>
 
         <div class="results">
+            <p><span>Total Days:</span> <span id="totalDays">0</span></p>
             <p><span>Total Hours:</span> <span id="totalHours">0.00</span></p>
-            <p><span>Services Cost:</span> <span id="servicesCost">0.00</span></p>
-            <p><span>VAT (20%):</span> <span id="vatAmount">0.00</span></p>
-            <p><span>Total Invoice:</span> <span id="totalInvoice">0.00</span></p>
+            <p><span>Services Cost:</span> <span id="servicesCost">$0.00</span></p>
+            <p><span>VAT (20%):</span> <span id="vatAmount">$0.00</span></p>
+            <p><span>Total Invoice:</span> <span id="totalInvoice">$0.00</span></p>
         </div>
     </div>
 
     <script>
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount);
+        }
+
         function calculateInvoice() {
             let totalDays = 0;
             const daysInput = document.getElementById('daysInput');
@@ -129,10 +134,11 @@
             const vat = services * 0.20;
             const totalInvoice = services + vat;
 
+            document.getElementById('totalDays').textContent = Math.round(totalDays);
             document.getElementById('totalHours').textContent = hours.toFixed(2);
-            document.getElementById('servicesCost').textContent = services.toFixed(2);
-            document.getElementById('vatAmount').textContent = vat.toFixed(2);
-            document.getElementById('totalInvoice').textContent = totalInvoice.toFixed(2);
+            document.getElementById('servicesCost').textContent = formatCurrency(services);
+            document.getElementById('vatAmount').textContent = formatCurrency(vat);
+            document.getElementById('totalInvoice').textContent = formatCurrency(totalInvoice);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
