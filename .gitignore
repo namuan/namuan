@@ -6,3 +6,4 @@ venv/
 # draw.io temp files
 *.bkp
 *.dtmp
+.aider*
