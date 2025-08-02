@@ -31,6 +31,7 @@ path:*.properties
 | [Poe](https://poe.com)
 | [OpenRouter](https://openrouter.ai/chat)
 | [Z.ai](https://chat.z.ai)
+| [Qwen](https://chat.qwen.ai)
 
 ## Book Notes
 
