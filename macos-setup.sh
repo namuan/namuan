@@ -78,6 +78,7 @@ apps=(
   spectacle
   textmate
   inkscape
+  jordanbaird-ice
 )
 
 echo "installing apps with Cask..."
@@ -87,7 +88,6 @@ brew install cask "${apps[@]}"
 test -d "$HOME/Applications/JetBrains Toolbox.app" || brew install --cask jetbrains-toolbox
 test -d "$HOME/Applications/Vivaldi.app" || brew install --cask vivaldi
 test -d "$HOME/Applications/Alfred 5.app" || brew install --cask alfred
-test -d "$HOME/Applications/Setapp.app" || brew install --cask setapp
 test -d "$HOME/Applications/Telegram.app" || brew install --cask telegram
 test -d "$HOME/Applications/draw.io.app" || brew install --cask drawio
 test -d "$HOME/Applications/iTerm.app" || brew install --cask iterm2
