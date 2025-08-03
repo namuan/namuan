@@ -28,6 +28,7 @@ tools=(
   jq
   sd
   ripgrep
+  ast-grep
   fzf
   imagemagick
   pandoc
