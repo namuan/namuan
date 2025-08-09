@@ -47,6 +47,7 @@ tools=(
   duckdb
   uv
   jless
+  mob
 )
 brew install "${tools[@]}"
 
@@ -110,15 +111,6 @@ echo "Installing Rust"
 brew install rust
 
 echo "Installing Python"
-brew install python@3.8
-brew install python-tk@3.8
-
-brew install python@3.9
-brew install python-tk@3.9
-
-brew install python@3.10
-brew install python-tk@3.10
-
 brew install python@3.11
 brew install python-tk@3.11
 

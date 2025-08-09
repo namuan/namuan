@@ -44,6 +44,11 @@ alias youtube_mp4="yt-dlp -f best --restrict-filenames --trim-filenames 100"
 
 alias uvr="uv run"
 
+# mob tool
+alias mstart="mob start -i -b"
+alias mnext="mob next"
+alias mdone="mob done"
+
 # ----- Define Aliases
 
 
