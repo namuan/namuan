@@ -96,6 +96,14 @@ help:
 .DEFAULT_GOAL := help
 ```
 
+### pyproject.toml 
+
+https://www.reddit.com/r/Python/comments/1dp4jrm/share_your_ruff_config/
+https://www.reddit.com/r/Python/comments/1kttfst/ruff_users_what_rules_are_using_and_what_are_you/
+
+```toml
+
+```
 
 ## Typescript
 
