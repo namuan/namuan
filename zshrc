@@ -94,3 +94,8 @@ esac
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:$HOME/.cache/lm-studio/bin"
 # End of LM Studio CLI section
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/nnn/.cache/lm-studio/bin"
+# End of LM Studio CLI section
+
