@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Converter FFmpeg Command Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0066cc;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 5px;
+            margin-right: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        pre {
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background-color: #0055a6;
+        }
+
+        .note {
+            font-style: italic;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin-left: 5px;
+            color: #0066cc;
+            font-size: 0.9em;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            visibility: hidden;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            white-space: nowrap;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<h1>Audio Converter FFmpeg Command Generator</h1>
+
+<div class="section">
+    <h2>1. Audio Conversion</h2>
+    <p>Convert an audio file to another format (e.g., MP3, AAC, FLAC, etc.).</p>
+    <label for="audioInput">Input Format:</label>
+    <select id="audioInput">
+        <option value="aac">AAC</option>
+        <option value="ac3">AC3</option>
+        <option value="aifc">AIFC</option>
+        <option value="aiff">AIFF</option>
+        <option value="aif">AIF</option>
+        <option value="amr">AMR</option>
+        <option value="au">AU</option>
+        <option value="caf">CAF</option>
+        <option value="dts">DTS</option>
+        <option value="eac3">EAC3</option>
+        <option value="flac">FLAC</option>
+        <option value="m4a">M4A</option>
+        <option value="mp2">MP2</option>
+        <option value="mp3">MP3</option>
+        <option value="mp4">MP4</option>
+        <option value="mka">MKA</option>
+        <option value="mov">MOV</option>
+        <option value="ogg">OGG</option>
+        <option value="opus">OPUS</option>
+        <option value="ra">RA</option>
+        <option value="rm">RM</option>
+        <option value="spx">SPX</option>
+        <option value="tta">TTA</option>
+        <option value="voc">VOC</option>
+        <option value="vob">VOB</option>
+        <option value="wav">WAV</option>
+        <option value="webm">WEBM</option>
+        <option value="wma">WMA</option>
+        <option value="w64">W64</option>
+        <option value="m4r">M4R</option>
+    </select>
+    <span class="tooltip"
+          data-tooltip="Choose the format of your input file. Common formats like MP3, WAV, or FLAC are widely supported."></span>
+    <label for="audioOutput">Output Format:</label>
+    <select id="audioOutput">
+        <option value="mp3">MP3</option>
+        <option value="aac">AAC</option>
+        <option value="ac3">AC3</option>
+        <option value="aifc">AIFC</option>
+        <option value="aiff">AIFF</option>
+        <option value="aif">AIF</option>
+        <option value="amr">AMR</option>
+        <option value="au">AU</option>
+        <option value="caf">CAF</option>
+        <option value="dts">DTS</option>
+        <option value="eac3">EAC3</option>
+        <option value="flac">FLAC</option>
+        <option value="m4a">M4A</option>
+        <option value="mp2">MP2</option>
+        <option value="mka">MKA</option>
+        <option value="ogg">OGG</option>
+        <option value="opus">OPUS</option>
+        <option value="wav">WAV</option>
+        <option value="wma">WMA</option>
+        <option value="m4r">M4R</option>
+    </select>
+    <span class="tooltip"
+          data-tooltip="MP3 or AAC for compatibility, FLAC for lossless quality, OPUS for modern efficiency."></span>
+    <label for="bitrate">Bitrate:</label>
+    <select id="bitrate">
+        <option value="128k">128 kbps</option>
+        <option value="192k">192 kbps</option>
+        <option value="256k">256 kbps</option>
+        <option value="320k">320 kbps</option>
+    </select>
+    <span class="tooltip"
+          data-tooltip="Use 192k–320k for high quality, 128k for smaller files. Lossless formats (e.g., FLAC) ignore bitrate."></span>
+    <label for="channels">Channels:</label>
+    <select id="channels">
+        <option value="1">Mono</option>
+        <option value="2">Stereo</option>
+    </select>
+    <span class="tooltip" data-tooltip="Stereo for music, Mono for voice or podcasts."></span>
+    <pre><code id="audioCommand">ffmpeg -i input.mp3 -c:a mp3 -b:a 192k -ac 2 output.mp3</code><button class="copy-btn"
+                                                                                                       onclick="copyCommand('audioCommand')">Copy</button></pre>
+    <p class="note">Note: Sample rate is automatically detected by FFmpeg for optimal quality. For specific needs, add
+        <code>-ar 44100</code> (e.g., for CD-quality). Choose MP3 or AAC for compatibility, FLAC for lossless, or OPUS
+        for efficient compression.</p>
+</div>
+
+<div class="section">
+    <h2>2. Batch Audio Conversion</h2>
+    <p>Convert multiple audio files to a specified format.</p>
+    <label for="batchAudioInput">Input Format:</label>
+    <select id="batchAudioInput">
+        <option value="aac">AAC</option>
+        <option value="ac3">AC3</option>
+        <option value="aifc">AIFC</option>
+        <option value="aiff">AIFF</option>
+        <option value="aif">AIF</option>
+        <option value="amr">AMR</option>
+        <option value="au">AU</option>
+        <option value="caf">CAF</option>
+        <option value="dts">DTS</option>
+        <option value="eac3">EAC3</option>
+        <option value="flac">FLAC</option>
+        <option value="m4a">M4A</option>
+        <option value="mp2">MP2</option>
+        <option value="mp3">MP3</option>
+        <option value="mp4">MP4</option>
+        <option value="mka">MKA</option>
+        <option value="mov">MOV</option>
+        <option value="ogg">OGG</option>
+        <option value="opus">OPUS</option>
+        <option value="ra">RA</option>
+        <option value="rm">RM</option>
+        <option value="spx">SPX</option>
+        <option value="tta">TTA</option>
+        <option value="voc">VOC</option>
+        <option value="vob">VOB</option>
+        <option value="wav">WAV</option>
+        <option value="webm">WEBM</option>
+        <option value="wma">WMA</option>
+        <option value="w64">W64</option>
+        <option value="m4r">M4R</option>
+    </select>
+    <span class="tooltip"
+          data-tooltip="Select the format of your input files. Common formats like MP3, WAV, or FLAC are widely supported."></span>
+    <label for="batchAudioOutput">Output Format:</label>
+    <select id="batchAudioOutput">
+        <option value="mp3">MP3</option>
+        <option value="aac">AAC</option>
+        <option value="ac3">AC3</option>
+        <option value="aifc">AIFC</option>
+        <option value="aiff">AIFF</option>
+        <option value="aif">AIF</option>
+        <option value="amr">AMR</option>
+        <option value="au">AU</option>
+        <option value="caf">CAF</option>
+        <option value="dts">DTS</option>
+        <option value="eac3">EAC3</option>
+        <option value="flac">FLAC</option>
+        <option value="m4a">M4A</option>
+        <option value="mp2">MP2</option>
+        <option value="mka">MKA</option>
+        <option value="ogg">OGG</option>
+        <option value="opus">OPUS</option>
+        <option value="wav">WAV</option>
+        <option value="wma">WMA</option>
+        <option value="m4r">M4R</option>
+    </select>
+    <span class="tooltip"
+          data-tooltip="MP3 or AAC for compatibility, FLAC for lossless quality, OPUS for modern efficiency."></span>
+    <label for="batchBitrate">Bitrate:</label>
+    <select id="batchBitrate">
+        <option value="128k">128 kbps</option>
+        <option value="192k">192 kbps</option>
+        <option value="256k">256 kbps</option>
+        <option value="320k">320 kbps</option>
+    </select>
+    <span class="tooltip"
+          data-tooltip="Use 192k–320k for high quality, 128k for smaller files. Lossless formats (e.g., FLAC) ignore bitrate."></span>
+    <label for="batchChannels">Channels:</label>
+    <select id="batchChannels">
+        <option value="1">Mono</option>
+        <option value="2">Stereo</option>
+    </select>
+    <span class="tooltip" data-tooltip="Stereo for music, Mono for voice or podcasts."></span>
+    <pre><code
+            id="batchAudioCommand">for i in *.mp3; do ffmpeg -i "$i" -c:a mp3 -b:a 192k -ac 2 "${i%.*}.mp3"; done</code><button
+            class="copy-btn" onclick="copyCommand('batchAudioCommand')">Copy</button></pre>
+    <p class="note">Note: Sample rate is automatically detected by FFmpeg for optimal quality. For specific needs, add
+        <code>-ar 44100</code> (e.g., for CD-quality). Choose MP3 or AAC for compatibility, FLAC for lossless, or OPUS
+        for efficient compression.</p>
+</div>
+
+<script>
+    // Copy command to clipboard
+    function copyCommand(elementId) {
+        const command = document.getElementById(elementId).textContent;
+        navigator.clipboard.writeText(command).then(() => {
+            alert('Command copied to clipboard!');
+        }).catch(err => {
+            alert('Failed to copy command: ' + err);
+        });
+    }
+
+    // Audio Conversion
+    function updateAudioCommand() {
+        const input = document.getElementById('audioInput').value;
+        const output = document.getElementById('audioOutput').value;
+        const bitrate = document.getElementById('bitrate').value;
+        const channels = document.getElementById('channels').value;
+        document.getElementById('audioCommand').textContent = `ffmpeg -i input.${input} -c:a ${output === 'mp3' ? 'mp3' : output === 'aac' ? 'aac' : output === 'flac' ? 'flac' : output === 'ogg' ? 'libvorbis' : output === 'opus' ? 'libopus' : output} -b:a ${bitrate} -ac ${channels} output.${output}`;
+    }
+
+    document.getElementById('audioInput').addEventListener('change', updateAudioCommand);
+    document.getElementById('audioOutput').addEventListener('change', updateAudioCommand);
+    document.getElementById('bitrate').addEventListener('change', updateAudioCommand);
+    document.getElementById('channels').addEventListener('change', updateAudioCommand);
+
+    // Batch Audio Conversion
+    function updateBatchAudioCommand() {
+        const input = document.getElementById('batchAudioInput').value;
+        const output = document.getElementById('batchAudioOutput').value;
+        const bitrate = document.getElementById('batchBitrate').value;
+        const channels = document.getElementById('batchChannels').value;
+        document.getElementById('batchAudioCommand').textContent = `for i in *.${input}; do ffmpeg -i "$i" -c:a ${output === 'mp3' ? 'mp3' : output === 'aac' ? 'aac' : output === 'flac' ? 'flac' : output === 'ogg' ? 'libvorbis' : output === 'opus' ? 'libopus' : output} -b:a ${bitrate} -ac ${channels} "\${i%.*}.${output}"; done`;
+    }
+
+    document.getElementById('batchAudioInput').addEventListener('change', updateBatchAudioCommand);
+    document.getElementById('batchAudioOutput').addEventListener('change', updateBatchAudioCommand);
+    document.getElementById('batchBitrate').addEventListener('change', updateBatchAudioCommand);
+    document.getElementById('batchChannels').addEventListener('change', updateBatchAudioCommand);
+
+    // Initialize commands on page load
+    updateAudioCommand();
+    updateBatchAudioCommand();
+</script>
+</body>
+</html>
