@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFmpeg Command Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0066cc;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 5px;
+            margin-right: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        pre {
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background-color: #0055a6;
+        }
+
+        .note {
+            font-style: italic;
+            color: #555;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>FFmpeg Command Generator</h1>
+
+<div class="section">
+    <h2>1. Video Conversion</h2>
+    <p>Convert a video file to another format (e.g., MP4, MKV, MOV, WEBM, AVI, GIF, 3GP, FLV, MPG, M4V).</p>
+    <label for="videoInput">Input Format:</label>
+    <select id="videoInput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <label for="videoOutput">Output Format:</label>
+    <select id="videoOutput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="gif">GIF</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <pre><code id="videoCommand">ffmpeg -i input.mp4 -c:v copy -c:a copy output.mkv</code><button class="copy-btn"
+                                                                                                  onclick="copyCommand('videoCommand')">Copy</button></pre>
+    <p class="note">Note: For large files (>1GB) or if re-encoding is needed, replace <code>-c:v copy</code> with <code>-c:v
+        libx264 -crf 23 -preset fast</code>.</p>
+</div>
+
+<div class="section">
+    <h2>2. Audio Extraction</h2>
+    <p>Extract audio from a video to formats like MP3, AAC, WAV, FLAC, ALAC, OGG, OPUS, AC3, EAC3, DTS, or TrueHD.</p>
+    <label for="audioInput">Input Format:</label>
+    <select id="audioInput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <label for="audioOutput">Output Format:</label>
+    <select id="audioOutput">
+        <option value="mp3">MP3</option>
+        <option value="aac">AAC</option>
+        <option value="wav">WAV</option>
+        <option value="flac">FLAC</option>
+        <option value="alac">ALAC</option>
+        <option value="ogg">OGG</option>
+        <option value="opus">OPUS</option>
+        <option value="ac3">AC3</option>
+        <option value="eac3">EAC3</option>
+        <option value="dts">DTS</option>
+        <option value="truehd">TrueHD</option>
+    </select>
+    <pre><code id="audioCommand">ffmpeg -i input.mp4 -vn -acodec mp3 output.mp3</code><button class="copy-btn"
+                                                                                              onclick="copyCommand('audioCommand')">Copy</button></pre>
+</div>
+
+<div class="section">
+    <h2>3. Subtitle Export</h2>
+    <p>Extract embedded subtitle files (e.g., SRT, ASS, VTT) from a video.</p>
+    <label for="subtitleInput">Input Format:</label>
+    <select id="subtitleInput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <label for="subtitleOutput">Output Format:</label>
+    <select id="subtitleOutput">
+        <option value="srt">SRT</option>
+        <option value="ass">ASS</option>
+        <option value="vtt">VTT</option>
+    </select>
+    <pre><code id="subtitleExportCommand">ffmpeg -i input.mp4 -map s:0 output.srt</code><button class="copy-btn"
+                                                                                                onclick="copyCommand('subtitleExportCommand')">Copy</button></pre>
+</div>
+
+<div class="section">
+    <h2>4. Add Subtitles</h2>
+    <p>Embed subtitles into a video, supporting formats like SRT, ASS, or VTT.</p>
+    <label for="subtitleEmbedInput">Input Format:</label>
+    <select id="subtitleEmbedInput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <label for="subtitleEmbedFormat">Subtitle Format:</label>
+    <select id="subtitleEmbedFormat">
+        <option value="srt">SRT</option>
+        <option value="ass">ASS</option>
+        <option value="vtt">VTT</option>
+    </select>
+    <pre><code
+            id="subtitleEmbedCommand">ffmpeg -i input.mp4 -vf subtitles=subs.srt -c:v libx264 -c:a copy output.mp4</code><button
+            class="copy-btn" onclick="copyCommand('subtitleEmbedCommand')">Copy</button></pre>
+</div>
+
+<div class="section">
+    <h2>5. Batch Video Conversion</h2>
+    <p>Convert multiple video files to a specified format.</p>
+    <label for="batchVideoInput">Input Format:</label>
+    <select id="batchVideoInput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <label for="batchVideoOutput">Output Format:</label>
+    <select id="batchVideoOutput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="gif">GIF</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <pre><code id="batchVideoCommand">for i in *.mp4; do ffmpeg -i "$i" -c:v copy -c:a copy "${i%.*}.mkv"; done</code><button
+            class="copy-btn" onclick="copyCommand('batchVideoCommand')">Copy</button></pre>
+</div>
+
+<div class="section">
+    <h2>6. Batch Audio Extraction</h2>
+    <p>Extract audio from multiple videos to a specified format.</p>
+    <label for="batchAudioInput">Input Format:</label>
+    <select id="batchAudioInput">
+        <option value="mp4">MP4</option>
+        <option value="mkv">MKV</option>
+        <option value="mov">MOV</option>
+        <option value="webm">WEBM</option>
+        <option value="avi">AVI</option>
+        <option value="3gp">3GP</option>
+        <option value="flv">FLV</option>
+        <option value="mpg">MPG</option>
+        <option value="m4v">M4V</option>
+    </select>
+    <label for="batchAudioOutput">Output Format:</label>
+    <select id="batchAudioOutput">
+        <option value="mp3">MP3</option>
+        <option value="aac">AAC</option>
+        <option value="wav">WAV</option>
+        <option value="flac">FLAC</option>
+        <option value="alac">ALAC</option>
+        <option value="ogg">OGG</option>
+        <option value="opus">OPUS</option>
+        <option value="ac3">AC3</option>
+        <option value="eac3">EAC3</option>
+        <option value="dts">DTS</option>
+        <option value="truehd">TrueHD</option>
+    </select>
+    <pre><code id="batchAudioCommand">for i in *.mp4; do ffmpeg -i "$i" -vn -acodec mp3 "${i%.*}.mp3"; done</code><button
+            class="copy-btn" onclick="copyCommand('batchAudioCommand')">Copy</button></pre>
+</div>
+
+<script>
+    // Copy command to clipboard
+    function copyCommand(elementId) {
+        const command = document.getElementById(elementId).textContent;
+        navigator.clipboard.writeText(command).then(() => {
+            alert('Command copied to clipboard!');
+        }).catch(err => {
+            alert('Failed to copy command: ' + err);
+        });
+    }
+
+    // Video Conversion
+    document.getElementById('videoInput').addEventListener('change', updateVideoCommand);
+    document.getElementById('videoOutput').addEventListener('change', updateVideoCommand);
+
+    function updateVideoCommand() {
+        const input = document.getElementById('videoInput').value;
+        const output = document.getElementById('videoOutput').value;
+        const cmd = `ffmpeg -i input.${input} -c:v copy -c:a copy output.${output}`;
+        document.getElementById('videoCommand').textContent = cmd;
+    }
+
+    // Audio Extraction
+    document.getElementById('audioInput').addEventListener('change', updateAudioCommand);
+    document.getElementById('audioOutput').addEventListener('change', updateAudioCommand);
+
+    function updateAudioCommand() {
+        const input = document.getElementById('audioInput').value;
+        const output = document.getElementById('audioOutput').value;
+        const cmd = `ffmpeg -i input.${input} -vn -acodec ${output} output.${output}`;
+        document.getElementById('audioCommand').textContent = cmd;
+    }
+
+    // Subtitle Export
+    document.getElementById('subtitleInput').addEventListener('change', updateSubtitleExportCommand);
+    document.getElementById('subtitleOutput').addEventListener('change', updateSubtitleExportCommand);
+
+    function updateSubtitleExportCommand() {
+        const input = document.getElementById('subtitleInput').value;
+        const output = document.getElementById('subtitleOutput').value;
+        const cmd = `ffmpeg -i input.${input} -map s:0 output.${output}`;
+        document.getElementById('subtitleExportCommand').textContent = cmd;
+    }
+
+    // Subtitle Embedding
+    document.getElementById('subtitleEmbedInput').addEventListener('change', updateSubtitleEmbedCommand);
+    document.getElementById('subtitleEmbedFormat').addEventListener('change', updateSubtitleEmbedCommand);
+
+    function updateSubtitleEmbedCommand() {
+        const input = document.getElementById('subtitleEmbedInput').value;
+        const subtitle = document.getElementById('subtitleEmbedFormat').value;
+        document.getElementById('subtitleEmbedCommand').textContent = `ffmpeg -i input.${input} -vf subtitles=subs.${subtitle} -c:v libx264 -c:a copy output.${input}`;
+    }
+
+    // Batch Video Conversion
+    document.getElementById('batchVideoInput').addEventListener('change', updateBatchVideoCommand);
+    document.getElementById('batchVideoOutput').addEventListener('change', updateBatchVideoCommand);
+
+    function updateBatchVideoCommand() {
+        const input = document.getElementById('batchVideoInput').value;
+        const output = document.getElementById('batchVideoOutput').value;
+        document.getElementById('batchVideoCommand').textContent = `for i in *.${input}; do ffmpeg -i "$i" -c:v copy -c:a copy "\${i%.*}.${output}"; done`;
+    }
+
+    // Batch Audio Extraction
+    document.getElementById('batchAudioInput').addEventListener('change', updateBatchAudioCommand);
+    document.getElementById('batchAudioOutput').addEventListener('change', updateBatchAudioCommand);
+
+    function updateBatchAudioCommand() {
+        const input = document.getElementById('batchAudioInput').value;
+        const output = document.getElementById('batchAudioOutput').value;
+        document.getElementById('batchAudioCommand').textContent = `for i in *.${input}; do ffmpeg -i "$i" -vn -acodec ${output} "\${i%.*}.${output}"; done`;
+    }
+
+    // Initialize commands on page load
+    updateVideoCommand();
+    updateAudioCommand();
+    updateSubtitleExportCommand();
+    updateSubtitleEmbedCommand();
+    updateBatchVideoCommand();
+    updateBatchAudioCommand();
+</script>
+</body>
+</html>
