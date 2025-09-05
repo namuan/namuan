@@ -70,4 +70,5 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 * [Invoice Generator](https://namuan.github.io/namuan/tools/invoice-generator.html)
 * [JSON Editor](https://namuan.github.io/jsonify/)
 * [Image Stitch/CanvasCraft](https://namuan.github.io/CanvasCraft/)
-* [Video Converstion using FFMPEG](https://namuan.github.io/namuan/tools/video-conversion.html)
+* [Video Conversion using FFMPEG](https://namuan.github.io/namuan/tools/video-conversion.html)
+* [Audio Conversion using FFMPEG](https://namuan.github.io/namuan/tools/audio-conversion.html)
