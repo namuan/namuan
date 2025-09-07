@@ -15,6 +15,9 @@ alias gs="git status"
 alias gpa="git pull --all"
 alias gpr="git pull --rebase"
 alias gc="git commit -m"
+function gcnv {
+  gc "$1" --no-verify
+}
 alias ga="git add"
 alias grc="git rebase --continue"
 alias gp="git push"
