@@ -71,8 +71,20 @@
         <h1>Invoice Generator</h1>
 
         <div class="input-group">
+            <div id="inputTypeOptions" style="display: flex; gap: 20px; align-items: center;">
+                <input type="radio" id="inputDays" name="inputType" value="days"><label for="inputDays" style="font-size: 1.1em;">Days</label>
+                <input type="radio" id="inputHours" name="inputType" value="hours"><label for="inputHours" style="font-size: 1.1em;">Hours</label>
+            </div>
+        </div>
+
+        <div class="input-group" id="daysInputGroup">
             <label for="daysInput">Days (space-separated):</label>
             <input type="text" id="daysInput" value="" placeholder="e.g., 5 5 4 5 5">
+        </div>
+
+        <div class="input-group" id="hoursInputGroup" style="display: none;">
+            <label for="hoursInput">Hours (space-separated or single number):</label>
+            <input type="text" id="hoursInput" value="" placeholder="e.g., 40 or 8 8 8 8 8">
         </div>
 
         <div class="input-group">
@@ -103,22 +115,52 @@
             }).format(amount);
         }
 
-        function calculateInvoice() {
-            let totalDays = 0;
-            const daysInput = document.getElementById('daysInput');
-            const daysString = daysInput.value.trim();
-
-            if (daysString) {
-                const dayValues = daysString.split(/\s+/); // Split by one or more spaces
-                dayValues.forEach(dayStr => {
-                    const daysValue = parseFloat(dayStr);
-                    if (!isNaN(daysValue) && daysValue >= 0) {
-                        totalDays += daysValue;
+        function sumValuesFromString(str) {
+            let total = 0;
+            if (str) {
+                const values = str.split(/\s+/);
+                values.forEach(v => {
+                    const num = parseFloat(v);
+                    if (!isNaN(num) && num >= 0) {
+                        total += num;
                     }
                 });
             }
+            return total;
+        }
 
-            const hours = totalDays * 8;
+        function getSelectedInputType() {
+            const selected = document.querySelector('input[name="inputType"]:checked');
+            return selected ? selected.value : 'days';
+        }
+
+        function updateInputMode() {
+            const type = getSelectedInputType();
+            const daysGroup = document.getElementById('daysInputGroup');
+            const hoursGroup = document.getElementById('hoursInputGroup');
+            if (type === 'days') {
+                daysGroup.style.display = 'block';
+                hoursGroup.style.display = 'none';
+            } else {
+                daysGroup.style.display = 'none';
+                hoursGroup.style.display = 'block';
+            }
+        }
+
+        function calculateInvoice() {
+            let totalDays = 0;
+            let hours = 0;
+            const type = getSelectedInputType();
+
+            if (type === 'days') {
+                const daysString = document.getElementById('daysInput').value.trim();
+                totalDays = sumValuesFromString(daysString);
+                hours = totalDays * 8;
+            } else {
+                const hoursString = document.getElementById('hoursInput').value.trim();
+                hours = sumValuesFromString(hoursString);
+                totalDays = hours / 8;
+            }
 
             const selectedRate = document.querySelector('input[name="hourlyRate"]:checked');
             let rate = 100; // Default rate
@@ -143,14 +185,21 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const daysInput = document.getElementById('daysInput');
+            const hoursInput = document.getElementById('hoursInput');
+            const inputTypeOptions = document.getElementById('inputTypeOptions');
             const hourlyRateOptions = document.getElementById('hourlyRateOptions');
 
+            // Wire up inputs
             daysInput.addEventListener('input', calculateInvoice);
+            hoursInput.addEventListener('input', calculateInvoice);
+            inputTypeOptions.addEventListener('change', () => { updateInputMode(); calculateInvoice(); });
             hourlyRateOptions.addEventListener('change', calculateInvoice); // Use 'change' event for radio buttons
 
-            // Set default selected rate to 100 on page load
+            // Defaults: Days input selected; rate 100 selected
+            document.getElementById('inputDays').checked = true;
             document.getElementById('rate100').checked = true;
 
+            updateInputMode();
             calculateInvoice(); // Initial calculation on page load
         });
     </script>
