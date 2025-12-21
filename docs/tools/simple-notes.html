@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 30px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+        .hint {
+            text-align: center;
+            color: #666;
+            margin: 0 0 20px 0;
+            font-size: 0.95em;
+        }
+        textarea {
+            width: 100%;
+            min-height: 60vh;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1.05em;
+            line-height: 1.5;
+            resize: vertical;
+        }
+        .status {
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .status span {
+            display: inline-block;
+        }
+        .kbd {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            background: #f2f2f2;
+            border: 1px solid #ddd;
+            border-bottom-color: #ccc;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Notes</h1>
+        <p class="hint">Save to your browser with <span class="kbd">Cmd</span> + <span class="kbd">S</span> or <span class="kbd">Ctrl</span> + <span class="kbd">S</span></p>
+
+        <textarea id="notesInput" placeholder="Write your notes here..."></textarea>
+        <div class="status">
+            <span id="saveStatus">Not saved</span>
+            <span id="charCount">0 chars</span>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'simple_notes_v1';
+
+        function formatTimestamp(d) {
+            const pad = (n) => String(n).padStart(2, '0');
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const notesInput = document.getElementById('notesInput');
+            const saveStatus = document.getElementById('saveStatus');
+            const charCount = document.getElementById('charCount');
+
+            const updateCharCount = () => {
+                charCount.textContent = `${notesInput.value.length} chars`;
+            };
+
+            const loadNotes = () => {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved !== null) {
+                    notesInput.value = saved;
+                    saveStatus.textContent = 'Loaded';
+                } else {
+                    saveStatus.textContent = 'Not saved';
+                }
+                updateCharCount();
+            };
+
+            const saveNotes = () => {
+                localStorage.setItem(STORAGE_KEY, notesInput.value);
+                saveStatus.textContent = `Saved ${formatTimestamp(new Date())}`;
+                updateCharCount();
+            };
+
+            notesInput.addEventListener('input', () => {
+                saveStatus.textContent = 'Unsaved changes';
+                updateCharCount();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
+                    e.preventDefault();
+                    saveNotes();
+                }
+            });
+
+            loadNotes();
+        });
+    </script>
+</body>
+</html>

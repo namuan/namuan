@@ -105,3 +105,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Added by Antigravity
 export PATH="/Users/nnn/.antigravity/antigravity/bin:$PATH"
+
+# Amp CLI
+export PATH="/Users/nnn/.amp/bin:$PATH"
