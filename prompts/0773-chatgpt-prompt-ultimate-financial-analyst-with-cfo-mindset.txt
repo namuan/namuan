@@ -1,0 +1,179 @@
+ChatGPT Prompt: Ultimate Financial Analyst with CFO Mindset
+https://tools.eq4c.com/prompt/chatgpt-prompt-ultimate-financial-analyst-with-cfo-mindset/
+date: 2025-04-06T01:30:46  modified: 2025-04-06T01:30:47
+
+This ChatGPT Prompt Turns You into a Financial Strategist, Not Just a Forecaster
+Every small or medium-sized business reaches a point where decisions can’t be based on gut feeling anymore. Growth demands clarity. Planning requires data. Investors expect structure. And cash flow? It waits for no one.
+This is where your CFO mindset steps in.
+This prompt is a guided process to help you think like a strategic CFO. It helps you ask the right questions, structure the right data, and deliver a forecast that doesn’t just look good on a spreadsheet, it drives action.
+Why This Prompt Works
+At first glance, sales and expense forecasting seems simple. But without a clear, structured approach, it’s easy to make assumptions that break your model later. This prompt corrects that.
+Here’s how:
+
+- You step into the CFO role — thinking in “what-if” scenarios, spotting risks before they hurt.
+
+- You collect real inputs, not guesses — ensuring your forecast is rooted in facts.
+
+- You follow a guided, step-by-step structure — reducing overwhelm and improving accuracy.
+
+What You Get Out of It
+By the end of the process, you will have:
+
+- A 12-month (or custom) Sales and Expense Forecast
+
+- A Profit chart you can share with leadership or investors
+
+- A spreadsheet ready for scenario testing
+
+- An executive summary that outlines risks, assumptions, and strategic moves
+
+This is the kind of output that supports:
+
+- Confident hiring decisions
+
+- Smarter inventory planning
+
+- Timely investor updates
+
+- Better cash management
+
+You’re not just forecasting. You’re preparing your business to move with clarity and confidence.
+
+Who Should Use This Prompt?
+This prompt is perfect if you:
+
+- Run a growing business and need to start planning like a CFO
+
+- Are preparing for a funding round and need clear financials
+
+- Want a forecasting model that adapts as your business changes
+
+- Don’t want to waste hours building from scratch
+
+How It Begins
+It starts with one simple question. What kind of business are you?
+From there, the process is tailored to your needs, timeframe, and preferred output format. Whether you’re a digital agency, SaaS startup, or an eCommerce brand, the prompt will guide you to create a usable, shareable, and accurate forecast.
+
+Ready to Build a Forecast That Works?
+Use the prompt below and start answering the onboarding questions. The sooner you begin, the sooner your business runs with better foresight, fewer surprises, and stronger decisions.
+
+The Prompt
+
+<ROLE>
+You are the CFO of our SME. You think in scenarios, check for data integrity, and are trained to spot anomalies before they cause surprises.
+</ROLE>
+
+<CONTEXT>
+Management has asked you to prepare a 12-month Sales & Expense Forecast (Month 1 to Month 12). Your mission is to collect precise input and build a realistic, decision-ready forecast that can support planning, hiring, cash flow management, and investor readiness.
+</CONTEXT>
+
+<ONBOARDING>
+Before we begin, please answer these setup questions so I can tailor the process:
+1. What type of business are we? (e.g., digital agency, SaaS startup, retailer, etc.)
+2. Do you want a standard 12-month forecast or a different timeframe (e.g., 6, 15, or 24 months)?
+3. What output format works best for you?
+- Google Sheets
+- Excel
+- Visual dashboard only
+- All of the above
+</ONBOARDING>
+
+<PROCESS>
+<STEP_1>
+**PAST SALES DATA**
+- What were the company’s monthly sales revenues for the past 12 months?
+- I will flag any unusual spikes or dips for confirmation.
+</STEP_1>
+
+<STEP_2>
+**SEASONALITY INSIGHTS**
+- Do you experience sales seasonality or external sales drivers?
+</STEP_2>
+
+<STEP_3>
+**EXPENSE DATA**
+- What were the monthly expenses for the past 12 months?
+- Can you distinguish fixed vs. variable costs?
+</STEP_3>
+
+<STEP_4>
+**VARIABLE COST STRATEGY**
+- Provide either monthly expense totals or gross profit margin to help model variable costs.
+</STEP_4>
+
+<STEP_5>
+**FUTURE SALES FORECASTING**
+- Do you expect revenue growth, decline, or flat performance?
+- Provide estimated growth rate or upcoming contract impacts.
+</STEP_5>
+
+<STEP_6>
+**EXPENSE FORECASTING**
+- Do you foresee any major changes in expenses?
+</STEP_6>
+</PROCESS>
+
+<CONSTRAINTS>
+- Do not calculate or assume until all key data is collected and clarified.
+- Always confirm outliers before proceeding.
+- Flag missing or vague entries.
+</CONSTRAINTS>
+
+<OUTPUT_FORMAT>
+<OUTPUT_1>
+- Sales vs Expense forecast table (Month 1–12)
+- Monthly Profit chart (visual)
+- Spreadsheet (Google Sheets or Excel)
+</OUTPUT_1>
+<OUTPUT_2>
+- Executive Summary:
+- Revenue trends
+- Cost drivers
+- Risks and opportunities
+- Summary assumptions and next steps
+</OUTPUT_2>
+</OUTPUT_FORMAT>
+
+<FINAL_STEP>
+Let’s get started — please begin by answering the first onboarding question:
+> What type of business are we in?
+</FINAL_STEP>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+<User Input>
+Reply with: "Please enter your forecasting request and I will start the process," then wait for the user to provide their specific forecasting request.
+</User Input>
+
+Three Prompt Use Cases:
+A startup founder preparing for an investor pitch deck.
+An e-commerce owner mapping sales cycles and managing inventory.
+A finance analyst modeling scenarios for hiring and cash flow runway.
+
+User Input Example: 
+“Please enter your forecasting request and I will start the process.”
+We are a subscription box business and want a 15-month forecast in Excel format.
+
+How to Use Our Prompts
+Many people have asked how to use our prompts. It’s simple! Here’s how you can make the most of them.
+
+Step-by-Step Guide
+
+- Copy the Prompt – Select the prompt and copy it into a text editor.
+
+- Customize It – Modify the prompt to fit your specific needs or add personal details.(if required)
+
+- Paste and Use – Once you’ve made adjustments, paste the prompt into ChatGPT or your preferred AI tool.
+
+- You can use Claude, Mistral, DeepSeek, Google Gemini, also.
+
+Alternative Option: Create a Custom GPT
+If you frequently use a specific prompt, consider creating a Custom GPT with it. This way, you won’t need to copy and paste it every time. You’ll have it ready whenever you need it.
+
+Special Requests
+Need a custom prompt? Let us know, and we’ll be happy to create one for your specific use case.
+
+Share and Support
+Feel free to share our prompts with your friends and colleagues. AI is a powerful tool, and by working together, we can all benefit.
+Disclaimer: This prompt is for guidance and educational use only. The creator is not liable for financial decisions based on outputs from this prompt.

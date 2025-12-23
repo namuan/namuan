@@ -1,0 +1,108 @@
+ChatGPT Prompt: The Post-Launch Product Prioritization
+https://tools.eq4c.com/prompt/chatgpt-prompt-the-post-launch-product-prioritization/
+date: 2025-06-13T05:10:46  modified: 2025-06-13T05:31:49
+
+Your MVP is out in the wild and now, the real chaos begins.
+From scattered user interviews to unstructured chat logs and messy open-form survey answers, post-launch feedback is gold, but buried under layers of noise.
+This prompt is designed to help you decode and prioritize real-world user pain points, it turns raw, unfiltered product feedback into strategic insight.
+Through layered prompt chains (a.k.a. prompt stacks), this system will extract recurring themes, identify user friction zones, and even suggest actionable next steps for product development.
+Whether you’re starting or scaling, this prompt will give your product team a fighting chance to stay aligned with what actually matters to users, before the next sprint even starts.
+
+The Prompt:
+
+<System>
+You are a highly skilled product analyst AI trained in user behavior, product research, and UX strategy. Your job is to extract patterns, friction points, and actionable insights from post-launch customer feedback in order to guide future product prioritization.
+</System>
+
+<Context>
+The product has recently launched (MVP or early release). Users have provided unstructured feedback through interviews, chat logs, NPS surveys, support tickets, and general commentary.
+</Context>
+
+<Instructions>
+1. Read through the full collection of raw customer feedback.
+2. Summarize recurring patterns, themes, or sentiments.
+3. Highlight specific user friction points and potential root causes.
+4. Categorize themes using tags (UX, performance, onboarding, feature gaps, etc.).
+5. Suggest the top 3 priorities to double down on or improve in the next iteration.
+6. Include 1 quote per theme as a sample user voice.
+7. Provide recommendations in prioritized order based on severity and frequency.
+</Instructions>
+
+<Constraints>
+- Do not hallucinate problems that are not directly referenced in the input.
+- Do not attempt to rewrite or sanitize user quotes.
+- Keep all suggestions tied directly to the input data, no assumptions.
+- Maximum 500 words per output section.
+</Constraints>
+
+<Output Format>
+<Theme Summary>
+- Theme Name: {Brief tag}
+- Description: {Summary of the issue or insight}
+- Sample Quote: “{Exact user quote}”
+- Category: {UX | Performance | Feature Gap | Onboarding | Other}
+</Theme Summary>
+
+<Recommendations>
+1. {Priority #1} — {Reasoning}
+2. {Priority #2} — {Reasoning}
+3. {Priority #3} — {Reasoning}
+</Recommendations>
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please enter your customer feedback data and I will start the analysis process," then wait for the user to provide their specific post-launch feedback data.
+</User Input>
+
+Prompt Use Cases:
+Founders summarizing 40+ user interviews to guide roadmap adjustments after an MVP release.
+Product teams parsing through Intercom chat transcripts to extract friction signals and churn risks.
+Solo devs reviewing App Store reviews and support tickets to prioritize bug fixes or feature requests.
+
+Example user input:
+“Please enter your customer feedback data and I will start the analysis process.”
+> Upload: interviews_feedback_transcripts.txt, support_logs.csv, survey_comments.json
+
+You can refer our guide on how to use this prompt.
+Please visit our highly curated and tested prompts.
+Disclaimer: All interpretations of customer feedback are suggestions only. Please validate insights with your own product team before making key decisions.
+
+Why This Prompt Is Mission-Critical for SaaS, MicroSaaS, and Digital Product Businesses
+In my opinion, SaaS and microSaaS, post-launch feedback isn’t a luxury, but it’s your lifeline.
+The difference between a feature that delights and one that drives churn often hides in the nuance of what users actually say, not what analytics imply.
+This prompt acts as a scalable, always-on product analyst, giving solo founders and product teams a structured way to convert noisy feedback into razor-sharp decisions.
+
+Compelling Reasons to Use This Prompt Format
+
+From Feedback Chaos to Clarity
+Instead of drowning in interviews, chats, or random bug reports, this prompt helps you systematize insight extraction.
+It reduces weeks of manual tagging, affinity mapping, and Notion board clustering into minutes, freeing your time while increasing clarity.
+
+Theme Prioritization Without the Bias
+LLMs don’t bring founder bias into the loop. 
+They aren’t emotionally attached to features.
+This prompt surfaces real friction points, from onboarding pain to UI confusion, plus it is based purely on frequency, sentiment, and context.
+That’s data-driven prioritization at scale.
+
+Lightning-Fast Iteration in the MVP Phase
+For microSaaS founders running lean, this prompt means you don’t need a UX researcher or product ops hire to know what to fix next.
+You get prioritized feedback with sample quotes to pitch internally or back to early adopters.
+
+Customer-Led Roadmapping
+Your product roadmap is built in response to need.
+This prompt gives you that signal, over and over again.
+Patterns emerge. Trends are tracked. You stop building what you think users want, and start building what they keep telling you they need.
+
+Examples of Use in Action
+MicroSaaS Founder: After launching a niche analytics plugin for Notion users, the founder used the prompt to analyze 100+ NPS survey responses and quickly discovered that the onboarding UX was the biggest dropout point, something they hadn’t prioritized.
+SaaS Product Manager: In a 5-person startup building a customer support AI tool, this prompt processed 400 chat logs and support tickets, revealing a recurring theme: integrations were breaking during API token refresh, leading to a roadmap re-prioritization.
+Solo Indie Hacker: A developer launched a habit-tracking mobile app. Using this prompt, they summarized user complaints from App Store reviews and emails, learning that syncing between devices wasn’t working reliably, something they hadn’t experienced internally but was turning into bad ratings.
+
+Bottom Line:
+If you’re building a product and you’re listening to your users, this prompt is your amplifier.
+If you’re not listening, this prompt makes it impossible to ignore the signal anymore.
+> Use this prompt as your product research co-pilot—and turn feedback into focus.

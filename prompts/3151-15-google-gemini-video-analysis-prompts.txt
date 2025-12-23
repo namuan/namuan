@@ -1,0 +1,77 @@
+15 Google Gemini Video Analysis Prompts
+https://tools.eq4c.com/prompt/15-google-gemini-video-analysis-prompts/
+date: 2025-12-10T07:36:22  modified: 2025-12-10T07:36:22
+
+Gemini 3.0 processes video as native multimodal tokens. This capability allows the model to analyze visual and audio data simultaneously without relying solely on transcripts. The following prompts leverage the model’s long-context window to parse visual information, extract specific events, and audit content. This approach replaces manual viewing with query-based retrieval.
+Processing video data often creates workflow bottlenecks. Human review consumes time linearly, a one-hour video requires one hour of attention.
+This manual dependency limits scale. Gemini 3.0 decouples review time from video length. You use the system to query visual data directly.
+
+1. Extract Executive Summaries
+Video content often contains superfluous conversational fillers. Extracting the core value proposition requires filtering noise. Relying on basic transcripts fails to capture visual context or on-screen text presentations. This prompt forces the model to synthesize audio and visual elements into a briefing.
+Analyze the uploaded video. Identify the primary thesis and supporting arguments. Synthesize the speaker’s verbal points with any on-screen data or charts presented. Output a briefing document that outlines the core message, three main evidence points, and the final conclusion. Ignore conversational filler or off-topic digressions. Ask for clarification if visual data contradicts verbal claims.
+
+2. Generate Exact Timestamps for Specific Actions
+Locating specific visual events manually is inefficient. Scrubbing through timelines introduces error and fatigue. You use the model to perform frame-level searches for specific actions or object interactions. This provides an indexed map of the video content based on visual triggers.
+Scan the video for instances where [Insert Specific Action, e.g., the user clicks the ‘Submit’ button]. Provide a list of timestamps for every occurrence. Include a brief description of the visual state immediately preceding the action. Format the output as a list: Timestamp – Description.
+
+3. Audit for Brand Compliance
+Visual consistency maintains brand authority. Manual auditing misses subtle logo misplacements or color grading errors. This prompt instructs the model to scan the footage for specific visual assets and verify their presence against defined standards.
+Review the video for the presence of [Insert Brand Element, e.g., the corporate logo]. Verify that the logo appears clearly and is not obstructed. Note any segments where competitor logos or unapproved branding are visible. List these instances with timestamps and a description of the infraction.
+
+4. Extract Technical Step-by-Step Instructions
+Tutorial videos often move rapidly. Converting a video workflow into a text-based standard operating procedure (SOP) ensures replicability. The model tracks the sequential visual changes to build a written guide. This removes the need to pause and rewind repeatedly.
+Watch the technical demonstration in this video. Create a sequential, step-by-step written guide based on the actions performed. Describe the visual interface changes at each step. Differentiate between main actions and optional tips mentioned by the speaker. Format as a numbered list suitable for documentation.
+
+5. Analyze Speaker Sentiment and Non-Verbal Cues
+Text transcripts lose emotional context. A speaker’s facial expressions and tone modify the meaning of the words. You use this prompt to assess the delivery style and emotional resonance of the content, which is critical for sales calls or public relations reviews.
+Evaluate the speaker’s delivery throughout the video. Analyze facial expressions, tone of voice, and body language. Identify segments where the speaker appears hesitant, confident, or defensive. Correlate these non-verbal cues with the specific topic being discussed at that moment. Provide a report on the speaker’s overall credibility and emotional state.
+
+6. Identify Viral Social Media Clips
+Long-form content contains short segments suitable for social media distribution. Identifying these hooks requires understanding narrative arcs and engagement potential. This prompt directs the model to isolate high-energy or high-value moments that stand alone without broader context.
+Analyze the video to identify three distinct segments suitable for short-form social media content (15-60 seconds). Select clips that contain a complete thought, a high-value insight, or a strong emotional reaction. Provide the start and end timestamps for each clip and explain why it works as a standalone piece.
+
+7. Detect Continuity Errors
+Video editing often introduces visual inconsistencies. Objects move between cuts, or lighting shifts unexpectedly. Detecting these requires acute attention to detail. The model compares frames across cut points to identify logical breaks in the visual continuity.
+Examine the video for continuity errors. Focus on the position of objects in the background and the lighting consistency between cuts. Identify any sequence where an object disappears or changes position without explanation. List the timestamps of these potential editing errors.
+
+8. Generate Accessibility Descriptions
+Blind or low-vision users rely on audio descriptions. Writing these descriptions requires translating visual action into concise text. The model generates objective descriptions of the visual layer to supplement the audio track, ensuring compliance and accessibility.
+Create a visual description track for this video. Describe the setting, the appearance of the speakers, and any text displayed on screen that is not spoken aloud. Focus on essential visual information required to understand the context. Write these descriptions to be inserted during natural pauses in the dialogue.
+
+9. Convert Lecture to Exam Questions
+Educational videos serve as source material for testing. Generating questions from video content verifies comprehension. This prompt extracts key learning objectives and formulates them into an assessment, ensuring the questions derive directly from the presented material.
+Analyze the educational content in this video. Identify the five most critical concepts taught. Generate a multiple-choice question for each concept. Ensure the correct answer is explicitly supported by the video content. Provide the answer key and the timestamp where the answer is found.
+
+10. Comparative Product Analysis
+Review videos often display multiple products. Extracting a direct comparison requires isolating specifications mentioned for each item. This prompt structures the unstructured video data into a comparison matrix, enabling objective evaluation of the discussed products.
+Identify the products reviewed in this video. Extract the specifications, pros, and cons mentioned for each product. Organize this information into a structured text comparison. specific attention to visual demonstrations of performance. Highlight which product the reviewer prefers based on the visual evidence presented.
+
+Bonus: 5 Google Gemini 3.0 Prompts for Competitor Video Analysis
+Competitor intelligence usually relies on lagging indicators like press releases or pricing pages. The richest data exists in ephemeral video content: webinars, demos, and keynote addresses. Gemini 3.0 allows you to ingest these assets directly to extract feature sets, positioning strategies, and market gaps. You transform passive viewing into active data extraction.
+Manual competitive analysis is slow and imprecise. You waste hours watching product demos to find one relevant feature. This latency guarantees you remain reactive. Automating video analysis allows you to audit a competitor’s entire media output in minutes. You gain immediate visibility into their roadmap and messaging strategy.
+
+1. Reverse-Engineer Product Logic from Demos
+Competitors rarely document their exact UI workflows publicly. They do, however, show them in demo videos. Relying on marketing copy hides the actual complexity or simplicity of their solution. You use this prompt to deconstruct their user experience and identify friction points they are trying to gloss over.
+Analyze the provided product demo video. Ignore the narrator’s marketing claims. Focus solely on the user interface shown on screen. Map the click-path required to achieve the primary outcome. Identify any steps where the video cuts away or speeds up, as this often hides complexity. List the specific UI elements visible and reconstruct the likely underlying data model based on the input fields shown.
+
+2. Extract Unaddressed Market Pain from Webinar Q&A
+Scripted presentations hide weaknesses; unscripted Q&A sessions reveal them. Competitors control the narrative until the audience asks questions. Analyzing these interactions exposes where their product fails to meet user needs. You use this prompt to strip away the pitch and isolate the customer’s actual anxieties.
+Focus on the Q&A segment of this webinar. Transcribe the specific questions asked by the audience. For each question, analyze the speaker’s response. specific instances where the speaker evades the question, offers a workaround instead of a solution, or admits a feature is “on the roadmap.” Output a list of “Market Gaps” based on these unsatisfactory answers.
+
+3. Deconstruct Visual Rhetoric in Advertisements
+Marketing copy is easy to copy; visual branding is harder to decode. Competitors use specific imagery to signal value to your shared audience. Understanding their visual strategy allows you to counter-position effectively. This prompt forces the model to ignore the audio track and analyze the subliminal visual cues being deployed.
+Analyze the visual composition of this commercial. Catalogue the environments, demographics, and props used. Identify the emotional state of the actors before and after using the product. Determine the “Status Claim” the video makes—is it selling efficiency, luxury, or security? Contrast this with the spoken script to see if the visual story contradicts or supports the verbal message.
+
+4. Audit CEO Keynotes for Strategic Pivots
+Executive keynotes signal future intent before products ship. These speeches often contain “forward-looking statements” that reveal where the competitor is betting their R&D budget. You use this prompt to parse the difference between maintenance updates and strategic pivots.
+Analyze this keynote address. Isolate all statements referring to future capabilities or “vision.” Categorize these claims into “Incremental Improvements” vs. “Strategic Pivots.” Identify any change in terminology compared to previous years (e.g., shifting from “automation” to “AI”). Output a predicted roadmap for the next 12 months based strictly on these commitments.
+
+5. Identify “Straw Man” Arguments Against You
+Competitors often define themselves by what they are not. In doing so, they create a caricature of your solution (a “straw man”) to attack. Detecting these arguments allows you to immunize your sales process against them. This prompt extracts exactly how they are framing the “old way” of doing things.
+Listen to how the speaker describes the “current problem” or “traditional solutions.” Identify specific adjectives used to describe the status quo (e.g., “clunky,” “expensive,” “complex”). Extract the exact phrasing used to devalue legacy systems. If they mention specific competitor limitations, list them. Provide a counter-argument script that neutralizes these specific attacks.
+
+Compounding Advantage
+Sporadic analysis yields sporadic results. Building a systematic pipeline for competitor video ingestion provides a compounding advantage. You stop reacting to their launches and start anticipating their moves based on the data they voluntarily publish.
+
+In summary: Scale Your Analysis Engine
+Systematic video analysis eliminates linear time dependencies. Utilizing Gemini 3.0 allows for the processing of video archives at scale. You move from watching content to querying it. This shift in methodology increases throughput and consistency in data extraction.

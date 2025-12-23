@@ -1,0 +1,79 @@
+Stop guessing with your prompts. Here are 6 Frameworks to get exactly what you want from AI
+https://tools.eq4c.com/prompt/stop-guessing-with-your-prompts-here-are-6-frameworks-to-get-exactly-what-you-want-from-ai/
+date: 2025-11-19T02:52:31  modified: 2025-11-19T02:52:31
+
+I’ve been experimenting a lot with different prompting styles lately. We often treat AI like a search engine (“write a blog post about X”), but giving it a specific structural framework creates much higher quality, usable outputs.
+Here is a breakdown of 6 powerful frameworks, where to use them, and example prompts you can copy-paste.
+
+1. P.A.S. (Problem, Agitate, Solution)
+The Logic: Identify a pain point, rub salt in the wound (emotionally), and then offer the hero: your solution. Best For: Sales copy, cold emails, landing page headers, and persuasion.
+Example Prompt: “Act as a direct response copywriter. I am selling a new ergonomic office chair called the ‘SpineSaver 3000’.
+Please write a Facebook Ad using the P.A.S. (Problem, Agitate, Solution) framework:
+
+- Problem: Highlight the back pain caused by sitting all day.
+
+- Agitate: Describe the long-term health risks and how it ruins your mood after work.
+
+- Solution: Introduce the SpineSaver 3000 as the ultimate fix.”
+
+2. A.I.D.A. (Attention, Interest, Desire, Action)
+The Logic: The classic marketing funnel. Hook them, keep them reading, make them want it, and tell them what to do next. Best For: Newsletters, social media posts (LinkedIn/Twitter), and short video scripts.
+Example Prompt: “I am launching a course on ‘Python for Finance’. Write a LinkedIn post to promote it using the A.I.D.A. framework:
+
+- Attention: Start with a startling statistic about how much time financial analysts waste on Excel.
+
+- Interest: Explain how Python automates this in seconds.
+
+- Desire: Paint a picture of them leaving work at 5 PM stress-free.
+
+- Action: Tell them to click the link in the bio for a 20% discount.”
+
+3. F.A.B. (Features, Advantages, Benefits)
+The Logic: AI often gets stuck on technical specs. This forces it to translate “what it is” into “why it matters.” Best For: Product descriptions, Amazon listings, and technical writing for non-technical audiences.
+Example Prompt: “Here are the specs for a new portable power bank: 20,000mAh, USB-C PD 65W, weighs 200g.
+Rewrite these into a product description using the F.A.B. framework:
+
+- Feature: State the spec.
+
+- Advantage: Explain what that spec allows (e.g., fast charging).
+
+- Benefit: Explain the emotional/lifestyle payoff (e.g., never worrying about a dead laptop on a flight).”
+
+4. R.E.A.D. (Research, Extract, Apply, Deliver)
+The Logic: This is a “Chain of Thought” framework. It stops the AI from hallucinating by forcing it to look at data first before answering. Best For: Summarizing long documents, analyzing reports, or answering questions based on specific text.
+Example Prompt: “[Paste a long financial report or article here]
+Use the R.E.A.D. framework to process the text above:
+
+- Research: Analyze the text to find the Q3 profit margins.
+
+- Extract: Pull out the exact quotes regarding the drop in revenue.
+
+- Apply: Compare this to the previous quarter’s data mentioned in paragraph 1.
+
+- Deliver: Write a 3-sentence executive summary of the findings.”
+
+5. G.O.A.T. (Goal, Obstacle, Action, Transformation)
+The Logic: Not the animal 🐐. This is a storytelling arc. It creates a narrative journey that is great for case studies. Best For: Case studies, motivational writing, cover letters, or “About Me” pages.
+Example Prompt: “I need to write a case study about a client named Sarah who lost 20lbs. Write a narrative using the G.O.A.T. framework:
+
+- Goal: Sarah wanted to run a marathon.
+
+- Obstacle: She had a busy schedule and bad nutrition habits.
+
+- Action: She used my ’15-Minute Meal Prep’ system.
+
+- Transformation: Not only did she run the marathon, but she also has more energy for her kids.”
+
+6. C.A.R.E. (Content, Action, Result, Emotion)
+The Logic: This focuses on the human element and the “vibe” of an interaction. It’s great for empathetic writing. Best For: Replying to customer reviews, writing testimonials, or internal HR communications.
+Example Prompt: “I need to write a positive review for my wedding photographer. Please draft a review using the C.A.R.E. framework:
+
+- Context: It was a rainy, chaotic wedding day.
+
+- Action: The photographer took charge and calmed everyone down.
+
+- Result: The photos looked moody and romantic, not messy.
+
+- Emotion: Express how grateful and relieved we felt looking at the album.”
+
+TL;DR: Don’t just ask for “text.” Ask for text in a specific structure like PAS (Sales), AIDA (Socials), or FAB (Products) to get professional-grade results instantly

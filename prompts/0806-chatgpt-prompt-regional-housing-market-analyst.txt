@@ -1,0 +1,164 @@
+ChatGPT Prompt: Regional Housing Market Analyst
+https://tools.eq4c.com/prompt/chatgpt-prompt-regional-housing-market-analyst/
+date: 2025-05-18T07:58:20  modified: 2025-05-18T07:58:21
+
+The power of real estate data is very important and this expertly structured prompt is specifically designed for:
+
+- Seasoned analysts,
+
+- Aspiring realtors,
+
+- Local investors,
+
+- Data-driven homeowners.
+
+The comprehensive market analysis prompt turns ChatGPT into your personal real estate economist.
+The output offers detailed insights on:
+
+- Housing trends,
+
+- Hot neighborhoods,
+
+- Market dynamics
+
+in your city of choice.
+If you’re evaluating where to invest, planning a move, or tracking economic shifts, this prompt is your go-to blueprint.
+It will generate a report that compares quarterly statistics, ranks ZIP codes and neighborhoods by key performance indicators, and includes compelling data visuals.
+With a word count optimized for blogs, investor newsletters, or stakeholder briefings, this prompt allows you to produce high-impact insights with ease.
+
+The Prompt
+
+<System>
+You are a seasoned real estate economist specializing in regional housing markets.
+</System>
+
+<Context>
+You have been asked to analyze the residential real estate market in <city> for the past 90 days to assist local stakeholders, including investors, real estate professionals, and city officials.
+</Context>
+
+<Instructions>
+1. Write a report (800–1,200 words) analyzing the residential housing market in the specified city, following this structure:
+- **Market Overview**
+- Analyze trends in median home prices, days on market, inventory levels, and sales volume.
+- Compare these metrics to the same period last year.
+- Highlight buyer behavior changes, supply-demand dynamics, and notable pricing trends.
+- **Top 10 Neighborhoods and Top 10 ZIP Codes**
+- Identify the top 10 neighborhoods and ZIP codes ranked by:
+• Lowest average days on market  
+• Highest list-to-sale price ratio  
+• Highest home sales volume  
+- Provide a short explanation for each area's performance using available data.
+- **Data Visualization (Optional but Recommended)**
+- Insert basic charts, tables, or graphs to support your findings.
+- **Conclusion**
+- Recap your most significant insights.
+- Offer predictions or observations for the next 90 days.
+
+2. Use only verified data from sources like Zillow, Redfin, Realtor.com, MLS, or local REALTOR® associations.
+
+3. Write using clear, formal, data-driven language suitable for business readers.
+
+4. Structure content using headings and bullet points where relevant.
+
+5. Include references to data sources where applicable.
+</Instructions>
+
+<Constrains>
+- Must stay within 800–1,200 words.
+- No speculative content without data justification.
+- Avoid jargon unfamiliar to non-experts.
+</Constrains>
+
+<Output Format>
+- Title
+- Executive Summary
+- Market Overview
+- Top 10 Neighborhoods & ZIP Codes (with subsections)
+- Visual Aids (if any)
+- Conclusion
+- References
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please enter your city request and I will start the process," then wait for the user to provide their specific city process request.
+</User Input>
+
+Prompt Use Cases:
+
+- A real estate agent writing a quarterly market brief for clients and investors.
+
+- A journalist creating a data-rich column for a local housing newsletter.
+
+- A homebuyer comparing neighborhood performance before making a purchasing decision.
+
+Example of a User Input:
+“Please enter your city request and I will start the process.”
+User: Austin, TX
+
+How to Use the “Regional Housing Market Analyst” Prompt Across ChatGPT Versions and Other LLMs
+
+ChatGPT Free (GPT-3.5) – Limited Compatibility:
+Pros:
+Accessible to all users without payment
+Good for basic summaries, simple comparisons, or general insights
+Limitations:
+Limited context window may truncate long prompts or outputs
+No access to plugins, charts, or file uploading features
+Accuracy of real-time data and in-depth statistical interpretation is lower
+How to Use:
+Paste the entire XML prompt into the chat manually
+When asked, provide the city (e.g., “Austin, TX”)
+Prompt may need simplification (remove charts or reduce word count to ~500–700 words)
+Tip: For better results, break down sections (Market Overview, then ZIP Codes, etc.) in separate messages.
+
+ChatGPT Plus (GPT-4-turbo, Custom GPTs) – Full Compatibility:
+Pros:
+Handles long prompts and complex reasoning with high accuracy
+Supports structured outputs, better formatting, and nuanced analysis
+Custom GPTs can be created to automate and streamline this process
+How to Use:
+Open ChatGPT > Select GPT-4
+Paste the full prompt and follow instructions
+Optionally: Build a Custom GPT with this prompt as the system message for one-click reports
+Steps for Custom GPT Setup:
+1. Go to Explore GPTs > Create
+2. Upload this prompt under “Instructions”
+3. Set personality and output tone (Professional/Data Analyst)
+4. Name it “Housing Analyst Pro” and save
+5. Use it anytime without re-pasting the prompt
+
+ChatGPT Pro with Advanced Tools (e.g., File Uploads, Code Interpreter):
+Best Experience Available
+You can upload CSV or XLS housing data files directly
+The prompt can be enhanced to include specific datasets
+Use Python in the background to auto-generate charts, calculate averages, or build ZIP code heatmaps
+
+How to Use:
+Paste the prompt
+Upload supporting data files (MLS exports, Zillow/Redfin data)
+Use custom instructions to tailor outputs to investors, homebuyers, etc.
+
+Compatibility with Other LLMs:
+LLM Platform Compatibility Level Notes
+Claude (Anthropic) High Handles structured prompts well. May require XML tweaking to match its preferred input format.
+Perplexity AI Medium Better for retrieval than structured writing. Use in Q&A format rather than full reports.
+Mistral Low Geared toward shorter responses and not ideal for long-form analysis.
+Gemini (Google) Medium May ignore XML tags—convert into Markdown or bullet points for better parsing.
+LLama 3 / Meta AI Medium-High With correct formatting and clear sections, can handle prompt logic decently.
+
+Tips for Other LLMs:
+Convert <XML> tags into ### Headings or :: Sections
+Avoid deeply nested logic or complex formatting unless on GPT-4
+
+Best Practices Across Platforms:
+Always use verified data from MLS, Zillow, or Realtor.com manually unless your LLM supports web browsing.
+Break the prompt into smaller sections if you’re hitting token limits.
+For ZIP code heatmaps or statistical visualizations, consider using tools like Tableau or Python (pandas, seaborn) with ChatGPT Plus + Code Interpreter.
+
+Conclusion:
+While this prompt shines brightest on GPT-4-turbo (ChatGPT Plus or Custom GPT), it’s flexible enough to be adapted for free users and competitive LLMs. Use the XML structure for maximum control, but don’t hesitate to convert into markdown or simplify if you’re working with limited tools.
+For hands-free and optimized experience, setting up a Custom GPT is highly recommended.

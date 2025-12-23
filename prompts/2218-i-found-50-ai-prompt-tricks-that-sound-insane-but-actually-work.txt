@@ -1,0 +1,210 @@
+I Found 50 AI Prompt Tricks That Sound Insane But Actually Work
+https://tools.eq4c.com/prompt/i-found-50-ai-prompt-tricks-that-sound-insane-but-actually-work/
+date: 2025-10-28T03:33:43  modified: 2025-10-28T06:30:11
+
+I was supposed to be working on a client project at 3 AM but ended up in this weird rabbit hole of prompt engineering instead (classic me).
+What I discovered completely broke my understanding of how to talk to AI and I started collecting them.
+These prompt tricks feel like actual cheat codes for getting better responses:
+1. Start with “I’m probably wrong, but…” – This stops AI from taking your assumptions as gospel truth.
+“I’m probably wrong, but doesn’t quantum computing use regular bits?”
+
+Gets way better explanations because it knows to correct misconceptions instead of building on bad info.
+2. Say “Think step by step” – Four magic words that unlock reasoning mode.
+“How do I launch a SaaS product? Think step by step.”
+
+Suddenly you get a proper roadmap instead of generic startup advice. It’s like switching from Google to having a consultant.
+3. End with “What am I not seeing?” – This is borderline unfair.
+“I want to quit my job to freelance. What am I not seeing?”
+
+It surfaces blind spots you didn’t even know existed. Taxes, healthcare, client acquisition – stuff you’d learn the hard way.
+4. Use “Actually” for corrections – Way better than “wait, no.”
+“Actually, I meant for complete beginners.”
+
+It completely reframes the response instead of just adding more info. Clean slate approach.
+5. Ask “What would you do in my position?” – Transforms it from assistant to advisor.
+“What would you do in my position to get promoted?”
+
+You get opinions and strategy instead of just information. Feels like real advice.
+6. Say “Break this down for me” – Works even for simple stuff.
+“Break down how to make coffee for me.”
+
+You get the science, the technique, the variations. More depth than you expected.
+7. Try “Let’s think about this differently” – Instant perspective shift.
+“Let’s think about this differently. How can introverts network effectively?”
+
+Flips the script completely. Instead of “fake it till you make it,” you get authentic approaches.
+8. Add “No yapping” – Cuts through AI verbosity.
+“Explain blockchain, no yapping.”
+
+Gets straight to the point. No fluff, no corporate speak, just clarity.
+9. Use “Explain like I’m 5” – Not kidding, this works for everything.
+“Explain SEO like I’m 5.”
+
+Drops all jargon. Even experts use this when they want crystal clear understanding.
+10. Ask it to “roast” something – Better than asking for criticism.
+“Roast this business idea: selling ice to Eskimos.”
+
+Real criticism instead of that sandwich feedback method. Brutal honesty mode activated.
+11. Say “Connect these dots” – Give it 3 random facts and watch magic happen.
+“Connect these dots: I hate mornings, love puzzles, get energized by deadlines.”
+
+Finds patterns you missed. Great for self-awareness and project planning.
+12. Add “What’s the 80/20 here?” – Cuts to what actually matters.
+“What’s the 80/20 of learning guitar?”
+
+Shows you the 20% of effort that gets 80% of results. Efficiency hack.
+13. Try “Play devil’s advocate against yourself” – AI debates itself.
+“Remote work is better than office work. Play devil’s advocate against yourself.”
+
+Full analysis from both sides. Like having a debate team in your pocket.
+14. Use “What story is the data telling?” – Makes numbers make sense.
+“Here’s my website traffic data. What story is the data telling?”
+
+Gets insights instead of just statistics. Patterns become obvious.
+15. Say “Translate this into everyday language” – De-jargons anything.
+“Translate this legal contract into everyday language.”
+
+Suddenly you understand what you’re actually signing.
+16. Ask “What’s the counterintuitive move here?” – Skips obvious advice.
+“Everyone says ‘just be yourself’ in interviews. What’s the counterintuitive move here?”
+
+Gets unconventional strategies that actually work.
+17. Try “I need you to be brutally honest” – Removes politeness filters.
+“I need you to be brutally honest. Is my website actually good?”
+
+Real feedback instead of gentle suggestions.
+18. Use “Help me think through this” – Makes it collaborative.
+“Help me think through whether I should quit my job.”
+
+Becomes a thinking partner instead of just answering questions.
+19. Say “What would [expert] do?” – Channels specific expertise.
+“What would Gary Vaynerchuk do to grow this social media account?”
+
+Gets perspective from that exact mindset and approach.
+20. Add “Walk me through your reasoning” – Shows the thinking process.
+“Should I invest in crypto? Walk me through your reasoning.”
+
+You see the logic, not just the conclusion. Helps you make better decisions.
+21. Try “Assume I know nothing” – Removes assumed knowledge.
+“Explain investing. Assume I know nothing.”
+
+Starts from absolute zero. Perfect for learning new fields.
+22. Use “What are 3 ways this could backfire?” – Risk assessment mode.
+“I want to go viral on TikTok. What are 3 ways this could backfire?”
+
+Spots potential problems before they happen.
+23. Say “Give me the contrarian view” – Challenges conventional wisdom.
+“Everyone says follow your passion. Give me the contrarian view.”
+
+Gets you Cal Newport-style alternative perspectives.
+24. Add “What would happen if…” – Scenario planning made easy.
+“What would happen if I raised my prices by 50%?”
+
+Walks through likely outcomes and consequences.
+25. Try “I’m stuck because…” – Gets targeted unsticking help.
+“I’m stuck because I can’t decide between these two options.”
+
+Addresses the exact blocker instead of generic advice.
+26. Use “Make this stupidly simple” – Cuts complexity.
+“Make investing stupidly simple for me.”
+
+Removes all the confusing parts. Gets to the core actions.
+27. Say “What’s missing from this plan?” – Spots gaps.
+“Here’s my business plan. What’s missing from this plan?”
+
+Finds holes you didn’t see. Better than any checklist.
+28. Add “Be specific with examples” – No more abstract advice.
+“How do I write better emails? Be specific with examples.”
+
+Gets actual templates and real examples instead of vague principles.
+29. Try “Challenge my thinking on this” – Stress tests your ideas.
+“I think AI will replace writers. Challenge my thinking on this.”
+
+Forces you to defend or refine your position.
+30. Use “What’s the fastest way to…” – Efficiency focus.
+“What’s the fastest way to learn Python?”
+
+Cuts out the slow methods. Gets you the express lane.
+31. Say “If you had to bet your own money…” – Skin in the game perspective.
+“If you had to bet your own money, which marketing strategy would you choose?”
+
+Gets more realistic, practical advice.
+32. Add “What would you ask me?” – Flips the dynamic.
+“I want to hire a developer. What would you ask me?”
+
+Discovers the right questions you should be considering.
+33. Try “Convince me otherwise” – Tests your convictions.
+“I think I should quit my job tomorrow. Convince me otherwise.”
+
+Gets counterarguments to help you think it through.
+34. Use “What’s the unconventional wisdom here?” – Skips clichÃ©s.
+“What’s the unconventional wisdom about public speaking?”
+
+Gets tactics beyond “imagine everyone naked.”
+35. Say “How would a beginner mess this up?” – Avoids common traps.
+“How would a beginner mess up email marketing?”
+
+Shows you the pitfalls before you fall into them.
+36. Add “What am I optimizing for?” – Clarifies your real goal.
+“I want to grow my audience. What am I optimizing for?”
+
+Helps you figure out if you want size, engagement, or revenue.
+37. Try “ELI5 but make it interesting” – Combines clarity with engagement.
+“ELI5 but make it interesting: How does the stock market work?”
+
+Gets simple explanations that don’t put you to sleep.
+38. Use “What would success look like?” – Defines the end goal.
+“I’m starting a podcast. What would success look like?”
+
+Helps you set the right metrics and expectations.
+39. Say “Give me the insider perspective” – Gets behind-the-scenes knowledge.
+“Give me the insider perspective on the music industry.”
+
+Access to knowledge you wouldn’t find in public articles.
+40. Add “What’s the meta-game here?” – Strategy beyond the obvious.
+“What’s the meta-game of networking events?”
+
+Gets the game within the game. How things really work.
+41. Try “Pretend you’re coaching me” – Changes the tone completely.
+“Pretend you’re coaching me through a difficult conversation.”
+
+Gets encouragement and specific guidance instead of just information.
+42. Use “What would you want to know?” – Gets the right questions.
+“I’m about to start a business. What would you want to know?”
+
+Surfaces important factors you hadn’t considered.
+43. Say “Help me avoid the obvious mistakes” – Shortcuts learning.
+“I’m learning to code. Help me avoid the obvious mistakes.”
+
+Learns from others’ failures instead of making them yourself.
+44. Add “What’s the reality check here?” – Grounds unrealistic expectations.
+“I want to be an influencer. What’s the reality check here?”
+
+Gets honest assessment of what’s actually involved.
+45. Try “Turn this into a system” – Makes things repeatable.
+“Turn my morning routine into a system.”
+
+Gets frameworks instead of one-off advice.
+46. Use “What are the unspoken rules?” – Gets insider knowledge.
+“What are the unspoken rules of job interviews?”
+
+Access to the stuff nobody tells you explicitly.
+47. Say “How do I know if this is working?” – Gets measurable outcomes.
+“I’m trying to build trust with my team. How do I know if this is working?”
+
+Specific signals to look for instead of guessing.
+48. Add “What would you do first?” – Gets prioritized action steps.
+“I want to start freelancing. What would you do first?”
+
+Shows you the actual first step instead of overwhelming to-do lists.
+49. Try “Make me see this from their perspective” – Empathy mode.
+“My client is upset about the delay. Make me see this from their perspective.”
+
+Helps you understand the other side before responding.
+50. Use “Give me the version nobody talks about” – Gets uncommon angles.
+“Give me the version of entrepreneurship nobody talks about.”
+
+Raw truth instead of Instagram highlights.
+The weirdest part? These work because they trigger different modes in how AI processes information. It’s like having access to different personalities or thinking styles within the same system.
+The casual, conversational approach consistently outperforms formal “professional” prompts. AI responds better to human-like curiosity than corporate templates.
+For more unique, battle-tested prompts that actually work, check out our free AI prompts collection.

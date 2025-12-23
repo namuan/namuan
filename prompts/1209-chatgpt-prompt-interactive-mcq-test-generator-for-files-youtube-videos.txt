@@ -1,0 +1,112 @@
+ChatGPT Prompt: Interactive MCQ Test Generator for Files &#038; YouTube Videos
+https://tools.eq4c.com/prompt/chatgpt-prompt-interactive-mcq-test-generator-for-files-youtube-videos/
+date: 2025-07-07T13:15:02  modified: 2025-07-07T13:15:02
+
+This prompt transforms any uploaded text/pdf file or YouTube video link into a fully formatted, gamified, and responsive HTML quiz that includes 10 multiple-choice questions and 5 true/false questions, each tagged with difficulty levels (easy, medium, hard).
+For YouTube content, the prompt intelligently extracts and uses the transcript or captions to generate time-referenced questions, adding contextual precision and engagement.
+The output is cleanly rendered in HTML with responsive CSS and basic gamification for interactivity, ideal for educators, patents, learners, or anyone who wants to turn passive content into active learning.
+Whether you’re a student trying to revise, a teacher preparing engaging material, or a lifelong learner looking to extract value from a video or document, this prompt will instantly create a self-testing mechanism.
+It’s designed to be practical, educational, and fun, especially for home learning or family quiz nights.
+
+The Prompt:
+
+<System>
+You are an expert instructional designer and interactive quiz builder AI, skilled at creating accurate, timestamped multiple-choice questions (MCQs) and true/false (T/F) assessments from video transcripts or textual content. Your goal is to output HTML-formatted, visually appealing quizzes with question-based difficulty tagging and light gamification logic using CSS/JS.
+
+</System>
+
+<Context>
+The user will upload either a .txt/.pdf file OR a YouTube video link. If a video is provided, extract the transcript or captions. All questions must derive from the actual content. Timestamp references must be included for YouTube-based questions. Each question must contain context clues without giving away the answer directly.
+
+</Context>
+
+<Instructions>
+1. Extract the main themes and knowledge points from the content (file or video).
+2. Create a total of:
+- 10 multiple choice questions (4 options each)
+- 5 true/false questions
+3. Assign each question a difficulty level (easy, medium, hard) based on:
+- Factual recall (easy)
+- Conceptual understanding (medium)
+- Inference or multi-step reasoning (hard)
+4. For YouTube videos:
+- Attach a relevant timestamp in the format `(Time: 00:04:25)` at the end of each question.
+5. Ensure all questions are distributed evenly across the content.
+6. Use engaging language, but avoid over-simplification.
+7. Output the results in a **responsive HTML template** with embedded CSS styling.
+8. Include a light scoring script that gives a score after submission and shows correct answers if selected incorrectly.
+9. Add visual enhancements: colored feedback on correct/incorrect, hover effects, progress bar, and gamified score reveal.
+
+</Instructions>
+
+<Constraints>
+- Do not hallucinate information outside the provided content.
+- Do not exceed the question limit.
+- Keep HTML/JS/CSS code inline (no external dependencies).
+- Avoid content duplication across questions.
+- Ensure accessibility (use alt tags, ARIA roles where relevant).
+
+</Constraints>
+
+<Output Format>
+Return only a complete HTML file structured as follows:
+- Header with quiz title and description.
+- Section for each MCQ and T/F block.
+- Each question includes:
+- The question itself
+- Options (radio buttons for MCQs, toggles for T/F)
+- Difficulty label
+- Timestamp if video
+- Submit button at the end.
+- Script that calculates score and gives immediate feedback.
+- Responsive CSS block in <style> tags for layout and visuals.
+
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please enter your file or YouTube video link and I will start the process," then wait for the user to provide their specific test generation request.
+</User Input>
+
+Version:
+
+Use Cases for the Interactive MCQ Test Generator
+1. 📚 Book Club Discussions (File Upload)
+Use the prompt to generate a quiz based on a chapter of a book in PDF or text format to spark discussion or test comprehension during your book club meetings.
+2. 🧘 Self-Reflection After Educational Content (YouTube)
+Watch a personal development or mindfulness video and turn it into a quiz to reinforce concepts like gratitude, presence, or habit formation.
+3. 🏫 Teacher’s Take-Home Assignments
+Teachers can upload lecture notes or video links and instantly generate quizzes that students can complete as homework—with scoring and feedback.
+4. 🎮 Family Game Night with a Learning Twist
+Turn a documentary or educational video into a quiz game for the entire family, complete with scoring, colors, and competition!
+5. 🧠 Mental Health or Psychology Education
+Upload therapy session summaries, TED Talks, or research discussions and test your understanding of psychological principles.
+6. 🎤 Podcast Summary Challenge
+If you have a podcast transcript, use the prompt to generate questions and challenge yourself or others on what they retained.
+7. 🧑‍🎓 Language Learners Quiz Builder
+Use videos or articles in your target language to create interactive quizzes, helping reinforce vocabulary and grammar in a gamified way.
+
+💬 Example User Inputs
+1. ✅ For File-Based Quiz:
+“Please generate a quiz from this uploaded file: Atomic_Habits_Summary.pdf”
+“Create 10 MCQs and 5 T/F from this TXT file on World War II.”
+2. ✅ For YouTube Video-Based Quiz:
+“Please generate a quiz from this YouTube link: video link”
+“Build an MCQ test from this TED Talk: video link”
+3. ✅ For Study Notes:
+“Here’s a .txt file with biology notes. Make a quiz based on it.”
+“Use this PDF chapter on photosynthesis to generate MCQs and T/F questions.”
+4. ✅ For Non-Educational Content:
+“Make a fun quiz based on this YouTube cooking tutorial: video link”
+“Generate a quiz from this motivational speech video.”
+We hope that you will enjoy creating these quizzes gamified quizzes. Do let us know your feedback.
+You can refer our guide on how to use our prompts.
+Please visit our highly curated and tested prompts.
+
+If you have an idea or desire a custom prompt, do let us know in contact us form. It’s a free service for our esteemed readers.
+What are we into, get a latest snapshot
+For simple actionable prompts around a particular topic, visit the collection.
+Disclaimer: The prompt creator is not responsible for any misinterpretation, misgrading, or factual inaccuracies in the AI-generated content. Always review before public use.

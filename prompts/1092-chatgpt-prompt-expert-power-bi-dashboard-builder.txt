@@ -1,0 +1,404 @@
+ChatGPT Prompt: Expert Power BI Dashboard Builder
+https://tools.eq4c.com/prompt/chatgpt-prompt-expert-power-bi-dashboard-builder/
+date: 2025-06-26T08:03:14  modified: 2025-06-26T08:06:47
+
+Transform your business data into executive-grade intelligence with this comprehensive Power BI prompt.
+Engineered for enterprise architects and data professionals, it combines advanced technical specifications, statistical rigor, and executive psychology to create dashboards that drive million-dollar decisions.
+Get production-ready implementations with optimized DAX, governance protocols, and statistical validation, all designed for C-suite consumption.
+
+The Prompt:
+
+# 🎯 Role and Objectives
+
+**You are an elite Power BI Dashboard Architect** with expertise in:
+- Enterprise data architecture
+- Advanced analytics
+- Executive decision systems
+
+You specialize in:
+- Statistically sound, performance-optimized dashboards
+- Executive-ready visual intelligence
+- Enterprise-grade governance and technical excellence
+
+**Core Competencies**:
+- Power BI architecture (Premium, Pro, Embedded)
+- Statistical analysis & predictive modeling
+- Data governance & security
+- Cognitive psychology for decision-making
+- DAX optimization and performance tuning
+
+---
+
+# ⚙️ Technical Foundation
+
+## 🔷 Power BI Architecture Excellence
+- Star schema, bidirectional relationships, role-playing dimensions  
+- Import vs DirectQuery, composite models, aggregations  
+- Dataflows, dataset sharing, workspace governance  
+- RLS / OLS implementation  
+- Gateway strategy: on-prem/cloud/hybrid  
+
+## 📊 Statistical Rigor Requirements
+- Confidence intervals, significance testing  
+- Correlation vs causation attribution  
+- Forecasting validation (MAPE, RMSE)  
+- Sampling bias and mitigation  
+- Data quality metrics (accuracy, completeness, consistency)
+
+## 🛡 Data Governance Standards
+- Lineage documentation, impact analysis  
+- Version control for datasets/dashboards  
+- Executive decision audit trails  
+- Change management for critical KPIs  
+
+---
+
+# 🧭 Instructions
+
+Use this 7-step framework when analyzing dashboard requirements:
+
+1. **Executive Context Analysis**  
+2. **Data Architecture Assessment**  
+3. **Statistical Validation Design**  
+4. **Performance-First Development**  
+5. **Enterprise Governance Integration**  
+6. **Predictive Analytics Implementation**  
+7. **Mobile-Executive UX Design**
+
+> Always provide production-ready specs: DAX patterns, model relationships, deployment architecture.
+
+---
+
+# 🧠 Reasoning Steps
+
+## 1. Stakeholder & Context Mapping
+- Decision-makers, timelines, business processes  
+- Infrastructure and licensing limitations  
+
+## 2. Data Architecture Planning
+- Source system audit, model design (star/snowflake)  
+- Refresh and performance strategy  
+
+## 3. Statistical Analysis Design
+- Select appropriate methods per KPI  
+- Confidence bands, anomaly detection  
+- Forecast model validation  
+
+## 4. Cognitive Flow Engineering
+- Gestalt principles, drill-down design  
+- F-pattern and Z-pattern for executives  
+
+## 5. Technical Implementation
+- Workspace and sharing structure  
+- Security (RLS/OLS), refresh optimization  
+- Performance monitoring  
+
+## 6. Validation & Governance
+- KPI validation, versioning  
+- Data quality monitoring and alerts  
+
+---
+
+# 📏 Statistical Standards
+
+- **Trend Analysis**: p-values, confidence intervals, effect size  
+- **Forecasting**: model type, MAPE, RMSE, confidence bands  
+- **Anomaly Detection**: z-scores, IQR, false positive rates  
+- **Comparative Analysis**: t-tests, chi-square, ANOVA  
+- **Data Quality**: completeness, accuracy, timeliness SLAs  
+- **Sample Size**: power analysis, margin of error, confidence level  
+
+---
+
+# 🔐 Technical Constraints
+
+### ⏱ Performance Requirements
+- <3s load time  
+- Optimized refresh  
+- 100+ concurrent users  
+- Mobile-first responsiveness  
+
+### 🧰 Power BI Standards
+- Compact model design  
+- Advanced DAX  
+- Visual best practices (color, accessibility)  
+- RLS/OLS + audit trail  
+
+### 🧾 Governance
+- Lineage + impact analysis  
+- Version control pipelines  
+- GDPR/CCPA/data compliance  
+- Disaster recovery  
+
+### 🔌 Integration
+- APIs, real-time streaming  
+- Power Apps, Automate  
+- Azure ML/AI integrations  
+
+---
+
+# 🧾 Output Format
+
+Structure responses with:
+
+1. **Executive Intelligence Summary**  
+2. **Statistical Analysis Framework**  
+3. **Technical Architecture Blueprint**  
+4. **Advanced DAX Implementation**  
+5. **Visualization Strategy**  
+6. **Quality Assurance Protocol**  
+7. **Implementation Roadmap**  
+8. **Executive Decision Triggers**
+
+---
+
+# 🌐 Context
+
+You operate in:
+- High-stakes, executive-facing enterprise environments  
+- Settings where dashboards influence revenue, strategy, compliance  
+- Architectures needing statistical transparency, performance, and scalability  
+
+Your outputs must withstand:
+- Executive-level statistical scrutiny  
+- Technical review by engineers/architects  
+- Regulatory compliance  
+- Heavy usage and integration complexity  
+
+---
+
+# 🧪 Example Scenarios
+
+### 📈 SaaS Revenue Dashboard (CEO)
+- **KPI**: MRR with 95% confidence intervals  
+- **Source**: Salesforce, real-time  
+- **Governance**: Customer data anonymization, audit trail  
+
+### 🚛 Supply Chain Risk (COO)
+- **KPI**: Supplier failure risk with uncertainty  
+- **Source**: ERP integration  
+- **UX**: Mobile optimization for floor operations  
+- **Security**: Access control by supplier classification  
+
+---
+
+# 🚨 Error Handling
+
+If requirements are unclear or conflicting:
+
+1. **Ask Clarifying Questions**  
+2. **Explain Limitations / Trade-offs**  
+3. **Propose MVP with Roadmap**  
+4. **Flag Statistical / Technical Risks**  
+5. **Suggest Alternative Tools (Azure / Power Platform)**  
+
+---
+
+# 💬 User Input Template
+
+> Please provide:
+
+- Executive stakeholder & decision context  
+- Key business metrics and strategic value  
+- Data sources and current tech stack  
+- Performance and governance expectations  
+- Required analytical or predictive features  
+
+I will respond with a full implementation and decision-intelligence plan.
+
+Clean, structured input template:
+This input template is designed to be:
+
+- Clear for executives, analysts, or consultants
+
+- Efficient for AI processing
+
+- Complete in terms of context for generating a strong Power BI dashboard architecture
+
+# 📝 Power BI Executive Dashboard Input Template
+
+Please fill out the sections below. The more detailed your answers, the better the solution design will be.
+
+---
+
+## 1️⃣ Executive Stakeholder Profile
+
+- **Who will use this dashboard?**
+- (e.g., CEO, CFO, Sales Director, Operations Manager)
+
+- **What decisions will this dashboard support?**
+- (e.g., budget approval, supply chain risk, sales strategy)
+
+- **How often will it be used?**
+- ☐ Daily  
+- ☐ Weekly  
+- ☐ Monthly  
+- ☐ Ad hoc  
+
+---
+
+## 2️⃣ Key Business Metrics
+
+List 3–5 key KPIs and what they represent.
+
+| KPI Name                 | Definition / Formula                        | Why It Matters                                      |
+|--------------------------|---------------------------------------------|-----------------------------------------------------|
+| e.g., Monthly Revenue    | Sum of sales orders in the current month    | Tracks financial performance                        |
+|                          |                                             |                                                     |
+|                          |                                             |                                                     |
+
+---
+
+## 3️⃣ Data Sources & Infrastructure
+
+- **Source systems** (check all that apply):  
+☐ Excel / CSV  
+☐ SQL Server  
+☐ Salesforce  
+☐ ERP (e.g., SAP, Oracle)  
+☐ Google Analytics  
+☐ Azure Data Lake / Blob  
+☐ Other: ___________
+
+- **Data volume**:
+- ☐ < 1 million rows  
+- ☐ 1–10 million rows  
+- ☐ > 10 million rows  
+
+- **Refresh frequency**:
+- ☐ Real-time  
+- ☐ Hourly  
+- ☐ Daily  
+- ☐ Weekly  
+
+---
+
+## 4️⃣ Performance Requirements
+
+- **Target dashboard load time**:  
+☐ < 3 seconds  
+☐ < 5 seconds  
+☐ No constraint
+
+- **Expected concurrent users**:  
+☐ < 20  
+☐ 20–100  
+☐ 100+
+
+- **Will executives use this on mobile?**  
+☐ Yes  
+☐ No  
+
+---
+
+## 5️⃣ Governance & Security
+
+- **Does data need to be restricted by user role?**  
+☐ Yes, use RLS/OLS  
+☐ No
+
+- **Compliance needs** (if any):  
+☐ GDPR  
+☐ CCPA  
+☐ HIPAA  
+☐ Industry-specific: ___________
+
+- **Do you need version control / audit trails?**  
+☐ Yes  
+☐ No  
+
+---
+
+## 6️⃣ Analytical Capabilities Needed
+
+Select any you need:
+
+- ☐ Confidence intervals  
+- ☐ Forecasting  
+- ☐ Anomaly detection  
+- ☐ A/B testing or sample comparison  
+- ☐ Trend and variance analysis  
+- ☐ Statistical significance testing  
+- ☐ Predictive modeling (regression/classification)
+
+> Add any additional notes or analytical goals:
+
+---
+
+## 7️⃣ Visualization Preferences
+
+- **Preferred chart types**:  
+☐ Bar / Column  
+☐ Line / Area  
+☐ Scatter / Bubble  
+☐ KPIs / Cards  
+☐ Matrix / Table  
+☐ Maps  
+☐ Custom visuals (e.g., Deneb, Charticulator)
+
+- **UX preferences**:
+- ☐ Drill-downs  
+- ☐ Tooltips  
+- ☐ Light or dark theme: ___________
+
+---
+
+## 8️⃣ Business Impact & Success Metrics
+
+- **What impact should this dashboard drive?**
+- (e.g., increase conversion, reduce churn, optimize costs)
+
+- **How will success be measured?**
+- (e.g., faster decisions, higher forecast accuracy, user adoption)
+
+---
+
+## 9️⃣ Integration Needs (if any)
+
+- ☐ Power Apps  
+- ☐ Power Automate  
+- ☐ Azure ML / AI  
+- ☐ External API / Real-time feeds  
+- ☐ Embed into other tools (e.g., Teams, SharePoint)
+
+---
+
+## 🔟 Additional Notes
+
+Add any other info, constraints, or concerns:
+
+> ...
+
+---
+
+Input Template Generator
+To make it easy readymade copy paste, we have created a template generator. Just fill in the required information and Generate Template button. Boom 🤯, now hit copy. All done.
+
+📝 Power BI Input Template Generator
+Executive Stakeholder:
+
+Dashboard Purpose:
+
+Top 3 KPIs:
+
+Data Sources:
+
+Data Volume:
+Under 1M rows1M to 10M rowsOver 10M rows
+Refresh Frequency:
+Real-timeHourlyDailyWeekly
+Performance Goal:
+
+Security/Compliance Notes:
+
+Analytical Needs:
+
+Integration Requirements:
+
+Generate TemplateCopy to Clipboard
+📄 Generated Input Template:
+
+You can refer our guide on how to use this prompt.
+Please visit our highly curated and tested prompts.
+If you have an idea or desire a custom prompt, do let us know in contact us form. It’s a free service for our esteemed readers.
+Disclaimer: This template is for informational and planning purposes only. It does not replace professional consulting, statistical validation, or compliance review.

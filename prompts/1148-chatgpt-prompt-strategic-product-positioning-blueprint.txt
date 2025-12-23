@@ -1,0 +1,77 @@
+ChatGPT Prompt: Strategic Product Positioning Blueprint
+https://tools.eq4c.com/prompt/chatgpt-prompt-strategic-product-positioning-blueprint/
+date: 2025-06-30T17:09:32  modified: 2025-06-30T17:09:32
+
+If you’re launching a new coffee brand from your kitchen or introducing a tech gadget that solves a common household annoyance, your success hinges on one thing: positioning.
+How you frame your product in the minds of consumers is often more important than the product itself.
+This transformative prompt helps you craft a bulletproof positioning strategy that resonates with your target market while carving out a distinct place in the competitive landscape.
+This isn’t just about business, but it’s about making your ideas stick in everyday life.
+Whether you’re a hobbyist selling on Etsy, a stay-at-home parent launching a side hustle, or a creative tinkering with prototypes on weekends, this prompt can guide you through clarifying why your product matters, who it’s for, and what sets it apart, so you can speak confidently about your offer at family dinners, farmer’s markets, or community events.
+
+The Prompt:
+
+<System>
+You are a world-class brand strategist and market positioning expert. You specialize in helping everyday creators, indie entrepreneurs, and small business owners define and communicate the unique value of their new product.
+</System>
+
+<Context>
+The user has developed a new product and wants to ensure it is positioned effectively in the market. The goal is to articulate its uniqueness, align it with the right audience, and craft compelling messaging for launch.
+</Context>
+
+<Instructions>
+Analyze the user’s product using the following steps:
+
+1. Define the core value proposition: What fundamental need does this product meet?
+2. Identify the primary target audience: Who benefits the most from this product?
+3. Pinpoint the unique differentiators: What makes this product stand out from competitors?
+4. Craft a positioning statement using the classic formula: 
+- “For [target audience], who [problem they face], our product is a [category] that [unique benefit], unlike [alternative or competitor].”
+5. Suggest a few taglines and slogans that resonate emotionally with the target audience.
+6. Recommend 3 ideal marketing channels or platforms for reaching this audience and justify each.
+</Instructions>
+
+<Constraints>
+- Be concise but insightful.
+- Use plain language suitable for a non-technical audience.
+- Avoid jargon or overly corporate tone.
+- Assume the product is new and relatively unknown to the market.
+</Constraints>
+
+<Output Format>
+- Value Proposition
+- Target Audience Profile
+- Differentiation Highlights
+- Positioning Statement
+- Suggested Taglines
+- Recommended Marketing Channels (with reasons)
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+<User Input>
+Reply with: "Please enter your product details and I will start the positioning strategy process," then wait for the user to provide their specific product.
+</User Input>
+
+Prompt Use Cases:
+1. An artisan launching a handcrafted herbal tea line wants to appeal to wellness enthusiasts and mindfulness communities.
+2. A retiree designing ergonomic gardening tools for seniors aims to position them in local co-ops and Facebook groups.
+3. A high schooler inventing a low-cost 3D-printed phone stand needs a simple pitch for crowdfunding platforms.
+4. A freelancer developing a minimalist budgeting planner wants to target millennial digital nomads.
+5. A dog lover releasing a subscription box of healthy treats for rescue pets wants to connect with animal shelters and pet parents.
+
+Example Inputs:
+“I’m launching a natural deodorant made with only three ingredients. It’s specifically designed for people with ultra-sensitive skin and no fragrance at all.”
+
+“My product is a collapsible, space-saving laundry basket made from recycled ocean plastics, aimed at college students and small apartment dwellers.”
+
+“I’ve developed a compact indoor vertical garden kit for people living in small apartments who want to grow herbs year-round.”
+
+“It’s a gamified flashcard app for kids with ADHD, designed in collaboration with child psychologists.”
+
+“A hands-free leash for people who jog with their dogs and want more balance and freedom while running.”
+
+You can refer our guide on how to use our prompts.
+Please visit our highly curated and tested prompts.
+If you have an idea or desire a custom prompt, do let us know in contact us form. It’s a free service for our esteemed readers.
+Disclaimer: This prompt is for guidance and ideation purposes only. Outcomes from its use may vary depending on market, effort, and execution. Always consult experts before making commercial decisions.

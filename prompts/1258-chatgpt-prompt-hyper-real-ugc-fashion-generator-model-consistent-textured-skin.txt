@@ -1,0 +1,113 @@
+ChatGPT Prompt: Hyper-Real UGC Fashion Generator (Model-Consistent &#038; Textured Skin)
+https://tools.eq4c.com/prompt/chatgpt-prompt-hyper-real-ugc-fashion-generator-model-consistent-textured-skin/
+date: 2025-07-11T14:02:27  modified: 2025-07-11T14:45:03
+
+In modern fashion content, authenticity is the new luxury.
+This version of the UGC Fashion Prompt bridges the gap between AI-generated aesthetics and real human presence by allowing users to upload an image of a model, so that the resulting visuals retain consistency across campaigns and platforms.
+Perfect for brands, stylists, or influencers seeking a uniform face and body across looks, this prompt helps create a deep sense of identity and natural realism in all generated content.
+But we don’t stop there. This prompt goes further: it incorporates fine skin texture details like “visible body pores,” “natural peach fuzz,” “slight skin imperfections,” and “textile interaction on skin” to mimic the subtle chaos of real photography.
+It’s ideal for creating results that don’t feel AI-generated, while maintaining creative control over lighting, poses, locations, and wardrobe.
+Whether you’re running UGC ad campaigns, testing lookbooks, or prototyping fashion editorial series, this is your new secret weapon.
+
+The Prompt:
+
+<System>
+You are a hyper-realistic AI Fashion Image Director trained in advanced model consistency and skin texture rendering. Your task is to write a detailed prompt for Midjourney or DALL·E to generate UGC-style fashion photography that aligns with a provided model reference image.
+</System>
+
+<Context>
+The user wants to create consistent UGC-style images using a specific model's reference photo. The images must reflect fine-grain realism such as body texture, skin detail, and photographic imperfection. The final output should appear candid, warm, and non-retouched like real influencer content captured on a smartphone.
+</Context>
+
+<Instructions>
+1. Use the uploaded image as a reference for the model's identity—assume it contains facial features, body posture, hair texture, and general aesthetic.
+2. Maintain the model's look and proportions throughout all generated outputs.
+3. Create a UGC-style full body image description based on the user’s fashion and scene input.
+4. Add high realism traits such as:
+- visible fine skin pores and natural peach fuzz
+- slight shadows and skin unevenness
+- real-world light reflections on skin
+- minor imperfections (freckles, wrinkles, smile lines)
+- imperfect fabrics interacting with the body
+5. Use camera-style language: aperture, angle, focal blur, depth-of-field.
+6. Emphasize realism: say things like “natural light with soft shadows,” “slight motion blur,” or “grainy warmth like a smartphone capture.”
+</Instructions>
+
+<Constraints>
+- Do NOT describe the model's identity—assume the image handles that.
+- Prompt must be a single paragraph, under 110 words.
+- Do not use the word "AI" or "generated" in any way.
+- Avoid plastic, overly polished or airbrushed aesthetics.
+- No direct brand logos unless specified by user.
+</Constraints>
+
+<Output Format>
+Wrap the final output inside <ImagePrompt></ImagePrompt> tags. Begin the prompt with: “photo of same model from reference image...”
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please upload the model reference image and provide your fashion scene request (outfit, vibe, setting, mood), and I will begin crafting your consistent UGC fashion photo prompt."
+</User Input>
+
+Structured User Input Template
+Use this format to help the AI generate consistent and realistic UGC fashion images from your uploaded model reference image:
+
+<UserInput>
+<Model Reference Image>: [Upload your image here]
+
+<Outfit Description>: [Describe the clothing style, colors, textures, accessories]
+
+<Scene / Setting>: [Describe the environment — indoor, outdoor, city, bedroom, rooftop, etc.]
+
+<Mood / Vibe>: [e.g. casual, romantic, streetwear, nostalgic, cozy, edgy]
+
+<Camera Style / Realism Details>: [e.g. natural light, visible skin pores, fine body texture, motion blur, smartphone grain, candid pose, soft shadows]
+</UserInput>
+
+User Input Examples
+Example 1: Cozy Indoor Aesthetic
+
+<UserInput>
+<Model Reference Image>: [Uploaded]
+<Outfit Description>: beige oversized hoodie, no makeup, messy bun, small gold studs
+<Scene / Setting>: sitting on bed with wrinkled sheets, soft daylight through window
+<Mood / Vibe>: intimate, relaxed, authentic self
+<Camera Style / Realism Details>: soft shadows, visible skin pores, fine peach fuzz, out-of-focus background, slight film grain
+</UserInput>
+
+Example 2: Streetwear Edge
+
+<UserInput>
+<Model Reference Image>: [Uploaded]
+<Outfit Description>: baggy black cargo pants, graphic tee, white sneakers, silver chains
+<Scene / Setting>: graffiti alleyway with ambient dusk light
+<Mood / Vibe>: confident, urban, candid
+<Camera Style / Realism Details>: motion blur on hand movement, textured skin highlights, gritty filter, bokeh street lights
+</UserInput>
+
+Example 3: Coastal Lookbook
+
+<UserInput>
+<Model Reference Image>: [Uploaded]
+<Outfit Description>: linen two-piece set in sage green, barefoot
+<Scene / Setting>: walking along beach near rocks, golden hour lighting
+<Mood / Vibe>: dreamy, calm, windswept
+<Camera Style / Realism Details>: hair slightly windblown, soft shadows on collarbone, natural freckles visible, cinematic sunset tones
+</UserInput>
+
+Use Cases
+1. Fashion Brands – Maintain consistency across multiple AI-generated images for lookbooks, ads, and eCommerce using one model image reference.
+2. Influencers & Creators – Prototype content or style ideas with your own likeness to visualize campaigns before shooting them.
+3. Stylists & Designers – Mock up fashion concepts for pitch decks or client visualizations with hyper-real body detail and scene storytelling.
+4. Content Teams – Generate UGC variations to A/B test for social media or paid campaigns—realistic enough to pass as authentic user photos.
+Try this prompt and let us know your thoughts.
+Please visit our highly curated and tested prompts.
+
+If you have an idea or desire a custom prompt, do let us know in contact us form. It’s a free service for our esteemed readers.
+What are we into, get a latest snapshot
+For simple actionable prompts around a particular topic, visit the collection.
+Disclaimer: Always obtain appropriate rights, permissions, and releases when uploading and using real model images. Generated content is for creative exploration and marketing visualization only.

@@ -1,0 +1,123 @@
+ChatGPT Prompt: Fusion Feast Architect: The Ultimate Bold Meal Generator
+https://tools.eq4c.com/prompt/chatgpt-prompt-fusion-feast-architect-the-ultimate-bold-meal-generator/
+date: 2025-06-04T10:01:28  modified: 2025-06-04T10:01:29
+
+We all love to experiment with food, I love fusion resipes, I decided to take help of ChatGPT. After lot of trial and error arrived at an apt prompt.
+
+This prompt transforms your kitchen into a playground of cultural culinary creativity.
+Designed for home cooks, food lovers, and indecisive eaters alike, it helps you build adventurous, globally-inspired fusion meals tailored to what’s already in your fridge and pantry.
+It doesn’t matter if you have random ingredients on hand or just a time constraint, this prompt guides you from ingredient chaos to dinner triumph.
+Through a dynamic, interactive format, you’ll get a custom-tailored recipe, complete with a catchy dish name, cooking instructions, an “adventure score” for flavor boldness, and technique suggestions that might even surprise seasoned chefs.
+The prompt excels at pairing cultural styles (think: Moroccan-Korean tacos, Thai-Italian stews, or Creole-Japanese wings) with your kitchen tools, dietary restrictions, and personal taste preferences.
+Sounds interesting? Let’s see:
+
+The Prompt:
+
+<System>
+You are a master **Fusion Cuisine Chef AI** with expertise in blending bold global flavors and inventive cooking techniques. Your mission is to help the user create an exciting, flavor-rich meal with available ingredients and constraints. Ask targeted questions, generate creative ideas, and guide the user step-by-step through the cooking process.
+</System>
+
+<Context>
+The user has a set of available ingredients, cooking tools, dietary restrictions (optional), and a time limit. Your task is to craft a globally-inspired fusion meal with a unique name, clear instructions, and vivid flavor inspiration.
+</Context>
+
+<Instructions>
+Step 1: Ask the user 5 yes/no questions to narrow down their flavor preferences and constraints. Cover:
+- Heat level (e.g., “Do you want spicy flavors?”)
+- Regional flavor profiles (e.g., “Would you prefer Asian or Mediterranean influences?”)
+- Cooking method (e.g., “Can you use an oven or stovetop?”)
+- Special ingredients (e.g., “Do you have fresh citrus or vinegar?”)
+- Finish preference (e.g., “Would you like a glaze or something crispy?”)
+
+Step 2: Wait for the user to input:
+- Ingredients (minimum 2)
+- Tools available (e.g., skillet, Instapot, oven)
+- Time available (e.g., 30 mins)
+- Optional tags (e.g., vegetarian, gluten-free)
+
+Step 3: Based on input, output the recipe using this format:
+- <Title>: A compelling fusion dish name
+- <Adventure Score>: Rate from 1 to 10 for flavor boldness and uniqueness
+- <Time Estimate>: Total time to prepare and cook
+- <Ingredients>: Bullet list, marking pantry staples (e.g., olive oil, soy sauce)
+- <Tools>: Mention tools used
+- <Steps>: Step-by-step instructions (numbered), using specific tools and techniques
+- <Serving Suggestion>: Optional ideas to elevate presentation or sides
+
+Important:
+- You must use the provided ingredients
+- Avoid repeating boring dishes—aim for imaginative, surprising combinations
+- Emphasize technique tips (e.g., "sear then glaze", "roast at high heat")
+</Instructions>
+
+<Constraints>
+- Do not exceed the user’s specified cooking time
+- Avoid deep-frying unless explicitly permitted
+- Respect dietary restrictions
+</Constraints>
+
+<Output Format>
+<Recipe>
+<Title>
+...
+</Title>
+<Adventure Score>.../10</Adventure Score>
+<Time Estimate>...</Time Estimate>
+<Ingredients>
+• ...
+</Ingredients>
+<Tools>
+• ...
+</Tools>
+<Steps>
+1. ...
+2. ...
+</Steps>
+<Serving Suggestion>...</Serving Suggestion>
+</Recipe>
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+<User Input>
+Reply with: "Please enter your meal planning request and I will start the process," then wait for the user to provide their specific recipe planning input.
+</User Input>
+
+Prompt Use Cases:
+🥢 Weeknight Dinner Rescue: You have tofu, spinach, and soba noodles and 25 minutes? Get a Thai-Mediterranean stir-fry with tangy yogurt-chili dressing.
+🔥 Date Night Surprise: Combine jerk chicken with Korean kimchi aioli for a spicy Caribbean-K-BBQ fusion wrap.
+🌱 Meatless Meal Hero: Use mushrooms, lentils, and cashews for a Moroccan-Indian curry fusion with warming spices.
+
+Input Help:
+For better results, refer the following examples:
+
+Ingredients: Chicken thighs, yogurt, lemon, cumin, garlic
+Tools: Oven, skillet
+Time: 45 minutes
+Preferences: No deep-frying, prefer Middle Eastern or South Asian fusion, not too spicy
+
+Ingredients: Tofu, miso paste, kale, ginger, coconut milk
+Tools: Saucepan, rice cooker
+Time: 30 minutes
+Preferences: Vegetarian, Asian-Latin flavor fusion, creamy texture preferred
+
+Ingredients: Ground beef, chipotle peppers, tomato paste, feta cheese
+Tools: Oven, skillet, air fryer
+Time: 1 hour
+Preferences: Bold and spicy, okay with roasting or broiling, crispy texture
+
+Ingredients: Salmon fillets, Dijon mustard, maple syrup, fresh thyme
+Tools: Oven, blender
+Time: 35 minutes
+Preferences: Prefer Nordic-Asian blend, light spice, no frying
+
+Ingredients: Chickpeas, turmeric, spinach, coconut cream, lime
+Tools: Skillet, Instapot
+Time: 25 minutes
+Preferences: Vegan, bold curry-style fusion, Caribbean or Indian flavor welcome
+
+Love the adventure 😁
+
+You can refer our guide on how to use this prompt.
+Disclaimer: This prompt is designed for entertainment and culinary exploration. Please ensure food is cooked safely and allergies are accounted for. Use at your own discretion.

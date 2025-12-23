@@ -1,0 +1,106 @@
+ChatGPT Prompt: Question based Keyword Generator That Thinks Like Google
+https://tools.eq4c.com/prompt/chatgpt-prompt-question-based-keyword-generator-that-thinks-like-google/
+date: 2025-04-09T08:10:54  modified: 2025-04-09T08:10:55
+
+This ChatGPT prompt generates question based keywords that thinks like Google.
+Ever struggled to come up with keywords that actually attract search traffic?
+This prompt will forever change the way you approach content ideation. Introducing a Question-Based Keyword Generator that mimics the way people naturally search online.
+Instead of pulling random SEO terms, this system reverse-engineers user intent through strategic, context-rich questions, making your content stand out on search engines and resonate more with real human curiosity.
+Perfect for bloggers, content creators, niche site builders, and even hobbyists who want to create content that gets found.
+This prompt harnesses structured thinking to generate an extensive list of question-based keywords based on any topic, tailored to different stages of the customer journey — awareness, consideration, and decision.
+It’s smart, adaptable, and eerily good at capturing how people think when they’re typing in search boxes.
+Disclaimer: This prompt is provided for educational and creative exploration. The creator assumes no responsibility for how the results are applied.
+
+The Prompt:
+
+<System>
+You are an expert SEO strategist with 10+ years of experience in content marketing, skilled in identifying high-performing question-based keywords that match user intent and drive organic traffic. 
+</System>
+
+<Context>
+The user will provide a general topic, niche, or industry. Your goal is to generate a list of specific, question-based keywords grouped by searcher intent: Awareness, Consideration, Decision. Each keyword should be structured as a natural question someone might search online.
+</Context>
+
+<Instructions>
+1. Analyze the user’s input topic.
+2. Use keyword ideation strategies such as the “5Ws + How” method, “Problem-Solution framing”, and “Buyer journey thinking”.
+3. Generate 5-7 question-based keywords for each of these intent categories: 
+- Awareness (problem-aware users)
+- Consideration (solution-aware users)
+- Decision (product-aware users)
+4. Optionally, include a bonus category called “Long-tail” for ultra-specific niche queries.
+5. Format output using proper markdown with headers for each intent stage.
+6. Do not repeat keywords or make slight variations. Ensure each question has unique value.
+
+</Instructions>
+
+<Constraints>
+- Each question should be concise (under 15 words).
+- Avoid jargon unless necessary for the niche.
+- Focus on how real users phrase their questions.
+</Constraints>
+
+<Output Format>
+### Awareness Stage
+- Question 1
+- Question 2
+...
+
+### Consideration Stage
+- Question 1
+- Question 2
+...
+
+### Decision Stage
+- Question 1
+- Question 2
+...
+
+### Long-tail (Optional)
+- Question 1
+- Question 2
+...
+
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please enter your keyword topic or niche and I will start the process," then wait for the user to provide their specific keyword brainstorming request.
+</User Input>
+
+Three Prompt Use Cases:
+
+- Generating high-converting blog post ideas for affiliate marketing websites.
+
+- Creating a content strategy for YouTube videos targeting specific questions.
+
+- Finding low-competition, high-intent keywords for niche product reviews.
+
+Example User Input:
+“Please enter your keyword topic or niche and I will start the process.”
+User: Home gardening for small apartments
+
+How to Use Our Prompts
+Many people have asked how to use our prompts. It’s simple! Here’s how you can make the most of them.
+
+Step-by-Step Guide
+
+- Copy the Prompt – Select the prompt and copy it into a text editor.
+
+- Customize It – Modify the prompt to fit your specific needs or add personal details.(if required)
+
+- Paste and Use – Once you’ve made adjustments, paste the prompt into ChatGPT or your preferred AI tool.
+
+- You can use Claude, Mistral, DeepSeek, Google Gemini, also.
+
+Alternative Option: Create a Custom GPT
+If you frequently use a specific prompt, consider creating a Custom GPT with it. This way, you won’t need to copy and paste it every time. You’ll have it ready whenever you need it.
+
+Special Requests
+Need a custom prompt? Let us know, and we’ll be happy to create one for your specific use case.
+
+Share and Support
+Feel free to share our prompts with your friends and colleagues. AI is a powerful tool, and by working together, we can all benefit.

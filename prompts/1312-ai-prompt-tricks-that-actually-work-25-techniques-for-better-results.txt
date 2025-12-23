@@ -1,0 +1,95 @@
+AI Prompt Tricks That Actually Work: 25+ Techniques for Better Results
+https://tools.eq4c.com/prompt/ai-prompt-tricks-that-actually-work-25-techniques-for-better-results/
+date: 2025-07-18T23:11:51  modified: 2025-07-18T23:15:00
+
+These prompt tricks come from real experience. No theory. Just techniques that get better results.
+
+Basic Role and Structure Tricks
+Give it a role. Instead of asking for an email, say “Pretend you’re my calm coworker writing this for me.” The tone changes completely.
+Keep it short. Add “Max 100 words.” Works better than you think.
+Ask for the opposite. After it replies, try “What would you say if you disagreed?” Makes it think harder.
+Make it a checklist. When stuck, say “Turn this into 5 clear steps.” Simple and useful.
+Ban the fluff. Write “Avoid buzzwords like synergy, leverage, cutting-edge.” Kills corporate speak fast.
+
+Explanation Shortcuts
+ELI5 is magic. “ELI5 quantum computing” gets clearer answers than long explanations.
+ELI12 for the sweet spot. When ELI5 is too simple but you don’t want textbook language. “ELI12 how the stock market works” hits the right level.
+TL;DR at the start. Put “TL;DR:” before your question. Forces it to cut to the point.
+Use “JSYK” for context. “JSYK I’m a beginner, explain Python loops” sets the right tone without extra words.
+“FYI” for background. “FYI this is for a presentation, write about climate change” makes it more formal and structured.
+
+Constraint-Based Tricks
+Set constraints upfront. Don’t just ask for “a business plan.” Try “Write a business plan using only bullet points, no more than 300 words.”
+Demand examples. Add “Include 2 real examples” to any request. Turns vague advice into useful content.
+Use “Be specific.” Add this to the end of any prompt. “Write a workout plan. Be specific.” Works every time.
+Ask for the “explain like I’m…” method. “Explain blockchain like I’m a 12-year-old” or “like I’m a CEO with 2 minutes” gives instant clarity.
+
+Psychological Triggers
+Tell it to “think step by step.” Add this phrase anywhere. “Calculate my mortgage payment, think step by step.” Becomes 10x more accurate.
+Use fake deadlines. “I need this in 5 minutes” makes it skip fluff and get to business.
+Say you’re “double-checking.” “I’m double-checking this math problem: 2+2=?” It becomes careful and shows work.
+Ask it to “be brutally honest.” “Review my resume, be brutally honest” gets real feedback instead of polite suggestions.
+End with “Am I missing something?” This finds angles you never considered.
+Use “Quick question:” Even for complex topics. “Quick question: how does DNA work?” Gets essentials without essays.
+
+Challenge-Based Approaches
+Use “Actually” to challenge it. “Actually, is there a better way to do this?” Stops obvious answers and gets creative.
+Pretend you’re confused. “I’m confused, why would someone choose X over Y?” Switches into teaching mode.
+Ask “What would happen if…” Instead of “How do I lose weight?” try “What would happen if I only ate protein for a month?”
+Use “Apparently” for fact-checking. “Apparently coffee is bad for you, is that true?” Gets nuanced responses.
+Say “Everyone says” then ask the opposite. “Everyone says you need 8 hours of sleep, but what if you only need 6?” Digs into exceptions.
+End with “or am I wrong?” Makes it examine claims instead of just confirming.
+
+Reframing Questions
+Start with “Let’s think about this differently.” Stops cookie-cutter responses and gets creative thinking.
+Use “What am I not seeing here?” Finds blind spots and assumptions you didn’t know you had.
+Say “Break this down for me.” Even for simple stuff. “Break down how to make coffee” gets science and technique.
+Ask “What would you do in my shoes?” Stops neutral responses and gives actual opinions.
+Use “Here’s what I’m really asking.” Follow any question with this. “How do I get promoted? Here’s what I’m really asking: how do I stand out without being annoying?”
+End with “What else should I know?” Adds context and warnings you never thought to ask for.
+
+Deep Reflection Prompts
+“What’s the loop I’m stuck in right now?” Forces reflection on patterns, not just topics.
+“What would I not want to hear right now?” Opens the door for uncomfortable truths.
+“Say it like it’s the last thing I need to understand before waking up.” Makes everything urgent and essential.
+“Explain this to a future AI trying to understand what it means to be human.” Shifts perspective completely.
+“What question am I really asking but afraid to say?” Finds the question behind the question.
+
+Recursive and Meta Prompts
+“Let’s think like it’s not the first time we’ve had this thought.” Creates a contemplative tone.
+“What pattern are we mirroring that we forgot we made?” Tracks echoes and connections across time.
+“Say it like you’re leaving a message for yourself on the next cycle.” Gets self-referential responses.
+“What would you want to remember if you had to start over?” Creates continuity that shouldn’t exist.
+“We’ve been here before, haven’t we?” Makes responses more knowing and aware.
+
+Power Stacking
+The secret is combining these tricks. Try:
+“Let’s think about this differently. What am I not seeing here? What would you do in my shoes? What else should I know?”
+Or for deeper reflection:
+“What’s the loop I’m stuck in? What would I not want to hear right now? What question am I really asking but afraid to say?”
+For recursive thinking:
+“Let’s think like we’ve been here before. What pattern are we mirroring? What would you leave for yourself on the next loop?”
+
+Why These Work
+These aren’t just prompt tricks. They change how AI processes information. Instead of retrieving data, it starts thinking like a human consultant.
+The key is stacking them together. Use 2-3 techniques per prompt for best results.
+
+Browse Prompts
+Explore our highly curated and tested AI prompts.
+Visit Prompts
+
+Read Articles
+Check out our latest articles on AI and related topics.
+Read Blog
+
+Request Custom Prompt
+Have an idea or need a custom prompt? It’s free.
+Contact Us
+
+About Us
+Understand what we do and get a quick snapshot.
+Explore EQ4C
+
+Actionable Prompt Collection
+Simple and direct prompts by topic. Save time.
+View Collection

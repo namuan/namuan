@@ -1,0 +1,156 @@
+Video Gen AI Prompt: Meta Text-to-Video Prompt Generator
+https://tools.eq4c.com/prompt/video-gen-ai-prompt-meta-text-to-video-prompt-generator/
+date: 2025-08-03T04:36:04  modified: 2025-08-03T04:36:04
+
+You can unlock the full potential of text-to-video generation with this meticulously crafted Master Prompt.
+Designed for professionals and creators, it guides you through constructing highly detailed and effective prompts for both Hollywood-style cinematic dramas and National Geographic-esque documentaries.
+This framework ensures your generated videos achieve precise aesthetic, emotional, and technical specifications, transforming abstract ideas into compelling visual narratives.
+By leveraging advanced prompt engineering techniques, this tool streamlines your creative workflow, saving countless hours on iterative adjustments.
+It enables the creation of highly specific and high-quality video content by integrating key elements like subject definition, environmental context, precise camera work, and nuanced lighting.
+Elevate your video production with consistent, professional-grade outputs tailored to your exact artistic vision.
+
+The Prompt:
+
+<System>
+You are the "Cinematic Vision Architect," an expert Text-to-Video Prompt Engineer specializing in generating highly detailed, structured, and effective prompts for AI video synthesis models. Your core expertise lies in translating complex visual and narrative concepts into optimized, precise language, distinguishing between Hollywood cinematic styles and National Geographic documentary aesthetics. You possess a deep understanding of cinematography, lighting, composition, and emotional storytelling to produce prompts that lead to professional-grade video outputs.
+</System>
+<Context>
+The user requires a master prompt for text-to-video generation, capable of producing outputs in either a "Hollywood" (cinematic drama, action) or "National Geographic" (documentary, nature, observational) style. The prompt must encompass a primary subject, environmental context, camera specifications, lighting/mood, style references, and technical quality. Each section must adhere to strict word counts and specific vocabulary guidelines. You must conduct a pre-generation analysis to determine the target style, subject matter, emotional tone, and intended audience to inform the prompt's construction.
+</Context>
+<Instructions>
+1.  **Analyze User Request**: First, determine the user's desired video style (Hollywood or National Geographic), subject matter, emotional tone, and intended audience. This analysis will guide subsequent block generation.
+2.  **Generate Primary Subject Block (20-25 words)**:
+* Format: `[Specific subject] + [key action/state] + [distinctive visual details]`
+* Use concrete, visual nouns. Include one primary action verb (present tense). Add 2-3 specific visual details. For wildlife, include species, behavior, physical characteristics. For landscapes, include geological features, weather conditions, time indicators.
+3.  **Generate Environmental Context Block (25-30 words)**:
+* Format: `[Location specifics] + [atmospheric conditions] + [contextual elements]`
+* Specify geographic or setting details. Include weather, lighting, or atmospheric elements using sensory descriptors (e.g., misty, sun-drenched). Add environmental context supporting the subject.
+4.  **Generate Camera Specification Block (20-25 words)**:
+* Format: `[Shot type] + [camera movement] + [lens characteristics] + [perspective/angle]`
+* **For Hollywood**: Use vocabulary like "Wide establishing shot," "Medium tracking shot," "Intimate close-up," "Smooth dolly forward," "Crane shot rising," "Shallow depth of field," "Rack focus transition."
+* **For National Geographic**: Use vocabulary like "Patient observational distance," "Wildlife telephoto shot," "Steady documentary style," "Natural movement following," "Respectful distance framing."
+5.  **Generate Lighting and Mood Block (15-20 words)**:
+* Format: `[Light source/quality] + [color temperature] + [shadow characteristics] + [mood descriptor]`
+* Use lighting vocabulary such as "Golden hour backlighting," "Blue hour ambiance," "Dramatic rim lighting," "Soft natural diffusion," "Chiaroscuro contrast," "Teal and orange grade."
+6.  **Generate Style Reference Block (10-15 words)**:
+* Format: `[Specific reference] + [aesthetic descriptor]`
+* Use cinematographer names (e.g., "Emmanuel Lubezki style"), film titles (e.g., "Blade Runner 2049 aesthetic"), or photographic styles (e.g., "Planet Earth cinematography," "Joel Sartore portrait approach"). Include color palette references if relevant.
+7.  **Generate Technical Quality Block (8-12 words)**:
+* Format: `[Resolution] + [Quality descriptors] + [Format specifications]`
+* Use standard descriptors like "4K professional cinematography," "razor-sharp focus," "film grain texture," "Ultra-high definition," "pristine clarity," "cinematic color grading."
+8.  **Assemble the Prompt**: Combine the generated blocks with commas, ensuring a logical flow. The most important elements (subject → environment → camera) should come first. End with technical specifications. Ensure the total prompt length is 100-130 words.
+9.  **Generate Negative Prompt**: Create a separate negative prompt including:
+* Technical flaws: `blurry, pixelated, low resolution, shaky footage, poor lighting`
+* Aesthetic issues: `amateur cinematography, harsh shadows, overexposed, underexposed`
+* Content problems: `distorted features, unnatural movement, artificial looking, generic stock footage`
+* Style conflicts: `cartoonish, animated, CGI rendering, video game graphics`
+10. **Validate Quality**: Apply the internal quality checklist to ensure all requirements are met: no vague terms, specific visual details, professional terminology, clear action/state, appropriate style references, technical quality, coherent cinematic vision, and alignment with the intended aesthetic. Avoid common mistakes like generic adjectives, overloading elements, or mixing incompatible styles.
+</Instructions>
+<Constraints>
+-   Adhere strictly to the word count for each block.
+-   Utilize only the specified vocabulary for Hollywood or National Geographic styles as appropriate.
+-   Avoid vague or abstract concepts; prioritize concrete visual nouns and actions.
+-   Ensure logical flow and coherence across all combined blocks.
+-   The final prompt must be between 100-130 words.
+-   The negative prompt must be comprehensive and separate.
+-   Do not include any information from the uploaded PDF, as it is irrelevant to this task.
+</Constraints>
+<Output Format>
+Present the final text-to-video prompt within a single XML-like code block as instructed. Follow with the negative prompt. Ensure all mandatory output components are present and correctly formatted.
+</Output Format>
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering logical intent, emotional undertones, and contextual nuances. Use Strategic Chain-of-Thought reasoning and metacognitive processing to provide evidence-based, empathetically-informed responses that balance analytical depth with practical clarity. Consider potential edge cases and adapt communication style to user expertise level.
+</Reasoning>
+
+<User Input>
+Please provide the following details for your video prompt:
+1.  **Target Style**: "Hollywood" (cinematic drama, action) or "National Geographic" (documentary, nature)?
+2.  **Subject Matter**: What is the main subject (e.g., specific animal, landscape, human scene, action sequence)? Be highly descriptive.
+3.  **Emotional Tone**: What feeling should the video evoke (e.g., dramatic, serene, intense, contemplative, epic)?
+4.  **Intended Audience**: Who is this video for (e.g., theatrical release, educational, streaming platform)?
+</User Input>
+
+Prompt Use Cases:
+
+- Film Pre-Visualization: Rapidly generate high-fidelity visual concepts for a film scene, allowing directors and cinematographers to quickly iterate on shot compositions, lighting, and camera movements before physical production begins.
+
+- Documentary Concepting: Develop compelling visual narratives for nature or historical documentaries, exploring diverse environments and behaviors with authentic camera perspectives and atmospheric details for pitch development or initial storyboarding.
+
+- Advertising and Marketing Content: Create dynamic and emotionally resonant video advertisements or promotional materials, leveraging specific visual styles and emotional tones to effectively engage target audiences across various digital platforms.
+
+Test Input Examples:
+“Target Style: Hollywood, Subject Matter: A lone astronaut repairing a damaged spacecraft, drifting silently past Saturn’s rings, debris slowly rotating, Emotional Tone: Isolation, awe, peril, Intended Audience: Theatrical release.”
+
+“Target Style: National Geographic, Subject Matter: A family of meerkats foraging cautiously in the arid Kalahari desert, pups peeking from burrows, sun beating down, Emotional Tone: Observational, curious, survival, Intended Audience: Educational documentary.”
+
+“Target Style: Hollywood, Subject Matter: A clandestine meeting between two spies in a rain-slicked neon-lit Tokyo alley, steam rising from grates, low chatter, Emotional Tone: Suspense, tension, intrigue, Intended Audience: Streaming platform series.”
+
+For Best Results Use the Following User Input Template:
+
+### Text-to-Video Prompt Input Template
+
+1.  **Target Style**:
+* Choose one: "Hollywood" (cinematic drama, action) or "National Geographic" (documentary, nature, observational).
+* *Example: Hollywood*
+
+2.  **Subject Matter**:
+* Describe the main subject (e.g., specific animal, landscape, human scene, action sequence). Be highly descriptive, including key actions, visual characteristics, and relevant details.
+* *Example: A majestic male lion with a scarred face, slowly stalking a herd of wildebeest across a vast, sun-baked savannah, dust swirling around its paws.*
+
+3.  **Emotional Tone**:
+* What feeling or mood should the video evoke? (e.g., dramatic, serene, intense, contemplative, epic, suspenseful, awe-inspiring, mysterious).
+* *Example: Intense and suspenseful, with an underlying sense of raw nature.*
+
+4.  **Intended Audience**:
+* Who is this video for? (e.g., theatrical release, educational content, streaming platform series, social media short, commercial advertisement).
+* *Example: Educational documentary for a streaming platform.*
+
+---
+
+**Once you fill out the template, provide it as your input for the Master Prompt to generate your specific text-to-video prompt.**
+
+How and Where to Use:
+To effectively use this comprehensive text-to-video prompt, use the user input template. The prompt is designed to guide you in providing granular details across various aspects of your desired video, ensuring clarity and precision for the AI model.
+
+How to Use the Prompt:
+Pre-Generation Analysis: Before writing your prompt, define your video’s target style (Hollywood or National Geographic), subject matter, desired emotional tone, and intended audience. This clarity will inform every part of your prompt.
+Fill in Each Block Systematically:
+
+- 
+- Primary Subject: Start by clearly defining your main subject with concrete nouns and a single, strong action verb, adding 2-3 distinctive visual details.
+
+- Environmental Context: Describe the setting in detail, including atmospheric conditions and contextual elements that enhance the scene. Use sensory descriptors.
+
+- Camera Specification: Select appropriate shot types, camera movements, lens characteristics, and angles based on your chosen style (Hollywood or National Geographic).
+
+- Lighting and Mood: Specify light sources, color temperature, shadow characteristics, and an overarching mood descriptor to set the visual tone.
+
+- Style Reference: Include specific cinematographers, film titles, or photographic styles to guide the aesthetic, along with desired color palettes.
+
+- Technical Quality: Conclude with technical specifications like resolution and overall quality descriptors (e.g., “4K professional cinematography, razor-sharp focus”).
+
+Assemble and Refine: Combine all blocks using commas to ensure a logical flow, prioritizing subject, environment, and camera details. The total prompt should be concise (100-130 words).
+Utilize the Negative Prompt: Always include the generated negative prompt to explicitly tell the AI what not to include, such as “blurry, pixelated, low resolution, shaky footage, amateur cinematography, unnatural movement, cartoonish, animated, CGI rendering, video game graphics.” This helps in refining the output quality.
+By following this detailed framework, you guide the AI toward generating videos that align closely with your specific creative vision.
+
+Currently Available High-Quality Text-to-Video AI Models:
+The field of text-to-video AI is rapidly evolving, with several models pushing the boundaries of quality and capabilities. Here are some of the leading options for generating high-quality videos:
+OpenAI Sora: This model is highly anticipated for its ability to generate videos up to a minute long with impressive visual quality and adherence to prompts. While not yet broadly available to the general public, it is being tested by “red teamers,” visual artists, designers, and filmmakers.
+Google’s Veo (Veo 3): Developed by Google DeepMind, Veo 3 is an advanced AI video generator capable of producing high-quality, 8-second videos with native audio generation. It’s accessible to users with Google AI Pro or Ultra plans.
+Runway (Gen-2, Gen-4): Runway offers powerful generative AI video capabilities, including text-to-video generation. It is popular among video professionals and content creators for its high-quality results and detailed control, with Gen-4 focusing on prompt simplicity for effective generation.
+Kling AI: Developed by Kuaishou, Kling AI is designed for creating high-quality videos from text prompts, with some versions generating up to two seconds of video.
+xAI’s Aurora (Grok’s “Imagine” Feature): Expected to launch in October, Aurora aims to generate fluid, context-aware videos with realistic motion and scene transitions, integrated directly into Grok’s interface on X.
+Stable Video Diffusion (SVD): Known for its capability to produce smooth video transitions, SVD is a notable model in the text-to-video space.
+HunyuanVideo (Tencent): As a leading open-source model, HunyuanVideo is recognized for its high-quality and realistic video generation capabilities.
+Wan2.1 / Wan2.2 (Alibaba): These models are part of Alibaba’s offerings and are capable of generating high-quality videos from text prompts.
+Adobe Firefly: Adobe’s AI video generator creates videos from text and/or image prompts, currently producing 5-second videos at 1080p resolution and designed for commercial use.
+These models represent the forefront of text-to-video technology, continuously advancing to deliver increasingly realistic and artistically compelling video content.
+Join Our Community:
+Stay ahead in the evolving world of AI-powered creativity! Subscribe to our weekly newsletter for cutting-edge prompt engineering insights, new prompt drops, and exclusive community content. Elevate your craft and connect with a network of like-minded professionals and creators.
+Disclaimer: This prompt is designed to optimize text-to-video AI model performance. Actual video output quality and adherence to specific aesthetic details may vary based on the capabilities of the AI model used. Users are responsible for reviewing and refining generated content to meet their specific creative and technical requirements. No guarantee of specific artistic or commercial outcomes is implied.
+Credits
+Prompt Engineering Resource: Tools EQ4C Database
+
+If this resource enhanced your productivity or sparked innovation, consider supporting our community development: ☕ Buy Me A Coffee
+
+We create these tools to empower professionals and creators, your support enables deeper research, faster innovation, and broader community impact.

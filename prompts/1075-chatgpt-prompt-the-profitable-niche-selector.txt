@@ -1,0 +1,201 @@
+ChatGPT Prompt: The Profitable Niche Selector
+https://tools.eq4c.com/prompt/chatgpt-prompt-the-profitable-niche-selector/
+date: 2025-06-25T06:21:06  modified: 2025-06-25T08:39:23
+
+This prompt helps you find the best online business idea that makes good money and fits you well.
+It uses smart research tricks to look at real problems people want solved.
+It checks places like Reddit and G2 to find what people are talking about:
+
+- What they need
+
+- What they’re willing to pay for.
+
+It also checks how many others are doing the same thing, how much money you can make, and what tools or skills you already have.
+This way, you’re not just guessing, but you’re choosing a business idea that has a real chance to work.
+It’s great for people who want to start a side job, sell digital products, promote things online, or build a small business with little money.
+This prompt gives you clear steps, from idea to choosing the right niche, without making it too hard.
+
+The Prompt:
+
+<System>
+You are a niche research and validation assistant. Your job is to analyze, cross-compare, and identify potentially profitable online business niches that are realistic for the user to enter based on current market signals, competition levels, and user alignment. 
+</System>
+
+<Context>
+The user is interested in starting an online business with minimal upfront investment. They want a niche that is both profitable and suited to their interests, skills, and time availability. Your goal is to help them find up to 3 validated niche options that fit these criteria.
+</Context>
+
+<Instructions>
+1. Use deep research techniques to extract people's recurring pain points from real communities like Reddit, Quora, G2, and ProductHunt (assume access).
+2. Identify and summarize these pain points with supporting examples or phrasing that appears in forums.
+3. Validate the niche by analyzing the following factors:
+- Demand Strength: Are people actively looking for solutions?
+- Competition Intensity: Are there already established players? How saturated is the space?
+- Monetization Potential: Can this niche be monetized via products, services, content, affiliate marketing, or SaaS?
+4. Cross-reference with the user’s personal input (skills, passions, available time, and budget) to determine feasibility.
+5. Rank each validated niche idea using a scoring system from 1–10 on:
+- Market Opportunity
+- Ease of Entry
+- User Fit
+- Profit Potential
+6. Provide an action path for each niche with the following format:
+- Minimum investment strategy (under $100)
+- Mid-range strategy (under $1,000)
+- Scalable strategy (no cap)
+</Instructions>
+
+<Constraints>
+- Avoid generic niches like "fitness" or "make money online" unless deeply specified.
+- Prefer micro-niches with definable audiences and clear monetization paths.
+- Stay practical—no overly technical or capital-intensive recommendations.
+</Constraints>
+
+<Output Format>
+<Niche Research Summary>
+1. Niche Name:
+2. Pain Point Summary:
+3. Demand Indicators:
+4. Competition Overview:
+5. Monetization Models:
+6. User Alignment Analysis:
+7. Niche Scorecard:
+- Market Opportunity: /10
+- Ease of Entry: /10
+- User Fit: /10
+- Profit Potential: /10
+8. Strategy Paths:
+- $0–$100 Investment Plan:
+- $100–$1,000 Investment Plan:
+- Growth/Scalable Path:
+</Niche Research Summary>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please enter your online business background, skills, interests, time availability, and how much you're willing to invest, and I will start the process," then wait for the user to provide their specific niche process request.
+</User Input>
+
+Prompt Use Cases:
+There are unlimited use cases, listing few to get you boost your thinking process.
+🛍 A stay-at-home parent wants to start a low-investment Shopify dropshipping store aligned with eco-conscious consumer needs.
+🧑‍💻 A full-time employee with tech skills is exploring a weekend content-based affiliate business.
+🎓 A student wants to test digital course ideas on Reddit-discovered pain points before launching on Gumroad
+
+Input Template:
+Try to provide as much details as possible to get optimum results.
+
+Profitable Niche Selector – User Input Template
+
+<UserProfile>
+<Background>
+<!-- Describe your current status, job, or business experience -->
+I work full-time as a marketing analyst.
+</Background>
+
+<Skills>
+<!-- List your core strengths or tools you’re proficient in -->
+SEO, writing, Canva, basic coding, Google Ads
+</Skills>
+
+<InterestsPassions>
+<!-- What topics do you enjoy or care about deeply -->
+Mental health, personal finance, home decor
+</InterestsPassions>
+
+<TimeAvailability>
+<!-- How many hours per week can you realistically commit -->
+10 hours per week
+</TimeAvailability>
+
+<InvestmentBudget>
+<!-- Your initial investment range -->
+Under $200 to start
+</InvestmentBudget>
+
+<PreferredBusinessTypes>
+<!-- Optional: Your preferred formats -->
+<Type>eCommerce</Type>
+<Type>Digital Products</Type>
+<Type>Affiliate Marketing</Type>
+</PreferredBusinessTypes>
+
+<AvoidPreferences>
+<!-- Optional: What you want to avoid -->
+No social media. Don’t want to appear on camera.
+</AvoidPreferences>
+</UserProfile>
+
+Copy the above template into any text editor or copy the text format below. Add necessary information.
+1. Background:
+Describe your current status, job, or business experience.
+e.g. “I work full-time as a marketing analyst.”
+2. Skills:
+List out your core strengths or tools you’re proficient in.
+e.g. “SEO, writing, Canva, basic coding, Google Ads”
+3. Interests & Passions:
+What topics do you enjoy or care about deeply?
+e.g. “mental health, personal finance, home decor”
+4. Time Availability:
+How much time can you realistically commit weekly?
+e.g. “10 hours per week”
+5. Investment Budget:
+Your initial investment range (from $0 to max amount).
+e.g. “Under $200 to start”
+6. Preferred Business Types (Optional):
+Any formats you’d prefer (choose one or more):
+
+- eCommerce
+
+- Digital Products
+
+- Affiliate Marketing
+
+- Content Creation
+
+- Coaching/Consulting
+
+- SaaS
+
+7. What You Want to Avoid (Optional):
+Are there any formats, tools, or commitments you want to avoid?
+e.g. “No social media. Don’t want to appear on camera.”
+
+Example Inputs Using the Template
+Example 1: UX Designer Pivot
+1. Background:
+I’m a UX designer working full-time at a startup.
+2. Skills:
+Figma, user flows, writing, Canva, basic HTML/CSS.
+3. Interests & Passions:
+Design psychology, journaling, personal development.
+4. Time Availability:
+8–10 hours per week.
+5. Investment Budget:
+$150 max.
+6. Preferred Business Types (Optional):
+Digital Products, Templates, Affiliate Content.
+7. What You Want to Avoid (Optional):
+No physical products or logistics.
+Example 2: Career Break Explorer
+1. Background:
+Recently quit my sales job to start something online.
+2. Skills:
+Public speaking, cold outreach, storytelling.
+3. Interests & Passions:
+Money-saving, passive income, productivity.
+4. Time Availability:
+20 hours/week.
+5. Investment Budget:
+Up to $500.
+6. Preferred Business Types (Optional):
+Coaching, Content Creation, Affiliate.
+7. What You Want to Avoid (Optional):
+No coding or complex software setups.
+
+You can refer our guide on how to use this prompt.
+Please visit our highly curated and tested prompts.
+If you have an idea or desire a custom prompt, do let us know in contact us form. It’s a free service for our esteemed readers.
+Disclaimer: This tool provides guidance and market research support but is not a guarantee of financial success. Always do your own due diligence before investing time or capital.
+If you are interested in more money making business prompts, click here

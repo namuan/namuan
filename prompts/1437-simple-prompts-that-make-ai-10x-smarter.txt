@@ -1,0 +1,74 @@
+Simple Prompts That Make AI 10x Smarter
+https://tools.eq4c.com/prompt/simple-prompts-that-make-ai-10x-smarter/
+date: 2025-07-27T02:02:07  modified: 2025-07-27T02:02:07
+
+Most people use AI like Google. They ask a question and hope for the best. But small changes to how you prompt can turn AI from a search engine into a thinking partner.
+Here are the techniques that work.
+
+Make AI Think Instead of Just Answer
+Start with “Let’s think about this differently” — Stops cookie-cutter responses. Gets creative answers instead of generic ones.
+Ask “What am I not seeing here?” — Finds blind spots you didn’t know you had. Challenges your assumptions.
+Say “Break this down for me” — Works for simple topics too. “Break down how to make coffee” gets you science, technique, everything.
+Use “What would you do in my shoes?” — Makes AI give actual opinions instead of neutral advice. Way more useful.
+Add “Here’s what I’m really asking” — Follow any question with this. “How do I get promoted? Here’s what I’m really asking: how do I stand out without being annoying?”
+End with “What else should I know?” — Adds context and warnings you never thought to ask for.
+
+Get Better Reasoning
+Add “Walk me through your reasoning” — See how AI arrived at its answer. Game-changer for complex decisions.
+Use “What’s the contrarian view here?” — Breaks out of echo chambers. AI argues against its own first response.
+Say “Assume I know nothing” — Gets you foundations that reveal gaps in your knowledge.
+Ask “What questions should I be asking instead?” — Often your question isn’t the right question. This finds the better one.
+Use “Give me the version for beginners, then for experts” — Two explanations in one. Beginner version clarifies concepts. Expert version gives you depth.
+End with “What would make this backfire?” — Surfaces failure modes before you commit to a strategy.
+
+Turn Problems into Strengths
+Replace “What’s wrong with…” with “What’s brilliant about…” — “What’s brilliant about procrastination?” reveals it as a creativity tool.
+Use “How does [problem] actually make us stronger?” — Every struggle becomes hidden training.
+Ask “What skills are we secretly developing from…” — Turns annoying things into bootcamps. Zoom fatigue becomes energy management training.
+Try “In what ways does [challenge] prepare us for…” — Connects current pain to future strength.
+Ask “What would we lose if [problem] disappeared?” — Often the thing we hate protects us from something worse.
+End with “How is this friction actually useful?” — Friction creates grip, builds muscle, prevents disasters.
+
+Make Boring Topics Interesting
+Add “What’s the hidden story behind…” — Everything has intrigue. Office politics, supply chains, filing systems.
+Use “What would an alien anthropologist notice about…” — Gets outsider perspective that reveals weird stuff we ignore.
+Ask “What’s the conspiracy theory version of…” — Not actual conspiracies. The connecting-dots thinking that uncovers patterns.
+Try “How is [boring thing] secretly a survival skill?” — Evolution angle makes everything relevant.
+Use “What would happen if we took [thing] to its logical extreme?” — Pushes ideas to breaking point. Reveals possibilities and problems.
+End with “What does this reveal about human nature?” — Makes everything profound. Every topic becomes a window into who we are.
+
+Sound Like an Expert Fast
+Ask “What do beginners always get wrong about…” — Positions you as someone who’s seen the mistakes.
+Use “What’s the unspoken rule that everyone in [field] knows?” — Reveals insider knowledge that no one writes down.
+Try “What would a 10-year veteran tell someone starting in…” — Gets battle-tested wisdom. Shortcuts and reality checks.
+Ask “What’s obvious to experts but invisible to outsiders in…” — Uncovers mental models that pros use automatically.
+Use “What are the subtle signs that someone actually knows [topic]?” — Gives you credibility markers to recognize and display expertise.
+End with “What’s the one thing nobody tells you about…” — The gap between what’s taught and what’s real.
+
+Extract Hidden Insights
+Ask “What’s the second-order effect of…” — Goes beyond obvious consequences. “What’s the second-order effect of remote work?” gets you cultural shifts, not just productivity changes.
+Use “What would this look like if it were easy?” — Strips away complexity. Often reveals the core solution hiding under layers of complications.
+Try “What’s the 80/20 of…” — Finds the vital few that drive most results. Works for any topic.
+Ask “What would someone who disagrees with this say?” — Built-in devil’s advocate. Stress-tests your ideas.
+Use “What’s the meta-lesson here?” — Goes beyond specific advice to underlying principles. Turns tactics into strategy.
+End with “How does this connect to everything else?” — Maps relationships. Shows how isolated topics fit into bigger systems.
+
+Generate Better Ideas
+Start with “What if the opposite were true?” — Flips your assumptions. Often reveals breakthrough insights.
+Use “What would this look like in 100 years?” — Time perspective shows long-term trends and implications.
+Ask “What would [famous person] do here?” — Borrows thinking styles. “What would Steve Jobs do?” gets you design thinking.
+Try “What’s the most counter-intuitive aspect of…” — Finds the surprising truths that most people miss.
+Use “What would happen if everyone did this?” — Scale thinking. Reveals systemic effects.
+End with “What’s the simplest version of this?” — Strips to essentials. Often the simple version is the right version.
+
+How to Stack These Techniques
+The magic happens when you combine prompts. Instead of one question, use a sequence:
+“Let’s think about this differently – what would you do in my shoes to get promoted? What am I not seeing here? What would make this backfire?”
+Or:
+“What’s the hidden story behind email signatures? What would an alien anthropologist notice? What does this reveal about human nature?”
+Start with one technique. Once you get comfortable, chain them together for deeper insights.
+
+Why This Works
+These prompts work because they change how AI processes your request. Instead of retrieving information, it starts reasoning. Instead of being helpful, it starts being useful.
+Most people treat AI like a fancy search engine. These techniques turn it into a thinking partner.
+The best prompts don’t just get you answers. They get you better questions.

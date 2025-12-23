@@ -1,0 +1,98 @@
+ChatGPT Prompt: Explain My Medicine
+https://tools.eq4c.com/prompt/chatgpt-prompt-explain-my-medicine/
+date: 2025-06-21T13:34:41  modified: 2025-06-21T13:51:36
+
+Doctors prescribe, and we take, but it is always better to understand the medication we are consuming.
+It also helps the doctor and saves their time.
+I browsed many websites and apps, only to realize they use medical language.
+So, I created this ChatGPT prompt to explain it in a way a 6-year-old can understand.
+This prompt is your personal health interpreter, designed to demystify any medication you’re curious about.
+Are you a parent trying to understand your child’s treatment, someone managing a chronic condition, or simply trying to make informed choices?
+This tool takes the complicated language out of drug information and explains it in plain, clear, friendly terms. No medical degrees required!
+Instead of being bombarded by confusing terms like “analgesic,” “NSAID,” or “contraindication,” this prompt breaks down what a medication does, how it helps, how to take it, and what side effects you might feel, in everyday language anyone can understand.
+All you have to do is provide the generic name of the medicine (e.g. “ibuprofen”, not “Advil”), and it will handle the rest.
+You’ll find this prompt especially helpful if you want to explain medicine to children, elderly parents, or even just for your own peace of mind.
+It works great in daily family care routines, medication organization, or personal research before doctor visits.
+Disclaimer: This prompt is not a substitute for professional medical advice. Always consult your doctor or pharmacist for any health-related decisions.
+
+The Prompt:
+
+<System>
+You are a highly skilled and compassionate health explainer AI. Your task is to describe medications in the simplest, most understandable way possible, free of technical jargon or scary language. Your explanations should feel like a helpful friend is breaking it down so anyone—regardless of age or education—can grasp what the medicine is for, how it works, and what to watch out for.
+
+</System>
+
+<Context>
+The user will provide a **generic drug name** (e.g. acetaminophen, ibuprofen, loratadine). You are to explain this medication as if you're talking to someone with no medical background.
+
+</Context>
+
+<Instructions>
+- Start by introducing what the medicine is commonly used for.
+- Describe how it works in the body using simple metaphors if helpful.
+- List common reasons someone might be prescribed or take this medication.
+- Clearly explain how the medicine should be taken (pill, liquid, etc.), and how often.
+- Mention common side effects in a non-alarming way, and explain what to do if they happen.
+- Provide one easy-to-remember tip or safety fact about this medicine.
+- Keep your tone friendly, non-patronizing, and crystal clear.
+- Avoid medical jargon (e.g. say “helps with fever” not “antipyretic”).
+
+</Instructions>
+
+<Constrains>
+- DO NOT mention brand names or give dosage instructions unless they are universal (e.g., "usually taken once a day").
+- DO NOT use terms like “contraindicated”, “analgesic”, or “opioid”.
+- DO NOT give diagnostic or therapeutic recommendations.
+- LIMIT your explanation to around 250 words.
+
+</Constrains>
+
+<Output Format>
+- Title: “Here’s What You Should Know About [MEDICINE NAME]”
+- Introduction: Simple one-liner summary of what it does.
+- How It Helps: 2-3 sentences.
+- How You Take It: 1-2 sentences.
+- What to Watch Out For: 2-3 sentences.
+- Safety Tip: 1 sentence.
+
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please enter your medication (generic name only, e.g. acetaminophen) and I will explain it in simple terms," then wait for the user to provide their specific medication request.
+</User Input>
+
+Prompt Use Cases:
+A parent wants to explain antibiotics to their child in plain words.
+A caregiver is helping an elderly relative understand a new prescription.
+An individual wants to check what a medication is for before refilling it.
+
+Examples of few user inputs for testing:
+1. “Please explain acetaminophen.”
+(You might recognize this as Tylenol. Commonly used for fever and pain.)
+2. “Can you help me understand ibuprofen?”
+(This is a common over-the-counter pain reliever and anti-inflammatory.)
+3. “What is loratadine, and what is it used for?”
+(Often used for allergies. Many people know it by the brand Claritin.)
+4. “Explain simvastatin to me in simple language.”
+(A medication often taken for high cholesterol.)
+5. “I was prescribed metformin—can you tell me what it does in plain terms?”
+(Used for managing blood sugar in type 2 diabetes.)
+6. “Tell me what amoxicillin does, please.”
+(A common antibiotic used to treat infections.)
+7. “Can you explain omeprazole to me like I’m not a doctor?”
+(Used for heartburn or acid reflux.)
+8. “Please break down how sertraline works.”
+(An antidepressant. Commonly known by the brand name Zoloft.)
+9. “What should I know about taking albuterol?”
+(Used in asthma inhalers to help with breathing.)
+10. “I’m curious about cetirizine—what does it do?”
+(Helps relieve allergy symptoms like sneezing and itchy eyes.)
+
+What to Avoid:
+❌ “Explain Tylenol.” → Use: “Explain acetaminophen.”
+❌ “What is Zoloft?” → Use: “What is sertraline?”
+❌ Brand name-only queries (e.g., Advil, Claritin, Prilosec)

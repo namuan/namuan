@@ -1,0 +1,103 @@
+8 Midjourney Prompts for Visual Styles &#038; Cinematic Composition
+https://tools.eq4c.com/prompt/8-midjourney-prompts-for-visual-styles-cinematic-composition/
+date: 2025-07-11T17:45:56  modified: 2025-07-11T17:45:56
+
+This collection covers different photography styles and moods. Each prompt creates specific visual effects using lighting, composition, and camera settings. Perfect for users who want to explore cinematic and artistic image generation.
+
+Golden Hour Portrait – Mother & Newborn
+Creates warm, intimate family portraits with soft natural lighting. The prompt focuses on emotional connection and gentle atmosphere.
+
+/imagine prompt: mother cradling newborn baby + gentle, warm, intimate, serene, tender + in a sunlit garden during golden hour + soft natural light with emotional warmth + fine art photography style + shot on Nikon Z7, shallow depth of field --ar 4:5 --s 200 --v 5
+
+Stormy Beach Scene – Lone Figure
+Generates dramatic, cinematic scenes with moody weather. Perfect for action-thriller style compositions with strong emotional impact.
+
+/imagine prompt: lone figure standing on stormy beach, fists clenched + intense, brooding, windswept, defiant, cinematic + turbulent ocean under storm clouds + dramatic lighting with dark skies + movie-style drama, inspired by action-thriller posters + shot on Canon EOS R6, deep depth of field --ar 16:9 --s 300 --v 5
+
+Cyberpunk City at Night – Rain & Neon
+Produces futuristic urban scenes with neon lighting and rain effects. Great for sci-fi themed content with Blade Runner aesthetics.
+
+/imagine prompt: cyberpunk city at night, neon-lit skyline, rain-soaked streets + gritty, futuristic, reflective, moody, electric + bustling urban district with flickering signs and steam vents + volumetric and cinematic lighting through rain + inspired by Blade Runner aesthetic + wide shot, high contrast details --ar 16:9 --s 700 --v 5
+
+Silk Macro – Dewdrops Close-Up
+Creates detailed macro photography with fine textures and water droplets. Ideal for nature photography and product shots requiring sharp detail.
+
+/imagine prompt: close-up of silk threads with delicate dewdrops + silky, translucent, intricate, glistening, soft-textured + captured in early morning stillness + rim lighting to highlight fine edges + macro photography aesthetics, hyperreal detail + shot on 100mm macro lens, ultra-sharp focus --ar 1:1 --s 150 --v 5
+
+Film-Noir Detective – Lamppost Scene
+Generates classic 1940s crime film aesthetics with dramatic shadows and contrast. Perfect for mystery and vintage-style compositions.
+
+/imagine prompt: detective in trench coat and fedora standing under lamppost + mysterious, moody, gritty, shadowed, tense + empty rainy street at night with glistening pavement + black & white lighting with deep shadows and rim highlights + classic film-noir aesthetic, inspired by 1940s crime films + high contrast, shadow play, cinematic composition --ar 4:7 --s 500 --v 5
+
+Wildlife Portrait – Tiger in Grass
+Produces National Geographic style animal photography with natural lighting. Great for wildlife and nature documentation themes.
+
+/imagine prompt: tiger emerging from tall grass at golden hour + majestic, alert, powerful, focused, natural + open grassland with soft, muted background + warm golden sunlight casting soft highlights + wildlife portrait style, inspired by National Geographic + sharp eyes, medium telephoto perspective --ar 3:2 --s 250 --v 5
+
+Long-Exposure Nightscape – Milky Way Reflections
+Creates cosmic landscape photography with star trails and reflections. Perfect for astronomy and nature photography enthusiasts.
+
+/imagine prompt: starry night sky over mountain lake with Milky Way visible + vast, tranquil, reflective, cosmic, awe-inspiring + still alpine lake surrounded by silhouetted peaks + long-exposure lighting with shimmering reflections + cinematic landscape photography style, wide composition + ultra-wide view, crisp stars, mirror-like water --ar 21:9 --s 1000 --v 5
+
+Urban Fashion – Woman with Sunglasses
+Generates street-style fashion photography with film-inspired looks. Ideal for portrait and lifestyle content with modern aesthetics.
+
+/imagine prompt: woman in sunglasses posing confidently + edgy, modern, stylish, cool-toned, urban + in front of brutalist concrete architecture + soft natural light with muted highlights + street-style fashion inspired by Kodak Portra 400 film look + shallow depth, analog texture, portrait framing --ar 4:5 --s 250 --v 5
+
+Negative Prompt (For cleaner results)
+
+--no blur, grain, distortion, extra limbs, disfigured face, duplicate body, watermark, text, logo, ugly, low resolution, cropped, frame, out of focus
+
+How to Use These Prompts
+Copy any prompt and paste it into Midjourney. The prompts include specific camera settings, lighting conditions, and style references. You can modify aspect ratios, stylization values, and version numbers based on your needs.
+Change the --s values to adjust stylization:
+
+- Lower values (50-200): More realistic
+
+- Higher values (500-1000): More artistic
+
+Adjust --ar ratios for different formats:
+
+- 1:1 for square images
+
+- 16:9 for wide compositions
+
+- 4:5 for portrait orientation
+
+Where to Use These Prompts
+Free Options:
+
+- Midjourney (limited free trials)
+
+- Leonardo AI (free tier available)
+
+- Stable Diffusion (various free implementations)
+
+Paid Options:
+
+- Midjourney subscription ($10-$60/month)
+
+- Adobe Firefly
+
+- DALL-E 3 via ChatGPT Plus
+
+- Commercial AI art platforms
+
+Pro Tips
+Test prompts with different version numbers (--v 5, --v 6) to see style variations. Start with lower stylization values and increase gradually. Use the negative prompt provided to avoid common issues like blur or distortion.
+Mix elements from different prompts to create unique combinations. Adjust lighting descriptions to match your preferred mood. Save successful variations for future reference.
+
+Ready to Create Stunning Images?
+Pick a prompt that matches your vision and start generating. Experiment with the settings to find your style. Each prompt offers a foundation you can build upon.
+
+FAQ
+Q: Can I modify these prompts?
+A: Yes. Change any elements like lighting, mood, or settings to match your needs.
+Q: Which version works best?
+A: Version 5 offers good balance. Try version 6 for more recent features and improvements.
+Q: Do I need exact camera settings?
+A: No. The camera references help guide the AI style. You can remove or change them.
+Q: How do I avoid blurry results?
+A: Use the negative prompt provided. Keep stylization values moderate (under 500 for realistic images).
+Q: Can I use these commercially?
+A: Check your platform’s terms. Most paid subscriptions allow commercial use with proper licensing.

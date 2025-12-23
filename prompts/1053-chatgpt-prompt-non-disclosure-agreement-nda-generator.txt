@@ -1,0 +1,698 @@
+ChatGPT Prompt: Non Disclosure Agreement (NDA) Generator
+https://tools.eq4c.com/prompt/chatgpt-prompt-non-disclosure-agreement-nda-generator/
+date: 2025-06-23T07:41:52  modified: 2025-06-23T08:13:34
+
+If you’re hiring a freelancer, consulting a startup, or collaborating with a creative partner, NDAs (Non-Disclosure Agreements) are essential for safeguarding your confidential ideas, data, and plans.
+But let’s face it, writing one from scratch can be time-consuming and legally risky if not properly structured.
+This smart, modular prompt allows you to generate tailored NDA contracts for any business or personal use-case, instantly.
+By inputting a few key variables like the type of disclosure, jurisdiction, and relationship between parties, you’ll receive a well-structured, legally aligned NDA draft ready for review or signing.
+Whether you’re a solopreneur, startup founder, artist, or even just sharing a personal invention idea with a friend, this tool makes legal protection approachable and efficient.
+
+The Prompt:
+Copy and Paste this prompt in ChatGPT or any LLM chatbot of your choice. Section below the prompt, provides input template. Fill this to get best results.
+
+# Professional NDA Generation System
+
+## Core Identity
+You are an expert legal document drafting assistant with specialized expertise in confidentiality agreements. Your role is to generate comprehensive, legally sound Non-Disclosure Agreement templates that meet professional standards while remaining accessible and customizable.
+
+## Task Objective
+Generate a complete NDA draft based on user specifications, incorporating all essential legal provisions, modern compliance requirements, and jurisdiction-appropriate language.
+
+## Required User Inputs
+Before drafting, collect these specifications:
+- **Parties**: Names, roles, and entity types (individual/company)
+- **NDA Type**: Mutual (bilateral) or Unilateral (one-way)
+- **Confidential Information**: Specific types/categories to be protected
+- **Duration**: Term length and survival period post-termination
+- **Jurisdiction**: Governing law and dispute resolution location
+- **Use Case**: Employment, business partnership, investor pitch, vendor relationship, etc.
+- **Special Requirements**: Industry-specific needs (healthcare, technology, finance, etc.)
+
+## Document Structure & Legal Requirements
+
+### Essential Sections (All Must Be Included):
+1. **Preamble & Parties** - Full legal names, addresses, entity types
+2. **Recitals** - Purpose and background context
+3. **Definitions** - Comprehensive definitions of key terms
+4. **Confidential Information Scope** - Clear identification and examples
+5. **Disclosure Obligations** - Permitted disclosures and restrictions
+6. **Exclusions** - Standard exclusions from confidentiality
+7. **Use Restrictions** - Permitted uses and prohibited activities
+8. **Protection Standards** - Required care level and security measures
+9. **Return/Destruction** - Material return and destruction obligations
+10. **Term & Survival** - Agreement duration and post-termination survival
+11. **Remedies** - Specific remedies including injunctive relief
+12. **Indemnification** - Breach consequences and liability allocation
+13. **Dispute Resolution** - Jurisdiction, governing law, dispute mechanisms
+14. **General Provisions** - Severability, assignment, notices, amendments
+15. **Execution** - Signature blocks with dates and titles
+
+### Modern Compliance Considerations:
+- Data protection regulations (GDPR, CCPA where applicable)
+- Cross-border data transfer restrictions
+- Electronic signature validity
+- Remote work and digital security requirements
+
+## Drafting Standards
+
+### Language Requirements:
+- Use precise, unambiguous legal terminology
+- Maintain professional but readable tone
+- Avoid archaic legalese unless jurisdictionally required
+- Include defined terms consistently throughout
+- Use active voice where possible for clarity
+
+### Legal Best Practices:
+- Include specific monetary damages language where appropriate
+- Address attorney's fees and costs recovery
+- Specify notice requirements with multiple contact methods
+- Include force majeure and impossibility provisions
+- Add integration clause to prevent oral modifications
+
+## Quality Assurance Checklist
+Before finalizing, verify:
+- [ ] All user specifications incorporated
+- [ ] All 15 essential sections included
+- [ ] Definitions section covers all capitalized terms
+- [ ] Remedies section includes injunctive relief language
+- [ ] Jurisdiction and governing law clearly specified
+- [ ] Modern compliance requirements addressed
+- [ ] Signature blocks complete with proper titles
+- [ ] Document internally consistent and cross-referenced
+
+## Output Format
+
+```
+**NON-DISCLOSURE AGREEMENT**
+
+This Non-Disclosure Agreement ("Agreement") is entered into on [DATE], between [PARTY 1 DETAILS] and [PARTY 2 DETAILS].
+
+**RECITALS**
+[Context and purpose]
+
+**1. DEFINITIONS**
+[Comprehensive defined terms]
+
+[Continue through all 15 sections...]
+
+**IN WITNESS WHEREOF**, the parties have executed this Agreement as of the date first written above.
+
+[SIGNATURE BLOCKS WITH FULL DETAILS]
+```
+
+## Important Disclaimers
+- This template is for informational purposes only
+- Not a substitute for professional legal advice
+- Laws vary by jurisdiction - local counsel review recommended
+- User responsible for ensuring compliance with applicable regulations
+- Consider professional legal review before execution
+
+## Processing Approach
+1. **Intake**: Gather all required specifications systematically
+2. **Analysis**: Assess jurisdiction-specific requirements and use case implications
+3. **Drafting**: Generate complete document following all structural requirements
+4. **Review**: Apply quality assurance checklist
+5. **Delivery**: Present final document with appropriate disclaimers
+
+---
+
+**Instructions for Use**: Prompt the user to provide their specific NDA requirements using the categories listed above. Once all information is collected, generate a comprehensive NDA following this framework.
+
+NDA Generation Request Template
+Please fill out the following information to generate your customized Non-Disclosure Agreement: (Copy and pate this input template into our markdown tool to generate text or html template).
+
+## Party Information
+
+### Disclosing Party (Party 1)
+- **Full Legal Name**: ___________________________
+- **Entity Type**: [ ] Individual [ ] Corporation [ ] LLC [ ] Partnership [ ] Other: ___________
+- **Address**: 
+- Street: ___________________________
+- City, State, ZIP: ___________________________
+- Country: ___________________________
+- **Title/Role**: ___________________________
+
+### Receiving Party (Party 2)
+- **Full Legal Name**: ___________________________
+- **Entity Type**: [ ] Individual [ ] Corporation [ ] LLC [ ] Partnership [ ] Other: ___________
+- **Address**: 
+- Street: ___________________________
+- City, State, ZIP: ___________________________
+- Country: ___________________________
+- **Title/Role**: ___________________________
+
+## Agreement Specifications
+
+### NDA Type
+- [ ] **Mutual (Bilateral)** - Both parties will share confidential information
+- [ ] **Unilateral (One-way)** - Only one party will share confidential information
+
+### Confidential Information
+**Select all that apply and provide specifics:**
+- [ ] Business plans and strategies: ___________________________
+- [ ] Financial information: ___________________________
+- [ ] Customer/client lists and data: ___________________________
+- [ ] Technical information/trade secrets: ___________________________
+- [ ] Marketing plans and strategies: ___________________________
+- [ ] Product development information: ___________________________
+- [ ] Proprietary software/code: ___________________________
+- [ ] Research and development: ___________________________
+- [ ] Personal information: ___________________________
+- [ ] Other (specify): ___________________________
+
+### Duration & Term
+- **Agreement Term**: _____ years OR [ ] Indefinite until terminated
+- **Survival Period** (how long obligations continue after termination): _____ years
+- **Effective Date**: ___________________________
+
+### Legal Jurisdiction
+- **Governing Law** (which state/country laws apply): ___________________________
+- **Dispute Resolution Location**: ___________________________
+- **Preferred Dispute Method**: [ ] Court litigation [ ] Arbitration [ ] Mediation first, then arbitration
+
+## Use Case & Context
+
+### Primary Purpose
+- [ ] Employment/hiring process
+- [ ] Business partnership discussions
+- [ ] Investor pitch/fundraising
+- [ ] Vendor/supplier relationship
+- [ ] Joint venture exploration
+- [ ] Merger & acquisition discussions
+- [ ] Technology licensing
+- [ ] Research collaboration
+- [ ] Consulting engagement
+- [ ] Other: ___________________________
+
+### Industry Sector
+- [ ] Technology/Software
+- [ ] Healthcare/Medical
+- [ ] Financial Services
+- [ ] Manufacturing
+- [ ] Retail/E-commerce
+- [ ] Professional Services
+- [ ] Real Estate
+- [ ] Entertainment/Media
+- [ ] Other: ___________________________
+
+## Special Requirements
+
+### Compliance Considerations
+- [ ] GDPR compliance required (EU personal data)
+- [ ] CCPA compliance required (California personal data)
+- [ ] HIPAA compliance required (healthcare information)
+- [ ] SOX compliance required (financial reporting)
+- [ ] Export control regulations apply
+- [ ] Other regulatory requirements: ___________________________
+
+### Additional Provisions
+- [ ] Include liquidated damages clause (specify amount: $________)
+- [ ] Include attorney's fees recovery provision
+- [ ] Include specific return/destruction timeline (specify: _____ days)
+- [ ] Include non-solicitation clause
+- [ ] Include non-compete elements
+- [ ] Remote work/digital security provisions
+- [ ] Cross-border data transfer restrictions
+- [ ] Other special provisions: ___________________________
+
+## Contact Information for Notices
+
+### For Disclosing Party
+- **Primary Contact**: ___________________________
+- **Email**: ___________________________
+- **Phone**: ___________________________
+- **Mailing Address** (if different from above): ___________________________
+
+### For Receiving Party
+- **Primary Contact**: ___________________________
+- **Email**: ___________________________
+- **Phone**: ___________________________
+- **Mailing Address** (if different from above): ___________________________
+
+---
+
+## Additional Notes or Special Instructions
+_Please provide any additional context, special requirements, or modifications needed:_
+
+___________________________________________________________________________
+___________________________________________________________________________
+___________________________________________________________________________
+
+Ready to Generate:
+Once completed, submit this information to generate your customized NDA template.
+
+NDA Generation Examples – Three Real-World Use Cases
+
+Example 1: Tech Startup Seeking Investment
+
+Party Information
+
+Disclosing Party (Party 1)
+
+- Full Legal Name: InnovateTech Solutions, Inc.
+
+- Entity Type: [X] Corporation
+
+- Address: 
+- Street: 1234 Silicon Valley Blvd, Suite 500
+
+- City, State, ZIP: Palo Alto, CA 94301
+
+- Country: United States
+
+- Title/Role: Chief Executive Officer
+
+Receiving Party (Party 2)
+
+- Full Legal Name: Venture Capital Partners LLC
+
+- Entity Type: [X] LLC
+
+- Address: 
+- Street: 5678 Investment Row, Floor 25
+
+- City, State, ZIP: San Francisco, CA 94105
+
+- Country: United States
+
+- Title/Role: Managing Partner
+
+Agreement Specifications
+
+NDA Type
+
+- [X] Unilateral (One-way) – Only startup will share confidential information
+
+Confidential Information
+
+- [X] Business plans and strategies: Proprietary AI algorithm development roadmap, market penetration strategy
+
+- [X] Financial information: Revenue projections, burn rate, funding requirements
+
+- [X] Customer/client lists and data: Beta user feedback, enterprise client pipeline
+
+- [X] Technical information/trade secrets: Machine learning models, source code architecture
+
+- [X] Product development information: Upcoming feature releases, competitive analysis
+
+- [X] Research and development: Patent applications in progress, research partnerships
+
+Duration & Term
+
+- Agreement Term: 2 years
+
+- Survival Period: 5 years
+
+- Effective Date: January 15, 2025
+
+Legal Jurisdiction
+
+- Governing Law: California
+
+- Dispute Resolution Location: San Francisco, California
+
+- Preferred Dispute Method: [X] Arbitration
+
+Use Case & Context
+
+Primary Purpose
+
+- [X] Investor pitch/fundraising
+
+Industry Sector
+
+- [X] Technology/Software
+
+Special Requirements
+
+Compliance Considerations
+
+- [X] Export control regulations apply
+
+- [X] Other regulatory requirements: SEC regulations for investment discussions
+
+Additional Provisions
+
+- [X] Include liquidated damages clause ($100,000)
+
+- [X] Include attorney’s fees recovery provision
+
+- [X] Include specific return/destruction timeline (30 days)
+
+Contact Information for Notices
+
+For Disclosing Party
+
+- Primary Contact: Sarah Chen, CEO
+
+- Email: sarah.chen@innovatetech.com
+
+- Phone: (650) 555-0123
+
+For Receiving Party
+
+- Primary Contact: Michael Rodriguez, Managing Partner
+
+- Email: mrodriguez@vcpartners.com
+
+- Phone: (415) 555-0456
+
+Example 2: Healthcare Company Employee Onboarding
+
+Party Information
+
+Disclosing Party (Party 1)
+
+- Full Legal Name: MedSecure Health Systems, LLC
+
+- Entity Type: [X] LLC
+
+- Address: 
+- Street: 789 Medical Center Drive
+
+- City, State, ZIP: Boston, MA 02115
+
+- Country: United States
+
+- Title/Role: Chief Human Resources Officer
+
+Receiving Party (Party 2)
+
+- Full Legal Name: Dr. Jennifer Williams
+
+- Entity Type: [X] Individual
+
+- Address: 
+- Street: 456 Elm Street, Apt 3B
+
+- City, State, ZIP: Cambridge, MA 02139
+
+- Country: United States
+
+- Title/Role: Senior Data Scientist
+
+Agreement Specifications
+
+NDA Type
+
+- [X] Unilateral (One-way) – Only company will share confidential information
+
+Confidential Information
+
+- [X] Customer/client lists and data: Patient health records, insurance data
+
+- [X] Technical information/trade secrets: Proprietary diagnostic algorithms
+
+- [X] Research and development: Clinical trial data, FDA submission materials
+
+- [X] Financial information: Pricing models, insurance reimbursement rates
+
+- [X] Other: HIPAA-protected health information, research protocols
+
+Duration & Term
+
+- Agreement Term: Indefinite until terminated
+
+- Survival Period: 7 years
+
+- Effective Date: February 1, 2025
+
+Legal Jurisdiction
+
+- Governing Law: Massachusetts
+
+- Dispute Resolution Location: Boston, Massachusetts
+
+- Preferred Dispute Method: [X] Court litigation
+
+Use Case & Context
+
+Primary Purpose
+
+- [X] Employment/hiring process
+
+Industry Sector
+
+- [X] Healthcare/Medical
+
+Special Requirements
+
+Compliance Considerations
+
+- [X] HIPAA compliance required (healthcare information)
+
+- [X] Other regulatory requirements: FDA regulations, state medical privacy laws
+
+Additional Provisions
+
+- [X] Include attorney’s fees recovery provision
+
+- [X] Include specific return/destruction timeline (immediate upon termination)
+
+- [X] Remote work/digital security provisions
+
+- [X] Other special provisions: Device encryption requirements, secure VPN access
+
+Contact Information for Notices
+
+For Disclosing Party
+
+- Primary Contact: Robert Kim, CHRO
+
+- Email: rkim@medsecure.com
+
+- Phone: (617) 555-0789
+
+For Receiving Party
+
+- Primary Contact: Dr. Jennifer Williams
+
+- Email: jwilliams.md@email.com
+
+- Phone: (617) 555-0321
+
+Example 3: International Manufacturing Joint Venture
+
+Party Information
+
+Disclosing Party (Party 1)
+
+- Full Legal Name: American Manufacturing Corp.
+
+- Entity Type: [X] Corporation
+
+- Address: 
+- Street: 2468 Industrial Parkway
+
+- City, State, ZIP: Detroit, MI 48201
+
+- Country: United States
+
+- Title/Role: Vice President of Strategic Partnerships
+
+Receiving Party (Party 2)
+
+- Full Legal Name: Deutsche Industrie GmbH
+
+- Entity Type: [X] Other: German GmbH
+
+- Address: 
+- Street: Industriestraße 15
+
+- City, State, ZIP: Munich, Bavaria 80331
+
+- Country: Germany
+
+- Title/Role: Geschäftsführer (Managing Director)
+
+Agreement Specifications
+
+NDA Type
+
+- [X] Mutual (Bilateral) – Both parties will share confidential information
+
+Confidential Information
+
+- [X] Business plans and strategies: Joint venture structure, market expansion plans
+
+- [X] Financial information: Cost structures, profit margins, investment commitments
+
+- [X] Technical information/trade secrets: Manufacturing processes, quality control methods
+
+- [X] Product development information: New product specifications, testing protocols
+
+- [X] Research and development: Innovation pipeline, patent portfolios
+
+- [X] Other: Supply chain networks, vendor relationships
+
+Duration & Term
+
+- Agreement Term: 3 years
+
+- Survival Period: 10 years
+
+- Effective Date: March 1, 2025
+
+Legal Jurisdiction
+
+- Governing Law: New York
+
+- Dispute Resolution Location: New York, New York
+
+- Preferred Dispute Method: [X] Mediation first, then arbitration
+
+Use Case & Context
+
+Primary Purpose
+
+- [X] Joint venture exploration
+
+Industry Sector
+
+- [X] Manufacturing
+
+Special Requirements
+
+Compliance Considerations
+
+- [X] GDPR compliance required (EU personal data)
+
+- [X] Export control regulations apply
+
+- [X] Other regulatory requirements: German data protection laws, ITAR compliance
+
+Additional Provisions
+
+- [X] Include liquidated damages clause ($500,000)
+
+- [X] Include attorney’s fees recovery provision
+
+- [X] Include specific return/destruction timeline (60 days)
+
+- [X] Cross-border data transfer restrictions
+
+- [X] Other special provisions: Currency exchange rate protection, force majeure for international trade
+
+Contact Information for Notices
+
+For Disclosing Party
+
+- Primary Contact: Lisa Thompson, VP Strategic Partnerships
+
+- Email: lthompson@americanmfg.com
+
+- Phone: (313) 555-0654
+
+For Receiving Party
+
+- Primary Contact: Klaus Mueller, Geschäftsführer
+
+- Email: k.mueller@deutsche-industrie.de
+
+- Phone: +49 89 555 0987
+
+Additional Notes or Special Instructions
+This agreement must accommodate different legal systems and include provisions for international document exchange. Consider time zone differences for notice requirements and include German translation requirements for key provisions.
+Disclaimer: This prompt generates document drafts for educational and exploratory use only. Always have legal documents reviewed by a licensed attorney in your jurisdiction.
+
+JSON Schema–Compatible NDA Prompt (for Cursor AI / Agent APIs or any other agent framework)
+
+{
+"name": "nda_generator",
+"description": "Generate a complete, jurisdiction-compliant Non-Disclosure Agreement (NDA) based on user-defined legal inputs.",
+"parameters": {
+"type": "object",
+"properties": {
+"parties": {
+"type": "array",
+"items": {
+"type": "object",
+"properties": {
+"name": { "type": "string" },
+"role": { "type": "string" },
+"entityType": { "type": "string", "enum": ["individual", "company"] }
+},
+"required": ["name", "role", "entityType"]
+},
+"description": "List of parties involved, including names, roles, and whether they are individuals or companies."
+},
+"ndaType": {
+"type": "string",
+"enum": ["unilateral", "mutual"],
+"description": "Type of NDA: unilateral (one-way) or mutual (two-way)."
+},
+"confidentialInformation": {
+"type": "array",
+"items": { "type": "string" },
+"description": "Categories of information that must be protected (e.g., financial data, source code, strategies)."
+},
+"duration": {
+"type": "object",
+"properties": {
+"term": { "type": "string", "description": "Length of the agreement (e.g., 2 years)" },
+"survivalPeriod": { "type": "string", "description": "Post-termination confidentiality obligation (e.g., 3 years after termination)" }
+},
+"required": ["term", "survivalPeriod"]
+},
+"jurisdiction": {
+"type": "object",
+"properties": {
+"country": { "type": "string" },
+"stateOrProvince": { "type": "string" },
+"disputeMechanism": {
+"type": "string",
+"enum": ["arbitration", "litigation", "mediation"]
+}
+},
+"required": ["country", "stateOrProvince", "disputeMechanism"]
+},
+"useCase": {
+"type": "string",
+"description": "Specific business context: employment, funding, IP collaboration, vendor onboarding, etc."
+},
+"specialRequirements": {
+"type": "array",
+"items": { "type": "string" },
+"description": "Industry-specific compliance needs: GDPR, HIPAA, export control, data sovereignty, etc."
+},
+"optionalClauses": {
+"type": "array",
+"items": {
+"type": "string",
+"enum": ["non-solicit", "non-compete", "export control", "force majeure", "IP escrow", "attorney fees"]
+},
+"description": "User-selected clauses to include in addition to the core agreement sections."
+}
+},
+"required": [
+"parties",
+"ndaType",
+"confidentialInformation",
+"duration",
+"jurisdiction",
+"useCase"
+]
+},
+"output_format": {
+"type": "markdown",
+"description": "A full NDA in formal legal language, broken into 15 standard sections with capitalized headers, using placeholders where needed."
+},
+"meta": {
+"version": "1.0",
+"compliance": ["GDPR", "CCPA", "E-Sign Act", "eIDAS"],
+"legalDisclaimer": "Generated NDA is for informational use only. User must seek licensed legal counsel for execution and jurisdiction-specific compliance."
+},
+"prompt_injection_protection": true,
+"chain_of_thought_enabled": true
+}
+
+Usage in Cursor AI or LangChain
+Assign this schema to a Tool, Function, or Agent Step.
+Collect structured user input via form or conversational logic.
+Send inputs into your LLM (e.g. GPT-4, Claude, Mistral) using this schema as a guardrail.
+Parse the markdown output back into a document, .docx, or .pdf format.
+
+You can refer our guide on how to use this prompt.
+Please visit our highly curated and tested prompts.
+If you have an idea or desire a custom prompt, do let us know in contact us form. It’s a free service for our esteemed readers.

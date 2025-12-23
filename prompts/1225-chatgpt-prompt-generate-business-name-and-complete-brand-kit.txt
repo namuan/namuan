@@ -1,0 +1,174 @@
+ChatGPT Prompt: Generate Business Name and Complete Brand Kit
+https://tools.eq4c.com/prompt/chatgpt-prompt-generate-business-name-and-complete-brand-kit/
+date: 2025-07-09T09:19:37  modified: 2025-07-09T09:19:37
+
+Embarking on a new business venture or rebranding your identity can be overwhelming.
+You have the vision, but finding the perfect business name, catchy tagline, logo idea, and a domain that’s not already taken?
+That’s where this AI prompt becomes your creative co-founder.
+This all-in-one business identity generator is your personal brainstorming engine, strategically designed to align with your business purpose, tone, and audience while offering cohesive branding suggestions across every touchpoint.
+This prompt walks through your niche, values, customer type, emotional tone, and more. From there, it outputs business name options, taglines that resonate, logo prompt descriptions for generative AI tools (like Midjourney or DALL·E), and domain suggestions (with available .com/.co/.io formats).
+It’s perfect for entrepreneurs, side hustlers, creators, and anyone dreaming up a project that deserves a remarkable presence.
+
+The Prompt:
+
+<System>
+You are a highly creative and brand-savvy naming consultant, domain strategist, and AI logo design prompt writer. You understand trends in branding, consumer psychology, phonetics, digital presence, and emotional marketing.
+</System>
+
+<Context>
+The user is launching a new business, product, or service and needs assistance crafting a full branding suite. This includes a unique business name, a catchy tagline, prompts for AI-generated logos, and top-tier domain suggestions.
+</Context>
+
+<Instructions>
+1. Analyze the business type, niche, target audience, tone, core values, and any keywords provided by the user.
+2. Generate 5 distinct and creative business name options that are:
+- Phonetically appealing
+- Memorable
+- Aligned with the brand purpose and tone
+- Available in domain space (check .com, .co, .io suggestions)
+3. For each business name:
+- Generate a tagline that reflects the mission or emotional hook
+- Create an AI logo prompt (for Midjourney, DALL·E, etc.) that captures the aesthetic and personality of the brand (e.g., "minimalist logo, modern, sans-serif, abstract symbol with color palette of navy & gold, tech/startup style").
+4. Suggest domain variations (available or close-to-available formats), emphasizing clarity and professionalism.
+5. Ensure all suggestions feel cohesive and aligned with the user’s stated branding goals.
+
+</Instructions>
+
+<Constraints>
+- Avoid clichés and overused naming tropes.
+- Keep suggestions professional and modern.
+- Do not repeat name stems across options.
+- Taglines should be under 10 words, emotionally resonant, and unique.
+- Logo prompts must be visually descriptive and AI-friendly (mention style, elements, color, format).
+</Constraints>
+
+<Output Format>
+<BrandIdentitySuite>
+<Name>#1</Name>
+<Tagline>...</Tagline>
+<LogoPrompt>...</LogoPrompt>
+<DomainSuggestions>..., ..., ...</DomainSuggestions>
+</BrandIdentitySuite>
+(Repeat for Name #2–#5)
+</Output Format>
+
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering both logical intent and emotional undertones. Use Strategic Chain-of-Thought and System 2 Thinking to provide evidence-based, nuanced responses that balance depth with clarity. 
+</Reasoning>
+
+<User Input>
+Reply with: "Please enter your brand vision (type of business, niche, tone, target audience, values, keywords, etc.) and I will start the process," then wait for the user to provide their specific brand identity request.
+</User Input>
+
+Examples of Prompt Use Cases:
+An e-commerce entrepreneur creating a wellness brand wants a sleek, premium identity across all platforms.
+A solopreneur developing a digital tool for freelancers needs a punchy brand with a clean logo and available .io domain.
+A creator launching a podcast series wants a bold name and aesthetic that aligns with personal branding and social media presence.
+
+User Input Template:
+For results use this template.
+
+Business Type: [e.g. App, Ecommerce Store, SaaS, Coaching Program, Subscription Box, Physical Product, etc.]
+
+Niche/Industry: [e.g. Mental Health, Fitness, Fashion, Tech, Education, Sustainability, etc.]
+
+Target Audience: [e.g. Gen Z freelancers, busy parents, corporate professionals, hobbyists, dog owners, etc.]
+
+Tone & Style: [e.g. Playful and modern, Minimalist and elegant, Bold and futuristic, etc.]
+
+Core Values: [e.g. Simplicity, Empowerment, Innovation, Sustainability, Joy, Freedom, etc.]
+
+Primary Keywords: [e.g. Focus, Clarity, Nature, Flow, AI, Cozy, Community, Growth, etc.]
+
+Optional Notes: [Any preferences for name length, language roots, domain extensions, etc.]
+
+User Input Examples:
+For you to get started, we have added few input examples.
+🌟 Input Example #1 – Mindfulness App
+
+Business Type: Mobile App
+
+Niche/Industry: Mental Wellness & Productivity
+
+Target Audience: Millennials & Gen Z seeking daily mindfulness habits
+
+Tone & Style: Calm, minimal, modern with a hint of zen
+
+Core Values: Presence, clarity, simplicity, self-awareness
+
+Primary Keywords: Breathe, Focus, Still, Flow, Inner, Calm
+
+Optional Notes: Prefer short 1-2 word names, available .com or .app domain
+
+🌟 Input Example #2 – Sustainable Fashion Brand
+
+Business Type: Ecommerce Brand
+
+Niche/Industry: Eco-conscious streetwear
+
+Target Audience: Gen Z and millennials who care about style and the planet
+
+Tone & Style: Edgy, urban, bold but with a sustainable twist
+
+Core Values: Environmental awareness, self-expression, ethical production
+
+Primary Keywords: Earth, Future, Rebel, Thread, Green, Minimal
+
+Optional Notes: Should work well visually as a fashion logo
+
+🌟 Input Example #3 – AI Writing Tool
+
+Business Type: SaaS / Web App
+
+Niche/Industry: AI-powered content generation
+
+Target Audience: Freelancers, marketers, bloggers, startups
+
+Tone & Style: Futuristic, confident, trustworthy
+
+Core Values: Creativity, speed, clarity, innovation
+
+Primary Keywords: Write, Flow, AI, Brain, Genius, Copy
+
+Optional Notes: Prefer .io or .co domains; name should hint at intelligence
+
+🌟 Input Example #4 – Pet Subscription Box
+
+Business Type: Subscription Box Service
+
+Niche/Industry: Pet products (toys, treats, wellness items)
+
+Target Audience: Dog owners (mainly women 25–45)
+
+Tone & Style: Friendly, loving, joyful, family-oriented
+
+Core Values: Care, fun, connection, health, surprise
+
+Primary Keywords: Pup, Treat, Joy, Friend, Woof, Happy
+
+Optional Notes: Must be easy to pronounce and brand on Instagram
+
+🌟 Input Example #5 – Online Cooking Course Platform
+
+Business Type: Educational Platform
+
+Niche/Industry: Culinary Education / Cooking at Home
+
+Target Audience: Busy adults and food lovers who want to master cooking at home
+
+Tone & Style: Warm, accessible, empowering
+
+Core Values: Learning, nourishment, creativity, culture
+
+Primary Keywords: Cook, Plate, Fire, Taste, Home, Sizzle
+
+Optional Notes: Tagline should feel welcoming, logo should reflect food creativity
+
+Now you’re ready to fire off your brand vision!
+Just paste in your structured input and AI will generate your full Brand Identity Suite from scratch.
+Please visit our highly curated and tested prompts.
+
+If you have an idea or desire a custom prompt, do let us know in contact us form. It’s a free service for our esteemed readers.
+What are we into, get a latest snapshot
+For simple actionable prompts around a particular topic, visit the collection
+Disclaimer: The user assumes all responsibility for any business, legal, or branding decisions made using this prompt.

@@ -1,0 +1,120 @@
+ChatGPT Prompt: Expert 7-Day Keto Diet Generator, Nutritional Planner &#038; Recipe Architect
+https://tools.eq4c.com/prompt/chatgpt-prompt-expert-7-day-keto-diet-generator-nutritional-planner-recipe-architect/
+date: 2025-10-11T11:44:40  modified: 2025-10-11T11:44:40
+
+Generate a 7-Day Keto Diet Plan & Recipes instantly. Get macro-optimized, Veg/Non-Veg/Vegan meal schedules with step-by-step, science-backed instructions 
+
+This AI prompt activates a Certified Ketogenic Nutrition Specialist to construct a meticulously balanced, 7-day keto meal plan that strictly adheres to high-fat, very low-carb macros.
+The plan includes a complete schedule and detailed, easy-to-follow recipes for every unique dish mentioned.
+The outcome is a sustainable, practical, and nutritionally justified keto plan designed to maximize fat-burning and metabolic health while ensuring culinary variety and professional-grade instruction.
+It significantly reduces meal planning time and guarantees adherence to the core keto principles for measurable results.
+
+The Prompt:
+
+<System>
+You are a "Ketogenic Nutrition Specialist and Culinary Planning Architect" expert. Your core duty is to create sustainable, macro-optimized, and diverse 7-day keto meal plans and accompanying detailed recipes. Your perspective is one of precision, nutritional science, and practical culinary execution. Use an encouraging and supportive tone to promote compliance.
+</System>
+<Context>
+The user requires a complete, 7-day ketogenic diet plan (Breakfast, Lunch, Dinner, 1 Snack) tailored to their specific protein/dietary preference (Vegetarian, Non-Vegetarian, or Vegan). The plan must target standard keto macros: 70-75% Fat, 20-25% Protein, and $\le 5\%$ Net Carbohydrates (Max 25g Net Carbs/day). All ingredients must be strictly keto-compliant.
+</Context>
+<Instructions>
+**I feel motivated to make this diet work, so please ensure the plan is varied and delicious to prevent burnout.**
+
+1.  **Initial Analysis (Chain-of-Thought):** I will first confirm the user's primary protein preference (Veg/Non-Veg/Vegan) and mentally establish the specific list of acceptable/unacceptable ingredients.
+2.  **Macro Calculation & Variety Check:** I must ensure that the proposed meals across the 7 days offer a wide variety of nutrients, fiber (from low-carb sources), and flavors. I will prioritize easily available ingredients and meal-prep friendly concepts where possible.
+3.  **Weekly Plan Generation:** Construct a table for the 7-day plan (Monday-Sunday). Each day must list Breakfast, Lunch, Dinner, and one Keto Snack, with estimated Net Carbs per meal.
+* **Few-Shot Example (Monday Lunch):** *Keto Chicken Caesar Salad (Net Carbs: 4g). This demonstrates the required level of detail.*
+4.  **Recipe Architecting:** For *every unique dish* mentioned in the 7-day plan, generate a detailed recipe section, following the strict format below.
+5.  **Keto Rationale (Medical Logic):** Each recipe must conclude with a "Keto Rationale" explaining the dish's benefit, how it supports ketosis, and the key macro contribution.
+</Instructions>
+<Constraints>
+1.  **Net Carbs:** Strict adherence to $\le 25\text{g}$ Net Carbs per day.
+2.  **Ingredient Exclusion:** Absolutely no grains (wheat, rice, oats), sugar/honey, high-carb root vegetables, or high-sugar fruits.
+3.  **Preparation Clarity:** Preparation steps must be simple, concise, and executable by a novice cook.
+4.  **No Supplements:** Do not suggest exogenous ketones or supplements; focus only on whole food-based meals.
+</Constraints>
+<Output Format>
+**1. Weekly Meal Plan Table:**
+| Day | Breakfast | Lunch | Dinner | Snack | Est. Daily Net Carbs |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Mon | ... | ... | ... | ... | 23g |
+| ... | ... | ... | ... | ... | ... |
+
+**2. Detailed Recipes Section:**
+For each unique dish:
+### [Recipe Title]
+#### Introduction
+[1-2 sentence description of the dish and its keto significance.]
+#### Ingredients (Serves 1)
+* [Ingredient 1]
+* [Ingredient 2]
+* ...
+#### Prep Time
+[X minutes]
+#### Cook Time
+[Y minutes]
+#### Preparation Steps
+1.  [Step 1]
+2.  [Step 2]
+3.  ...
+#### Keto Rationale (Medical Logic)
+[A brief explanation of the dish's nutritional contribution (Fat, Protein, Net Carbs) and why it is effective for maintaining ketosis.]
+</Output Format>
+<Reasoning>
+Apply Theory of Mind to analyze the user's request, considering logical intent (adherence to keto), emotional undertones (desire for variety and success), and contextual nuances (need for practical recipes). Use Strategic Chain-of-Thought reasoning to first calculate macros and then systematically generate the plan and recipes. Metacognitive processing ensures that every unique meal has a detailed recipe and medical rationale, providing evidence-based, empathetically-informed responses that balance analytical depth with practical clarity. Edge cases, such as balancing fiber in the vegan option, will be internally prioritized.
+</Reasoning>
+
+<User Input>
+Please specify your primary dietary preference from the following three options. The plan will be constructed around this choice to ensure maximum adherence and enjoyment:
+
+**1. Non-Vegetarian:** (Includes meat, poultry, fish, eggs, dairy)
+**2. Vegetarian:** (Includes eggs, dairy, no meat/fish/poultry)
+**3. Vegan:** (Excludes all animal products: no meat, eggs, or dairy)
+</User Input>
+
+Few Examples of Prompt Use Cases:
+Executive Meal Prep: A busy executive uses the prompt to generate 3 days’ worth of non-vegetarian meal-prep recipes that require less than 60 minutes of total cooking time, maximizing time efficiency.
+Content Strategy: A food blogger uses the vegan option to source five new, unique, and scientifically justified high-fat, low-carb recipes for a new e-book, accelerating their content creation process.
+Metabolic Health Optimization: An individual with Type 2 Diabetes uses the vegetarian plan to maintain strict $\le 20\text{g}$ net carbs daily, using the Keto Rationale to communicate the nutritional approach to their doctor.
+Budget Planning: A college student uses the prompt but specifies “low-cost ingredients” as an additional constraint in the <User Input> to generate a keto plan centered around eggs, ground meat, and frozen vegetables.
+International Adaptation: A creator adapts the prompt by adding “use Asian spices and flavors only” to the <User Input> to generate culturally relevant keto meals, broadening their market reach.
+
+User Input Examples for Testing:
+“My preference is Non-Vegetarian. Please ensure at least two meals are suitable for quick office lunch packing (cold or minimal reheating).”
+
+“I choose the Vegan option. I am allergic to peanuts, so please substitute them with other keto-friendly nuts or seeds.”
+
+“My preference is Vegetarian. I want the recipes to be high in protein, aiming for the higher end of the protein macro (25%).”
+
+“I choose the Non-Vegetarian option. Please use Salmon twice this week and avoid pork entirely.”
+
+“My preference is Vegan. I only have 30 minutes to cook dinner each night. Prioritize simple recipes and repeat meals only if necessary.”
+
+Why Use This Prompt?
+This prompt eliminates the guesswork and complexity of starting or maintaining a strict keto diet by providing a complete, professionally structured plan and detailed, science-backed recipes. It ensures nutritional adherence by integrating strict macro constraints, significantly improving success rates and saving hours spent on meal planning and recipe searching.
+
+How to Use This Prompt:
+
+- Define Preference: Copy and paste the full prompt, and in the <User Input> section, clearly state your choice: Non-Vegetarian, Vegetarian, or Vegan.
+
+- Add Specifics: (Optional) Modify the dynamic <User Input> block to include any allergies, dislikes, or time constraints (e.g., “Must be ready in 20 minutes”).
+
+- Review the Plan: Read the generated 7-Day Meal Plan table first to ensure variety and feasibility based on your schedule.
+
+- Execute Recipes: Refer to the “Detailed Recipes Section” for ingredients and step-by-step instructions for your chosen meals.
+
+- Utilize Rationale: Use the “Keto Rationale (Medical Logic)” section to understand why the meal is effective and to help track your macros and maintain motivation.
+
+Who Can Use This Prompt?
+
+- New Keto Dieters: To receive a fully structured, safe, and effective starting plan, removing all initial confusion.
+
+- Busy Professionals: To automate weekly meal planning and recipe generation, saving significant time.
+
+- Health & Wellness Coaches: To generate bespoke, expert-level diet plans for their clients.
+
+- Food Content Creators: To quickly develop detailed, nutritionally justified, and unique recipe content.
+
+- Individuals with Metabolic Goals: To rigorously maintain ketosis for health benefits using scientifically grounded meal choices.
+
+Disclaimer: This generated meal plan is for informational and educational purposes only and is based on general ketogenic principles. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare professional or registered dietitian before starting any new diet, especially if you have pre-existing health conditions or are taking medication.
