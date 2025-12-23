@@ -33,7 +33,7 @@ alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 
 alias gcod="gco develop"
-alias gcom="gco master"
+alias gcom="gco main"
 
 alias mr="make run"
 alias mt="make test"
