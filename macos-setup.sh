@@ -77,7 +77,7 @@ fi
 apps=(
   diffmerge
   keepingyouawake
-  spectacle
+  rectangle
   textmate
   inkscape
   jordanbaird-ice
