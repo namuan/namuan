@@ -66,7 +66,7 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 * [Peripheral Vision Test](https://namuan.github.io/namuan/tools/peripheral-vision-test.html)
 * [Profit Take Calculator](https://namuan.github.io/namuan/tools/profit-take.html)
 * [VIX Implied Move Calculator](https://namuan.github.io/namuan/tools/vix-implied-move.html)
-* [Encrypt/Decrypt with QR Code](https://namuan.github.io/namuan/tools/secure-qr.html)
+* [Share Secret](https://namuan.github.io/namuan/tools/secret-sharer.html)
 * [Invoice Generator](https://namuan.github.io/namuan/tools/invoice-generator.html)
 * [Simple Notes](https://namuan.github.io/namuan/tools/simple-notes.html)
 * [JSON Editor](https://namuan.github.io/jsonify/)
