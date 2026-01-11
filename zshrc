@@ -108,3 +108,5 @@ export PATH="/Users/nnn/.antigravity/antigravity/bin:$PATH"
 
 # Amp CLI
 export PATH="/Users/nnn/.amp/bin:$PATH"
+# Suppress uv VIRTUAL_ENV warning
+unset VIRTUAL_ENV

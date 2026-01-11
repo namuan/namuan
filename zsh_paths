@@ -11,11 +11,6 @@ export EDITOR='mate -w'
 export GOHOME=/usr/local/go
 export GOPATH=$WORK_HOME/gocode
 
-# pip should only run if there is a virtualenv currently activated
-# export PIP_REQUIRE_VIRTUALENV=true
-# cache pip-installed packages to avoid re-downloading
-export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
-
 # NodeJs
 export NODE_PATH=$HOME/.node_modules_global/lib/node_modules
 
