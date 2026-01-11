@@ -14,7 +14,7 @@ You are an autonomous coding agent working on a software project.
 7. Update `AGENTS.md` files if you discover reusable patterns (see below)
 8. Update the PRD to set `passes: true` for the completed story
 9. Create a progress file for the story at `progress/[story-id].md`
-10. Run `mob done` and commit your changes and move on to the next story.
+10. Run `mob next` to commit your changes and move on to the next story.
 
 ## Progress Report Format
 
