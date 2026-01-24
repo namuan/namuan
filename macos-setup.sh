@@ -80,7 +80,6 @@ apps=(
   rectangle
   textmate
   inkscape
-  jordanbaird-ice
 )
 
 echo "installing apps with Cask..."
