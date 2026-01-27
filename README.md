@@ -32,6 +32,7 @@ path:*.properties
 | [OpenRouter](https://openrouter.ai/chat)
 | [Z.ai](https://chat.z.ai)
 | [Qwen](https://chat.qwen.ai)
+| [Kimi](https://www.kimi.com)
 
 ## Book Notes
 
