@@ -214,10 +214,6 @@ function getkey() {
     fi
 }
 
-function ai {
-  ollama run llama3.2:latest "$1"
-}
-
 function blogsearch() {
   local query="$1"
 

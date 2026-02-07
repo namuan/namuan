@@ -91,22 +91,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:$HOME/.cache/lm-studio/bin"
-# End of LM Studio CLI section
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/nnn/.cache/lm-studio/bin"
-# End of LM Studio CLI section
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# Added by Antigravity
-export PATH="/Users/nnn/.antigravity/antigravity/bin:$PATH"
-
-# Amp CLI
-export PATH="/Users/nnn/.amp/bin:$PATH"
 # Suppress uv VIRTUAL_ENV warning
 unset VIRTUAL_ENV
