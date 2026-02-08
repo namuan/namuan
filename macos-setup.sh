@@ -48,6 +48,7 @@ tools=(
   uv
   jless
   mob
+  tmux
 )
 brew install "${tools[@]}"
 
