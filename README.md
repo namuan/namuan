@@ -26,7 +26,6 @@ path:*.properties
 | [Perplexity](https://www.perplexity.ai)
 | [DeepSeek](https://chat.deepseek.com)
 | [Le Chat](https://chat.mistral.ai/chat)
-| [Phind](https://www.phind.com)
 | [Gemini](https://gemini.google.com/u/0/app)
 | [Poe](https://poe.com)
 | [OpenRouter](https://openrouter.ai/chat)
