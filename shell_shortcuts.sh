@@ -52,6 +52,10 @@ alias mstart="mob start -i -b"
 alias mnext="mob next"
 alias mdone="mob done"
 
+# tmux
+alias tls="tmux ls"
+alias tx="tmux attach -t"
+
 # ----- Define Aliases
 
 
