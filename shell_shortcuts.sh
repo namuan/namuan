@@ -56,6 +56,10 @@ alias mdone="mob done"
 alias tls="tmux ls"
 alias tx="tmux attach -t"
 
+# opencode
+
+alias ocgrok='opencode run --model github-copilot/grok-code-fast-1 '
+
 # ----- Define Aliases
 
 
