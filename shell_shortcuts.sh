@@ -58,7 +58,7 @@ alias tx="tmux attach -t"
 
 # opencode
 
-alias ocgrok='opencode run --model github-copilot/grok-code-fast-1 '
+alias ocgpt='opencode run --model github-copilot/gpt-4.1 '
 
 # ----- Define Aliases
 
