@@ -1,0 +1,22 @@
+Use one targeted question at a time. Prefer concrete options and expected outcomes.
+
+Permission boundary
+- "You stated <actor> can <action>. Should this still be allowed when <boundary condition>?"
+
+Conflict resolution
+- "Two statements conflict: <statement A> vs <statement B>. Which behavior is correct?"
+
+Missing error path
+- "What should happen when <invalid condition>? Please include expected error code/message class."
+
+Data constraint gap
+- "For field <field name>, what are required/optional status and validation constraints (type, length, range, format)?"
+
+State precondition
+- "Before <action>, what exact state must be true?"
+
+Idempotency/update semantics
+- "If the same update is submitted twice, should the second request be a no-op success or an error?"
+
+Prioritization under uncertainty
+- "Which should be prioritized: strict rejection of ambiguous requests or permissive acceptance with defaults?"

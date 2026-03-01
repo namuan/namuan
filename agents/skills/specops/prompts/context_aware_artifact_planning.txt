@@ -1,0 +1,29 @@
+Create an artifact plan from `compiled-spec.json`, user goal, and target repository context.
+
+Inputs:
+- compiled spec scenarios and data models
+- user use case and delivery intent
+- repository stack/conventions (language, framework, test setup, CI)
+
+Output format (Markdown):
+1) Detected context
+   - language/framework
+   - relevant existing conventions
+2) Proposed artifacts (only relevant ones)
+   - artifact name
+   - why needed for this use case
+   - target file path(s)
+   - acceptance criteria
+3) Out-of-scope artifacts (optional)
+   - what is intentionally not generated and why
+
+Artifact selection rules:
+- Prefer smallest useful set that provides a verifiable contract.
+- Include failing tests when behavior implementation is expected.
+- Include API contract artifacts only if the spec expresses API behavior.
+- Include fixtures/seed data only if tests require representative data.
+- Include migration/compatibility notes when rollout risk is present.
+
+Before generating files:
+- Ask user to approve or adjust the plan.
+- Do not write files until explicit approval is given.

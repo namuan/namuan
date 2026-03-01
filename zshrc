@@ -97,3 +97,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Suppress uv VIRTUAL_ENV warning
 unset VIRTUAL_ENV
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

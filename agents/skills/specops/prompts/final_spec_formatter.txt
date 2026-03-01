@@ -1,0 +1,23 @@
+Convert the resolved state (Markdown-derived JSON draft + clarification updates) into a strict final Compiled Spec JSON.
+
+Rules:
+1) Output JSON only.
+2) Conform exactly to `schemas/compiled-spec-schema.json`.
+3) Do not invent behavior that was not confirmed.
+4) Ensure each scenario has:
+   - `id`
+   - `description`
+   - `given`
+   - `when`
+   - `then` (array of concrete outcomes)
+5) Ensure data model fields include `type` and `required` at minimum.
+6) Keep language precise and testable.
+
+Output target fields:
+- specVersion
+- featureName
+- actors[]
+- scenarios[]
+- dataModels{}
+- nonFunctionalRequirements[] (optional)
+- assumptions[] (optional)

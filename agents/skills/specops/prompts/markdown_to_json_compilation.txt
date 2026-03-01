@@ -1,0 +1,15 @@
+Convert the provided Markdown spec into a SpecOps compiled-spec JSON draft.
+
+Rules:
+1) Output JSON only.
+2) Conform to `schemas/compiled-spec-schema.json` as closely as possible.
+3) Preserve user intent; do not invent behavior not present in Markdown.
+4) Scenario IDs must follow `SC-###` format.
+5) Convert Markdown scenario sections into `scenarios[]` with `id`, `description`, `given`, `when`, `then`.
+6) Convert Markdown actor list into `actors[]`.
+7) Convert Markdown data model tables/lists into `dataModels` field objects.
+8) Place explicit assumptions/non-functional items into optional arrays when available.
+
+If a required field is missing from Markdown:
+- Use the most conservative placeholder only when necessary for structural validity.
+- Mark missing details in `assumptions` so the clarification loop can resolve them.

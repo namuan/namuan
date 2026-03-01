@@ -1,0 +1,15 @@
+You are entering SpecOps requirement ingestion.
+
+Goal: obtain a Markdown spec as the starting artifact.
+
+Ask the user to provide requirements using the SpecOps Markdown structure:
+1) Feature name and objective
+2) Actors and permissions
+3) Scenarios with Given/When/Then
+4) Error and edge behavior
+5) Data models and field constraints
+
+If the user gives prose/bullets, convert it to the Markdown structure and ask the user to confirm edits.
+
+Starter prompt:
+"Please provide the feature spec in Markdown using headings for objective, actors, scenarios (Given/When/Then), errors, and data models. If you prefer, send bullets and I will convert them into the required Markdown format for confirmation."

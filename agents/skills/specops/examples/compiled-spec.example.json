@@ -1,0 +1,71 @@
+{
+  "specVersion": "1.0",
+  "featureName": "User Profile Editing",
+  "actors": [
+    {
+      "name": "User",
+      "properties": {
+        "isAuthenticated": true,
+        "isProfileOwner": true
+      }
+    },
+    {
+      "name": "Admin",
+      "properties": {
+        "isAuthenticated": true,
+        "isAdmin": true
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "SC-001",
+      "description": "User edits own profile",
+      "given": "Actor is a User and is viewing their own profile",
+      "when": "User updates name to a new valid string",
+      "then": [
+        "System accepts the update",
+        "Database record for that user is updated with new name",
+        "System returns success response (200 OK)"
+      ]
+    },
+    {
+      "id": "SC-002",
+      "description": "Admin edits another user's profile",
+      "given": "Actor is an Admin and is viewing the profile of another user",
+      "when": "Admin updates bio",
+      "then": [
+        "System accepts the update",
+        "Database record for the target user is updated",
+        "System returns success response (200 OK)"
+      ]
+    },
+    {
+      "id": "SC-003",
+      "description": "User edits another user's profile (Unauthorized)",
+      "given": "Actor is a User and is viewing the profile of a different user",
+      "when": "User attempts to update any field",
+      "then": [
+        "System rejects the update",
+        "Database record is unchanged",
+        "System returns unauthorized error (403 Forbidden)"
+      ]
+    }
+  ],
+  "dataModels": {
+    "UserProfile": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "required": true,
+          "maxLength": 100
+        },
+        "bio": {
+          "type": "string",
+          "required": false,
+          "maxLength": 500
+        }
+      }
+    }
+  }
+}

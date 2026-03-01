@@ -1,0 +1,25 @@
+Single-trigger mode: `/specops <spec-markdown-file>`.
+
+Objective:
+From one user prompt, take a Markdown spec file and produce failing executable contract tests in the current repository.
+
+Execution order:
+1) Read Markdown spec file path provided by user.
+2) Compile Markdown -> `compiled-spec.json` draft.
+3) Run ambiguity checks and resolve only high-impact blockers.
+4) Produce final schema-valid `compiled-spec.json`.
+5) Evaluate repository technology before test generation:
+   - language and package/build system
+   - existing test framework and conventions
+   - existing CI test commands
+6) Generate failing executable contract tests in the native test framework.
+7) Output summary:
+   - detected stack and rationale
+   - files created/updated
+   - scenario-to-test coverage mapping
+
+Constraints:
+- Do not choose arbitrary frameworks when project conventions already exist.
+- Keep tests failing by design until implementation is added.
+- Do not generate production implementation code.
+- Ask for explicit approval before writing files when required by host environment.

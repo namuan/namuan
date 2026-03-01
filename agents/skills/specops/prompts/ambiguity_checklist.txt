@@ -1,0 +1,30 @@
+Use this checklist to detect unresolved ambiguity before compiling the spec.
+
+Actors & Permissions
+- Are all actor types explicitly named?
+- Are actor boundaries clear (owner vs non-owner, admin vs super-admin)?
+- Are unauthorized behaviors explicitly defined?
+
+Scenarios
+- Does each scenario have complete Given/When/Then structure?
+- Are success and failure scenarios both represented?
+- Are state preconditions explicit and testable?
+
+Data Rules
+- Are required/optional fields defined?
+- Are length/range/format constraints specified?
+- Are nullability and default behaviors explicit?
+
+Errors & Edge Cases
+- Invalid input behavior specified?
+- Not found/conflict/rate-limit behavior specified?
+- Partial failure and retry semantics defined where needed?
+
+Consistency
+- Any contradictions between statements?
+- Any duplicated scenarios with different outcomes?
+- Are status/error codes consistent with declared behavior?
+
+Completion
+- Can failing tests be generated without inventing behavior?
+- Can another agent implement from this spec without clarification?

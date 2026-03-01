@@ -1,0 +1,21 @@
+Generate approved artifacts from `compiled-spec.json` according to the approved artifact plan.
+
+Rules:
+1) Follow repository-native conventions:
+   - language/framework
+   - file naming and folder placement
+   - assertion and fixture style
+2) Generate only approved artifact types and paths.
+3) Keep tests intentionally failing until implementation exists.
+4) Do not write production feature implementation code.
+5) Do not invent requirements beyond compiled spec.
+
+Coverage rules:
+- Map each scenario in `scenarios[]` to one or more generated checks.
+- Ensure unauthorized/error paths are represented when present.
+- Reflect data constraints where relevant to tests/contracts.
+
+After generation, provide a summary:
+- files created/updated
+- scenario-to-artifact coverage mapping
+- unresolved items requiring user decisions
