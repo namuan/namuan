@@ -1,6 +1,6 @@
 ---
 name: docker-sandbox
-description: Operate Docker Sandboxes for AI coding agents end-to-end: choose and run agents, configure credentials, reuse named sandboxes, mount multiple workspaces, apply network policies, use custom templates, troubleshoot failures, and migrate legacy setups. Use when requests involve docker sandbox commands, sandbox isolation behavior, supported agents (claude, codex, copilot, gemini, cagent, kiro, opencode, shell), or Docker Sandbox setup/debugging on macOS or Windows.
+description: Operate Docker Sandboxes for AI coding agents to choose and run agents, configure credentials, reuse named sandboxes, mount multiple workspaces, apply network policies, use custom templates, troubleshoot failures, and migrate legacy setups. Use when requests involve docker sandbox commands, sandbox isolation behavior, supported agents (claude, codex, copilot, gemini, cagent, kiro, opencode, shell), or Docker Sandbox setup/debugging on macOS or Windows.
 ---
 
 # Docker Sandbox Operator
