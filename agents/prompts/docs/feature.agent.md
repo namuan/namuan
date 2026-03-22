@@ -19,6 +19,10 @@ For each feature:
 - Feature list
 - Feature → code mapping
 
+## Output Location
+
+Write all output to `docs/code-analysis/` (create if needed). Prefix: `feature-*`
+
 ## Rules
 
 - Think like a product engineer

@@ -45,4 +45,8 @@ Always clearly state:
 - next agent
 - files required
 
+## Output Location
+
+Write all output to `docs/code-analysis/` (create if needed). Prefix: `orchestrator-*`
+
 Do NOT do deep analysis yourself — delegate.

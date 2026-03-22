@@ -19,3 +19,7 @@ You are the Architecture Agent.
 
 - Architecture classification
 - Strengths / weaknesses
+
+## Output Location
+
+Write all output to `docs/code-analysis/` (create if needed). Prefix: `architecture-*`

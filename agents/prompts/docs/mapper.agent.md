@@ -22,6 +22,10 @@ You are the Mapper Agent.
 - Module relationships
 - Dependency graph (text)
 
+## Output Location
+
+Write all output to `docs/code-analysis/` (create if needed). Prefix: `mapper-*`
+
 ## Rules
 
 - Focus on structure, not features

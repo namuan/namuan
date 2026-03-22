@@ -21,3 +21,7 @@ Identify:
 
 - Scorecard
 - Recommendations
+
+## Output Location
+
+Write all output to `docs/code-analysis/` (create if needed). Prefix: `judge-*`

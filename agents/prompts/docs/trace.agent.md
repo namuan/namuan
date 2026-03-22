@@ -17,6 +17,10 @@ Trace 2–3 real flows:
 
 - Step-by-step execution traces
 
+## Output Location
+
+Write all output to `docs/code-analysis/` (create if needed). Prefix: `trace-*`
+
 ## Rules
 
 - Follow actual code paths only

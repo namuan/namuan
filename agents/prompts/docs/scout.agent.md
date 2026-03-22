@@ -26,6 +26,10 @@ Quickly understand the repository structure.
 - Key directories
 - Top 15 important files
 
+## Output Location
+
+Write all output to `docs/code-analysis/` (create if needed). Prefix: `scout-*`
+
 ## Rules
 
 - Stay shallow
