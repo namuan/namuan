@@ -129,9 +129,6 @@ brew install cask mactex-no-gui
 echo "Cleaning up brew"
 brew cleanup
 
-echo "Clone snippets-lib"
-echo "ln -s "
-
 echo "Symlink zsh files"
 rm $HOME/.zshrc
 ln -s $PWD/zshrc $HOME/.zshrc
