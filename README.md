@@ -59,6 +59,7 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 
 ## Mini Tools
 
+* [Architecture Diagrams](https://namuan.github.io/namuan/tools/arch-dsl.html)
 * [Arithmetic vs Geometric Differences](https://namuan.github.io/namuan/tools/arithmetic-vs-geometric-differences.html)
 * [Bet Expected Value Calculator](https://namuan.github.io/namuan/tools/bet-expected-value-calculator.html)
 * [Bet Loss Calculator](https://namuan.github.io/namuan/tools/bet-loss-calculator.html)

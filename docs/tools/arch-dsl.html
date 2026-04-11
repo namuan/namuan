@@ -532,11 +532,252 @@ body {
 .btn-modal-dl:hover { background: #1560d9; }
 .btn-modal-dl:disabled { opacity: 0.45; cursor: not-allowed; }
 
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text4); }
+/* ── TAB PANELS ── */
+.tab-panel {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  overflow-y: auto;
+  z-index: 5;
+  animation: panelIn 0.18s ease;
+}
+.tab-panel.active { display: block; }
+@keyframes panelIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+.panel-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+
+/* DOCS */
+.doc-hero {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.doc-hero-eyebrow {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--blue); margin-bottom: 10px;
+}
+.doc-hero-title {
+  font-size: 32px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.02em;
+  line-height: 1.15; margin-bottom: 12px;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.doc-hero-desc {
+  font-size: 15px; color: var(--text2);
+  line-height: 1.65; max-width: 620px;
+}
+
+.doc-toc {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px;
+  margin-bottom: 48px;
+}
+.doc-toc-title {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text4); padding: 8px 10px 6px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 10px; border-radius: 5px;
+  font-size: 13px; color: var(--text2);
+  cursor: pointer; transition: all 0.12s;
+  text-decoration: none;
+}
+.toc-item:hover { background: var(--surface2); color: var(--navy); }
+.toc-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; color: var(--text4); width: 18px;
+}
+
+.doc-section { margin-bottom: 48px; }
+.doc-section-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.doc-section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  color: var(--blue);
+  background: var(--blue-light);
+  padding: 3px 8px; border-radius: 4px;
+  border: 1px solid #bfdbfe;
+}
+.doc-section-title {
+  font-size: 18px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.01em;
+}
+
+.doc-p {
+  font-size: 13px; color: var(--text2);
+  line-height: 1.7; margin-bottom: 14px;
+}
+
+.doc-code-block {
+  background: var(--navy);
+  border-radius: 7px;
+  overflow: hidden;
+  margin: 16px 0;
+  box-shadow: var(--shadow-sm);
+}
+.dcb-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.dcb-lang {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.dcb-copy {
+  font-size: 10px; font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  cursor: pointer; transition: color 0.12s;
+  background: none; border: none; font-family: inherit;
+  letter-spacing: 0.03em; text-transform: uppercase;
+}
+.dcb-copy:hover { color: rgba(255,255,255,0.7); }
+.dcb-code {
+  padding: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px; line-height: 22px;
+  color: #c8d8e8;
+  overflow-x: auto;
+  white-space: pre;
+}
+.dcb-code .dk  { color: #7dd3fc; font-weight: 600; }  /* keyword */
+.dcb-code .di  { color: #86efac; }                     /* ident */
+.dcb-code .dn  { color: #fcd34d; }                     /* number */
+.dcb-code .da  { color: #fca5a5; font-weight: 600; }   /* arrow */
+.dcb-code .dm  { color: #c4b5fd; }                     /* modifier */
+.dcb-code .dc  { color: #64748b; font-style: italic; } /* comment */
+
+.doc-table {
+  width: 100%; border-collapse: collapse;
+  margin: 16px 0; font-size: 13px;
+}
+.doc-table th {
+  background: var(--surface2);
+  text-align: left; padding: 9px 14px;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border);
+}
+.doc-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2); vertical-align: top;
+}
+.doc-table tr:last-child td { border-bottom: none; }
+.doc-table tr:hover td { background: var(--surface2); }
+.doc-table .mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; color: var(--blue);
+}
+.doc-table .pill {
+  display: inline-block; padding: 1px 7px;
+  border-radius: 3px; font-size: 10px; font-weight: 600;
+  background: var(--blue-light); color: var(--blue);
+  border: 1px solid #bfdbfe;
+}
+.doc-table .pill.opt {
+  background: var(--green-light); color: var(--green);
+  border-color: #a7f3d0;
+}
+
+.doc-callout {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 16px; border-radius: 7px;
+  margin: 16px 0; font-size: 13px; line-height: 1.6;
+}
+.doc-callout.info { background: var(--blue-light); border: 1px solid #bfdbfe; color: #1e40af; }
+.doc-callout.tip  { background: var(--green-light); border: 1px solid #a7f3d0; color: #065f46; }
+.doc-callout.warn { background: var(--amber-light); border: 1px solid #fde68a; color: var(--amber); }
+.callout-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+/* EXAMPLES */
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.example-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+.example-card:hover {
+  border-color: var(--blue);
+  box-shadow: var(--shadow), 0 0 0 3px rgba(27,110,243,0.08);
+  transform: translateY(-1px);
+}
+.example-preview {
+  height: 120px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.example-mini-canvas {
+  width: 100%; height: 100%;
+}
+.example-body { padding: 14px 16px; border-top: 1px solid var(--border); }
+.example-name {
+  font-size: 13px; font-weight: 700;
+  color: var(--text); margin-bottom: 4px;
+}
+.example-desc { font-size: 12px; color: var(--text3); line-height: 1.5; margin-bottom: 10px; }
+.example-meta { display: flex; align-items: center; justify-content: space-between; }
+.example-tags-row { display: flex; gap: 4px; flex-wrap: wrap; }
+.example-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.04em;
+  padding: 2px 6px; border-radius: 3px; text-transform: uppercase;
+}
+.example-tag.blue   { background: var(--blue-light); color: var(--blue); border: 1px solid #bfdbfe; }
+.example-tag.green  { background: var(--green-light); color: var(--green); border: 1px solid #a7f3d0; }
+.example-tag.purple { background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+.example-tag.amber  { background: var(--amber-light); color: var(--amber); border: 1px solid #fde68a; }
+.example-tag.navy   { background: #dbeafe; color: var(--navy); border: 1px solid #93c5fd; }
+.example-load-btn {
+  font-size: 11px; font-weight: 700;
+  color: var(--blue); background: none; border: none;
+  cursor: pointer; padding: 0;
+  display: flex; align-items: center; gap: 4px;
+  transition: color 0.12s;
+}
+.example-load-btn:hover { color: #1560d9; }
+
+.examples-section-title {
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.examples-section-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* SCROLLBAR inside panels */
+.tab-panel::-webkit-scrollbar { width: 6px; }
+.tab-panel::-webkit-scrollbar-track { background: transparent; }
+.tab-panel::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -557,9 +798,9 @@ body {
   </div>
 
   <nav class="topbar-nav">
-    <div class="nav-item active">Editor</div>
-    <div class="nav-item">Documentation</div>
-    <div class="nav-item">Examples</div>
+    <div class="nav-item active" id="nav-editor" onclick="switchTab('editor')">Editor</div>
+    <div class="nav-item" id="nav-docs" onclick="switchTab('docs')">Documentation</div>
+    <div class="nav-item" id="nav-examples" onclick="switchTab('examples')">Examples</div>
   </nav>
 
   <div class="topbar-right">
@@ -582,8 +823,11 @@ body {
   </div>
 </div>
 
+<!-- TAB CONTENT WRAPPER -->
+<div style="flex:1;display:flex;flex-direction:column;min-height:0;position:relative;overflow:hidden">
+
 <!-- TOOLBAR -->
-<div class="toolbar">
+<div class="toolbar" id="editor-toolbar">
   <div class="breadcrumb">
     <span>Projects</span>
     <span class="bc-sep">/</span>
@@ -673,6 +917,220 @@ body {
     </div>
   </div>
 </div>
+
+<!-- ═══ DOCUMENTATION PANEL ═══ -->
+<div class="tab-panel" id="panel-docs">
+<div class="panel-wrap">
+
+  <div class="doc-hero">
+    <div class="doc-hero-eyebrow">ArchFlow DSL · v0.1.0</div>
+    <h1 class="doc-hero-title">Language Reference</h1>
+    <p class="doc-hero-desc">ArchFlow DSL is a declarative language for describing system architecture and animated data flow. Write plain-text diagrams that compile in real time to interactive visualizations.</p>
+  </div>
+
+  <div class="doc-toc">
+    <div class="doc-toc-title">Contents</div>
+    <a class="toc-item" href="#sec-nodes"><span class="toc-num">01</span>Node Declaration</a>
+    <a class="toc-item" href="#sec-connect"><span class="toc-num">02</span>Connections</a>
+    <a class="toc-item" href="#sec-flows"><span class="toc-num">03</span>Flow Animations</a>
+    <a class="toc-item" href="#sec-groups"><span class="toc-num">04</span>Groups &amp; States</a>
+    <a class="toc-item" href="#sec-layout"><span class="toc-num">05</span>Layout Engine</a>
+    <a class="toc-item" href="#sec-colors"><span class="toc-num">06</span>Color Reference</a>
+    <a class="toc-item" href="#sec-export"><span class="toc-num">07</span>Export Formats</a>
+    <a class="toc-item" href="#sec-grammar"><span class="toc-num">08</span>Full Grammar (EBNF)</a>
+  </div>
+
+  <!-- 01 NODES -->
+  <div class="doc-section" id="sec-nodes">
+    <div class="doc-section-header">
+      <span class="doc-section-num">01</span>
+      <span class="doc-section-title">Node Declaration</span>
+    </div>
+    <p class="doc-p">Nodes are the fundamental building blocks of a diagram. Each node represents a service, component, or system entity. Declare a node with the <code style="font-family:monospace;background:var(--surface2);padding:1px 5px;border-radius:3px;font-size:12px">node</code> keyword followed by a unique identifier.</p>
+    <div class="doc-code-block">
+      <div class="dcb-header"><span class="dcb-lang">DSL</span><button class="dcb-copy" onclick="copyCode(this)">Copy</button></div>
+      <div class="dcb-code"><span class="dk">node</span> <span class="di">api</span>                        <span class="dc"># Auto-positioned node</span>
+<span class="dk">node</span> <span class="di">database</span> <span class="dk">at</span> (<span class="dn">400</span>, <span class="dn">300</span>)   <span class="dc"># Explicit position (x, y)</span>
+<span class="dk">node</span> <span class="di">cache</span>    <span class="dk">at</span> (<span class="dn">400</span>, <span class="dn">150</span>)</div>
+    </div>
+    <table class="doc-table">
+      <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">identifier</td><td>string</td><td><span class="pill">Required</span></td><td>Unique name for the node. Used in connect and flow declarations.</td></tr>
+        <tr><td class="mono">at (x, y)</td><td>number pair</td><td><span class="pill opt">Optional</span></td><td>Explicit canvas position in a 800×600 coordinate space. Scaled to viewport automatically.</td></tr>
+      </tbody>
+    </table>
+    <div class="doc-callout tip"><span class="callout-icon">💡</span><span>If no position is given, the layout engine places nodes automatically using a directed acyclic graph (DAG) algorithm based on your connect and flow declarations.</span></div>
+  </div>
+
+  <!-- 02 CONNECTIONS -->
+  <div class="doc-section" id="sec-connect">
+    <div class="doc-section-header">
+      <span class="doc-section-num">02</span>
+      <span class="doc-section-title">Connections</span>
+    </div>
+    <p class="doc-p">Connections define structural relationships between nodes. They render as static dashed lines with arrowheads and represent the topology of your system — not data movement (use flows for that).</p>
+    <div class="doc-code-block">
+      <div class="dcb-header"><span class="dcb-lang">DSL</span><button class="dcb-copy" onclick="copyCode(this)">Copy</button></div>
+      <div class="dcb-code"><span class="dk">connect</span> <span class="di">frontend</span> <span class="da">-></span> <span class="di">api</span>
+<span class="dk">connect</span> <span class="di">api</span>      <span class="da">-></span> <span class="di">database</span>
+<span class="dk">connect</span> <span class="di">api</span>      <span class="da">-></span> <span class="di">cache</span></div>
+    </div>
+    <div class="doc-callout info"><span class="callout-icon">ℹ️</span><span>Both <code style="font-size:12px;font-family:monospace">connect</code> and <code style="font-size:12px;font-family:monospace">flow</code> declarations influence the automatic layout engine — connected nodes are pulled into proximity across the same DAG level.</span></div>
+  </div>
+
+  <!-- 03 FLOWS -->
+  <div class="doc-section" id="sec-flows">
+    <div class="doc-section-header">
+      <span class="doc-section-num">03</span>
+      <span class="doc-section-title">Flow Animations</span>
+    </div>
+    <p class="doc-p">Flows define animated data movement between nodes. Each flow renders as a moving particle along a bezier path. Multiple options can be chained in any order after the node pair.</p>
+    <div class="doc-code-block">
+      <div class="dcb-header"><span class="dcb-lang">DSL</span><button class="dcb-copy" onclick="copyCode(this)">Copy</button></div>
+      <div class="dcb-code"><span class="dk">flow</span> <span class="di">api</span> <span class="da">-></span> <span class="di">database</span>                          <span class="dc"># Default: speed 1, blue, loop</span>
+<span class="dk">flow</span> <span class="di">api</span> <span class="da">-></span> <span class="di">cache</span>    <span class="dm">speed</span> <span class="dn">2.0</span> <span class="dm">color</span> <span class="di">green</span>      <span class="dc"># Fast green flow</span>
+<span class="dk">flow</span> <span class="di">worker</span> <span class="da">-></span> <span class="di">queue</span>  <span class="dm">speed</span> <span class="dn">0.5</span> <span class="dm">color</span> <span class="di">amber</span> <span class="dm">loop</span>  <span class="dc"># Slow amber, looping</span></div>
+    </div>
+    <table class="doc-table">
+      <thead><tr><th>Option</th><th>Values</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">speed</td><td>0.1 – 5.0</td><td>1.0</td><td>Particle velocity. Values above 2.0 spawn multiple particles to maintain visual density.</td></tr>
+        <tr><td class="mono">color</td><td>named color</td><td>blue</td><td>Particle color. See Color Reference (§06) for all supported names.</td></tr>
+        <tr><td class="mono">loop</td><td>flag</td><td>true</td><td>Particles restart from the source node after reaching the target.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 04 GROUPS -->
+  <div class="doc-section" id="sec-groups">
+    <div class="doc-section-header">
+      <span class="doc-section-num">04</span>
+      <span class="doc-section-title">Groups &amp; States</span>
+    </div>
+    <p class="doc-p">Groups logically cluster related nodes. States define alternative animation configurations — for example, an idle state vs. a high-load state. Both accept nested statements.</p>
+    <div class="doc-code-block">
+      <div class="dcb-header"><span class="dcb-lang">DSL</span><button class="dcb-copy" onclick="copyCode(this)">Copy</button></div>
+      <div class="dcb-code"><span class="dk">group</span> <span class="di">backend</span> {
+  <span class="dk">node</span> <span class="di">api</span>
+  <span class="dk">node</span> <span class="di">worker</span>
+  <span class="dk">node</span> <span class="di">database</span>
+}
+
+<span class="dk">state</span> <span class="di">high_load</span> {
+  <span class="dk">flow</span> <span class="di">client</span> <span class="da">-></span> <span class="di">api</span> <span class="dm">speed</span> <span class="dn">4.0</span> <span class="dm">color</span> <span class="di">red</span>
+}</div>
+    </div>
+    <div class="doc-callout warn"><span class="callout-icon">⚠️</span><span>Group and state declarations are parsed but visual grouping boundaries are planned for a future release. Nested node declarations are fully supported today.</span></div>
+  </div>
+
+  <!-- 05 LAYOUT -->
+  <div class="doc-section" id="sec-layout">
+    <div class="doc-section-header">
+      <span class="doc-section-num">05</span>
+      <span class="doc-section-title">Layout Engine</span>
+    </div>
+    <p class="doc-p">The layout engine runs automatically when coordinates are omitted. It uses a topological sort to determine node levels, then distributes nodes evenly across the canvas.</p>
+    <table class="doc-table">
+      <thead><tr><th>Mode</th><th>Trigger</th><th>Behavior</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Explicit</strong></td><td><code style="font-family:monospace;font-size:12px">at (x, y)</code> provided</td><td>Coordinates scaled from 800×600 space to current viewport size.</td></tr>
+        <tr><td><strong>DAG Auto</strong></td><td>No coordinates</td><td>Topological sort assigns column depth; nodes distributed vertically within each column.</td></tr>
+        <tr><td><strong>Mixed</strong></td><td>Some nodes positioned</td><td>Positioned nodes are fixed; unpositioned nodes use DAG layout in remaining space.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 06 COLORS -->
+  <div class="doc-section" id="sec-colors">
+    <div class="doc-section-header">
+      <span class="doc-section-num">06</span>
+      <span class="doc-section-title">Color Reference</span>
+    </div>
+    <p class="doc-p">Use these named colors in <code style="font-family:monospace;background:var(--surface2);padding:1px 5px;border-radius:3px;font-size:12px">flow … color &lt;name&gt;</code> declarations.</p>
+    <table class="doc-table">
+      <thead><tr><th>Name</th><th>Hex</th><th>Preview</th></tr></thead>
+      <tbody id="color-table-body"></tbody>
+    </table>
+  </div>
+
+  <!-- 07 EXPORT -->
+  <div class="doc-section" id="sec-export">
+    <div class="doc-section-header">
+      <span class="doc-section-num">07</span>
+      <span class="doc-section-title">Export Formats</span>
+    </div>
+    <table class="doc-table">
+      <thead><tr><th>Format</th><th>Animated</th><th>Best for</th><th>Player required</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lottie JSON</strong></td><td>✓</td><td>Web, iOS, Android embeds</td><td>Yes — lottie-web, react-lottie</td></tr>
+        <tr><td><strong>SVG</strong></td><td>✗</td><td>Figma, Illustrator, Markdown</td><td>No</td></tr>
+        <tr><td><strong>Animated GIF</strong></td><td>✓</td><td>GitHub README, Notion, Slack</td><td>No</td></tr>
+      </tbody>
+    </table>
+    <div class="doc-callout tip"><span class="callout-icon">💡</span><span>Click <strong>Export</strong> in the top bar after compiling to open the export dialog. The Export button is disabled until a valid diagram has been compiled.</span></div>
+  </div>
+
+  <!-- 08 GRAMMAR -->
+  <div class="doc-section" id="sec-grammar">
+    <div class="doc-section-header">
+      <span class="doc-section-num">08</span>
+      <span class="doc-section-title">Full Grammar (EBNF)</span>
+    </div>
+    <div class="doc-code-block">
+      <div class="dcb-header"><span class="dcb-lang">EBNF</span><button class="dcb-copy" onclick="copyCode(this)">Copy</button></div>
+      <div class="dcb-code" style="color:#94a3b8">program      ::= statement*
+
+statement    ::= node_decl
+               | connect_decl
+               | flow_decl
+               | group_decl
+               | state_decl
+
+node_decl    ::= <span class="dk">"node"</span> IDENT (<span class="dk">"at"</span> position)?
+position     ::= "(" NUMBER "," NUMBER ")"
+
+connect_decl ::= <span class="dk">"connect"</span> IDENT "->" IDENT
+
+flow_decl    ::= <span class="dk">"flow"</span> IDENT "->" IDENT flow_opt*
+flow_opt     ::= <span class="dm">"speed"</span> NUMBER
+               | <span class="dm">"color"</span> IDENT
+               | <span class="dm">"loop"</span>
+
+group_decl   ::= <span class="dk">"group"</span> IDENT "{" statement* "}"
+state_decl   ::= <span class="dk">"state"</span> IDENT "{" statement* "}"
+
+IDENT        ::= [a-zA-Z_][a-zA-Z0-9_]*
+NUMBER       ::= [0-9]+ ("." [0-9]+)?</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══ EXAMPLES PANEL ═══ -->
+<div class="tab-panel" id="panel-examples">
+<div class="panel-wrap">
+
+  <div class="doc-hero">
+    <div class="doc-hero-eyebrow">Examples Library</div>
+    <h1 class="doc-hero-title">Ready-to-use Diagrams</h1>
+    <p class="doc-hero-desc">Click any example to load it into the editor. Each one demonstrates a different architectural pattern — from simple pipelines to complex microservice meshes.</p>
+  </div>
+
+  <div class="examples-section-title">Beginner</div>
+  <div class="examples-grid" id="examples-grid-beginner"></div>
+
+  <div class="examples-section-title">Intermediate</div>
+  <div class="examples-grid" id="examples-grid-intermediate"></div>
+
+  <div class="examples-section-title">Advanced</div>
+  <div class="examples-grid" id="examples-grid-advanced"></div>
+
+</div>
+</div>
+
+</div><!-- end tab content wrapper -->
 
 <!-- EXPORT MODAL -->
 <div class="modal-backdrop" id="export-modal">
@@ -1894,7 +2352,405 @@ flow queue   -> worker    speed 0.7  color orange  loop`;
 
 function loadExample(){ editor.value=EXAMPLE; updateEditor(); compile(); }
 
-// ── INIT ─────────────────────────────────────────
+// ── TAB SWITCHING ─────────────────────────────────
+function switchTab(tab) {
+  ['editor','docs','examples'].forEach(t => {
+    document.getElementById('nav-'+t).classList.toggle('active', t===tab);
+  });
+  document.getElementById('panel-docs').classList.toggle('active', tab==='docs');
+  document.getElementById('panel-examples').classList.toggle('active', tab==='examples');
+  // Show/hide editor toolbar
+  document.getElementById('editor-toolbar').style.display = tab==='editor' ? '' : 'none';
+  // Hide workspace when not on editor
+  document.querySelector('.workspace').style.visibility = tab==='editor' ? '' : 'hidden';
+  if(tab==='examples') renderExampleCards();
+  if(tab==='docs') buildColorTable();
+}
+
+// ── COLOR TABLE ───────────────────────────────────
+const ALL_COLORS = [
+  ['blue','#3b82f6'],['cyan','#06b6d4'],['teal','#14b8a6'],['green','#10b981'],
+  ['indigo','#6366f1'],['violet','#7c3aed'],['purple','#8b5cf6'],['pink','#ec4899'],
+  ['red','#ef4444'],['orange','#f97316'],['amber','#f59e0b'],['yellow','#fbbf24'],
+  ['navy','#1e40af'],['gray','#64748b'],['white','#94a3b8'],
+];
+
+function buildColorTable() {
+  const tb = document.getElementById('color-table-body');
+  if(tb.children.length) return; // already built
+  ALL_COLORS.forEach(([name, hex]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="mono">${name}</td>
+      <td class="mono" style="color:var(--text3)">${hex}</td>
+      <td><div style="width:32px;height:18px;background:${hex};border-radius:4px;border:1px solid rgba(0,0,0,0.08)"></div></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+// ── COPY CODE ─────────────────────────────────────
+function copyCode(btn) {
+  const code = btn.closest('.doc-code-block').querySelector('.dcb-code').innerText;
+  navigator.clipboard.writeText(code).then(()=>{
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>btn.textContent=orig, 1500);
+  });
+}
+
+// ── EXAMPLES DATA ─────────────────────────────────
+const EXAMPLES = [
+  {
+    id: 'simple-api',
+    name: 'Simple API',
+    desc: 'Client → API → Database. The minimal three-tier web application.',
+    level: 'beginner',
+    tags: [['blue','Web'], ['green','3-tier']],
+    bg: '#eff6ff',
+    code: `# Simple three-tier API
+node client   at (100, 200)
+node api      at (350, 200)
+node database at (600, 200)
+
+connect client   -> api
+connect api      -> database
+
+flow client   -> api      speed 1.5 color blue  loop
+flow api      -> database speed 1.0 color green loop`
+  },
+  {
+    id: 'pipeline',
+    name: 'Data Pipeline',
+    desc: 'Linear ETL: ingest → transform → load → warehouse.',
+    level: 'beginner',
+    tags: [['amber','ETL'], ['navy','Pipeline']],
+    bg: '#fffbeb',
+    code: `# Data pipeline
+node ingest    at (80,  200)
+node transform at (260, 200)
+node load      at (440, 200)
+node warehouse at (620, 200)
+
+connect ingest    -> transform
+connect transform -> load
+connect load      -> warehouse
+
+flow ingest    -> transform speed 1.2 color cyan   loop
+flow transform -> load      speed 1.0 color blue   loop
+flow load      -> warehouse speed 0.8 color indigo loop`
+  },
+  {
+    id: 'pub-sub',
+    name: 'Pub / Sub',
+    desc: 'Publisher pushes events to a broker; multiple consumers subscribe.',
+    level: 'beginner',
+    tags: [['purple','Events'], ['green','Async']],
+    bg: '#faf5ff',
+    code: `# Pub/Sub pattern
+node publisher
+node broker
+node consumer_a
+node consumer_b
+node consumer_c
+
+connect publisher -> broker
+connect broker    -> consumer_a
+connect broker    -> consumer_b
+connect broker    -> consumer_c
+
+flow publisher -> broker     speed 2.0 color violet loop
+flow broker    -> consumer_a speed 1.2 color purple loop
+flow broker    -> consumer_b speed 1.2 color purple loop
+flow broker    -> consumer_c speed 1.2 color purple loop`
+  },
+  {
+    id: 'microservices',
+    name: 'Microservices',
+    desc: 'API gateway routing to auth, core API, cache, database, and async workers via queue.',
+    level: 'intermediate',
+    tags: [['blue','Microservices'], ['amber','Gateway']],
+    bg: '#eff6ff',
+    code: `# Microservices overview
+node client    at (80,200)
+node gateway   at (250,200)
+node auth      at (420,100)
+node api       at (420,200)
+node cache     at (420,320)
+node database  at (590,150)
+node queue     at (590,280)
+node worker    at (750,280)
+
+connect client   -> gateway
+connect gateway  -> auth
+connect gateway  -> api
+connect api      -> cache
+connect api      -> database
+connect api      -> queue
+connect queue    -> worker
+
+flow client  -> gateway   speed 1.8 color blue   loop
+flow gateway -> api       speed 1.5 color indigo loop
+flow api     -> database  speed 1.0 color green  loop
+flow api     -> cache     speed 2.2 color teal   loop
+flow api     -> queue     speed 0.9 color amber  loop
+flow queue   -> worker    speed 0.7 color orange loop`
+  },
+  {
+    id: 'cqrs',
+    name: 'CQRS Pattern',
+    desc: 'Command Query Responsibility Segregation — separate write and read models.',
+    level: 'intermediate',
+    tags: [['purple','CQRS'], ['green','DDD']],
+    bg: '#fdf4ff',
+    code: `# CQRS pattern
+node client
+node command_bus
+node command_handler
+node event_store
+node projector
+node read_model
+node query_handler
+
+connect client          -> command_bus
+connect command_bus     -> command_handler
+connect command_handler -> event_store
+connect event_store     -> projector
+connect projector       -> read_model
+connect client          -> query_handler
+connect query_handler   -> read_model
+
+flow client          -> command_bus     speed 1.5 color blue   loop
+flow command_handler -> event_store     speed 1.0 color violet loop
+flow event_store     -> projector       speed 0.8 color purple loop
+flow projector       -> read_model      speed 0.8 color indigo loop
+flow client          -> query_handler   speed 1.5 color teal   loop`
+  },
+  {
+    id: 'cdn',
+    name: 'CDN & Edge',
+    desc: 'Global CDN with origin shield, edge nodes, and cache invalidation flow.',
+    level: 'intermediate',
+    tags: [['cyan','CDN'], ['navy','Edge']],
+    bg: '#ecfeff',
+    code: `# CDN architecture
+node browser
+node edge_eu    at (280, 120)
+node edge_us    at (280, 220)
+node edge_ap    at (280, 320)
+node shield     at (460, 220)
+node origin     at (640, 220)
+
+connect browser  -> edge_eu
+connect browser  -> edge_us
+connect browser  -> edge_ap
+connect edge_eu  -> shield
+connect edge_us  -> shield
+connect edge_ap  -> shield
+connect shield   -> origin
+
+flow browser -> edge_eu  speed 2.0 color cyan  loop
+flow browser -> edge_us  speed 2.0 color teal  loop
+flow browser -> edge_ap  speed 2.0 color blue  loop
+flow edge_eu -> shield   speed 0.8 color indigo loop
+flow edge_us -> shield   speed 0.8 color indigo loop
+flow shield  -> origin   speed 0.6 color navy  loop`
+  },
+  {
+    id: 'ml-pipeline',
+    name: 'ML Training Pipeline',
+    desc: 'Data ingestion through feature engineering, model training, evaluation, and serving.',
+    level: 'advanced',
+    tags: [['purple','ML/AI'], ['amber','Pipeline']],
+    bg: '#faf5ff',
+    code: `# ML training pipeline
+node data_lake      at (80,  200)
+node feature_store  at (240, 200)
+node trainer        at (400, 120)
+node validator      at (400, 280)
+node registry       at (560, 200)
+node serving        at (720, 120)
+node monitor        at (720, 280)
+
+connect data_lake     -> feature_store
+connect feature_store -> trainer
+connect feature_store -> validator
+connect trainer       -> registry
+connect validator     -> registry
+connect registry      -> serving
+connect serving       -> monitor
+
+flow data_lake     -> feature_store speed 1.2 color cyan   loop
+flow feature_store -> trainer       speed 1.0 color blue   loop
+flow feature_store -> validator     speed 1.0 color teal   loop
+flow trainer       -> registry      speed 0.7 color violet loop
+flow validator     -> registry      speed 0.7 color purple loop
+flow registry      -> serving       speed 0.9 color indigo loop
+flow serving       -> monitor       speed 1.5 color green  loop`
+  },
+  {
+    id: 'event-driven',
+    name: 'Event-Driven Mesh',
+    desc: 'Full event-driven architecture with producers, event mesh, consumers, and dead-letter queue.',
+    level: 'advanced',
+    tags: [['amber','Events'], ['red','Resilience'], ['green','Async']],
+    bg: '#fff7ed',
+    code: `# Event-driven mesh
+node producer_a   at (80,  120)
+node producer_b   at (80,  280)
+node event_mesh   at (280, 200)
+node router       at (460, 200)
+node consumer_1   at (640, 100)
+node consumer_2   at (640, 200)
+node consumer_3   at (640, 300)
+node dlq          at (460, 350)
+
+connect producer_a -> event_mesh
+connect producer_b -> event_mesh
+connect event_mesh -> router
+connect router     -> consumer_1
+connect router     -> consumer_2
+connect router     -> consumer_3
+connect router     -> dlq
+
+flow producer_a -> event_mesh  speed 2.0 color blue   loop
+flow producer_b -> event_mesh  speed 1.5 color cyan   loop
+flow event_mesh -> router      speed 1.8 color indigo loop
+flow router     -> consumer_1  speed 1.2 color green  loop
+flow router     -> consumer_2  speed 1.2 color teal   loop
+flow router     -> consumer_3  speed 1.2 color violet loop
+flow router     -> dlq         speed 0.4 color red    loop`
+  },
+  {
+    id: 'zero-trust',
+    name: 'Zero-Trust Network',
+    desc: 'Policy engine, identity broker, and per-service mTLS with continuous verification.',
+    level: 'advanced',
+    tags: [['red','Security'], ['navy','Zero-Trust']],
+    bg: '#fff1f2',
+    code: `# Zero-trust architecture
+node user
+node idp          at (260, 120)
+node policy_engine at (260, 280)
+node proxy        at (440, 200)
+node service_a    at (640, 120)
+node service_b    at (640, 200)
+node service_c    at (640, 300)
+node audit_log    at (440, 360)
+
+connect user           -> idp
+connect user           -> policy_engine
+connect idp            -> proxy
+connect policy_engine  -> proxy
+connect proxy          -> service_a
+connect proxy          -> service_b
+connect proxy          -> service_c
+connect proxy          -> audit_log
+
+flow user          -> idp           speed 1.5 color blue   loop
+flow user          -> policy_engine speed 1.5 color indigo loop
+flow idp           -> proxy         speed 1.2 color teal   loop
+flow proxy         -> service_a     speed 1.0 color green  loop
+flow proxy         -> service_b     speed 1.0 color green  loop
+flow proxy         -> service_c     speed 1.0 color green  loop
+flow proxy         -> audit_log     speed 0.6 color amber  loop`
+  },
+];
+
+// ── EXAMPLE CARDS ─────────────────────────────────
+let examplesRendered = false;
+
+function renderExampleCards() {
+  if(examplesRendered) return;
+  examplesRendered = true;
+
+  const groups = { beginner: [], intermediate: [], advanced: [] };
+  EXAMPLES.forEach(ex => groups[ex.level].push(ex));
+
+  Object.entries(groups).forEach(([level, exs]) => {
+    const grid = document.getElementById('examples-grid-' + level);
+    exs.forEach(ex => {
+      const card = document.createElement('div');
+      card.className = 'example-card';
+      card.innerHTML = `
+        <div class="example-preview" style="background:${ex.bg}">
+          <canvas class="example-mini-canvas" id="mini-${ex.id}" width="260" height="120"></canvas>
+        </div>
+        <div class="example-body">
+          <div class="example-name">${ex.name}</div>
+          <div class="example-desc">${ex.desc}</div>
+          <div class="example-meta">
+            <div class="example-tags-row">${ex.tags.map(([c,l])=>`<span class="example-tag ${c}">${l}</span>`).join('')}</div>
+            <button class="example-load-btn" onclick="loadExampleByCode(${JSON.stringify(ex.code).replace(/"/g,'&quot;')})">
+              Load →
+            </button>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+
+      // Render mini preview
+      setTimeout(() => renderMiniPreview(ex, document.getElementById('mini-'+ex.id)), 50);
+    });
+  });
+}
+
+function renderMiniPreview(ex, cvs) {
+  if(!cvs) return;
+  const c = cvs.getContext('2d');
+  const W = cvs.width, H = cvs.height;
+  c.clearRect(0,0,W,H);
+
+  try {
+    const ast = parse(ex.code);
+    if(Object.keys(ast.nodes).length === 0) return;
+
+    // Mini layout
+    Object.values(ast.nodes).forEach(n => { n._ox = n.x; n._oy = n.y; });
+    layout(ast, W*3, H*3); // layout into larger space then scale down
+    Object.values(ast.nodes).forEach(n => { n.x /= 3; n.y /= 3; });
+
+    const MNW = 52, MNH = 20, MNR = 3;
+
+    // Edges
+    ast.edges.forEach(e => {
+      const from = ast.nodes[e.from], to = ast.nodes[e.to];
+      if(!from||!to) return;
+      const angle = Math.atan2(to.y-from.y, to.x-from.x);
+      const ex2 = to.x-(MNW/2+1)*Math.cos(angle), ey2 = to.y-(MNH/2+1)*Math.sin(angle);
+      c.strokeStyle='#cbd5e1'; c.lineWidth=1; c.setLineDash([3,3]);
+      c.beginPath(); c.moveTo(from.x,from.y); c.lineTo(ex2,ey2); c.stroke();
+      c.setLineDash([]);
+    });
+
+    // Nodes
+    Object.values(ast.nodes).forEach(n => {
+      const col = nodeColor(n.id);
+      const x=n.x-MNW/2, y=n.y-MNH/2;
+      c.save(); c.shadowColor='rgba(15,45,82,0.1)'; c.shadowBlur=4; c.shadowOffsetY=1;
+      miniRRect(c,x,y,MNW,MNH,MNR); c.fillStyle=col.fill; c.fill(); c.restore();
+      miniRRect(c,x,y,MNW,MNH,MNR); c.strokeStyle=col.stroke; c.lineWidth=1; c.stroke();
+      c.fillStyle=col.stroke;
+      c.beginPath(); c.moveTo(x,y+MNR); c.arcTo(x,y,x+MNR,y,MNR); c.lineTo(x+3,y); c.lineTo(x+3,y+MNH); c.lineTo(x,y+MNH-MNR); c.arcTo(x,y+MNH,x+MNR,y+MNH,MNR); c.closePath(); c.fill();
+      c.font='500 7px "IBM Plex Mono",monospace'; c.fillStyle=col.text;
+      c.textAlign='center'; c.textBaseline='middle';
+      const label = n.id.length > 8 ? n.id.slice(0,7)+'…' : n.id;
+      c.fillText(label, n.x+1, n.y);
+    });
+  } catch(e) {}
+}
+
+function miniRRect(c,x,y,w,h,r){
+  c.beginPath(); c.moveTo(x+r,y); c.lineTo(x+w-r,y); c.arcTo(x+w,y,x+w,y+r,r);
+  c.lineTo(x+w,y+h-r); c.arcTo(x+w,y+h,x+w-r,y+h,r);
+  c.lineTo(x+r,y+h); c.arcTo(x,y+h,x,y+h-r,r);
+  c.lineTo(x,y+r); c.arcTo(x,y,x+r,y,r); c.closePath();
+}
+
+function loadExampleByCode(code) {
+  editor.value = code;
+  updateEditor();
+  compile();
+  switchTab('editor');
+}
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 requestAnimationFrame(renderFrame);
