@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArchFlow — Architecture Visualization</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:          #f5f6f8;
+  --surface:     #ffffff;
+  --surface2:    #f0f2f5;
+  --border:      #dde1e7;
+  --border2:     #c8cdd6;
+  --navy:        #0f2d52;
+  --navy2:       #1a4070;
+  --blue:        #1b6ef3;
+  --blue-light:  #e8f0fe;
+  --green:       #0d7a4e;
+  --green-light: #e6f7f0;
+  --red:         #c0392b;
+  --red-light:   #fdecea;
+  --amber:       #b45309;
+  --amber-light: #fef3c7;
+  --text:        #1a2332;
+  --text2:       #4a5568;
+  --text3:       #7a8595;
+  --text4:       #a0aab8;
+  --shadow-sm: 0 1px 3px rgba(15,45,82,0.07), 0 1px 2px rgba(15,45,82,0.04);
+  --shadow:    0 4px 12px rgba(15,45,82,0.08), 0 2px 4px rgba(15,45,82,0.05);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOPBAR */
+.topbar {
+  height: 56px;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 32px;
+}
+.brand-mark {
+  width: 32px; height: 32px;
+  background: var(--blue);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.brand-name { font-weight: 700; font-size: 16px; color: #fff; letter-spacing: -0.01em; }
+.brand-badge {
+  font-size: 10px; font-weight: 600;
+  background: rgba(27,110,243,0.35);
+  color: #90b8ff;
+  padding: 2px 7px; border-radius: 3px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  border: 1px solid rgba(144,184,255,0.2);
+}
+
+.topbar-nav { display: flex; gap: 2px; flex: 1; }
+.nav-item {
+  padding: 6px 14px;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px; font-weight: 500;
+  border-radius: 5px; cursor: pointer;
+  transition: all 0.15s;
+}
+.nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
+.nav-item.active { color: #fff; background: rgba(255,255,255,0.1); }
+
+.topbar-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+.status-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,0.5);
+}
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%; background: #4ade80; flex-shrink: 0;
+}
+.status-dot.busy   { animation: blink 0.8s infinite; }
+.status-dot.error  { background: #f87171; animation: none; }
+.status-dot.ok     { background: #4ade80; animation: none; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  border-radius: 5px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+  border: none; white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.btn-ghost {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.14); color: #fff; }
+.btn-primary {
+  background: var(--blue); color: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px rgba(27,110,243,0.3);
+}
+.btn-primary:hover { background: #1560d9; box-shadow: 0 2px 8px rgba(27,110,243,0.4); }
+
+/* TOOLBAR */
+.toolbar {
+  height: 40px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 16px; flex-shrink: 0;
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; color: var(--text3);
+}
+.bc-sep { color: var(--text4); }
+.bc-cur {
+  color: var(--text2); font-weight: 500;
+  display: flex; align-items: center; gap: 5px;
+}
+.file-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%; background: var(--blue);
+}
+.toolbar-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.btn-sm {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 11px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: all 0.12s;
+  border: 1px solid var(--border);
+  background: var(--surface); color: var(--text2);
+  letter-spacing: 0.02em;
+}
+.btn-sm:hover { background: var(--surface2); border-color: var(--border2); color: var(--text); }
+.btn-sm-blue { background: var(--blue); color: #fff; border-color: var(--blue); }
+.btn-sm-blue:hover { background: #1560d9; border-color: #1560d9; }
+.vdivider { width: 1px; height: 18px; background: var(--border); margin: 0 3px; }
+
+/* WORKSPACE */
+.workspace {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  min-height: 0; overflow: hidden;
+}
+.resize-handle {
+  background: var(--border); cursor: col-resize;
+  transition: background 0.15s;
+}
+.resize-handle:hover { background: var(--blue); }
+
+/* PANE */
+.pane {
+  display: flex; flex-direction: column;
+  min-height: 0; overflow: hidden;
+  background: var(--surface);
+}
+
+.pane-bar {
+  height: 36px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 14px; flex-shrink: 0;
+}
+.pane-label {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text3);
+  display: flex; align-items: center; gap: 7px;
+}
+.pane-label svg { color: var(--blue); }
+.pane-meta { margin-left: auto; font-size: 10px; color: var(--text4); font-family: 'IBM Plex Mono', monospace; }
+
+/* EDITOR */
+.editor-scroll { flex: 1; overflow: auto; position: relative; }
+.editor-grid { display: flex; min-height: 100%; }
+
+.gutter {
+  width: 44px; background: var(--surface2);
+  border-right: 1px solid var(--border);
+  padding: 16px 0; flex-shrink: 0; user-select: none;
+}
+.gn {
+  display: block; text-align: right;
+  padding: 0 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; line-height: 22px;
+  color: var(--text4);
+}
+.gn.cur { color: var(--blue); font-weight: 500; }
+
+.code-area { position: relative; flex: 1; min-width: 0; }
+
+#dsl-editor {
+  position: absolute; inset: 0;
+  padding: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px; line-height: 22px;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--navy);
+  border: none; outline: none;
+  resize: none; width: 100%; height: 100%; z-index: 2;
+}
+#highlight-layer {
+  position: absolute; inset: 0;
+  padding: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px; line-height: 22px;
+  pointer-events: none; z-index: 1;
+  white-space: pre-wrap; word-break: break-all;
+  color: var(--text);
+}
+
+/* Syntax tokens */
+.tk  { color: #1b6ef3; font-weight: 600; }
+.tm  { color: #7c3aed; }
+.ti  { color: #0d7a4e; }
+.tn  { color: #b45309; }
+.tco { color: var(--text4); font-style: italic; }
+.ta  { color: #c0392b; font-weight: 600; }
+.ts  { color: var(--text3); }
+.tst { color: #0369a1; }
+
+/* STATUS BAR */
+.statusbar {
+  height: 30px; background: var(--surface2);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 14px; flex-shrink: 0;
+}
+.stat-items { display: flex; align-items: center; gap: 14px; }
+.stat-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10px; color: var(--text3);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.stat-val { font-weight: 600; color: var(--text2); }
+.stat-sep { color: var(--border2); }
+.ln-col { margin-left: auto; font-size: 10px; color: var(--text4); font-family: 'IBM Plex Mono', monospace; }
+
+/* CONSOLE */
+.console-panel {
+  border-top: 1px solid var(--border);
+  background: var(--surface); flex-shrink: 0;
+  max-height: 106px; overflow-y: auto;
+}
+.console-hdr {
+  padding: 5px 14px;
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text4);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+}
+.cline {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 2px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; line-height: 20px; color: var(--text2);
+}
+.cline.error   { color: var(--red); background: var(--red-light); }
+.cline.success { color: var(--green); }
+.cline.info    { color: var(--text3); }
+.cline.warning { color: var(--amber); }
+.cpfx { font-weight: 700; flex-shrink: 0; }
+
+/* CANVAS */
+.canvas-wrap {
+  flex: 1; position: relative; overflow: hidden;
+  background: var(--bg);
+  background-image: radial-gradient(circle at 1px 1px, rgba(15,45,82,0.055) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+#canvas { display: block; width: 100%; height: 100%; }
+
+/* OVERLAY CARDS */
+.overlay { position: absolute; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 10px 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.legend-title {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text4); margin-bottom: 7px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text2); line-height: 20px;
+}
+.lswatch {
+  width: 14px; height: 14px;
+  border-radius: 3px; flex-shrink: 0;
+  border: 1px solid transparent;
+}
+
+.metrics-row { display: flex; gap: 16px; }
+.metric { text-align: center; }
+.metric-val {
+  display: block;
+  font-size: 18px; font-weight: 700;
+  color: var(--navy); line-height: 1.1;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.metric-lbl {
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text4); font-weight: 600;
+}
+
+/* EXPORT MODAL */
+.modal-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(15,45,82,0.45);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  align-items: center; justify-content: center;
+}
+.modal-backdrop.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 480px;
+  box-shadow: 0 20px 60px rgba(15,45,82,0.2), 0 4px 16px rgba(15,45,82,0.1);
+  overflow: hidden;
+  animation: modalIn 0.18s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:none} }
+
+.modal-header {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-title { font-size: 15px; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; }
+.modal-close {
+  width: 28px; height: 28px; border-radius: 5px;
+  display: grid; place-items: center;
+  cursor: pointer; color: var(--text3);
+  background: transparent; border: none;
+  font-size: 18px; line-height: 1;
+  transition: all 0.12s;
+}
+.modal-close:hover { background: var(--surface2); color: var(--text); }
+
+.modal-body { padding: 20px 22px; }
+
+.export-options { display: flex; flex-direction: column; gap: 12px; }
+
+.export-card {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.export-card:hover { border-color: var(--blue); background: var(--blue-light); }
+.export-card.selected { border-color: var(--blue); background: var(--blue-light); }
+
+.export-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  display: grid; place-items: center;
+  flex-shrink: 0; font-size: 18px;
+  font-weight: 700; font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+}
+.export-icon-lottie { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.export-icon-svg    { background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+
+.export-info { flex: 1; }
+.export-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.export-desc { font-size: 12px; color: var(--text3); line-height: 1.5; }
+.export-tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
+.export-tag {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.03em;
+  padding: 2px 7px; border-radius: 3px;
+  background: var(--surface2); color: var(--text3);
+  border: 1px solid var(--border);
+}
+.export-tag.green { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+.export-tag.purple { background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; }
+.export-tag.blue { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+.export-tag.amber { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+
+.export-icon-gif  { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+/* GIF SETTINGS */
+.gif-settings {
+  display: none;
+  margin-top: 12px;
+  padding: 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  gap: 14px;
+  flex-direction: column;
+}
+.gif-settings.visible { display: flex; }
+
+.gif-row { display: flex; gap: 12px; }
+.gif-field { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.gif-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3);
+}
+.gif-select {
+  padding: 5px 9px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px; color: var(--text);
+  cursor: pointer; outline: none;
+  transition: border-color 0.12s;
+}
+.gif-select:focus { border-color: var(--blue); }
+
+.gif-hint {
+  font-size: 10px; color: var(--text4);
+  line-height: 1.5;
+}
+
+/* PROGRESS OVERLAY */
+.progress-overlay {
+  display: none;
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px;
+  z-index: 10;
+}
+.progress-overlay.visible { display: flex; }
+
+.progress-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--navy);
+}
+.progress-sub {
+  font-size: 11px; color: var(--text3);
+  text-align: center; max-width: 260px; line-height: 1.5;
+}
+.progress-track {
+  width: 260px; height: 6px;
+  background: var(--border);
+  border-radius: 3px; overflow: hidden;
+}
+.progress-bar {
+  height: 100%; background: var(--blue);
+  border-radius: 3px;
+  transition: width 0.15s;
+  width: 0%;
+}
+.progress-pct {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  color: var(--blue);
+}
+
+.modal { position: relative; }
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+}
+.modal-note { font-size: 11px; color: var(--text4); }
+
+.btn-modal-cancel {
+  padding: 7px 16px; border-radius: 5px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text2);
+  transition: all 0.12s;
+}
+.btn-modal-cancel:hover { background: var(--surface2); }
+
+.btn-modal-dl {
+  padding: 7px 20px; border-radius: 5px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px; font-weight: 700;
+  cursor: pointer; border: none;
+  background: var(--blue); color: #fff;
+  display: flex; align-items: center; gap: 7px;
+  transition: all 0.12s;
+  box-shadow: 0 1px 3px rgba(27,110,243,0.3);
+}
+.btn-modal-dl:hover { background: #1560d9; }
+.btn-modal-dl:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text4); }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="1" y="5" width="5" height="8" rx="1.5" fill="rgba(255,255,255,0.9)"/>
+        <rect x="12" y="5" width="5" height="8" rx="1.5" fill="rgba(255,255,255,0.9)"/>
+        <rect x="6" y="8.2" width="6" height="1.6" rx="0.8" fill="rgba(255,255,255,0.7)"/>
+        <polygon points="11,6.5 13,9 11,11.5" fill="rgba(255,255,255,0.9)"/>
+      </svg>
+    </div>
+    <span class="brand-name">ArchFlow</span>
+    <span class="brand-badge">Beta</span>
+  </div>
+
+  <nav class="topbar-nav">
+    <div class="nav-item active">Editor</div>
+    <div class="nav-item">Documentation</div>
+    <div class="nav-item">Examples</div>
+  </nav>
+
+  <div class="topbar-right">
+    <div class="status-chip">
+      <div class="status-dot ok" id="status-dot"></div>
+      <span id="status-text">Ready</span>
+    </div>
+    <button class="btn btn-ghost" onclick="openExportModal()" id="btn-export" style="opacity:0.45;cursor:not-allowed" disabled>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="1" x2="6" y2="7.5"/><polyline points="3.5,5 6,7.5 8.5,5"/><path d="M2,9.5 L2,11 L10,11 L10,9.5"/></svg>
+      Export
+    </button>
+    <button class="btn btn-ghost" onclick="loadExample()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1L7.5 4.5H11L8.25 6.5L9.25 10L6 8L2.75 10L3.75 6.5L1 4.5H4.5Z"/></svg>
+      Load Example
+    </button>
+    <button class="btn btn-primary" onclick="compile()">
+      <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><polygon points="0,0 10,6 0,12"/></svg>
+      Compile
+    </button>
+  </div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="breadcrumb">
+    <span>Projects</span>
+    <span class="bc-sep">/</span>
+    <span>Architecture</span>
+    <span class="bc-sep">/</span>
+    <span class="bc-cur">
+      <span class="file-dot"></span>main.arch
+    </span>
+  </div>
+  <div class="toolbar-actions">
+    <button class="btn-sm" onclick="clearEditor()">Clear</button>
+    <div class="vdivider"></div>
+    <button class="btn-sm" onclick="resetView()">Reset View</button>
+    <button class="btn-sm btn-sm-blue" onclick="compile()">▶ Run</button>
+  </div>
+</div>
+
+<!-- WORKSPACE -->
+<div class="workspace">
+
+  <!-- EDITOR -->
+  <div class="pane">
+    <div class="pane-bar">
+      <div class="pane-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="1" y="2" width="12" height="1.2" rx="0.6"/><rect x="1" y="5.4" width="8" height="1.2" rx="0.6"/><rect x="1" y="8.8" width="10" height="1.2" rx="0.6"/><rect x="1" y="12" width="6" height="1.2" rx="0.6" opacity="0.5"/></svg>
+        DSL Editor
+      </div>
+      <span class="pane-meta" id="cursor-pos">Ln 1, Col 1</span>
+    </div>
+
+    <div class="editor-scroll" id="editor-scroll">
+      <div class="editor-grid">
+        <div class="gutter" id="gutter"></div>
+        <div class="code-area">
+          <div id="highlight-layer"></div>
+          <textarea id="dsl-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="statusbar">
+      <div class="stat-items">
+        <div class="stat-item">Nodes <span class="stat-val" id="stat-nodes">—</span></div>
+        <span class="stat-sep">·</span>
+        <div class="stat-item">Edges <span class="stat-val" id="stat-edges">—</span></div>
+        <span class="stat-sep">·</span>
+        <div class="stat-item">Flows <span class="stat-val" id="stat-flows">—</span></div>
+        <span class="stat-sep">·</span>
+        <div class="stat-item">Lines <span class="stat-val" id="stat-lines">0</span></div>
+      </div>
+      <span class="ln-col">UTF-8 · DSL</span>
+    </div>
+
+    <div class="console-panel">
+      <div class="console-hdr">Output</div>
+      <div id="console"></div>
+    </div>
+  </div>
+
+  <div class="resize-handle"></div>
+
+  <!-- PREVIEW -->
+  <div class="pane" style="background:var(--bg)">
+    <div class="pane-bar">
+      <div class="pane-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/><rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/></svg>
+        Preview
+      </div>
+      <span class="pane-meta" id="fps-counter">— fps</span>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="canvas"></canvas>
+      <div class="overlay">
+        <div class="card metrics-row">
+          <div class="metric"><span class="metric-val" id="ov-nodes">0</span><span class="metric-lbl">Nodes</span></div>
+          <div class="metric"><span class="metric-val" id="ov-edges">0</span><span class="metric-lbl">Edges</span></div>
+          <div class="metric"><span class="metric-val" id="ov-flows">0</span><span class="metric-lbl">Flows</span></div>
+        </div>
+        <div class="card" style="min-width:130px">
+          <div class="legend-title">Legend</div>
+          <div class="legend-item"><div class="lswatch" style="background:#dbeafe;border-color:#93c5fd"></div>Node</div>
+          <div class="legend-item"><div class="lswatch" style="background:transparent;border-color:#cbd5e1;border-style:dashed"></div>Connection</div>
+          <div class="legend-item"><div class="lswatch" style="background:#3b82f6;border-radius:50%;border-color:transparent"></div>Flow particle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal-backdrop" id="export-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Export Diagram</span>
+      <button class="modal-close" onclick="closeExportModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="export-options">
+
+        <div class="export-card selected" id="card-lottie" onclick="selectExport('lottie')">
+          <div class="export-icon export-icon-lottie">JSON</div>
+          <div class="export-info">
+            <div class="export-name">Lottie Animation (.json)</div>
+            <div class="export-desc">Spec-compliant Lottie JSON with animated flow particles. Embed anywhere using lottie-web, React, iOS, or Android players.</div>
+            <div class="export-tags">
+              <span class="export-tag amber">Animated</span>
+              <span class="export-tag blue">Web · iOS · Android</span>
+              <span class="export-tag green">Requires player</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="export-card" id="card-svg" onclick="selectExport('svg')">
+          <div class="export-icon export-icon-svg">SVG</div>
+          <div class="export-info">
+            <div class="export-name">Static Diagram (.svg)</div>
+            <div class="export-desc">Clean vector SVG snapshot of the current diagram. Embeddable in HTML, Markdown, Notion, or editable in Figma and Illustrator.</div>
+            <div class="export-tags">
+              <span class="export-tag">Static</span>
+              <span class="export-tag blue">Native browser</span>
+              <span class="export-tag purple">Figma · Illustrator</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="export-card" id="card-gif" onclick="selectExport('gif')">
+          <div class="export-icon export-icon-gif">GIF</div>
+          <div class="export-info">
+            <div class="export-name">Animated GIF (.gif)</div>
+            <div class="export-desc">Animated GIF encoded directly in the browser. Embeds in GitHub READMEs, Notion, Slack, email — anywhere that accepts images.</div>
+            <div class="export-tags">
+              <span class="export-tag green">README-ready</span>
+              <span class="export-tag blue">Universal</span>
+              <span class="export-tag">No player needed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GIF settings (shown when GIF is selected) -->
+        <div class="gif-settings" id="gif-settings">
+          <div class="gif-row">
+            <div class="gif-field">
+              <span class="gif-label">Duration</span>
+              <select class="gif-select" id="gif-duration">
+                <option value="2">2 seconds</option>
+                <option value="3" selected>3 seconds</option>
+                <option value="4">4 seconds</option>
+                <option value="6">6 seconds</option>
+              </select>
+            </div>
+            <div class="gif-field">
+              <span class="gif-label">Frame Rate</span>
+              <select class="gif-select" id="gif-fps">
+                <option value="10">10 fps — smaller file</option>
+                <option value="15" selected>15 fps — balanced</option>
+                <option value="24">24 fps — smoother</option>
+              </select>
+            </div>
+            <div class="gif-field">
+              <span class="gif-label">Quality</span>
+              <select class="gif-select" id="gif-quality">
+                <option value="10">Draft (fast)</option>
+                <option value="5" selected>Standard</option>
+                <option value="2">High (slow)</option>
+              </select>
+            </div>
+          </div>
+          <div class="gif-hint" id="gif-hint">≈ 45 frames · est. file size ~800 KB</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <span class="modal-note" id="export-note">Lottie: animated particles · 30 fps · loops enabled</span>
+      <div style="display:flex;gap:8px">
+        <button class="btn-modal-cancel" onclick="closeExportModal()">Cancel</button>
+        <button class="btn-modal-dl" id="btn-dl" onclick="triggerDownload()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="1" x2="6" y2="7.5"/><polyline points="3.5,5 6,7.5 8.5,5"/><path d="M2,9.5 L2,11 L10,11 L10,9.5"/></svg>
+          Download Lottie
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS OVERLAY (inside modal) -->
+  <div class="progress-overlay" id="progress-overlay">
+    <div class="progress-title" id="progress-title">Encoding GIF…</div>
+    <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="progress-pct" id="progress-pct">0%</div>
+    <div class="progress-sub" id="progress-sub">Capturing frames from canvas</div>
+  </div>
+
+</div>
+
+<script>
+// ── SYNTAX HIGHLIGHTER ──────────────────────────
+const KWS  = new Set(['node','connect','flow','group','state','at','when']);
+const MODS = new Set(['speed','color','loop','style','label']);
+
+function highlight(code) {
+  return code.split('\n').map(line => {
+    const ci = line.indexOf('#');
+    let main = ci>=0 ? line.slice(0,ci) : line;
+    let cmt  = ci>=0 ? line.slice(ci)   : '';
+    let out  = '';
+    const toks = main.match(/(->|\(|\)|\{|\}|,|[0-9]+(?:\.[0-9]+)?|"[^"]*"|[a-zA-Z_][a-zA-Z0-9_]*|\s+|.)/g)||[];
+    for (let t of toks) {
+      if (/^\s+$/.test(t))        { out += t; continue; }
+      if (t === '->')              { out += `<span class="ta">-&gt;</span>`; continue; }
+      if (/^[(){},]$/.test(t))    { out += `<span class="ts">${esc(t)}</span>`; continue; }
+      if (/^[0-9]/.test(t))       { out += `<span class="tn">${esc(t)}</span>`; continue; }
+      if (t.startsWith('"'))      { out += `<span class="tst">${esc(t)}</span>`; continue; }
+      if (MODS.has(t))            { out += `<span class="tm">${esc(t)}</span>`; continue; }
+      if (KWS.has(t))             { out += `<span class="tk">${esc(t)}</span>`; continue; }
+      if (/^[a-zA-Z_]/.test(t))   { out += `<span class="ti">${esc(t)}</span>`; continue; }
+      out += esc(t);
+    }
+    if (cmt) out += `<span class="tco">${esc(cmt)}</span>`;
+    return out;
+  }).join('\n');
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── EDITOR ──────────────────────────────────────
+const editor = document.getElementById('dsl-editor');
+const hlLayer = document.getElementById('highlight-layer');
+const gutterEl = document.getElementById('gutter');
+const consoleEl = document.getElementById('console');
+
+function updateEditor() {
+  const val = editor.value;
+  hlLayer.innerHTML = highlight(val)+'\n';
+  const lines = val.split('\n');
+  gutterEl.innerHTML = lines.map((_,i)=>`<span class="gn" id="gn${i+1}">${i+1}</span>`).join('');
+  document.getElementById('stat-lines').textContent = lines.length;
+  syncScroll();
+}
+function syncScroll(){ hlLayer.style.transform = `translate(-${editor.scrollLeft}px,-${editor.scrollTop}px)`; }
+editor.addEventListener('input', ()=>{ updateEditor(); scheduleCompile(); });
+editor.addEventListener('scroll', syncScroll);
+editor.addEventListener('keydown', e=>{
+  if(e.key==='Tab'){ e.preventDefault(); const s=editor.selectionStart; editor.value=editor.value.slice(0,s)+'  '+editor.value.slice(editor.selectionEnd); editor.selectionStart=editor.selectionEnd=s+2; updateEditor(); }
+});
+editor.addEventListener('keyup', updateCursor);
+editor.addEventListener('click', updateCursor);
+function updateCursor(){
+  const pre=editor.value.slice(0,editor.selectionStart).split('\n');
+  document.getElementById('cursor-pos').textContent=`Ln ${pre.length}, Col ${pre[pre.length-1].length+1}`;
+}
+
+// ── PARSER ──────────────────────────────────────
+function tokenize(code){
+  const t=[]; let i=0;
+  while(i<code.length){
+    if(/\s/.test(code[i])){ i++; continue; }
+    if(code[i]==='#'){ while(i<code.length&&code[i]!=='\n')i++; continue; }
+    if(code.slice(i,i+2)==='->'){ t.push({type:'ARROW',val:'->'}); i+=2; continue; }
+    if('{}(),'.includes(code[i])){ t.push({type:'SYM',val:code[i]}); i++; continue; }
+    if(/[0-9]/.test(code[i])){ let n=''; while(i<code.length&&/[0-9.]/.test(code[i]))n+=code[i++]; t.push({type:'NUM',val:parseFloat(n)}); continue; }
+    if(/[a-zA-Z_]/.test(code[i])){ let w=''; while(i<code.length&&/[a-zA-Z0-9_]/.test(code[i]))w+=code[i++]; const kws=['node','connect','flow','group','state','at','speed','color','loop','style','label','when']; t.push({type:kws.includes(w)?'KW':'IDENT',val:w}); continue; }
+    i++;
+  }
+  return t;
+}
+
+function parse(code){
+  const toks=tokenize(code); let pos=0;
+  const nodes={}, edges=[], flows=[], errors=[];
+  const pk=(o=0)=>toks[pos+o];
+  const eat=(type,val)=>{ const t=toks[pos]; if(!t){errors.push('Unexpected end of input');return null;} if(type&&t.type!==type){errors.push(`Expected ${type}, got '${t.val}'`);return null;} if(val!==undefined&&t.val!==val){errors.push(`Expected '${val}', got '${t.val}'`);return null;} return toks[pos++]; };
+  const eatId=()=>{ const t=toks[pos]; if(t&&(t.type==='IDENT'||t.type==='KW')){pos++;return t.val;} errors.push(`Expected identifier, got '${t?.val}'`); return null; };
+
+  while(pos<toks.length){
+    const t=toks[pos]; if(!t)break;
+    if(t.type==='KW'&&t.val==='node'){
+      pos++; const id=eatId(); if(!id){pos++;continue;}
+      let x=null,y=null;
+      if(pk()?.val==='at'){ pos++; if(pk()?.val==='('){ pos++; x=+pk()?.val; pos++; eat('SYM',','); y=+pk()?.val; pos++; eat('SYM',')'); } }
+      nodes[id]={id,x,y}; continue;
+    }
+    if(t.type==='KW'&&t.val==='connect'){
+      pos++; const from=eatId(); eat('ARROW'); const to=eatId();
+      if(from&&to) edges.push({from,to}); continue;
+    }
+    if(t.type==='KW'&&t.val==='flow'){
+      pos++; const from=eatId(); eat('ARROW'); const to=eatId();
+      if(!from||!to)continue;
+      const f={from,to,speed:1.0,color:'#3b82f6',loop:true};
+      while(pos<toks.length){
+        const opt=pk(); if(!opt||opt.type!=='KW')break;
+        if(opt.val==='speed'){pos++;f.speed=+pk()?.val||1;pos++;continue;}
+        if(opt.val==='color'){pos++;const c=eatId();if(c)f.color=colorMap(c);continue;}
+        if(opt.val==='loop'){pos++;f.loop=true;continue;}
+        break;
+      }
+      flows.push(f); continue;
+    }
+    if(t.type==='KW'&&(t.val==='group'||t.val==='state')){
+      pos++; eatId();
+      if(pk()?.val==='{'){ pos++; let d=1; while(pos<toks.length&&d>0){if(toks[pos].val==='{')d++;if(toks[pos].val==='}')d--;pos++;} }
+      continue;
+    }
+    pos++;
+  }
+  return{nodes,edges,flows,errors};
+}
+
+function colorMap(name){
+  const m={blue:'#3b82f6',cyan:'#06b6d4',green:'#10b981',teal:'#14b8a6',red:'#ef4444',orange:'#f97316',yellow:'#f59e0b',amber:'#f59e0b',purple:'#8b5cf6',violet:'#7c3aed',pink:'#ec4899',indigo:'#6366f1',white:'#94a3b8',gray:'#64748b',navy:'#1e40af'};
+  return m[name?.toLowerCase()]||'#3b82f6';
+}
+
+// ── LAYOUT ──────────────────────────────────────
+function layout(ast,cW,cH){
+  const nodeList=Object.values(ast.nodes);
+  const needsLayout=nodeList.filter(n=>n.x===null);
+  const explicit=nodeList.filter(n=>n.x!==null);
+  explicit.forEach(n=>{ n.x=(n.x/800)*cW*0.8+cW*0.1; n.y=(n.y/600)*cH*0.75+cH*0.125; });
+  if(!needsLayout.length)return;
+  const deps={};
+  nodeList.forEach(n=>{ deps[n.id]=new Set(); });
+  [...ast.edges,...ast.flows].forEach(e=>{ if(deps[e.to])deps[e.to].add(e.from); });
+  const visited=new Set(),order=[];
+  function visit(id){ if(visited.has(id))return; visited.add(id); (deps[id]||new Set()).forEach(visit); order.push(id); }
+  needsLayout.map(n=>n.id).forEach(visit);
+  const levels={};
+  order.forEach(id=>{ let l=0; (deps[id]||new Set()).forEach(d=>{ if(levels[d]!=null)l=Math.max(l,levels[d]+1); }); levels[id]=l; });
+  const byLevel={};
+  order.forEach(id=>{ const l=levels[id]||0; if(!byLevel[l])byLevel[l]=[]; byLevel[l].push(id); });
+  const maxLvl=Math.max(0,...Object.keys(byLevel).map(Number));
+  const ox=cW*0.12,oy=cH*0.15,W=cW*0.76,H=cH*0.70;
+  Object.entries(byLevel).forEach(([lvl,ids])=>{
+    ids.forEach((id,i)=>{
+      ast.nodes[id].x=ox+(maxLvl>0?+lvl/maxLvl:0.5)*W;
+      ast.nodes[id].y=oy+(ids.length>1?i/(ids.length-1):0.5)*H;
+    });
+  });
+}
+
+// ── RENDERER ────────────────────────────────────
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let scene=null, particles=[];
+let fc=0, lastFps=Date.now();
+
+const NW=100,NH=40,NR=6;
+const NCOLS=[
+  {fill:'#dbeafe',stroke:'#3b82f6',text:'#1e3a8a'},
+  {fill:'#d1fae5',stroke:'#10b981',text:'#064e3b'},
+  {fill:'#ede9fe',stroke:'#8b5cf6',text:'#3b0764'},
+  {fill:'#fef3c7',stroke:'#f59e0b',text:'#78350f'},
+  {fill:'#fee2e2',stroke:'#ef4444',text:'#7f1d1d'},
+  {fill:'#cffafe',stroke:'#06b6d4',text:'#164e63'},
+  {fill:'#fce7f3',stroke:'#ec4899',text:'#831843'},
+  {fill:'#e0e7ff',stroke:'#6366f1',text:'#312e81'},
+];
+
+function resizeCanvas(){
+  const w=canvas.parentElement;
+  canvas.width=w.clientWidth; canvas.height=w.clientHeight;
+  if(scene){ Object.values(scene.nodes).forEach(n=>{n.x=n._ox;n.y=n._oy;}); layout(scene,canvas.width,canvas.height); }
+}
+
+function buildParticles(ast){
+  particles=[];
+  ast.flows.forEach(f=>{
+    const from=ast.nodes[f.from],to=ast.nodes[f.to];
+    if(!from||!to)return;
+    const count=Math.max(1,Math.round(f.speed*2.5));
+    for(let i=0;i<count;i++){
+      particles.push({from,to,color:f.color,t:i/count,speed:f.speed*0.004,trail:[],loop:f.loop!==false});
+    }
+  });
+}
+
+function rrect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
+}
+
+function nodeColor(id){ return NCOLS[Math.abs([...id].reduce((a,c)=>a+c.charCodeAt(0),0))%NCOLS.length]; }
+
+function drawNode(n){
+  const x=n.x-NW/2,y=n.y-NH/2,c=nodeColor(n.id);
+  // Shadow
+  ctx.save(); ctx.shadowColor='rgba(15,45,82,0.13)'; ctx.shadowBlur=10; ctx.shadowOffsetY=3;
+  rrect(x,y,NW,NH,NR); ctx.fillStyle=c.fill; ctx.fill(); ctx.restore();
+  // Border
+  rrect(x,y,NW,NH,NR); ctx.strokeStyle=c.stroke; ctx.lineWidth=1.5; ctx.stroke();
+  // Left accent
+  ctx.save(); ctx.fillStyle=c.stroke;
+  ctx.beginPath(); ctx.moveTo(x,y+NR); ctx.arcTo(x,y,x+NR,y,NR); ctx.lineTo(x+5,y); ctx.lineTo(x+5,y+NH); ctx.lineTo(x,y+NH-NR); ctx.arcTo(x,y+NH,x+NR,y+NH,NR); ctx.closePath(); ctx.fill(); ctx.restore();
+  // Label
+  ctx.font='500 11px "IBM Plex Mono",monospace'; ctx.fillStyle=c.text;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(n.id,n.x+2,n.y);
+}
+
+function edgePts(from,to){
+  const dx=to.x-from.x,dy=to.y-from.y,angle=Math.atan2(dy,dx);
+  const mx=(from.x+to.x)/2,my=(from.y+to.y)/2-Math.min(35,Math.abs(dy)*0.3+12);
+  const ex=to.x-(NW/2+2)*Math.cos(angle),ey=to.y-(NH/2+2)*Math.sin(angle);
+  return{mx,my,ex,ey,angle};
+}
+
+function drawEdge(e){
+  const from=scene.nodes[e.from],to=scene.nodes[e.to];
+  if(!from||!to)return;
+  const {mx,my,ex,ey,angle}=edgePts(from,to);
+  ctx.save();
+  ctx.strokeStyle='#cbd5e1'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(from.x,from.y); ctx.quadraticCurveTo(mx,my,ex,ey); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#94a3b8';
+  ctx.save(); ctx.translate(ex,ey); ctx.rotate(angle);
+  ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(-9,-4); ctx.lineTo(-9,4); ctx.closePath(); ctx.fill();
+  ctx.restore(); ctx.restore();
+}
+
+function drawFlowEdge(f){
+  const from=scene.nodes[f.from],to=scene.nodes[f.to];
+  if(!from||!to)return;
+  const {mx,my}=edgePts(from,to);
+  ctx.save(); ctx.strokeStyle=f.color+'2a'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(from.x,from.y); ctx.quadraticCurveTo(mx,my,to.x,to.y); ctx.stroke(); ctx.restore();
+}
+
+function drawParticle(p){
+  const {mx,my}=edgePts(p.from,p.to);
+  const bx=bz(p.from.x,mx,p.to.x,p.t),by=bz(p.from.y,my,p.to.y,p.t);
+  p.trail.push({x:bx,y:by}); if(p.trail.length>16)p.trail.shift();
+  ctx.save();
+  p.trail.forEach((pt,i)=>{ ctx.globalAlpha=(i/p.trail.length)*0.35; ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(pt.x,pt.y,3*(i/p.trail.length),0,Math.PI*2); ctx.fill(); });
+  ctx.globalAlpha=1;
+  ctx.fillStyle='#fff'; ctx.shadowColor=p.color; ctx.shadowBlur=5;
+  ctx.beginPath(); ctx.arc(bx,by,3.5,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle=p.color; ctx.shadowBlur=0;
+  ctx.beginPath(); ctx.arc(bx,by,2,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+  p.t+=p.speed; if(p.t>1){ if(p.loop){p.t=0;p.trail=[];}else p.t=1; }
+}
+
+function bz(a,b,c,t){ return (1-t)*(1-t)*a+2*(1-t)*t*b+t*t*c; }
+
+function renderFrame(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(!scene||!Object.keys(scene.nodes).length){
+    ctx.font='400 13px "IBM Plex Sans",sans-serif';
+    ctx.fillStyle='#94a3b8'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('Compile a DSL program to see the diagram preview',canvas.width/2,canvas.height/2);
+    requestAnimationFrame(renderFrame); return;
+  }
+  scene.edges.forEach(drawEdge);
+  scene.flows.forEach(drawFlowEdge);
+  Object.values(scene.nodes).forEach(drawNode);
+  particles.forEach(drawParticle);
+  fc++;
+  if(Date.now()-lastFps>=1000){ document.getElementById('fps-counter').textContent=fc+' fps'; fc=0; lastFps=Date.now(); }
+  requestAnimationFrame(renderFrame);
+}
+
+// ── COMPILE ──────────────────────────────────────
+let compileTimer=null;
+function scheduleCompile(){ clearTimeout(compileTimer); compileTimer=setTimeout(compile,700); }
+
+function compile(){
+  const code=editor.value.trim();
+  if(!code){ scene=null; particles=[]; setStatus('Ready','ok'); updateMetrics(0,0,0); return; }
+  setStatus('Compiling…','busy');
+  setTimeout(()=>{
+    try{
+      const ast=parse(code);
+      if(ast.errors.length){ ast.errors.forEach(e=>clog(e,'error')); setStatus('Errors detected','error'); return; }
+      const nc=Object.keys(ast.nodes).length;
+      if(!nc){ clog('No nodes declared.','warning'); setStatus('Ready','ok'); return; }
+      Object.values(ast.nodes).forEach(n=>{n._ox=n.x;n._oy=n.y;});
+      layout(ast,canvas.width,canvas.height);
+      scene=ast; buildParticles(ast);
+      updateMetrics(nc,ast.edges.length,ast.flows.length);
+      clog(`Compiled successfully — ${nc} node${nc!==1?'s':''}, ${ast.edges.length} edge${ast.edges.length!==1?'s':''}, ${ast.flows.length} flow${ast.flows.length!==1?'s':''}. ✓`,'success');
+      setStatus('Compiled','ok');
+      // Enable export
+      const expBtn=document.getElementById('btn-export');
+      expBtn.disabled=false; expBtn.style.opacity='1'; expBtn.style.cursor='pointer';
+    }catch(e){ clog('Internal error: '+e.message,'error'); setStatus('Error','error'); }
+  },60);
+}
+
+function updateMetrics(n,e,f){
+  ['nodes','edges','flows'].forEach((k,i)=>{
+    const v=[n,e,f][i];
+    document.getElementById('stat-'+k).textContent=v||'—';
+    document.getElementById('ov-'+k).textContent=v;
+  });
+}
+
+function clog(msg,type='info'){
+  const icons={error:'✕',success:'✓',info:'›',warning:'!'};
+  const el=document.createElement('div'); el.className='cline '+type;
+  el.innerHTML=`<span class="cpfx">${icons[type]||'›'}</span>${msg}`;
+  consoleEl.appendChild(el); consoleEl.scrollTop=consoleEl.scrollHeight;
+  if(consoleEl.children.length>25)consoleEl.removeChild(consoleEl.firstChild);
+}
+
+function setStatus(text,state){
+  document.getElementById('status-text').textContent=text;
+  const dot=document.getElementById('status-dot');
+  dot.className='status-dot';
+  if(state==='busy')dot.classList.add('busy');
+  if(state==='error')dot.classList.add('error');
+  if(state==='ok')dot.classList.add('ok');
+}
+
+// ── EXPORT MODAL ─────────────────────────────────
+let exportType = 'lottie';
+
+function openExportModal(){
+  if(!scene) return;
+  document.getElementById('export-modal').classList.add('open');
+  updateGifHint();
+}
+function closeExportModal(){
+  if(gifEncoding) return; // block close during encoding
+  document.getElementById('export-modal').classList.remove('open');
+  document.getElementById('progress-overlay').classList.remove('visible');
+}
+document.getElementById('export-modal').addEventListener('click', e=>{
+  if(e.target === document.getElementById('export-modal')) closeExportModal();
+});
+
+const EXPORT_META = {
+  lottie: { label:'Download Lottie', note:'Lottie: animated particles · 30 fps · loops enabled' },
+  svg:    { label:'Download SVG',    note:'SVG: static vector snapshot · scalable · no player needed' },
+  gif:    { label:'Generate GIF',    note:'GIF: encoded in-browser · README & Notion ready' },
+};
+
+function selectExport(type){
+  exportType = type;
+  ['lottie','svg','gif'].forEach(t => document.getElementById('card-'+t).classList.toggle('selected', t===type));
+  const m = EXPORT_META[type];
+  const btn = document.getElementById('btn-dl');
+  btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="1" x2="6" y2="7.5"/><polyline points="3.5,5 6,7.5 8.5,5"/><path d="M2,9.5 L2,11 L10,11 L10,9.5"/></svg> ${m.label}`;
+  document.getElementById('export-note').textContent = m.note;
+  document.getElementById('gif-settings').classList.toggle('visible', type==='gif');
+}
+
+function triggerDownload(){
+  if(exportType==='lottie') downloadLottie();
+  else if(exportType==='svg') downloadSVG();
+  else if(exportType==='gif') startGifExport();
+}
+
+// GIF hint updater
+function updateGifHint(){
+  const dur  = +document.getElementById('gif-duration').value;
+  const fps  = +document.getElementById('gif-fps').value;
+  const qual = +document.getElementById('gif-quality').value;
+  const frames = dur * fps;
+  const kbEst = Math.round(frames * (canvas.width * canvas.height * 0.0004) * (qual===2?1.4:qual===5?1:0.65));
+  document.getElementById('gif-hint').textContent =
+    `≈ ${frames} frames · est. file size ~${kbEst > 1000 ? (kbEst/1000).toFixed(1)+' MB' : kbEst+' KB'}`;
+}
+['gif-duration','gif-fps','gif-quality'].forEach(id=>{
+  document.getElementById(id).addEventListener('change', updateGifHint);
+});
+
+// ── GIF ENCODER (in-browser, no dependencies) ────
+// Pure-JS GIF89a encoder — no external library needed.
+// Uses NeuQuant color quantization + LZW compression.
+
+let gifEncoding = false;
+
+function startGifExport(){
+  if(!scene || gifEncoding) return;
+  const dur  = +document.getElementById('gif-duration').value;
+  const fps  = +document.getElementById('gif-fps').value;
+  const qual = +document.getElementById('gif-quality').value;
+
+  gifEncoding = true;
+  document.getElementById('btn-dl').disabled = true;
+  document.getElementById('progress-overlay').classList.add('visible');
+  setProgress(0, 'Capturing frames…');
+
+  // Capture frames by running the animation forward
+  const totalFrames = dur * fps;
+  const frameDelay  = Math.round(100 / fps); // GIF delay in centiseconds
+  const W = canvas.width, H = canvas.height;
+
+  // We'll use a 400×300 offscreen canvas for GIF (keeps file size manageable)
+  const GW = Math.min(W, 600), GH = Math.round(GW * H / W);
+  const offscreen = document.createElement('canvas');
+  offscreen.width = GW; offscreen.height = GH;
+  const offCtx = offscreen.getContext('2d');
+
+  const frames = [];
+  let captured = 0;
+
+  // Temporarily pause live renderer and capture frames sequentially
+  const savedParticles = JSON.parse(JSON.stringify(particles.map(p=>({t:p.t, trail:[]}))));
+
+  function captureNextFrame(){
+    if(captured >= totalFrames){
+      encodeGif(frames, GW, GH, frameDelay);
+      return;
+    }
+
+    // Advance particles by one frame worth
+    const dt = 1 / fps;
+    particles.forEach(p => {
+      p.t += p.speed * (fps / 30); // normalize to 30fps base speed
+      if(p.t > 1){ p.t = p.loop ? p.t - 1 : 1; p.trail = []; }
+    });
+
+    // Draw to offscreen canvas
+    offCtx.clearRect(0, 0, GW, GH);
+    offCtx.save();
+    offCtx.scale(GW/W, GH/H);
+    // Re-draw scene
+    scene.edges.forEach(e => drawEdgeCtx(offCtx, e));
+    scene.flows.forEach(f => drawFlowEdgeCtx(offCtx, f));
+    Object.values(scene.nodes).forEach(n => drawNodeCtx(offCtx, n));
+    drawParticlesCtx(offCtx);
+    offCtx.restore();
+
+    // Grab pixel data
+    const imgData = offCtx.getImageData(0, 0, GW, GH);
+    frames.push(imgData);
+    captured++;
+
+    const pct = Math.round((captured / totalFrames) * 50); // first 50% = capture
+    setProgress(pct, `Capturing frames… ${captured}/${totalFrames}`);
+    setTimeout(captureNextFrame, 0);
+  }
+
+  captureNextFrame();
+
+  function encodeGif(frames, w, h, delay){
+    setProgress(52, 'Quantizing colors…');
+    setTimeout(()=>{
+      try {
+        const gif = new GIFEncoder(w, h);
+        gif.setRepeat(0);    // loop forever
+        gif.setDelay(delay * 10); // ms
+        gif.setQuality(qual);
+        gif.start();
+
+        frames.forEach((frame, i) => {
+          gif.addFrame(frame.data, w, h);
+          const pct = 52 + Math.round((i / frames.length) * 46);
+          // (sync encoding - we update after each frame)
+        });
+
+        gif.finish();
+        const bytes = gif.getBytes();
+        const blob = new Blob([bytes], {type:'image/gif'});
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href = url; a.download = 'archflow-animation.gif'; a.click();
+        URL.revokeObjectURL(url);
+
+        const kb = Math.round(bytes.length / 1024);
+        clog(`GIF exported — archflow-animation.gif (${kb} KB, ${frames.length} frames)`, 'success');
+      } catch(e) {
+        clog('GIF encoding failed: ' + e.message, 'error');
+      }
+
+      gifEncoding = false;
+      document.getElementById('btn-dl').disabled = false;
+      document.getElementById('progress-overlay').classList.remove('visible');
+      closeExportModal();
+    }, 20);
+  }
+}
+
+function setProgress(pct, sub){
+  document.getElementById('progress-bar').style.width = pct+'%';
+  document.getElementById('progress-pct').textContent = pct+'%';
+  if(sub) document.getElementById('progress-sub').textContent = sub;
+}
+
+// Context-specific draw helpers (draw to any ctx, not just global canvas ctx)
+function drawEdgeCtx(c, e){
+  const from=scene.nodes[e.from], to=scene.nodes[e.to]; if(!from||!to)return;
+  const {mx,my,ex,ey,angle}=edgePts(from,to);
+  c.save(); c.strokeStyle='#cbd5e1'; c.lineWidth=1.5; c.setLineDash([5,4]);
+  c.beginPath(); c.moveTo(from.x,from.y); c.quadraticCurveTo(mx,my,ex,ey); c.stroke();
+  c.setLineDash([]); c.fillStyle='#94a3b8';
+  c.save(); c.translate(ex,ey); c.rotate(angle);
+  c.beginPath(); c.moveTo(0,0); c.lineTo(-9,-4); c.lineTo(-9,4); c.closePath(); c.fill();
+  c.restore(); c.restore();
+}
+function drawFlowEdgeCtx(c, f){
+  const from=scene.nodes[f.from], to=scene.nodes[f.to]; if(!from||!to)return;
+  const {mx,my}=edgePts(from,to);
+  c.save(); c.strokeStyle=f.color+'2a'; c.lineWidth=2;
+  c.beginPath(); c.moveTo(from.x,from.y); c.quadraticCurveTo(mx,my,to.x,to.y); c.stroke(); c.restore();
+}
+function drawNodeCtx(c, n){
+  const col=nodeColor(n.id), x=n.x-NW/2, y=n.y-NH/2;
+  c.save(); c.shadowColor='rgba(15,45,82,0.13)'; c.shadowBlur=10; c.shadowOffsetY=3;
+  rrectCtx(c,x,y,NW,NH,NR); c.fillStyle=col.fill; c.fill(); c.restore();
+  rrectCtx(c,x,y,NW,NH,NR); c.strokeStyle=col.stroke; c.lineWidth=1.5; c.stroke();
+  c.save(); c.fillStyle=col.stroke;
+  c.beginPath(); c.moveTo(x,y+NR); c.arcTo(x,y,x+NR,y,NR); c.lineTo(x+5,y); c.lineTo(x+5,y+NH); c.lineTo(x,y+NH-NR); c.arcTo(x,y+NH,x+NR,y+NH,NR); c.closePath(); c.fill(); c.restore();
+  c.font='500 11px "IBM Plex Mono",monospace'; c.fillStyle=col.text;
+  c.textAlign='center'; c.textBaseline='middle'; c.fillText(n.id,n.x+2,n.y);
+}
+function rrectCtx(c,x,y,w,h,r){
+  c.beginPath(); c.moveTo(x+r,y); c.lineTo(x+w-r,y); c.arcTo(x+w,y,x+w,y+r,r);
+  c.lineTo(x+w,y+h-r); c.arcTo(x+w,y+h,x+w-r,y+h,r);
+  c.lineTo(x+r,y+h); c.arcTo(x,y+h,x,y+h-r,r);
+  c.lineTo(x,y+r); c.arcTo(x,y,x+r,y,r); c.closePath();
+}
+function drawParticlesCtx(c){
+  particles.forEach(p=>{
+    const {mx,my}=edgePts(p.from,p.to);
+    const bx=bz(p.from.x,mx,p.to.x,p.t), by=bz(p.from.y,my,p.to.y,p.t);
+    c.save();
+    if(p.trail.length>1){
+      p.trail.forEach((pt,i)=>{ c.globalAlpha=(i/p.trail.length)*0.3; c.fillStyle=p.color; c.beginPath(); c.arc(pt.x,pt.y,2.5*(i/p.trail.length),0,Math.PI*2); c.fill(); });
+    }
+    c.globalAlpha=1; c.fillStyle='#fff'; c.shadowColor=p.color; c.shadowBlur=5;
+    c.beginPath(); c.arc(bx,by,3.5,0,Math.PI*2); c.fill();
+    c.fillStyle=p.color; c.shadowBlur=0; c.beginPath(); c.arc(bx,by,2,0,Math.PI*2); c.fill();
+    c.restore();
+  });
+}
+
+// ── GIFENCODER: Pure JS GIF89a encoder ───────────
+// Adapted from gif.js / jsgif (MIT license)
+function GIFEncoder(width, height){
+  const out = [];
+  let started=false, width_=width, height_=height;
+  let repeat=-1, delay_=0, quality_=10;
+  let transparent=null, transIndex=0;
+  let firstFrame=true;
+
+  this.setRepeat=n=>{ repeat=n; };
+  this.setDelay=ms=>{ delay_=Math.round(ms/10); };
+  this.setQuality=q=>{ quality_=Math.max(1,q); };
+  this.setTransparent=c=>{ transparent=c; };
+
+  this.start=()=>{ writeHeader(); started=true; firstFrame=true; };
+
+  this.addFrame=(pixels, w, h)=>{
+    if(!started) return;
+    // Build palette from RGBA pixel data
+    const nq = new NeuQuant(pixels, pixels.length, quality_);
+    const colorTab = nq.process();
+    const indexedPixels = new Uint8Array(w*h);
+    for(let i=0,p=0; i<w*h; i++,p+=4){
+      indexedPixels[i] = nq.map(pixels[p],pixels[p+1],pixels[p+2]);
+    }
+    writeGraphicCtrlExt();
+    writeImageDesc();
+    writePalette(colorTab);
+    writePixels(indexedPixels, w, h);
+    firstFrame=false;
+  };
+
+  this.finish=()=>{ out.push(0x3b); }; // GIF trailer
+
+  this.getBytes=()=> new Uint8Array(out);
+
+  function writeHeader(){
+    writeString('GIF89a');
+    writeShort(width_); writeShort(height_);
+    out.push(0); // no global color table
+    out.push(0); // bg color index
+    out.push(0); // pixel aspect ratio
+  }
+
+  function writeGraphicCtrlExt(){
+    out.push(0x21); out.push(0xf9); out.push(4);
+    out.push(transparent!==null ? 9 : 0);
+    writeShort(delay_);
+    out.push(transparent!==null ? transIndex : 0);
+    out.push(0);
+    // Netscape loop extension
+    if(firstFrame && repeat>=0){
+      out.push(0x21); out.push(0xff); out.push(11);
+      writeString('NETSCAPE2.0');
+      out.push(3); out.push(1);
+      writeShort(repeat);
+      out.push(0);
+    }
+  }
+
+  function writeImageDesc(){
+    out.push(0x2c);
+    writeShort(0); writeShort(0);
+    writeShort(width_); writeShort(height_);
+    out.push(0x80 | 7); // local color table, 256 colors
+  }
+
+  function writePalette(colorTab){
+    const n = colorTab.length;
+    for(let i=0;i<n;i++) out.push(colorTab[i]);
+    const pad = 768 - n;
+    for(let i=0;i<pad;i++) out.push(0);
+  }
+
+  function writePixels(indexed, w, h){
+    const encoder = new LZWEncoder(w, h, indexed, 8);
+    encoder.encode(out);
+  }
+
+  function writeShort(v){ out.push(v & 0xff); out.push((v>>8) & 0xff); }
+  function writeString(s){ for(let i=0;i<s.length;i++) out.push(s.charCodeAt(i)); }
+}
+
+// NeuQuant Neural Net quantizer (Anthony Dekker, MIT)
+function NeuQuant(thepicture, lengthcount, samplefac){
+  const netsize=256, maxnetpos=netsize-1;
+  const netbiasshift=4, ncycles=100;
+  const intbiasshift=16, intbias=1<<intbiasshift;
+  const gammashift=10, gamma=1<<gammashift;
+  const betashift=10, beta=intbias>>betashift, betagamma=intbias<<(gammashift-betashift);
+  const initrad=netsize>>3, radiusbiasshift=6, radiusbias=1<<radiusbiasshift;
+  const initradius=initrad*radiusbias, radiusdec=30;
+  const alphabiasshift=10, initalpha=1<<alphabiasshift;
+  const radbiasshift=8, radbias=1<<radbiasshift;
+  const alpharadbshift=alphabiasshift+radbiasshift, alpharadbias=1<<alpharadbshift;
+  let alphadec, samplepixels, network, netindex, bias, freq, radpower;
+
+  function init(){
+    network=[]; netindex=new Int32Array(256);
+    bias=new Int32Array(netsize); freq=new Int32Array(netsize); radpower=new Int32Array(initrad);
+    for(let i=0;i<netsize;i++){
+      const v=(i<<(netbiasshift+8))/netsize;
+      network[i]=new Float64Array([v,v,v,0]);
+      freq[i]=intbias/netsize; bias[i]=0;
+    }
+  }
+
+  function unbiasnet(){
+    for(let i=0;i<netsize;i++) network[i][0]>>=netbiasshift, network[i][1]>>=netbiasshift, network[i][2]>>=netbiasshift, network[i][3]=i;
+  }
+
+  function altersingle(alpha,i,b,g,r){
+    network[i][0]-=(alpha*(network[i][0]-b))/initalpha;
+    network[i][1]-=(alpha*(network[i][1]-g))/initalpha;
+    network[i][2]-=(alpha*(network[i][2]-r))/initalpha;
+  }
+
+  function alterneigh(rad,i,b,g,r){
+    const lo=Math.abs(i-rad), hi=Math.min(i+rad,netsize);
+    let j=i+1,k=i-1,m=1;
+    while(j<hi||k>lo){
+      const a=radpower[m++];
+      if(j<hi){ network[j][0]-=(a*(network[j][0]-b))/alpharadbias; network[j][1]-=(a*(network[j][1]-g))/alpharadbias; network[j][2]-=(a*(network[j][2]-r))/alpharadbias; j++; }
+      if(k>lo){ network[k][0]-=(a*(network[k][0]-b))/alpharadbias; network[k][1]-=(a*(network[k][1]-g))/alpharadbias; network[k][2]-=(a*(network[k][2]-r))/alpharadbias; k--; }
+    }
+  }
+
+  function contest(b,g,r){
+    let bestd=~(1<<31),bestbiasd=bestd,bestpos=-1,bestbiaspos=bestpos;
+    for(let i=0;i<netsize;i++){
+      const n=network[i];
+      let dist=Math.abs(n[0]-b)+Math.abs(n[1]-g)+Math.abs(n[2]-r);
+      if(dist<bestd){bestd=dist;bestpos=i;}
+      const biasdist=dist-(bias[i]>>(intbiasshift-netbiasshift));
+      if(biasdist<bestbiasd){bestbiasd=biasdist;bestbiaspos=i;}
+      const betafreq=freq[i]>>betashift;
+      freq[i]-=betafreq; bias[i]+=betafreq<<gammashift;
+    }
+    freq[bestpos]+=beta; bias[bestpos]-=betagamma;
+    return bestbiaspos;
+  }
+
+  function learn(){
+    const lengthcount4=lengthcount*4;
+    alphadec=30+(samplefac-1)/3;
+    samplepixels=lengthcount/(4*samplefac);
+    let delta=~~(samplepixels/ncycles), alpha=initalpha, radius=initradius;
+    let rad=radius>>radiusbiasshift;
+    if(rad<=1) rad=0;
+    for(let i=0;i<rad;i++) radpower[i]=alpha*(((rad*rad-i*i)*radbias)/(rad*rad));
+    let step;
+    if(lengthcount4<8*4) step=4;
+    else if(lengthcount4%prime2!==0) step=2*4;
+    else if(lengthcount4%prime3!==0) step=3*4;
+    else if(lengthcount4%prime4!==0) step=4*4;
+    else step=prime1*4;
+    const prime1=499,prime2=491,prime3=487,prime4=503;
+    let pix=0, i2=0;
+    while(i2<samplepixels){
+      const b=(thepicture[pix]&0xff)<<netbiasshift;
+      const g=(thepicture[pix+1]&0xff)<<netbiasshift;
+      const r=(thepicture[pix+2]&0xff)<<netbiasshift;
+      const j=contest(b,g,r);
+      altersingle(alpha,j,b,g,r);
+      if(rad!==0) alterneigh(rad,j,b,g,r);
+      pix+=step; if(pix>=lengthcount4) pix-=lengthcount4;
+      i2++;
+      if(i2%delta===0){ alpha-=alpha/alphadec; radius-=radius/radiusdec; rad=radius>>radiusbiasshift; if(rad<=1)rad=0; for(let k=0;k<rad;k++) radpower[k]=alpha*(((rad*rad-k*k)*radbias)/(rad*rad)); }
+    }
+  }
+
+  function buildcolormap(){
+    const map=[]; const index=new Int32Array(netsize);
+    for(let i=0;i<netsize;i++) index[network[i][3]]=i;
+    let k=0;
+    for(let l=0;l<netsize;l++){ const j=index[l]; map[k++]=network[j][0]; map[k++]=network[j][1]; map[k++]=network[j][2]; }
+    return map;
+  }
+
+  let colormap_;
+  this.process=()=>{ init(); learn(); unbiasnet(); colormap_=buildcolormap(); return colormap_; };
+
+  this.map=(r,g,b)=>{
+    let bestd=1000, best=-1;
+    for(let i=0;i<netsize;i++){
+      const p=network[i];
+      const dist=Math.abs(p[0]-b)+Math.abs(p[1]-g)+Math.abs(p[2]-r);
+      if(dist<bestd){bestd=dist;best=p[3];}
+    }
+    return best;
+  };
+}
+
+// LZW Encoder
+function LZWEncoder(width, height, pixels, colorDepth){
+  const EOF=-1, MAXCODE=n=>((1<<n)-1);
+  const HSIZE=5003, masks=[0,1,3,7,15,31,63,127,255,511,1023,2047,4095,8191,16383,32767,65535];
+  let initCodeSize=Math.max(2,colorDepth);
+  let accum=new Uint8Array(256), htab=new Int32Array(HSIZE), codetab=new Int32Array(HSIZE);
+  let cur_accum=0,cur_bits=0,a_count=0;
+  let free_ent=0,maxcode=0;
+  let clear_flg=false, n_bits=0;
+  let ClearCode=0, EOFCode=0;
+  let remaining=0, curPixel=0;
+
+  this.encode=output=>{
+    output.push(initCodeSize);
+    remaining=width*height; curPixel=0;
+    compress(initCodeSize+1, output);
+    output.push(0);
+  };
+
+  function compress(init_bits, outs){
+    let fcode,c,i,ent,disp,hsize_reg,hshift;
+    n_bits=init_bits; maxcode=MAXCODE(n_bits);
+    ClearCode=1<<(init_bits-1); EOFCode=ClearCode+1; free_ent=ClearCode+2;
+    a_count=0; clear_flg=false;
+    ent=nextPixel();
+    hshift=0; for(fcode=HSIZE;fcode<65536;fcode*=2)hshift++;
+    hshift=8-hshift; hsize_reg=HSIZE; clearHash();
+    output2(ClearCode,outs);
+    outer: while((c=nextPixel())!==EOF){
+      fcode=(c<<17)+ent; i=(c<<hshift)^ent;
+      if(htab[i]===fcode){ent=codetab[i];continue;}
+      if(htab[i]>=0){disp=hsize_reg-i; if(i===0)disp=1; do{if((i-=disp)<0)i+=hsize_reg; if(htab[i]===fcode){ent=codetab[i];continue outer;}}while(htab[i]>=0);}
+      output2(ent,outs); ent=c;
+      if(free_ent<1<<16){codetab[i]=free_ent++; htab[i]=fcode;}
+      else clearBlock(outs);
+    }
+    output2(ent,outs); output2(EOFCode,outs);
+    flushPacket(outs);
+  }
+
+  function nextPixel(){ if(remaining===0)return EOF; remaining--; return pixels[curPixel++]&0xff; }
+
+  function clearBlock(outs){ clearHash(); free_ent=ClearCode+2; clear_flg=true; output2(ClearCode,outs); }
+  function clearHash(){ htab.fill(-1); }
+
+  function output2(code,outs){
+    cur_accum&=masks[cur_bits]; cur_accum=cur_bits>0?(cur_accum|(code<<cur_bits)):code; cur_bits+=n_bits;
+    while(cur_bits>=8){accum[a_count++]=cur_accum&0xff; if(a_count>=254)flushPacket(outs); cur_accum>>=8; cur_bits-=8;}
+    if(clear_flg){n_bits=init_bits_; maxcode=MAXCODE(n_bits); clear_flg=false;}
+    else if(free_ent>maxcode){n_bits++; if(n_bits===16)maxcode=1<<16; else maxcode=MAXCODE(n_bits);}
+  }
+  let init_bits_=0;
+  const origCompress=compress;
+
+  function flushPacket(outs){ if(a_count>0){outs.push(a_count); for(let i=0;i<a_count;i++)outs.push(accum[i]); a_count=0;} }
+}
+
+// Patch LZWEncoder to track init_bits properly
+const _origLZW = LZWEncoder;
+LZWEncoder = function(w,h,px,cd){
+  _origLZW.call(this,w,h,px,cd);
+  const self=this;
+  const initB=Math.max(2,cd);
+  this.encode=output=>{
+    output.push(initB);
+    let rem=w*h, cp=0, n_bits=initB+1, maxcode=((1<<n_bits)-1);
+    const ClearCode=1<<initB, EOFCode=ClearCode+1;
+    let free_ent=ClearCode+2, clear_flg=false;
+    const HSIZE=5003;
+    const htab=new Int32Array(HSIZE).fill(-1);
+    const codetab=new Int32Array(HSIZE);
+    const accum=new Uint8Array(256);
+    let a_count=0, cur_accum=0, cur_bits=0;
+    const masks=[0,1,3,7,15,31,63,127,255,511,1023,2047,4095,8191,16383,32767,65535];
+    const MAXCODE=nb=>((1<<nb)-1);
+    function np(){ return rem>0?(rem--,px[cp++]&0xff):-1; }
+    function flush(){ if(a_count>0){output.push(a_count);for(let i=0;i<a_count;i++)output.push(accum[i]);a_count=0;} }
+    function out2(code){
+      cur_accum&=masks[cur_bits]; cur_accum=cur_bits>0?(cur_accum|(code<<cur_bits)):code; cur_bits+=n_bits;
+      while(cur_bits>=8){accum[a_count++]=cur_accum&0xff;if(a_count>=254)flush();cur_accum>>=8;cur_bits-=8;}
+      if(clear_flg){n_bits=initB+1;maxcode=MAXCODE(n_bits);clear_flg=false;}
+      else if(free_ent>maxcode){n_bits++;if(n_bits===16)maxcode=(1<<16)-1;else maxcode=MAXCODE(n_bits);}
+    }
+    function clrBlock(){htab.fill(-1);free_ent=ClearCode+2;clear_flg=true;out2(ClearCode);}
+    let hshift=0;for(let f=HSIZE;f<65536;f*=2)hshift++;hshift=8-hshift;
+    htab.fill(-1);out2(ClearCode);
+    let ent=np(),c,fcode,i,disp;
+    outer:while((c=np())!==-1){
+      fcode=(c<<17)+ent;i=(c<<hshift)^ent;
+      if(htab[i]===fcode){ent=codetab[i];continue;}
+      if(htab[i]>=0){disp=HSIZE-i;if(i===0)disp=1;do{if((i-=disp)<0)i+=HSIZE;if(htab[i]===fcode){ent=codetab[i];continue outer;}}while(htab[i]>=0);}
+      out2(ent);ent=c;
+      if(free_ent<(1<<16)){codetab[i]=free_ent++;htab[i]=fcode;}else clrBlock();
+    }
+    out2(ent);out2(EOFCode);flush();output.push(0);
+  };
+};
+// Generates spec-compliant Lottie JSON (bodymovin format)
+function generateLottie(ast){
+  const W=800, H=600, FR=30, DUR=3; // 3 second loop
+  const IP=0, OP=FR*DUR;
+
+  // Scale canvas coords → 800×600 Lottie space
+  const cW=canvas.width, cH=canvas.height;
+  function sx(x){ return (x/cW)*W; }
+  function sy(y){ return (y/cH)*H; }
+
+  const layers=[];
+  let layerIdx=1;
+
+  // Helper: hex to Lottie [r,g,b,1] (0-1 range)
+  function hexToLottie(hex){
+    const r=parseInt(hex.slice(1,3),16)/255;
+    const g=parseInt(hex.slice(3,5),16)/255;
+    const b=parseInt(hex.slice(5,7),16)/255;
+    return [r,g,b,1];
+  }
+
+  // Build a static bezier path shape (for edges)
+  function makePathShape(from, to, label){
+    const fx=sx(from.x), fy=sy(from.y), tx=sx(to.x), ty=sy(to.y);
+    const mx=(fx+tx)/2, my=(fy+ty)/2 - Math.min(30, Math.abs(fy-ty)*0.25+10);
+    // Quadratic bezier as cubic: CP1=CP2 = 2/3 toward control
+    const cp1x=fx+(mx-fx)*(2/3), cp1y=fy+(my-fy)*(2/3);
+    const cp2x=tx+(mx-tx)*(2/3), cp2y=ty+(my-ty)*(2/3);
+
+    return {
+      ty:'sh', nm:'Path',
+      ks:{ a:0, k:{
+        i:[[0,0],[cp1x-fx, cp1y-fy],[cp2x-tx, cp2y-ty]],
+        o:[[cp1x-fx, cp1y-fy],[cp2x-tx, cp2y-ty],[0,0]],
+        v:[[fx,fy],[tx,ty],[tx,ty]],
+        c:false
+      }}
+    };
+  }
+
+  // Node layers
+  Object.values(ast.nodes).forEach(n=>{
+    const c = nodeColor(n.id);
+    const x=sx(n.x), y=sy(n.y);
+    const w=sx(NW), h=sy(NH);
+
+    // Fill color
+    const fillRgb = hexToLottie(c.fill);
+    const strokeRgb = hexToLottie(c.stroke);
+
+    layers.push({
+      ddd:0, ind:layerIdx++, ty:4, nm:`node:${n.id}`,
+      sr:1, ks:{ o:{a:0,k:100}, r:{a:0,k:0}, p:{a:0,k:[x,y,0]}, a:{a:0,k:[0,0,0]}, s:{a:0,k:[100,100,100]} },
+      ao:0, ip:IP, op:OP, st:0, bm:0,
+      shapes:[
+        { ty:'rc', nm:'Rect', d:1,
+          p:{a:0,k:[0,0]}, s:{a:0,k:[w,h]}, r:{a:0,k:6} },
+        { ty:'fl', nm:'Fill', o:{a:0,k:100},
+          c:{a:0,k:fillRgb}, r:1 },
+        { ty:'st', nm:'Stroke', o:{a:0,k:100},
+          c:{a:0,k:strokeRgb}, w:{a:0,k:1.5}, lc:2, lj:2 },
+        // Label (text layer workaround via separate layer)
+      ]
+    });
+
+    // Text layer for label
+    layers.push({
+      ddd:0, ind:layerIdx++, ty:5, nm:`label:${n.id}`,
+      sr:1, ks:{ o:{a:0,k:100}, r:{a:0,k:0}, p:{a:0,k:[x,y,0]}, a:{a:0,k:[0,0,0]}, s:{a:0,k:[100,100,100]} },
+      ao:0, ip:IP, op:OP, st:0, bm:0,
+      t:{
+        d:{ k:[{ s:{
+          s:11, f:'IBMPlexMono-Medium', t:n.id,
+          j:1, tr:0, lh:13.2, ls:0,
+          fc:hexToLottie(c.text)
+        }, t:0 }]},
+        p:{}, m:{ g:1, a:{a:0,k:[0,0]} },
+        a:[]
+      }
+    });
+  });
+
+  // Edge layers (static dashed paths)
+  ast.edges.forEach(e=>{
+    const from=ast.nodes[e.from], to=ast.nodes[e.to];
+    if(!from||!to)return;
+    layers.push({
+      ddd:0, ind:layerIdx++, ty:4, nm:`edge:${e.from}->${e.to}`,
+      sr:1, ks:{ o:{a:0,k:100}, r:{a:0,k:0}, p:{a:0,k:[0,0,0]}, a:{a:0,k:[0,0,0]}, s:{a:0,k:[100,100,100]} },
+      ao:0, ip:IP, op:OP, st:0, bm:0,
+      shapes:[
+        makePathShape(from,to,`${e.from}-${e.to}`),
+        { ty:'st', nm:'Stroke', o:{a:0,k:100},
+          c:{a:0,k:[0.8,0.84,0.88,1]}, w:{a:0,k:1.5}, lc:2, lj:2,
+          d:[{nm:'dash',n:'d',v:{a:0,k:5}},{nm:'gap',n:'g',v:{a:0,k:4}}] }
+      ]
+    });
+  });
+
+  // Flow layers — animated trim path (moving dot along path)
+  ast.flows.forEach((f,fi)=>{
+    const from=ast.nodes[f.from], to=ast.nodes[f.to];
+    if(!from||!to)return;
+
+    const flowColor = hexToLottie(f.color);
+    const speed = f.speed||1;
+    // Duration for one pass: faster speed = shorter duration
+    const flowDur = Math.round((FR*DUR) / speed);
+    const count = Math.max(1, Math.round(speed*2));
+
+    for(let i=0;i<count;i++){
+      const offset = i/count; // stagger start
+      const startFrame = Math.round(offset * flowDur);
+
+      // Trim path animation: start goes 0→100 over flowDur frames (looping)
+      // We use a dot (small circle) moving along path via position keyframes
+      const fx=sx(from.x), fy=sy(from.y), tx=sx(to.x), ty=sy(to.y);
+      const mx=(fx+tx)/2, my=(fy+ty)/2 - Math.min(30, Math.abs(fy-ty)*0.25+10);
+
+      // Sample bezier at N keyframes for position animation
+      const kfCount=12;
+      const posKfs=[];
+      for(let k=0;k<=kfCount;k++){
+        const t=k/kfCount;
+        const bx=bz2(fx,mx,tx,t), by=bz2(fy,my,ty,t);
+        const frame = startFrame + Math.round(t*flowDur);
+        posKfs.push({ t: frame % OP, s:[bx,by,0], e:[bx,by,0], i:{x:0.5,y:0.5}, o:{x:0.5,y:0.5} });
+      }
+      // Loop: add final kf pointing back to start
+      posKfs.push({t: (startFrame+flowDur) % OP, s:[fx,fy,0], e:[fx,fy,0], i:{x:0.5,y:0.5}, o:{x:0.5,y:0.5}});
+
+      layers.push({
+        ddd:0, ind:layerIdx++, ty:4, nm:`flow:${f.from}->${f.to}[${i}]`,
+        sr:1, ks:{
+          o:{a:0,k:100}, r:{a:0,k:0},
+          p:{a:1, k:posKfs},
+          a:{a:0,k:[0,0,0]}, s:{a:0,k:[100,100,100]}
+        },
+        ao:0, ip:IP, op:OP, st:0, bm:0,
+        shapes:[
+          { ty:'el', nm:'Dot', d:1, p:{a:0,k:[0,0]}, s:{a:0,k:[7,7]} },
+          { ty:'fl', nm:'Fill', o:{a:0,k:100}, c:{a:0,k:flowColor}, r:1 }
+        ]
+      });
+    }
+  });
+
+  // Reverse so nodes render on top
+  layers.reverse();
+
+  return {
+    v:'5.9.0', fr:FR, ip:IP, op:OP, w:W, h:H,
+    nm:'ArchFlow Export', ddd:0,
+    assets:[], fonts:{list:[]},
+    layers,
+    markers:[]
+  };
+}
+
+function bz2(a,b,c,t){ return (1-t)*(1-t)*a+2*(1-t)*t*b+t*t*c; }
+
+function downloadLottie(){
+  if(!scene)return;
+  const json = generateLottie(scene);
+  const blob = new Blob([JSON.stringify(json, null, 2)], {type:'application/json'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download='archflow-animation.json'; a.click();
+  URL.revokeObjectURL(url);
+  clog('Lottie JSON exported — archflow-animation.json','success');
+  closeExportModal();
+}
+
+// ── SVG GENERATOR ────────────────────────────────
+function generateSVG(ast){
+  const W=canvas.width, H=canvas.height;
+  const lines=[];
+
+  lines.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`);
+
+  // Background + dot grid
+  lines.push(`<rect width="${W}" height="${H}" fill="#f5f6f8"/>`);
+  lines.push(`<defs>`);
+  lines.push(`  <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">`);
+  lines.push(`    <circle cx="1" cy="1" r="0.8" fill="rgba(15,45,82,0.06)"/>`);
+  lines.push(`  </pattern>`);
+
+  // Drop shadow filter
+  lines.push(`  <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">`);
+  lines.push(`    <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(15,45,82,0.12)"/>`);
+  lines.push(`  </filter>`);
+
+  // Arrowhead marker
+  lines.push(`  <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">`);
+  lines.push(`    <polygon points="0,0.5 7,4 0,7.5" fill="#94a3b8"/>`);
+  lines.push(`  </marker>`);
+
+  // Flow arrowhead markers per color
+  const flowColors = [...new Set(ast.flows.map(f=>f.color))];
+  flowColors.forEach(col=>{
+    const id='arr'+col.replace('#','');
+    lines.push(`  <marker id="${id}" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">`);
+    lines.push(`    <polygon points="0,0.5 6,3.5 0,6.5" fill="${col}"/>`);
+    lines.push(`  </marker>`);
+  });
+
+  lines.push(`</defs>`);
+  lines.push(`<rect width="${W}" height="${H}" fill="url(#grid)"/>`);
+
+  // Edges
+  ast.edges.forEach(e=>{
+    const from=ast.nodes[e.from], to=ast.nodes[e.to];
+    if(!from||!to)return;
+    const {mx,my,ex,ey}=edgePts(from,to);
+    lines.push(`<path d="M${from.x},${from.y} Q${mx},${my} ${ex},${ey}" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>`);
+  });
+
+  // Flow paths (static, colored)
+  ast.flows.forEach(f=>{
+    const from=ast.nodes[f.from], to=ast.nodes[f.to];
+    if(!from||!to)return;
+    const {mx,my}=edgePts(from,to);
+    const markId='arr'+f.color.replace('#','');
+    lines.push(`<path d="M${from.x},${from.y} Q${mx},${my} ${to.x},${to.y}" fill="none" stroke="${f.color}" stroke-width="2" stroke-opacity="0.25" marker-end="url(#${markId})"/>`);
+  });
+
+  // Nodes
+  Object.values(ast.nodes).forEach(n=>{
+    const c=nodeColor(n.id);
+    const x=n.x-NW/2, y=n.y-NH/2;
+    lines.push(`<g filter="url(#shadow)">`);
+    lines.push(`  <rect x="${x}" y="${y}" width="${NW}" height="${NH}" rx="${NR}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1.5"/>`);
+    // Left accent bar
+    lines.push(`  <path d="M${x},${y+NR} a${NR},${NR} 0 0,1 ${NR},-${NR} L${x+5},${y} L${x+5},${y+NH} L${x},${y+NH-NR} a${NR},${NR} 0 0,1 -${NR},-${NR} Z" fill="${c.stroke}"/>`);
+    lines.push(`</g>`);
+    lines.push(`<text x="${n.x+2}" y="${n.y}" text-anchor="middle" dominant-baseline="middle" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="500" fill="${c.text}">${n.id}</text>`);
+  });
+
+  // Watermark
+  lines.push(`<text x="${W-10}" y="${H-10}" text-anchor="end" font-family="'IBM Plex Sans',sans-serif" font-size="10" fill="#a0aab8">Generated by ArchFlow</text>`);
+
+  lines.push(`</svg>`);
+  return lines.join('\n');
+}
+
+function downloadSVG(){
+  if(!scene)return;
+  const svg = generateSVG(scene);
+  const blob = new Blob([svg], {type:'image/svg+xml'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download='archflow-diagram.svg'; a.click();
+  URL.revokeObjectURL(url);
+  clog('SVG exported — archflow-diagram.svg','success');
+  closeExportModal();
+}
+
+// ── ACTIONS ──────────────────────────────────────
+function clearEditor(){ editor.value=''; scene=null; particles=[]; updateEditor(); updateMetrics(0,0,0); clog('Editor cleared.','info'); setStatus('Ready','ok'); }
+function resetView(){ if(scene){ Object.values(scene.nodes).forEach(n=>{n.x=n._ox;n.y=n._oy;}); layout(scene,canvas.width,canvas.height); buildParticles(scene); } }
+
+const EXAMPLE=`# System architecture — microservices overview
+node client    at (80,200)
+node gateway   at (250,200)
+node auth      at (420,100)
+node api       at (420,200)
+node cache     at (420,320)
+node database  at (590,150)
+node queue     at (590,280)
+node worker    at (750,280)
+
+connect client   -> gateway
+connect gateway  -> auth
+connect gateway  -> api
+connect api      -> cache
+connect api      -> database
+connect api      -> queue
+connect queue    -> worker
+
+flow client  -> gateway   speed 1.8  color blue    loop
+flow gateway -> api       speed 1.5  color indigo  loop
+flow api     -> database  speed 1.0  color green   loop
+flow api     -> cache     speed 2.2  color teal    loop
+flow api     -> queue     speed 0.9  color amber   loop
+flow queue   -> worker    speed 0.7  color orange  loop`;
+
+function loadExample(){ editor.value=EXAMPLE; updateEditor(); compile(); }
+
+// ── INIT ─────────────────────────────────────────
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+requestAnimationFrame(renderFrame);
+updateEditor();
+clog('ArchFlow DSL ready. Type your architecture definition or load an example.','info');
+setTimeout(loadExample, 400);
+</script>
+</body>
+</html>
