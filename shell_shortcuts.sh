@@ -234,6 +234,48 @@ function blogsearch() {
   eval "$cmd"
 }
 
+# PID PORT USER COMMAND
+listports() {
+  echo "PID        PORT                     USER        COMMAND"
+  echo "--------------------------------------------------------------------------------"
+
+  lsof -iTCP -sTCP:LISTEN -nP 2>/dev/null | tail -n +2 | while read -r line; do
+    pid=$(echo "$line" | awk '{print $2}')
+    port=$(echo "$line" | awk '{print $9}')
+    user=$(echo "$line" | awk '{print $3}')
+    
+    # Get the FULL command line (fixes com.docke, node, java, etc.)
+    cmd=$(ps -p "$pid" -o command= 2>/dev/null | sed 's/^[ \t]*//')
+    
+    # Fallback if ps fails
+    [[ -z "$cmd" ]] && cmd=$(echo "$line" | awk '{print $1}')
+    
+    # Show full command - let terminal wrap if very long (no hard cutoff)
+    printf "%-10s %-24s %-11s %s\n" "$pid" "$port" "$user" "$cmd"
+  done
+}
+
+# One-command kill port
+killport() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: killport <port>"
+    echo "Example: killport 3000"
+    return 1
+  fi
+
+  local pids
+  pids=$(lsof -t -iTCP:"$1" -sTCP:LISTEN 2>/dev/null)
+
+  if [[ -z "$pids" ]]; then
+    echo "✅ No listening process on port $1"
+    return 0
+  fi
+
+  echo "Found process(es) on port $1 → killing PID(s): $pids"
+  echo "$pids" | xargs -n1 kill -9 2>/dev/null
+  echo "✅ Killed. Port $1 is now free."
+}
+
 # ----- Define custom bash functions
 
 PROMPT=$'%{$fg[white]%} %{$fg_bold[cyan]%}%~%{$reset_color%}$(git_prompt_info) %{$fg[cyan]%}%D{[%I:%M:%S]}\
