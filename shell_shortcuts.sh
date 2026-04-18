@@ -60,6 +60,7 @@ alias tx="tmux attach -t"
 alias gemma4="llama-server -hf unsloth/gemma-4-26B-A4B-it-GGUF:UD-Q4_K_XL --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --cache-type-k q4_0 --cache-type-v q4_0 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
 alias qwen35="llama-server -hf unsloth/Qwen3.5-27B-GGUF:Q6_K --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
 alias qwen36="llama-server -hf bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q4_K_M --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
+alias qwen36_heavy="llama-server -hf bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q6_K --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
 
 # ----- Define Aliases
 
@@ -244,13 +245,13 @@ listports() {
     pid=$(echo "$line" | awk '{print $2}')
     port=$(echo "$line" | awk '{print $9}')
     user=$(echo "$line" | awk '{print $3}')
-    
+
     # Get the FULL command line (fixes com.docke, node, java, etc.)
     cmd=$(ps -p "$pid" -o command= 2>/dev/null | sed 's/^[ \t]*//')
-    
+
     # Fallback if ps fails
     [[ -z "$cmd" ]] && cmd=$(echo "$line" | awk '{print $1}')
-    
+
     # Show full command - let terminal wrap if very long (no hard cutoff)
     printf "%-10s %-24s %-11s %s\n" "$pid" "$port" "$user" "$cmd"
   done
