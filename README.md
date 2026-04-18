@@ -74,3 +74,4 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 * [Image Stitch/CanvasCraft](https://namuan.github.io/CanvasCraft/)
 * [Video Conversion using FFMPEG](https://namuan.github.io/namuan/tools/video-conversion.html)
 * [Audio Conversion using FFMPEG](https://namuan.github.io/namuan/tools/audio-conversion.html)
+ * [tldraw Canvas](https://namuan.github.io/namuan/tools/tldraw-canvas.html)
