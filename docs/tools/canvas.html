@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Excalidraw</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+                background: #fff;
+            }
+
+            #app {
+                height: 100vh;
+                width: 100vw;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app"></div>
+
+        <!-- React + ReactDOM -->
+        <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+        <!-- Excalidraw (UMD build) -->
+        <script src="https://unpkg.com/@excalidraw/excalidraw@0.17.6/dist/excalidraw.production.min.js"></script>
+
+        <script>
+            const { useState, useEffect, useRef } = React;
+            const { Excalidraw } = ExcalidrawLib;
+
+            const STORAGE_KEY = "excalidraw_data";
+
+            function App() {
+                const [initialData, setInitialData] = useState(null);
+                const excalidrawRef = useRef(null);
+
+                // Load saved drawing on mount
+                useEffect(() => {
+                    try {
+                        const saved = localStorage.getItem(STORAGE_KEY);
+                        if (saved) {
+                            setInitialData(JSON.parse(saved));
+                        } else {
+                            setInitialData({
+                                elements: [],
+                                appState: { viewBackgroundColor: "#ffffff" },
+                            });
+                        }
+                    } catch {
+                        setInitialData({
+                            elements: [],
+                            appState: { viewBackgroundColor: "#ffffff" },
+                        });
+                    }
+                }, []);
+
+                // Auto-save on change
+                function handleChange(elements, appState, files) {
+                    try {
+                        localStorage.setItem(
+                            STORAGE_KEY,
+                            JSON.stringify({ elements, appState, files }),
+                        );
+                    } catch {
+                        // storage full or unavailable
+                    }
+                }
+
+                if (!initialData) return null;
+
+                return React.createElement(Excalidraw, {
+                    ref: excalidrawRef,
+                    initialData: initialData,
+                    onChange: handleChange,
+                    UIOptions: {
+                        canvasActions: {
+                            saveToActiveFile: false,
+                            loadScene: true,
+                            export: { saveFileToDisk: true },
+                        },
+                    },
+                });
+            }
+
+            const root = ReactDOM.createRoot(document.getElementById("app"));
+            root.render(React.createElement(App));
+        </script>
+    </body>
+</html>
