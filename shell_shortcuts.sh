@@ -278,6 +278,16 @@ killport() {
   echo "✅ Killed. Port $1 is now free."
 }
 
+qwencode() {
+    # Set the required environment variables for Qwen (local endpoint)
+    export OPENAI_API_KEY="anything"
+    export OPENAI_BASE_URL="http://127.0.0.1:9090/v1"
+    export OPENAI_MODEL="anything"
+
+    # Run qwen with any arguments passed to the function
+    qwen "$@"
+}
+
 # ----- Define custom bash functions
 
 PROMPT=$'%{$fg[white]%} %{$fg_bold[cyan]%}%~%{$reset_color%}$(git_prompt_info) %{$fg[cyan]%}%D{[%I:%M:%S]}\
