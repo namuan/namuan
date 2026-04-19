@@ -59,19 +59,31 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 
 ## Mini Tools
 
-* [Architecture Diagrams](https://namuan.github.io/namuan/tools/arch-dsl.html)
+### Calculators
+
 * [Arithmetic vs Geometric Differences](https://namuan.github.io/namuan/tools/arithmetic-vs-geometric-differences.html)
 * [Bet Expected Value Calculator](https://namuan.github.io/namuan/tools/bet-expected-value-calculator.html)
 * [Bet Loss Calculator](https://namuan.github.io/namuan/tools/bet-loss-calculator.html)
-* [Chaikins Algorithm Demo](https://namuan.github.io/namuan/tools/chaikins_algorithm_demo.html)
-* [Peripheral Vision Test](https://namuan.github.io/namuan/tools/peripheral-vision-test.html)
 * [Profit Take Calculator](https://namuan.github.io/namuan/tools/profit-take.html)
 * [VIX Implied Move Calculator](https://namuan.github.io/namuan/tools/vix-implied-move.html)
+
+### Visuals & Simulations
+
+* [Architecture Diagrams](https://namuan.github.io/namuan/tools/arch-dsl.html)
+* [Chaikins Algorithm Demo](https://namuan.github.io/namuan/tools/chaikins_algorithm_demo.html)
+* [Peripheral Vision Test](https://namuan.github.io/namuan/tools/peripheral-vision-test.html)
+* [Image Stitch/CanvasCraft](https://namuan.github.io/CanvasCraft/)
+* [Canvas](https://namuan.github.io/namuan/tools/canvas.html)
+
+### Utilities
+
 * [Share Secret](https://namuan.github.io/namuan/tools/secret-sharer.html)
 * [Invoice Generator](https://namuan.github.io/namuan/tools/invoice-generator.html)
 * [Simple Notes](https://namuan.github.io/namuan/tools/simple-notes.html)
 * [JSON Editor](https://namuan.github.io/jsonify/)
-* [Image Stitch/CanvasCraft](https://namuan.github.io/CanvasCraft/)
 * [Video Conversion using FFMPEG](https://namuan.github.io/namuan/tools/video-conversion.html)
 * [Audio Conversion using FFMPEG](https://namuan.github.io/namuan/tools/audio-conversion.html)
-* [Canvas](https://namuan.github.io/namuan/tools/canvas.html)
+
+### Kitchen
+
+* [RoastRack](https://namuan.github.io/namuan/tools/roastrack.html)

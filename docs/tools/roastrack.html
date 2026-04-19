@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoastRack — Roast Dinner Timer</title>
+<meta name="description" content="Free roast dinner timing calculator. Pick your ingredients, set your serve time, get a staggered oven schedule.">
+<meta name="theme-color" content="#5C3D1E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="RoastRack">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script>
+const manifestData = {
+  name: "RoastRack — Roast Dinner Timer",
+  short_name: "RoastRack",
+  description: "Staggered oven schedule so everything's ready at once",
+  start_url: "./",
+  display: "standalone",
+  background_color: "#FAF7F2",
+  theme_color: "#5C3D1E",
+  icons: [
+    { src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%235C3D1E'/><text y='.9em' font-size='72' x='12'>%F0%9F%8D%96</text></svg>", sizes: "192x192", type: "image/svg+xml" }
+  ]
+};
+const _mb = new Blob([JSON.stringify(manifestData)], {type:'application/json'});
+document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
+</script>
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FDF9F4;
+    --parchment: #F0E9DC;
+    --brown-light: #C8A97E;
+    --brown-mid: #8B6340;
+    --brown-dark: #5C3D1E;
+    --forest: #3A6B4A;
+    --forest-light: #EBF3ED;
+    --forest-mid: #5A9068;
+    --charcoal: #2D2416;
+    --muted: #8A7560;
+    --border: rgba(139,99,64,0.15);
+    --border-strong: rgba(139,99,64,0.3);
+    --shadow: 0 2px 16px rgba(44,26,8,0.08);
+    --amber: #C07A1A;
+    --amber-light: #FDF3E3;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(200,169,126,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 10% 90%, rgba(58,107,74,0.07) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .page-wrap {
+    position: relative; z-index: 1;
+    max-width: 720px; margin: 0 auto; padding: 0 20px 80px;
+  }
+
+  /* Header */
+  header { padding: 48px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+  .logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .logo-icon {
+    width: 44px; height: 44px; background: var(--brown-dark); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600;
+    color: var(--brown-dark); letter-spacing: -0.01em;
+  }
+  .tagline { font-size: 14px; color: var(--muted); font-weight: 300; max-width: 480px; }
+
+  /* PWA Banner */
+  #pwa-banner {
+    display: none; align-items: center; gap: 12px;
+    background: var(--parchment); border: 1px solid var(--border-strong);
+    border-radius: 12px; padding: 12px 16px; margin-bottom: 24px;
+    animation: fadeIn 0.3s ease;
+  }
+  #pwa-banner .pwa-icon { font-size: 22px; flex-shrink: 0; }
+  #pwa-banner .pwa-text { flex: 1; }
+  #pwa-banner .pwa-text strong { font-size: 13px; font-weight: 500; color: var(--charcoal); display: block; }
+  #pwa-banner .pwa-text span { font-size: 12px; color: var(--muted); }
+  .btn-pwa-install {
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+    background: var(--brown-dark); color: #fff; border: none; border-radius: 8px;
+    padding: 7px 14px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-pwa-dismiss {
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: 20px; line-height: 1; padding: 0 4px; flex-shrink: 0;
+  }
+
+  /* Section */
+  .section { margin-bottom: 32px; }
+  .section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .step-num {
+    width: 22px; height: 22px; background: var(--brown-dark); color: #fff;
+    border-radius: 50%; font-size: 11px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: 17px;
+    font-weight: 500; color: var(--charcoal);
+  }
+
+  /* Serve row */
+  .serve-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .serve-field { display: flex; align-items: center; gap: 10px; }
+  .serve-field label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  input[type="time"] {
+    font-family: 'DM Sans', sans-serif; font-size: 28px; font-weight: 500;
+    color: var(--brown-dark); border: none; background: transparent;
+    cursor: pointer; outline: none; letter-spacing: 0.02em;
+  }
+  input[type="time"]::-webkit-calendar-picker-indicator { opacity: 0.4; cursor: pointer; }
+
+  /* Serves stepper */
+  .serves-field {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--parchment); border-radius: 10px; padding: 8px 14px;
+  }
+  .serves-field label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .serves-stepper { display: flex; align-items: center; gap: 10px; }
+  .serves-btn {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1px solid var(--border-strong); background: var(--warm-white);
+    cursor: pointer; font-size: 16px; font-weight: 500; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--brown-dark); transition: background 0.15s;
+  }
+  .serves-btn:hover { background: var(--parchment); }
+  #servesDisplay {
+    font-size: 20px; font-weight: 500; color: var(--brown-dark);
+    min-width: 24px; text-align: center;
+  }
+  .serves-unit { font-size: 13px; color: var(--muted); }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+  .item-card {
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 12px 12px; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+    position: relative; user-select: none;
+  }
+  .item-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); transform: translateY(-1px); }
+  .item-card.selected { background: var(--forest-light); border-color: var(--forest-mid); box-shadow: 0 0 0 1px var(--forest-mid); }
+  .item-card .icon { font-size: 26px; margin-bottom: 6px; display: block; }
+  .item-card .name { font-size: 12.5px; font-weight: 500; color: var(--charcoal); line-height: 1.3; margin-bottom: 3px; }
+  .item-card .mins { font-size: 11px; color: var(--muted); }
+  .item-card.selected .name { color: var(--forest); }
+  .item-card.selected .mins { color: var(--forest-mid); }
+  .check-mark {
+    position: absolute; top: 8px; right: 8px;
+    width: 18px; height: 18px; background: var(--forest); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .check-mark svg { width: 10px; height: 10px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Weight */
+  .weight-section {
+    margin-top: 16px; padding: 16px 18px; background: var(--parchment);
+    border-radius: 12px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  .weight-section label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .weight-section input[type="number"] {
+    font-family: 'DM Sans', sans-serif; font-size: 22px; font-weight: 500;
+    color: var(--brown-dark); border: none; background: transparent;
+    width: 70px; outline: none; border-bottom: 1.5px solid var(--brown-light); padding-bottom: 2px;
+  }
+  .weight-section .kg-label { font-size: 15px; color: var(--brown-mid); }
+  .weight-section .meat-time { margin-left: auto; font-size: 12.5px; color: var(--muted); font-style: italic; }
+
+  /* Divider */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 8px 0 32px; }
+
+  /* CTA */
+  .cta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .btn-calculate {
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    color: #fff; background: var(--brown-dark); border: none; border-radius: 10px;
+    padding: 12px 28px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+  }
+  .btn-calculate:hover { background: var(--charcoal); transform: translateY(-1px); }
+  .btn-calculate:active { transform: scale(0.98); }
+  .btn-share {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    color: var(--forest); background: var(--forest-light);
+    border: 1px solid var(--forest-mid); border-radius: 10px;
+    padding: 11px 16px; cursor: pointer; display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s;
+  }
+  .btn-share:hover { background: #d0e9d5; }
+  .btn-share svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  .btn-reset {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--muted);
+    background: none; border: none; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; padding: 0;
+  }
+  .btn-reset:hover { color: var(--charcoal); }
+
+  /* Toast */
+  #shareToast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(60px);
+    background: var(--charcoal); color: #fff; padding: 10px 22px;
+    border-radius: 100px; font-size: 13px; font-weight: 500;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0; pointer-events: none; z-index: 999; white-space: nowrap;
+  }
+  #shareToast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* Output wrap */
+  .timeline-wrap { margin-top: 40px; animation: fadeIn 0.3s ease; }
+  .timeline-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+  }
+  .timeline-header h2 {
+    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: var(--charcoal);
+  }
+  .tl-pills { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .serve-pill {
+    font-size: 12px; font-weight: 500; background: var(--forest); color: #fff;
+    padding: 4px 12px; border-radius: 100px;
+  }
+  .serves-pill {
+    font-size: 12px; font-weight: 500; background: var(--parchment);
+    color: var(--brown-mid); padding: 4px 12px; border-radius: 100px;
+  }
+
+  /* Mode tabs */
+  .mode-tabs {
+    display: flex; gap: 4px; background: var(--parchment);
+    border-radius: 10px; padding: 4px; margin-bottom: 20px; width: fit-content;
+  }
+  .mode-tab {
+    font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 500;
+    border: none; border-radius: 7px; padding: 7px 16px;
+    cursor: pointer; background: transparent; color: var(--muted);
+    transition: background 0.15s, color 0.15s;
+  }
+  .mode-tab.active { background: var(--warm-white); color: var(--charcoal); box-shadow: 0 1px 4px rgba(44,26,8,0.1); }
+
+  /* Static timeline */
+  .tl-item { display: flex; gap: 18px; }
+  .tl-gutter { display: flex; flex-direction: column; align-items: center; width: 28px; flex-shrink: 0; }
+  .tl-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .tl-dot.put-in  { background: var(--forest); }
+  .tl-dot.take-out { background: var(--brown-light); }
+  .tl-dot.serve   { background: var(--brown-dark); width: 18px; height: 18px; margin-top: 1px; }
+  .tl-dot.done    { background: var(--muted); opacity: 0.35; }
+  .tl-connector   { width: 1.5px; flex: 1; min-height: 24px; background: var(--border-strong); margin: 4px 0; }
+  .tl-body { padding-bottom: 22px; flex: 1; min-width: 0; }
+  .tl-time { font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+  .tl-name { font-size: 15px; font-weight: 500; color: var(--charcoal); }
+  .tl-detail { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .tl-item.past .tl-name { color: var(--muted); text-decoration: line-through; }
+  .tl-item.past .tl-time { opacity: 0.5; }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 500;
+    padding: 3px 9px; border-radius: 100px; margin-top: 5px;
+  }
+  .badge.put-in  { background: var(--forest-light); color: var(--forest); }
+  .badge.take-out { background: var(--amber-light); color: var(--amber); }
+  .badge.serve   { background: var(--brown-dark); color: #fff; }
+
+  /* Countdown */
+  #countdownView { animation: fadeIn 0.2s ease; }
+  .next-card {
+    background: var(--brown-dark); color: #fff;
+    border-radius: 16px; padding: 24px; margin-bottom: 16px;
+  }
+  .next-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+  .next-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; margin-bottom: 3px; }
+  .next-detail { font-size: 13px; opacity: 0.65; margin-bottom: 18px; }
+  .countdown-time {
+    font-size: 52px; font-weight: 500; letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 4px;
+  }
+  .countdown-time.urgent { color: #FFBDAD; animation: blink 1s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.65} }
+  .countdown-at { font-size: 12px; opacity: 0.55; }
+  .upcoming-list { }
+  .upcoming-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 11px 0; border-bottom: 1px solid var(--border);
+  }
+  .upcoming-row:last-child { border-bottom: none; }
+  .up-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .up-dot.put-in { background: var(--forest); }
+  .up-dot.take-out { background: var(--brown-light); }
+  .up-dot.serve { background: var(--brown-dark); }
+  .up-time { font-size: 13px; font-weight: 500; color: var(--muted); min-width: 42px; font-variant-numeric: tabular-nums; }
+  .up-name { font-size: 14px; color: var(--charcoal); flex: 1; }
+  .up-in { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .all-done {
+    background: var(--forest); color: #fff;
+    border-radius: 16px; padding: 32px 24px; text-align: center;
+  }
+  .all-done .done-emoji { font-size: 40px; margin-bottom: 10px; }
+  .all-done h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 500; margin-bottom: 6px; }
+  .all-done p { font-size: 13px; opacity: 0.8; }
+
+  /* Portions */
+  .portions-box {
+    background: var(--parchment); border-radius: 12px; padding: 16px 18px; margin-top: 20px;
+  }
+  .portions-box h3 { font-size: 14px; font-weight: 500; color: var(--charcoal); margin-bottom: 12px; }
+  .portions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 2px 12px; }
+  .p-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .p-row:last-child { border-bottom: none; }
+  .p-name { color: var(--charcoal); }
+  .p-qty { font-weight: 500; color: var(--brown-dark); font-variant-numeric: tabular-nums; }
+
+  /* Empty */
+  .empty-state {
+    padding: 28px 20px; text-align: center; color: var(--muted); font-size: 14px;
+    border: 1.5px dashed var(--border-strong); border-radius: 14px; margin-top: 32px;
+  }
+  .empty-state .big { font-size: 30px; margin-bottom: 8px; }
+
+  footer {
+    text-align: center; margin-top: 64px; padding-top: 24px;
+    border-top: 1px solid var(--border); font-size: 12px; color: var(--muted);
+  }
+
+  @media (max-width: 500px) {
+    h1 { font-size: 26px; }
+    .card-grid { grid-template-columns: repeat(3, 1fr); }
+    input[type="time"] { font-size: 22px; }
+    .countdown-time { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <header>
+    <div class="logo-row">
+      <div class="logo-icon">🍖</div>
+      <h1>RoastRack</h1>
+    </div>
+    <p class="tagline">Pick your ingredients, set your serve time — get a staggered oven schedule so everything's ready at once.</p>
+  </header>
+
+  <!-- PWA install banner -->
+  <div id="pwa-banner">
+    <span class="pwa-icon">📱</span>
+    <div class="pwa-text">
+      <strong>Add to home screen</strong>
+      <span>Install RoastRack for quick access from your kitchen.</span>
+    </div>
+    <button class="btn-pwa-install" id="pwaInstallBtn">Install</button>
+    <button class="btn-pwa-dismiss" id="pwaDismissBtn" aria-label="Dismiss">×</button>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="step-num">1</div>
+      <div class="section-title">When do you want to eat?</div>
+    </div>
+    <div class="serve-row">
+      <div class="serve-field">
+        <label for="servetime">Serve time</label>
+        <input type="time" id="servetime" value="13:30">
+      </div>
+      <div class="serves-field">
+        <label>Serves</label>
+        <div class="serves-stepper">
+          <button class="serves-btn" onclick="changeServes(-1)" aria-label="Fewer">−</button>
+          <span id="servesDisplay">4</span>
+          <button class="serves-btn" onclick="changeServes(1)" aria-label="More">+</button>
+        </div>
+        <span class="serves-unit">people</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="step-num">2</div>
+      <div class="section-title">Choose your meat</div>
+    </div>
+    <div class="card-grid" id="meatGrid"></div>
+    <div id="weightSection" style="display:none">
+      <div class="weight-section">
+        <label for="weightInput">Weight</label>
+        <input type="number" id="weightInput" value="1.5" min="0.5" max="12" step="0.1">
+        <span class="kg-label">kg</span>
+        <span class="meat-time" id="meatTimeDisplay"></span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Step 3 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="step-num">3</div>
+      <div class="section-title">Add vegetables &amp; sides</div>
+    </div>
+    <div class="card-grid" id="vegGrid"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row">
+    <button class="btn-calculate" onclick="calculate()">Calculate schedule</button>
+    <button class="btn-share" onclick="shareURL()">
+      <svg viewBox="0 0 16 16"><circle cx="13" cy="3" r="1.5"/><circle cx="13" cy="13" r="1.5"/><circle cx="3" cy="8" r="1.5"/><line x1="4.5" y1="7.2" x2="11.5" y2="3.8"/><line x1="4.5" y1="8.8" x2="11.5" y2="12.2"/></svg>
+      Share plan
+    </button>
+    <button class="btn-reset" onclick="resetAll()">Start over</button>
+  </div>
+
+  <div id="timelineContainer"></div>
+
+  <footer>RoastRack &mdash; free roast dinner timer &mdash; no signup required.</footer>
+</div>
+
+<div id="shareToast">Link copied!</div>
+
+<script>
+/* ── DATA ── */
+const MEATS = [
+  { id:'beef',    icon:'🥩', name:'Beef (joint)',    perKg:60, restMins:20, gPerPerson:200 },
+  { id:'lamb',    icon:'🍖', name:'Lamb (leg)',      perKg:55, restMins:15, gPerPerson:200 },
+  { id:'pork',    icon:'🥓', name:'Pork (shoulder)', perKg:55, restMins:20, gPerPerson:200 },
+  { id:'chicken', icon:'🐔', name:'Whole chicken',   perKg:45, restMins:15, gPerPerson:200 },
+  { id:'turkey',  icon:'🦃', name:'Turkey',          perKg:40, restMins:30, gPerPerson:175 },
+];
+const VEGS = [
+  { id:'roasties',    icon:'🥔', name:'Roast potatoes',  mins:60, unit:'g',  perPerson:200 },
+  { id:'parsnips',    icon:'🟠', name:'Parsnips',         mins:40, unit:'',   perPerson:2, suffix:' each' },
+  { id:'carrots',     icon:'🥕', name:'Carrots',          mins:35, unit:'',   perPerson:2, suffix:' each' },
+  { id:'yorkshire',   icon:'🫓', name:'Yorkshire puds',   mins:20, unit:'',   perPerson:2, suffix:' each' },
+  { id:'stuffing',    icon:'🍞', name:'Stuffing',         mins:35, unit:'g',  perPerson:75 },
+  { id:'broccoli',    icon:'🥦', name:'Broccoli',         mins:15, unit:'g',  perPerson:80 },
+  { id:'peas',        icon:'🫛', name:'Peas',             mins:8,  unit:'g',  perPerson:80 },
+  { id:'cauliflower', icon:'⚪', name:'Cauli cheese',     mins:30, unit:'g',  perPerson:100 },
+  { id:'sprouts',     icon:'🌱', name:'Brussels sprouts', mins:20, unit:'',   perPerson:6, suffix:' each' },
+  { id:'gravy',       icon:'🫙', name:'Gravy',            mins:10, unit:'ml', perPerson:100 },
+];
+
+/* ── STATE ── */
+let selectedMeat = null;
+let selectedVegs = new Set();
+let serves = 4;
+let currentEvents = [];
+let mode = 'schedule';
+let ticker = null;
+let notifGranted = false;
+let firedNotifs = new Set();
+
+/* ── RENDER CARDS ── */
+const chk = () => `<span class="check-mark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>`;
+
+function renderMeats() {
+  document.getElementById('meatGrid').innerHTML = MEATS.map(m => `
+    <div class="item-card${selectedMeat===m.id?' selected':''}" onclick="toggleMeat('${m.id}')">
+      ${selectedMeat===m.id?chk():''}
+      <span class="icon">${m.icon}</span>
+      <div class="name">${m.name}</div>
+      <div class="mins">~${m.perKg} min/kg</div>
+    </div>`).join('');
+}
+function renderVegs() {
+  document.getElementById('vegGrid').innerHTML = VEGS.map(v => `
+    <div class="item-card${selectedVegs.has(v.id)?' selected':''}" onclick="toggleVeg('${v.id}')">
+      ${selectedVegs.has(v.id)?chk():''}
+      <span class="icon">${v.icon}</span>
+      <div class="name">${v.name}</div>
+      <div class="mins">${v.mins} min</div>
+    </div>`).join('');
+}
+function toggleMeat(id) {
+  selectedMeat = selectedMeat===id ? null : id;
+  document.getElementById('weightSection').style.display = selectedMeat ? 'block' : 'none';
+  updateMeatTime(); renderMeats();
+}
+function toggleVeg(id) { selectedVegs.has(id)?selectedVegs.delete(id):selectedVegs.add(id); renderVegs(); }
+function getWeight() { return parseFloat(document.getElementById('weightInput').value)||1.5; }
+function changeServes(d) {
+  serves = Math.max(1, Math.min(20, serves+d));
+  document.getElementById('servesDisplay').textContent = serves;
+}
+function updateMeatTime() {
+  if (!selectedMeat) return;
+  const m = MEATS.find(x=>x.id===selectedMeat);
+  const cook = Math.round(getWeight()*m.perKg);
+  document.getElementById('meatTimeDisplay').textContent = `≈ ${cook} min cooking + ${m.restMins} min rest`;
+}
+document.getElementById('weightInput').addEventListener('input', updateMeatTime);
+
+/* ── TIME UTILS ── */
+function fmtTime(d) { return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); }
+function subMins(d,m) { const n=new Date(d); n.setMinutes(n.getMinutes()-m); return n; }
+function parseServe() {
+  const val = document.getElementById('servetime').value||'13:30';
+  const [h,mi] = val.split(':').map(Number);
+  const d = new Date(); d.setHours(h,mi,0,0); return d;
+}
+function fmtCountdown(ms) {
+  if (ms<=0) return '00:00';
+  const s = Math.floor(ms/1000);
+  const h = Math.floor(s/3600);
+  const m = Math.floor((s%3600)/60);
+  const sec = s%60;
+  if (h>0) return `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+/* ── BUILD EVENTS ── */
+function buildEvents() {
+  const serve = parseServe();
+  const ev = [];
+  if (selectedMeat) {
+    const m = MEATS.find(x=>x.id===selectedMeat);
+    const cook = Math.round(getWeight()*m.perKg);
+    ev.push({ time:subMins(serve, cook+m.restMins), type:'put-in',   name:m.name, detail:`Cook for ${cook} min`,       badge:'Put in oven',    id:m.id+'_in' });
+    ev.push({ time:subMins(serve, m.restMins),       type:'take-out', name:m.name, detail:`Rest for ${m.restMins} min`, badge:'Take out & rest', id:m.id+'_out' });
+  }
+  selectedVegs.forEach(id => {
+    const v = VEGS.find(x=>x.id===id);
+    ev.push({ time:subMins(serve,v.mins), type:'put-in', name:v.name, detail:`Cook for ${v.mins} min`, badge:'Put in oven', id:v.id+'_in' });
+  });
+  ev.push({ time:serve, type:'serve', name:'Serve!', detail:'Everything should be ready now', badge:'Serve', id:'serve' });
+  ev.sort((a,b)=>a.time-b.time);
+  return ev;
+}
+
+/* ── PORTIONS ── */
+function portionsHTML() {
+  const rows = [];
+  if (selectedMeat) {
+    const m = MEATS.find(x=>x.id===selectedMeat);
+    rows.push({ name:m.name, qty:`${m.gPerPerson*serves}g` });
+  }
+  selectedVegs.forEach(id => {
+    const v = VEGS.find(x=>x.id===id);
+    const total = v.perPerson * serves;
+    const qty = v.unit ? `${total}${v.unit}` : `${total}${v.suffix||''}`;
+    rows.push({ name:v.name, qty });
+  });
+  if (!rows.length) return '';
+  return `<div class="portions-box">
+    <h3>Quantities for ${serves} ${serves===1?'person':'people'}</h3>
+    <div class="portions-grid">${rows.map(r=>`
+      <div class="p-row"><span class="p-name">${r.name}</span><span class="p-qty">${r.qty}</span></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+/* ── CALCULATE ── */
+function calculate() {
+  stopTicker(); firedNotifs = new Set();
+  currentEvents = buildEvents();
+  const c = document.getElementById('timelineContainer');
+  if (currentEvents.length <= 1) {
+    c.innerHTML = `<div class="empty-state"><div class="big">🥔</div>Select at least one ingredient above to build your schedule.</div>`;
+    return;
+  }
+  mode = 'schedule';
+  renderOutput();
+  askNotifPermission();
+  c.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ── RENDER OUTPUT ── */
+function renderOutput() {
+  const serve = currentEvents.find(e=>e.type==='serve');
+  document.getElementById('timelineContainer').innerHTML = `
+    <div class="timeline-wrap">
+      <div class="timeline-header">
+        <h2>Your schedule</h2>
+        <div class="tl-pills">
+          <span class="serve-pill">Serve at ${fmtTime(serve.time)}</span>
+          <span class="serves-pill">${serves} ${serves===1?'person':'people'}</span>
+        </div>
+      </div>
+      <div class="mode-tabs">
+        <button class="mode-tab${mode==='schedule'?' active':''}" onclick="switchMode('schedule')">Schedule</button>
+        <button class="mode-tab${mode==='countdown'?' active':''}" onclick="switchMode('countdown')">Live countdown</button>
+      </div>
+      <div id="modeContent"></div>
+      ${portionsHTML()}
+    </div>`;
+  if (mode==='schedule') renderSchedule();
+  else { renderCountdown(); startTicker(); }
+}
+
+function switchMode(m) {
+  stopTicker(); mode = m;
+  renderOutput();
+  if (m==='countdown') startTicker();
+}
+
+/* ── SCHEDULE VIEW ── */
+function renderSchedule() {
+  const now = new Date();
+  document.getElementById('modeContent').innerHTML =
+    '<div class="timeline">' +
+    currentEvents.map((e,i) => {
+      const past = e.time < now && e.type !== 'serve';
+      return `<div class="tl-item${past?' past':''}">
+        <div class="tl-gutter">
+          <div class="tl-dot ${past?'done':e.type}"></div>
+          ${i<currentEvents.length-1?'<div class="tl-connector"></div>':''}
+        </div>
+        <div class="tl-body">
+          <div class="tl-time">${fmtTime(e.time)}</div>
+          <div class="tl-name">${e.name}</div>
+          <div class="tl-detail">${e.detail}</div>
+          <span class="badge ${e.type}">${e.badge}</span>
+        </div>
+      </div>`;
+    }).join('') + '</div>';
+}
+
+/* ── COUNTDOWN VIEW ── */
+function renderCountdown() {
+  document.getElementById('modeContent').innerHTML = '<div id="countdownView"></div>';
+  tickCountdown();
+}
+
+function tickCountdown() {
+  const el = document.getElementById('countdownView');
+  if (!el) return;
+  const now = new Date();
+
+  // Fire notifications for events just reached
+  currentEvents.forEach(e => {
+    const secsPast = (now - e.time) / 1000;
+    if (secsPast >= 0 && secsPast < 62 && !firedNotifs.has(e.id)) {
+      firedNotifs.add(e.id);
+      fireNotif(e);
+    }
+  });
+
+  const future = currentEvents.filter(e => e.time > now);
+  if (!future.length) {
+    el.innerHTML = `<div class="all-done">
+      <div class="done-emoji">🎉</div>
+      <h3>Time to eat!</h3>
+      <p>Everything should be ready now. Enjoy your roast!</p>
+    </div>`;
+    stopTicker(); return;
+  }
+
+  const next = future[0];
+  const ms = next.time - now;
+  const urgent = ms < 5*60*1000;
+
+  const upcomingHTML = future.slice(1).map(e => `
+    <div class="upcoming-row">
+      <div class="up-dot ${e.type}"></div>
+      <div class="up-time">${fmtTime(e.time)}</div>
+      <div class="up-name">${e.name} — ${e.badge}</div>
+      <div class="up-in">${fmtCountdown(e.time-now)}</div>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div class="next-card">
+      <div class="next-label">Next action</div>
+      <div class="next-name">${next.name}</div>
+      <div class="next-detail">${next.badge} · ${next.detail}</div>
+      <div class="countdown-time${urgent?' urgent':''}">${fmtCountdown(ms)}</div>
+      <div class="countdown-at">at ${fmtTime(next.time)}</div>
+    </div>
+    ${upcomingHTML ? `<div class="upcoming-list">${upcomingHTML}</div>` : ''}`;
+}
+
+function startTicker() { tickCountdown(); ticker = setInterval(tickCountdown, 1000); }
+function stopTicker() { if (ticker) { clearInterval(ticker); ticker = null; } }
+
+/* ── NOTIFICATIONS ── */
+function askNotifPermission() {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'granted') { notifGranted = true; return; }
+  if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(p => { notifGranted = p==='granted'; });
+  }
+}
+function fireNotif(e) {
+  if (!notifGranted) return;
+  try {
+    new Notification('🍖 RoastRack: ' + e.badge, {
+      body: e.name + ' — ' + e.detail,
+      tag: e.id
+    });
+  } catch(_) {}
+}
+
+/* ── SHARE URL ── */
+function encodeState() {
+  const s = {
+    t: document.getElementById('servetime').value,
+    s: serves,
+    m: selectedMeat||'',
+    w: getWeight(),
+    v: [...selectedVegs].join(',')
+  };
+  return btoa(JSON.stringify(s));
+}
+function decodeState(enc) {
+  try { return JSON.parse(atob(enc)); } catch { return null; }
+}
+function shareURL() {
+  const url = location.href.split('#')[0] + '#' + encodeState();
+  history.replaceState(null,'', url);
+  const copy = text => {
+    if (navigator.clipboard) return navigator.clipboard.writeText(text);
+    const t = document.createElement('textarea');
+    t.value = text; t.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(t); t.select();
+    document.execCommand('copy'); document.body.removeChild(t);
+    return Promise.resolve();
+  };
+  copy(url).then(showToast).catch(showToast);
+}
+function showToast() {
+  const t = document.getElementById('shareToast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ── LOAD FROM HASH ── */
+function loadFromHash() {
+  const hash = location.hash.slice(1);
+  if (!hash) return;
+  const s = decodeState(hash);
+  if (!s) return;
+  if (s.t) document.getElementById('servetime').value = s.t;
+  if (s.s) { serves = parseInt(s.s)||4; document.getElementById('servesDisplay').textContent = serves; }
+  if (s.m) {
+    selectedMeat = s.m;
+    document.getElementById('weightSection').style.display = 'block';
+    if (s.w) document.getElementById('weightInput').value = s.w;
+    updateMeatTime();
+  }
+  if (s.v) s.v.split(',').filter(Boolean).forEach(id => selectedVegs.add(id));
+  renderMeats(); renderVegs();
+  if (selectedMeat || selectedVegs.size) setTimeout(calculate, 80);
+}
+
+/* ── RESET ── */
+function resetAll() {
+  stopTicker(); selectedMeat=null; selectedVegs=new Set(); serves=4;
+  document.getElementById('servesDisplay').textContent = 4;
+  document.getElementById('weightSection').style.display = 'none';
+  document.getElementById('timelineContainer').innerHTML = '';
+  history.replaceState(null,'', location.pathname);
+  renderMeats(); renderVegs();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ── PWA ── */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  document.getElementById('pwa-banner').style.display = 'flex';
+});
+document.getElementById('pwaInstallBtn').addEventListener('click', () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => {
+    deferredPrompt = null;
+    document.getElementById('pwa-banner').style.display = 'none';
+  });
+});
+document.getElementById('pwaDismissBtn').addEventListener('click', () => {
+  document.getElementById('pwa-banner').style.display = 'none';
+});
+
+/* Service worker for offline */
+if ('serviceWorker' in navigator) {
+  const sw = `const C='rr-v1';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+  const blob = new Blob([sw],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+
+/* ── INIT ── */
+renderMeats(); renderVegs(); loadFromHash();
+</script>
+</body>
+</html>
