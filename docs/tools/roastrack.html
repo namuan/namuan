@@ -65,11 +65,42 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
   }
   .page-wrap {
     position: relative; z-index: 1;
-    max-width: 720px; margin: 0 auto; padding: 0 20px 80px;
+    max-width: 1320px; margin: 0 auto; padding: 0 24px 80px;
+  }
+
+  /* Two-column layout */
+  .app-layout {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 40px;
+    align-items: start;
+  }
+  .compose-col { min-width: 0; }
+  .output-col {
+    position: sticky; top: 20px;
+    max-height: calc(100vh - 40px); overflow-y: auto;
+    scrollbar-width: thin; min-width: 0;
+  }
+  .right-empty {
+    padding: 56px 24px; text-align: center; color: var(--muted);
+    font-size: 14px; border: 1.5px dashed var(--border-strong); border-radius: 14px;
+  }
+  .right-empty .big { font-size: 44px; margin-bottom: 10px; }
+  .right-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
+  }
+  .right-header h2 {
+    font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--charcoal);
+  }
+  .right-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0 14px; }
+  .schedule-section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
   }
 
   /* Header */
-  header { padding: 48px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+  header { padding: 28px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
   .logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
   .logo-icon {
     width: 44px; height: 44px; background: var(--brown-dark); border-radius: 10px;
@@ -147,34 +178,34 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
   }
   .serves-unit { font-size: 13px; color: var(--muted); }
 
-  /* Cards */
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-  .meat-section { margin-bottom: 16px; }
+  /* Cards — compact chips */
+  .card-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+  .meat-section { margin-bottom: 12px; }
   .meat-section:last-child { margin-bottom: 0; }
   .meat-section-label {
-    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--muted);
-    margin-bottom: 8px; padding-left: 2px;
+    margin-bottom: 6px; padding-left: 2px;
   }
   .item-card {
     background: var(--warm-white); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px 12px 12px; cursor: pointer;
-    transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
-    position: relative; user-select: none;
+    border-radius: 20px; padding: 5px 11px 5px 7px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
   }
-  .item-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); transform: translateY(-1px); }
-  .item-card.selected { background: var(--forest-light); border-color: var(--forest-mid); box-shadow: 0 0 0 1px var(--forest-mid); }
-  .item-card .icon { font-size: 26px; margin-bottom: 6px; display: block; }
-  .item-card .name { font-size: 12.5px; font-weight: 500; color: var(--charcoal); line-height: 1.3; margin-bottom: 3px; }
-  .item-card .mins { font-size: 11px; color: var(--muted); }
+  .item-card:hover { border-color: var(--border-strong); background: var(--parchment); }
+  .item-card.selected { background: var(--forest-light); border-color: var(--forest-mid); }
+  .item-card .icon { font-size: 15px; flex-shrink: 0; }
+  .item-card .name { font-size: 12px; font-weight: 500; color: var(--charcoal); line-height: 1.2; white-space: nowrap; }
+  .item-card .mins { font-size: 10.5px; color: var(--muted); white-space: nowrap; margin-left: 1px; }
   .item-card.selected .name { color: var(--forest); }
   .item-card.selected .mins { color: var(--forest-mid); }
   .check-mark {
-    position: absolute; top: 8px; right: 8px;
-    width: 18px; height: 18px; background: var(--forest); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
+    width: 14px; height: 14px; background: var(--forest); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .check-mark svg { width: 10px; height: 10px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .check-mark svg { width: 8px; height: 8px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
   /* Weight */
   .weight-section {
@@ -231,7 +262,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
   #shareToast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
   /* Output wrap */
-  .timeline-wrap { margin-top: 40px; animation: fadeIn 0.3s ease; }
+  .timeline-wrap { animation: fadeIn 0.3s ease; }
   .timeline-header {
     display: flex; align-items: baseline; justify-content: space-between;
     margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
@@ -249,18 +280,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
     color: var(--brown-mid); padding: 4px 12px; border-radius: 100px;
   }
 
-  /* Mode tabs */
-  .mode-tabs {
-    display: flex; gap: 4px; background: var(--parchment);
-    border-radius: 10px; padding: 4px; margin-bottom: 20px; width: fit-content;
-  }
-  .mode-tab {
-    font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 500;
-    border: none; border-radius: 7px; padding: 7px 16px;
-    cursor: pointer; background: transparent; color: var(--muted);
-    transition: background 0.15s, color 0.15s;
-  }
-  .mode-tab.active { background: var(--warm-white); color: var(--charcoal); box-shadow: 0 1px 4px rgba(44,26,8,0.1); }
+
 
   /* Static timeline */
   .tl-item { display: flex; gap: 18px; }
@@ -348,9 +368,12 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
     border-top: 1px solid var(--border); font-size: 12px; color: var(--muted);
   }
 
+  @media (max-width: 860px) {
+    .app-layout { grid-template-columns: 1fr; }
+    .output-col { position: static; max-height: none; }
+  }
   @media (max-width: 500px) {
-    h1 { font-size: 26px; }
-    .card-grid { grid-template-columns: repeat(3, 1fr); }
+    h1 { font-size: 24px; }
     input[type="time"] { font-size: 22px; }
     .countdown-time { font-size: 40px; }
   }
@@ -364,7 +387,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
       <div class="logo-icon">🍖</div>
       <h1>RoastRack</h1>
     </div>
-    <p class="tagline">Pick your ingredients, set your serve time — get a staggered oven schedule so everything's ready at once.</p>
+    <p class="tagline">Pick your ingredients, set your serve time — everything ready at once.</p>
   </header>
 
   <!-- PWA install banner -->
@@ -378,71 +401,87 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
     <button class="btn-pwa-dismiss" id="pwaDismissBtn" aria-label="Dismiss">×</button>
   </div>
 
-  <!-- Step 1 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="step-num">1</div>
-      <div class="section-title">When do you want to eat?</div>
-    </div>
-    <div class="serve-row">
-      <div class="serve-field">
-        <label for="servetime">Serve time</label>
-        <input type="time" id="servetime">
-      </div>
-      <div class="serves-field">
-        <label>Serves</label>
-        <div class="serves-stepper">
-          <button class="serves-btn" onclick="changeServes(-1)" aria-label="Fewer">−</button>
-          <span id="servesDisplay">4</span>
-          <button class="serves-btn" onclick="changeServes(1)" aria-label="More">+</button>
+  <div class="app-layout">
+
+    <!-- Left: compose -->
+    <div class="compose-col">
+
+      <!-- Step 1 -->
+      <div class="section">
+        <div class="section-head">
+          <div class="step-num">1</div>
+          <div class="section-title">When do you want to eat?</div>
         </div>
-        <span class="serves-unit">people</span>
+        <div class="serve-row">
+          <div class="serve-field">
+            <label for="servetime">Serve time</label>
+            <input type="time" id="servetime">
+          </div>
+          <div class="serves-field">
+            <label>Serves</label>
+            <div class="serves-stepper">
+              <button class="serves-btn" onclick="changeServes(-1)" aria-label="Fewer">−</button>
+              <span id="servesDisplay">4</span>
+              <button class="serves-btn" onclick="changeServes(1)" aria-label="More">+</button>
+            </div>
+            <span class="serves-unit">people</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Step 2 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="step-num">2</div>
-      <div class="section-title">Choose your meat</div>
-    </div>
-    <div id="meatGrid"></div>
-    <div id="weightSection" style="display:none">
-      <div class="weight-section">
-        <label for="weightInput">Weight</label>
-        <input type="number" id="weightInput" value="1.5" min="0.5" max="12" step="0.1">
-        <span class="kg-label">kg</span>
-        <span class="meat-time" id="meatTimeDisplay"></span>
+      <!-- Step 2 -->
+      <div class="section">
+        <div class="section-head">
+          <div class="step-num">2</div>
+          <div class="section-title">Choose your meat</div>
+        </div>
+        <div id="meatGrid"></div>
+        <div id="weightSection" style="display:none">
+          <div class="weight-section">
+            <label for="weightInput">Weight</label>
+            <input type="number" id="weightInput" value="1.5" min="0.5" max="12" step="0.1">
+            <span class="kg-label">kg</span>
+            <span class="meat-time" id="meatTimeDisplay"></span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <hr class="divider">
+      <hr class="divider">
 
-  <!-- Step 3 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="step-num">3</div>
-      <div class="section-title">Add vegetables &amp; sides</div>
-    </div>
-    <div class="card-grid" id="vegGrid"></div>
-  </div>
+      <!-- Step 3 -->
+      <div class="section">
+        <div class="section-head">
+          <div class="step-num">3</div>
+          <div class="section-title">Add vegetables &amp; sides</div>
+        </div>
+        <div class="card-grid" id="vegGrid"></div>
+      </div>
 
-  <!-- CTA -->
-  <div class="cta-row">
-    <button class="btn-calculate" onclick="calculate()">Calculate schedule</button>
-    <button class="btn-share" onclick="shareURL()">
-      <svg viewBox="0 0 16 16"><circle cx="13" cy="3" r="1.5"/><circle cx="13" cy="13" r="1.5"/><circle cx="3" cy="8" r="1.5"/><line x1="4.5" y1="7.2" x2="11.5" y2="3.8"/><line x1="4.5" y1="8.8" x2="11.5" y2="12.2"/></svg>
-      Share plan
-    </button>
-    <button class="btn-reset" onclick="resetAll()">Start over</button>
-  </div>
+      <!-- CTA -->
+      <div class="cta-row">
+        <button class="btn-calculate" onclick="calculate()">Calculate schedule</button>
+        <button class="btn-share" onclick="shareURL()">
+          <svg viewBox="0 0 16 16"><circle cx="13" cy="3" r="1.5"/><circle cx="13" cy="13" r="1.5"/><circle cx="3" cy="8" r="1.5"/><line x1="4.5" y1="7.2" x2="11.5" y2="3.8"/><line x1="4.5" y1="8.8" x2="11.5" y2="12.2"/></svg>
+          Share plan
+        </button>
+        <button class="btn-reset" onclick="resetAll()">Start over</button>
+      </div>
 
-  <div id="timelineContainer"></div>
+    </div><!-- /compose-col -->
 
-  <footer>RoastRack &mdash; free roast dinner timer &mdash; no signup required.</footer>
-</div>
+    <!-- Right: output -->
+    <div class="output-col">
+      <div id="rightPanel">
+        <div class="right-empty">
+          <div class="big">🍖</div>
+          <p>Your schedule will appear here.</p>
+        </div>
+      </div>
+    </div><!-- /output-col -->
+
+  </div><!-- /app-layout -->
+
+  </div><!-- /app-layout -->
 
 <div id="shareToast">Link copied!</div>
 
@@ -485,7 +524,6 @@ let selectedMeat = null;
 let selectedVegs = new Set();
 let serves = 4;
 let currentEvents = [];
-let mode = 'schedule';
 let ticker = null;
 let notifGranted = false;
 let firedNotifs = new Set();
@@ -494,26 +532,14 @@ let firedNotifs = new Set();
 const chk = () => `<span class="check-mark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>`;
 
 function renderMeats() {
-  const categories = [
-    { key:'joint',   label:'Joints' },
-    { key:'portion', label:'Portions' },
-    { key:'fish',    label:'Fish' },
-  ];
-  document.getElementById('meatGrid').innerHTML = categories.map(cat => {
-    const items = MEATS.filter(m => m.category === cat.key);
-    if (!items.length) return '';
-    return `<div class="meat-section">
-      <div class="meat-section-label">${cat.label}</div>
-      <div class="card-grid">${items.map(m => `
-        <div class="item-card${selectedMeat===m.id?' selected':''}" onclick="toggleMeat('${m.id}')">
-          ${selectedMeat===m.id?chk():''}
-          <span class="icon">${m.icon}</span>
-          <div class="name">${m.name}</div>
-          <div class="mins">${m.fixedMins ? m.fixedMins+' min' : '~'+m.perKg+' min/kg'}</div>
-        </div>`).join('')}
-      </div>
-    </div>`;
-  }).join('');
+  document.getElementById('meatGrid').innerHTML = `<div class="card-grid">${MEATS.map(m => `
+    <div class="item-card${selectedMeat===m.id?' selected':''}" onclick="toggleMeat('${m.id}')">
+      ${selectedMeat===m.id?chk():''}
+      <span class="icon">${m.icon}</span>
+      <div class="name">${m.name}</div>
+      <div class="mins">${m.fixedMins ? m.fixedMins+' min' : '~'+m.perKg+' min/kg'}</div>
+    </div>`).join('')}
+  </div>`;
 }
 function renderVegs() {
   document.getElementById('vegGrid').innerHTML = VEGS.map(v => `
@@ -621,50 +647,40 @@ function portionsHTML() {
 function calculate() {
   stopTicker(); firedNotifs = new Set();
   currentEvents = buildEvents();
-  const c = document.getElementById('timelineContainer');
+  const panel = document.getElementById('rightPanel');
   if (currentEvents.length <= 1) {
-    c.innerHTML = `<div class="empty-state"><div class="big">🥔</div>Select at least one ingredient above to build your schedule.</div>`;
+    panel.innerHTML = `<div class="right-empty"><div class="big">🥔</div><p>Select at least one ingredient to build your schedule.</p></div>`;
     return;
   }
-  mode = 'schedule';
   renderOutput();
   askNotifPermission();
-  c.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 /* ── RENDER OUTPUT ── */
 function renderOutput() {
   const serve = currentEvents.find(e=>e.type==='serve');
-  document.getElementById('timelineContainer').innerHTML = `
-    <div class="timeline-wrap">
-      <div class="timeline-header">
-        <h2>Your schedule</h2>
-        <div class="tl-pills">
-          <span class="serve-pill">Serve at ${fmtTime(serve.time)}</span>
-          <span class="serves-pill">${serves} ${serves===1?'person':'people'}</span>
-        </div>
+  document.getElementById('rightPanel').innerHTML = `
+    <div class="right-header">
+      <h2>Your schedule</h2>
+      <div class="tl-pills">
+        <span class="serve-pill">Serve at ${fmtTime(serve.time)}</span>
+        <span class="serves-pill">${serves} ${serves===1?'person':'people'}</span>
       </div>
-      <div class="mode-tabs">
-        <button class="mode-tab${mode==='schedule'?' active':''}" onclick="switchMode('schedule')">Schedule</button>
-        <button class="mode-tab${mode==='countdown'?' active':''}" onclick="switchMode('countdown')">Live countdown</button>
-      </div>
-      <div id="modeContent"></div>
-      ${portionsHTML()}
-    </div>`;
-  if (mode==='schedule') renderSchedule();
-  else { renderCountdown(); startTicker(); }
-}
-
-function switchMode(m) {
-  stopTicker(); mode = m;
-  renderOutput();
-  if (m==='countdown') startTicker();
+    </div>
+    <div id="countdownPanel"></div>
+    <hr class="right-divider">
+    <div class="schedule-section-label">Full schedule</div>
+    <div id="schedulePanel"></div>
+    ${portionsHTML()}`;
+  renderSchedule();
+  renderCountdown();
+  startTicker();
 }
 
 /* ── SCHEDULE VIEW ── */
 function renderSchedule() {
   const now = new Date();
-  document.getElementById('modeContent').innerHTML =
+  document.getElementById('schedulePanel').innerHTML =
     '<div class="timeline">' +
     currentEvents.map((e,i) => {
       const past = e.time < now && e.type !== 'serve';
@@ -685,7 +701,7 @@ function renderSchedule() {
 
 /* ── COUNTDOWN VIEW ── */
 function renderCountdown() {
-  document.getElementById('modeContent').innerHTML = '<div id="countdownView"></div>';
+  document.getElementById('countdownPanel').innerHTML = '<div id="countdownView"></div>';
   tickCountdown();
 }
 
@@ -815,7 +831,7 @@ function resetAll() {
   stopTicker(); selectedMeat=null; selectedVegs=new Set(); serves=4;
   document.getElementById('servesDisplay').textContent = 4;
   document.getElementById('weightSection').style.display = 'none';
-  document.getElementById('timelineContainer').innerHTML = '';
+  document.getElementById('rightPanel').innerHTML = `<div class="right-empty"><div class="big">🍖</div><p>Your schedule will appear here.</p></div>`;
   history.replaceState(null,'', location.pathname);
   renderMeats(); renderVegs();
   window.scrollTo({top:0, behavior:'smooth'});
