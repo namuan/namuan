@@ -149,6 +149,13 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
 
   /* Cards */
   .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+  .meat-section { margin-bottom: 16px; }
+  .meat-section:last-child { margin-bottom: 0; }
+  .meat-section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 8px; padding-left: 2px;
+  }
   .item-card {
     background: var(--warm-white); border: 1px solid var(--border);
     border-radius: 12px; padding: 14px 12px 12px; cursor: pointer;
@@ -377,7 +384,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
     <div class="serve-row">
       <div class="serve-field">
         <label for="servetime">Serve time</label>
-        <input type="time" id="servetime" value="13:30">
+        <input type="time" id="servetime">
       </div>
       <div class="serves-field">
         <label>Serves</label>
@@ -397,7 +404,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
       <div class="step-num">2</div>
       <div class="section-title">Choose your meat</div>
     </div>
-    <div class="card-grid" id="meatGrid"></div>
+    <div id="meatGrid"></div>
     <div id="weightSection" style="display:none">
       <div class="weight-section">
         <label for="weightInput">Weight</label>
@@ -439,11 +446,26 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
 <script>
 /* ── DATA ── */
 const MEATS = [
-  { id:'beef',    icon:'🥩', name:'Beef (joint)',    perKg:60, restMins:20, gPerPerson:200 },
-  { id:'lamb',    icon:'🍖', name:'Lamb (leg)',      perKg:55, restMins:15, gPerPerson:200 },
-  { id:'pork',    icon:'🥓', name:'Pork (shoulder)', perKg:55, restMins:20, gPerPerson:200 },
-  { id:'chicken', icon:'🐔', name:'Whole chicken',   perKg:45, restMins:15, gPerPerson:200 },
-  { id:'turkey',  icon:'🦃', name:'Turkey',          perKg:40, restMins:30, gPerPerson:175 },
+  // Joints
+  { id:'beef',          icon:'🥩', name:'Beef (joint)',     category:'joint',   perKg:60, restMins:20, gPerPerson:200 },
+  { id:'lamb',          icon:'🍖', name:'Lamb (leg)',        category:'joint',   perKg:55, restMins:15, gPerPerson:200 },
+  { id:'pork',          icon:'🥓', name:'Pork (shoulder)',  category:'joint',   perKg:55, restMins:20, gPerPerson:200 },
+  { id:'chicken',       icon:'🐔', name:'Whole chicken',    category:'joint',   perKg:45, restMins:15, gPerPerson:200 },
+  { id:'turkey',        icon:'🦃', name:'Turkey',           category:'joint',   perKg:40, restMins:30, gPerPerson:175 },
+  // Portions
+  { id:'chicken_legs',   icon:'🍗', name:'Chicken legs',    category:'portion', fixedMins:45, restMins:5,  gPerPerson:250 },
+  { id:'chicken_thighs', icon:'🍗', name:'Chicken thighs',  category:'portion', fixedMins:40, restMins:5,  gPerPerson:200 },
+  { id:'lamb_chops',     icon:'🥩', name:'Lamb chops',      category:'portion', fixedMins:30, restMins:5,  gPerPerson:200 },
+  { id:'lamb_shoulder',  icon:'🍖', name:'Lamb shoulder',   category:'portion', perKg:55,     restMins:20, gPerPerson:200 },
+  { id:'pork_chops',     icon:'🥓', name:'Pork chops',      category:'portion', fixedMins:28, restMins:5,  gPerPerson:200 },
+  { id:'pork_leg',       icon:'🥓', name:'Pork leg',        category:'portion', perKg:50,     restMins:20, gPerPerson:200 },
+  // Fish
+  { id:'salmon',   icon:'🐟', name:'Salmon fillet',   category:'fish', fixedMins:20, restMins:3, gPerPerson:180 },
+  { id:'cod',      icon:'🐠', name:'Cod fillet',       category:'fish', fixedMins:22, restMins:3, gPerPerson:180 },
+  { id:'haddock',  icon:'🐟', name:'Haddock fillet',  category:'fish', fixedMins:20, restMins:3, gPerPerson:180 },
+  { id:'sea_bass', icon:'🐡', name:'Sea bass (whole)', category:'fish', fixedMins:28, restMins:5, gPerPerson:180 },
+  { id:'trout',    icon:'🐡', name:'Trout (whole)',    category:'fish', fixedMins:28, restMins:5, gPerPerson:180 },
+  { id:'mackerel', icon:'🐟', name:'Mackerel (whole)', category:'fish', fixedMins:25, restMins:3, gPerPerson:180 },
 ];
 const VEGS = [
   { id:'roasties',    icon:'🥔', name:'Roast potatoes',  mins:60, unit:'g',  perPerson:200 },
@@ -472,13 +494,26 @@ let firedNotifs = new Set();
 const chk = () => `<span class="check-mark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>`;
 
 function renderMeats() {
-  document.getElementById('meatGrid').innerHTML = MEATS.map(m => `
-    <div class="item-card${selectedMeat===m.id?' selected':''}" onclick="toggleMeat('${m.id}')">
-      ${selectedMeat===m.id?chk():''}
-      <span class="icon">${m.icon}</span>
-      <div class="name">${m.name}</div>
-      <div class="mins">~${m.perKg} min/kg</div>
-    </div>`).join('');
+  const categories = [
+    { key:'joint',   label:'Joints' },
+    { key:'portion', label:'Portions' },
+    { key:'fish',    label:'Fish' },
+  ];
+  document.getElementById('meatGrid').innerHTML = categories.map(cat => {
+    const items = MEATS.filter(m => m.category === cat.key);
+    if (!items.length) return '';
+    return `<div class="meat-section">
+      <div class="meat-section-label">${cat.label}</div>
+      <div class="card-grid">${items.map(m => `
+        <div class="item-card${selectedMeat===m.id?' selected':''}" onclick="toggleMeat('${m.id}')">
+          ${selectedMeat===m.id?chk():''}
+          <span class="icon">${m.icon}</span>
+          <div class="name">${m.name}</div>
+          <div class="mins">${m.fixedMins ? m.fixedMins+' min' : '~'+m.perKg+' min/kg'}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
 }
 function renderVegs() {
   document.getElementById('vegGrid').innerHTML = VEGS.map(v => `
@@ -491,7 +526,8 @@ function renderVegs() {
 }
 function toggleMeat(id) {
   selectedMeat = selectedMeat===id ? null : id;
-  document.getElementById('weightSection').style.display = selectedMeat ? 'block' : 'none';
+  const m = selectedMeat ? MEATS.find(x=>x.id===selectedMeat) : null;
+  document.getElementById('weightSection').style.display = (selectedMeat && !m.fixedMins) ? 'block' : 'none';
   updateMeatTime(); renderMeats();
 }
 function toggleVeg(id) { selectedVegs.has(id)?selectedVegs.delete(id):selectedVegs.add(id); renderVegs(); }
@@ -503,8 +539,12 @@ function changeServes(d) {
 function updateMeatTime() {
   if (!selectedMeat) return;
   const m = MEATS.find(x=>x.id===selectedMeat);
-  const cook = Math.round(getWeight()*m.perKg);
-  document.getElementById('meatTimeDisplay').textContent = `≈ ${cook} min cooking + ${m.restMins} min rest`;
+  if (m.fixedMins) {
+    document.getElementById('meatTimeDisplay').textContent = `${m.fixedMins} min cooking + ${m.restMins} min rest`;
+  } else {
+    const cook = Math.round(getWeight()*m.perKg);
+    document.getElementById('meatTimeDisplay').textContent = `≈ ${cook} min cooking + ${m.restMins} min rest`;
+  }
 }
 document.getElementById('weightInput').addEventListener('input', updateMeatTime);
 
@@ -512,7 +552,7 @@ document.getElementById('weightInput').addEventListener('input', updateMeatTime)
 function fmtTime(d) { return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); }
 function subMins(d,m) { const n=new Date(d); n.setMinutes(n.getMinutes()-m); return n; }
 function parseServe() {
-  const val = document.getElementById('servetime').value||'13:30';
+  const val = document.getElementById('servetime').value;
   const [h,mi] = val.split(':').map(Number);
   const d = new Date(); d.setHours(h,mi,0,0); return d;
 }
@@ -532,7 +572,7 @@ function buildEvents() {
   const ev = [];
   if (selectedMeat) {
     const m = MEATS.find(x=>x.id===selectedMeat);
-    const cook = Math.round(getWeight()*m.perKg);
+    const cook = m.fixedMins ? m.fixedMins : Math.round(getWeight()*m.perKg);
     ev.push({ time:subMins(serve, cook+m.restMins), type:'put-in',   name:m.name, detail:`Cook for ${cook} min`,       badge:'Put in oven',    id:m.id+'_in' });
     ev.push({ time:subMins(serve, m.restMins),       type:'take-out', name:m.name, detail:`Rest for ${m.restMins} min`, badge:'Take out & rest', id:m.id+'_out' });
   }
@@ -750,8 +790,9 @@ function loadFromHash() {
   if (s.s) { serves = parseInt(s.s)||4; document.getElementById('servesDisplay').textContent = serves; }
   if (s.m) {
     selectedMeat = s.m;
-    document.getElementById('weightSection').style.display = 'block';
-    if (s.w) document.getElementById('weightInput').value = s.w;
+    const m = MEATS.find(x=>x.id===selectedMeat);
+    document.getElementById('weightSection').style.display = (m && !m.fixedMins) ? 'block' : 'none';
+    if (s.w && m && !m.fixedMins) document.getElementById('weightInput').value = s.w;
     updateMeatTime();
   }
   if (s.v) s.v.split(',').filter(Boolean).forEach(id => selectedVegs.add(id));
@@ -796,6 +837,15 @@ if ('serviceWorker' in navigator) {
 }
 
 /* ── INIT ── */
+(function setDefaultServeTime() {
+  const el = document.getElementById('servetime');
+  if (el.value) return;
+  const d = new Date();
+  d.setMinutes(d.getMinutes() + 120);
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  el.value = hh + ':' + mm;
+})();
 renderMeats(); renderVegs(); loadFromHash();
 </script>
 </body>
