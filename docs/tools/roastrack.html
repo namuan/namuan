@@ -98,6 +98,21 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
     font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--muted); margin-bottom: 10px;
   }
+  .btn-live {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    color: #fff; background: var(--forest); border: none; border-radius: 8px;
+    padding: 8px 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    transition: background 0.15s;
+  }
+  .btn-live:hover { background: #2e5a3c; }
+  .btn-live svg { width: 13px; height: 13px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-back-schedule {
+    font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted);
+    background: none; border: none; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; padding: 0;
+    margin-bottom: 14px; display: inline-block;
+  }
+  .btn-back-schedule:hover { color: var(--charcoal); }
 
   /* Header */
   header { padding: 28px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
@@ -667,14 +682,33 @@ function renderOutput() {
         <span class="serves-pill">${serves} ${serves===1?'person':'people'}</span>
       </div>
     </div>
-    <div id="countdownPanel"></div>
-    <hr class="right-divider">
-    <div class="schedule-section-label">Full schedule</div>
-    <div id="schedulePanel"></div>
-    ${portionsHTML()}`;
+    <div id="scheduleView">
+      <div style="margin-bottom:14px">
+        <button class="btn-live" onclick="showCountdown()">
+          <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><polyline points="8,4 8,8 11,10"/></svg>
+          Start Live Countdown
+        </button>
+      </div>
+      <div id="schedulePanel"></div>
+      ${portionsHTML()}
+    </div>
+    <div id="countdownView" style="display:none"></div>`;
   renderSchedule();
-  renderCountdown();
+}
+
+function showCountdown() {
+  document.getElementById('scheduleView').style.display = 'none';
+  const cv = document.getElementById('countdownView');
+  cv.style.display = 'block';
+  cv.innerHTML = `<button class="btn-back-schedule" onclick="showScheduleView()">← Back to full schedule</button><div id="countdownInner"></div>`;
   startTicker();
+}
+
+function showScheduleView() {
+  stopTicker();
+  document.getElementById('countdownView').style.display = 'none';
+  document.getElementById('scheduleView').style.display = 'block';
+  renderSchedule();
 }
 
 /* ── SCHEDULE VIEW ── */
@@ -700,13 +734,8 @@ function renderSchedule() {
 }
 
 /* ── COUNTDOWN VIEW ── */
-function renderCountdown() {
-  document.getElementById('countdownPanel').innerHTML = '<div id="countdownView"></div>';
-  tickCountdown();
-}
-
 function tickCountdown() {
-  const el = document.getElementById('countdownView');
+  const el = document.getElementById('countdownInner');
   if (!el) return;
   const now = new Date();
 
