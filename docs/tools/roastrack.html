@@ -268,6 +268,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
   .tl-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
   .tl-dot.put-in  { background: var(--forest); }
   .tl-dot.take-out { background: var(--brown-light); }
+  .tl-dot.flip      { background: var(--amber); }
   .tl-dot.serve   { background: var(--brown-dark); width: 18px; height: 18px; margin-top: 1px; }
   .tl-dot.done    { background: var(--muted); opacity: 0.35; }
   .tl-connector   { width: 1.5px; flex: 1; min-height: 24px; background: var(--border-strong); margin: 4px 0; }
@@ -283,6 +284,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
   }
   .badge.put-in  { background: var(--forest-light); color: var(--forest); }
   .badge.take-out { background: var(--amber-light); color: var(--amber); }
+  .badge.flip      { background: var(--amber-light); color: var(--amber); }
   .badge.serve   { background: var(--brown-dark); color: #fff; }
 
   /* Countdown */
@@ -310,6 +312,7 @@ document.write('<link rel="manifest" href="' + URL.createObjectURL(_mb) + '">');
   .up-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .up-dot.put-in { background: var(--forest); }
   .up-dot.take-out { background: var(--brown-light); }
+  .up-dot.flip      { background: var(--amber); }
   .up-dot.serve { background: var(--brown-dark); }
   .up-time { font-size: 13px; font-weight: 500; color: var(--muted); min-width: 42px; font-variant-numeric: tabular-nums; }
   .up-name { font-size: 14px; color: var(--charcoal); flex: 1; }
@@ -449,28 +452,25 @@ const MEATS = [
   // Joints
   { id:'beef',          icon:'🥩', name:'Beef (joint)',     category:'joint',   perKg:60, restMins:20, gPerPerson:200 },
   { id:'lamb',          icon:'🍖', name:'Lamb (leg)',        category:'joint',   perKg:55, restMins:15, gPerPerson:200 },
-  { id:'pork',          icon:'🥓', name:'Pork (shoulder)',  category:'joint',   perKg:60, restMins:20, gPerPerson:200 },
   { id:'chicken',       icon:'🐔', name:'Whole chicken',    category:'joint',   perKg:45, restMins:15, gPerPerson:200 },
   { id:'turkey',        icon:'🦃', name:'Turkey',           category:'joint',   perKg:40, restMins:30, gPerPerson:175 },
   // Portions
-  { id:'chicken_legs',   icon:'🍗', name:'Chicken legs',    category:'portion', fixedMins:45, restMins:5,  gPerPerson:250 },
-  { id:'chicken_thighs', icon:'🍗', name:'Chicken thighs',  category:'portion', fixedMins:40, restMins:5,  gPerPerson:200 },
-  { id:'lamb_chops',     icon:'🥩', name:'Lamb chops',      category:'portion', fixedMins:30, restMins:5,  gPerPerson:200 },
+  { id:'chicken_legs',   icon:'🍗', name:'Chicken legs',    category:'portion', fixedMins:45, restMins:5,  flip:true, gPerPerson:250 },
+  { id:'chicken_thighs', icon:'🍗', name:'Chicken thighs',  category:'portion', fixedMins:40, restMins:5,  flip:true, gPerPerson:200 },
+  { id:'lamb_chops',     icon:'🥩', name:'Lamb chops',      category:'portion', fixedMins:30, restMins:5,  flip:true, gPerPerson:200 },
   { id:'lamb_shoulder',  icon:'🍖', name:'Lamb shoulder',   category:'portion', perKg:55,     restMins:20, gPerPerson:200 },
-  { id:'pork_chops',     icon:'🥓', name:'Pork chops',      category:'portion', fixedMins:28, restMins:5,  gPerPerson:200 },
-  { id:'pork_leg',       icon:'🥓', name:'Pork leg',        category:'portion', perKg:50,     restMins:20, gPerPerson:200 },
   // Fish
   { id:'salmon',   icon:'🐟', name:'Salmon fillet',   category:'fish', fixedMins:15, restMins:3, gPerPerson:180 },
   { id:'cod',      icon:'🐠', name:'Cod fillet',       category:'fish', fixedMins:18, restMins:3, gPerPerson:180 },
   { id:'haddock',  icon:'🐟', name:'Haddock fillet',  category:'fish', fixedMins:15, restMins:3, gPerPerson:180 },
-  { id:'sea_bass', icon:'🐡', name:'Sea bass (whole)', category:'fish', fixedMins:22, restMins:5, gPerPerson:180 },
-  { id:'trout',    icon:'🐡', name:'Trout (whole)',    category:'fish', fixedMins:25, restMins:5, gPerPerson:180 },
-  { id:'mackerel', icon:'🐟', name:'Mackerel (whole)', category:'fish', fixedMins:25, restMins:3, gPerPerson:180 },
+  { id:'sea_bass', icon:'🐡', name:'Sea bass (whole)', category:'fish', fixedMins:22, restMins:5, flip:true, gPerPerson:180 },
+  { id:'trout',    icon:'🐡', name:'Trout (whole)',    category:'fish', fixedMins:25, restMins:5, flip:true, gPerPerson:180 },
+  { id:'mackerel', icon:'🐟', name:'Mackerel (whole)', category:'fish', fixedMins:25, restMins:3, flip:true, gPerPerson:180 },
 ];
 const VEGS = [
-  { id:'roasties',    icon:'🥔', name:'Roast potatoes',  mins:60, unit:'g',  perPerson:200 },
-  { id:'parsnips',    icon:'🟠', name:'Parsnips',         mins:40, unit:'',   perPerson:2, suffix:' each' },
-  { id:'carrots',     icon:'🥕', name:'Carrots',          mins:35, unit:'',   perPerson:2, suffix:' each' },
+  { id:'roasties',    icon:'🥔', name:'Roast potatoes',  mins:60, unit:'g',  perPerson:200, flip:true },
+  { id:'parsnips',    icon:'🟠', name:'Parsnips',         mins:40, unit:'',   perPerson:2, suffix:' each', flip:true },
+  { id:'carrots',     icon:'🥕', name:'Carrots',          mins:35, unit:'',   perPerson:2, suffix:' each', flip:true },
   { id:'yorkshire',   icon:'🫓', name:'Yorkshire puds',   mins:20, unit:'',   perPerson:2, suffix:' each' },
   { id:'stuffing',    icon:'🍞', name:'Stuffing',         mins:35, unit:'g',  perPerson:75 },
   { id:'broccoli',    icon:'🥦', name:'Broccoli',         mins:15, unit:'g',  perPerson:80 },
@@ -573,12 +573,22 @@ function buildEvents() {
   if (selectedMeat) {
     const m = MEATS.find(x=>x.id===selectedMeat);
     const cook = m.fixedMins ? m.fixedMins : Math.round(getWeight()*m.perKg);
-    ev.push({ time:subMins(serve, cook+m.restMins), type:'put-in',   name:m.name, detail:`Cook for ${cook} min`,       badge:'Put in oven',    id:m.id+'_in' });
-    ev.push({ time:subMins(serve, m.restMins),       type:'take-out', name:m.name, detail:`Rest for ${m.restMins} min`, badge:'Take out & rest', id:m.id+'_out' });
+    const putIn = subMins(serve, cook+m.restMins);
+    ev.push({ time:putIn,                              type:'put-in',   name:m.name, detail:`Cook for ${cook} min`,       badge:'Put in oven',    id:m.id+'_in' });
+    if (m.flip) {
+      const flipAt = new Date(putIn.getTime() + (cook/2)*60000);
+      ev.push({ time:flipAt, type:'flip', name:m.name, detail:'Flip over for even browning', badge:'Flip', id:m.id+'_flip' });
+    }
+    ev.push({ time:subMins(serve, m.restMins),         type:'take-out', name:m.name, detail:`Rest for ${m.restMins} min`, badge:'Take out & rest', id:m.id+'_out' });
   }
   selectedVegs.forEach(id => {
     const v = VEGS.find(x=>x.id===id);
-    ev.push({ time:subMins(serve,v.mins), type:'put-in', name:v.name, detail:`Cook for ${v.mins} min`, badge:'Put in oven', id:v.id+'_in' });
+    const putIn = subMins(serve, v.mins);
+    ev.push({ time:putIn, type:'put-in', name:v.name, detail:`Cook for ${v.mins} min`, badge:'Put in oven', id:v.id+'_in' });
+    if (v.flip) {
+      const flipAt = new Date(putIn.getTime() + (v.mins/2)*60000);
+      ev.push({ time:flipAt, type:'flip', name:v.name, detail:'Turn for even colour', badge:'Turn', id:v.id+'_flip' });
+    }
   });
   ev.push({ time:serve, type:'serve', name:'Serve!', detail:'Everything should be ready now', badge:'Serve', id:'serve' });
   ev.sort((a,b)=>a.time-b.time);
