@@ -59,8 +59,9 @@ alias tx="tmux attach -t"
 # llama
 alias gemma4="llama-server -hf unsloth/gemma-4-26B-A4B-it-GGUF:UD-Q4_K_XL --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --cache-type-k q4_0 --cache-type-v q4_0 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
 alias qwen35="llama-server -hf unsloth/Qwen3.5-27B-GGUF:Q6_K --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
-alias qwen36="llama-server -hf bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q4_K_M --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
-alias qwen36_heavy="llama-server -hf bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q6_K --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap --chat-template-kwargs '{\"preserve_thinking\": true}'"
+alias qwen36moe="llama-server -hf bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q4_K_M --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap --chat-template-kwargs '{\"preserve_thinking\": true}'"
+alias qwen36moe_heavy="llama-server -hf bartowski/Qwen_Qwen3.6-35B-A3B-GGUF:Q6_K --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap --chat-template-kwargs '{\"preserve_thinking\": true}'"
+alias qwen36="llama-server -hf bartowski/Qwen_Qwen3.6-27B-GGUF:Q4_K_M --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
 
 # ----- Define Aliases
 
