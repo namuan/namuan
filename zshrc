@@ -47,7 +47,7 @@ ZSH_DISABLE_COMPFIX="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker zsh-autosuggestions zsh-completions autojump)
+plugins=(git zsh-autosuggestions zsh-completions autojump)
 #autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
