@@ -42,8 +42,8 @@ alias py="./venv/bin/python3"
 alias pyvenv="python3 -m venv venv"
 alias svenv="source venv/bin/activate"
 
-alias youtube_mp3="yt-dlp --extract-audio --audio-format mp3"
-alias youtube_mp4="yt-dlp -f best --restrict-filenames --trim-filenames 100"
+alias youtube_mp3="uvx yt-dlp --extract-audio --audio-format mp3"
+alias youtube_mp4="uvx yt-dlp --restrict-filenames --trim-filenames 100"
 
 alias uvr="uv run"
 
