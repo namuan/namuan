@@ -148,18 +148,16 @@ Since renderer.js loads in `<head>`, you can also call `renderDiff(target, lines
 
 **You're not limited to these.** Add your own inline `<style>` blocks, `<script>` blocks, SVGs, diagrams, or anything else. The prebuilt pieces save time but don't constrain you.
 
-### 4. Assemble and serve
+### 4. Assemble and open
 
 1. Write your body HTML (everything that goes inside `<body>`) to `/tmp/pr-review-{number}-body.html`
 2. Save patches to `/tmp/pr-patches-{number}.json` using the `jq` command from step 3 above
-3. Run the Python assembly script from step 3 above (reads styles.css, renderer.js, template.html from this skill directory, injects body + patches safely, writes final HTML)
-4. Start a local server on a fixed port:
+3. Run the Python assembly script from step 3 above (reads styles.css, renderer.js, template.html from this skill directory, injects body + patches safely, writes the final self-contained HTML to `/tmp/pr-review-{number}.html`)
+4. Open the generated file directly in the default browser:
    ```bash
-   cd /tmp && python3 -m http.server 8432 --bind 127.0.0.1
+   open /tmp/pr-review-{number}.html
    ```
-   Run this backgrounded, then navigate the in-app browser to `http://127.0.0.1:8432/pr-review-{number}.html`.
-
-   **Why a fixed port and `cd /tmp`:** Background shells have no TTY, so Python buffers its startup message ("Serving HTTP on...") indefinitely — using port 0 means you can never read which port was chosen. And `--directory /tmp` works but `cd /tmp` is more robust across Python versions. If port 8432 is taken, try 8433, 8434, etc.
+   No web server is needed — the HTML file is fully self-contained with all CSS, JS, and diff data inlined.
 
 ### Diff features (handled automatically by renderer.js)
 
