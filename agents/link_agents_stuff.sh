@@ -11,17 +11,20 @@ fi
 # Define the source and target directories
 SOURCE_DIR="$(pwd)/skills"
 TARGET_DIR="$HOME/.agents/skills"
-PROMPTS_SOURCE_DIR="$(pwd)/prompts"
+PROMPTS_SOURCE_DIR="$(pwd)/agents/prompts"
 PROMPTS_TARGET_DIR="$HOME/Library/Application Support/Code/User/prompts"
+OPENCODE_COMMANDS_TARGET_DIR="$HOME/.config/opencode/commands"
 
 # Create the target directory if it doesn't exist
 if [ $DRY_RUN -eq 0 ]; then
   mkdir -p "$TARGET_DIR"
   mkdir -p "$PROMPTS_TARGET_DIR"
+  mkdir -p "$OPENCODE_COMMANDS_TARGET_DIR"
 else
   echo "Would create directories:"
   echo "  $TARGET_DIR"
   echo "  $PROMPTS_TARGET_DIR"
+  echo "  $OPENCODE_COMMANDS_TARGET_DIR"
 fi
 
 # Process skills (symlink directories)
@@ -72,11 +75,39 @@ while IFS= read -r -d '' FILE; do
     if [ -e "$TARGET_FILE" ] || [ -L "$TARGET_FILE" ]; then
       rm -f "$TARGET_FILE"
     fi
-    # Copy the file
-    cp "$FILE" "$TARGET_FILE"
-    echo "Copied $FILE to $TARGET_FILE"
+    # Create the symlink
+    ln -s "$FILE" "$TARGET_FILE"
+    echo "Symlinked $FILE to $TARGET_FILE"
   else
-    echo "Would copy: $FILE -> $TARGET_FILE"
+    echo "Would symlink: $FILE -> $TARGET_FILE"
+    if [ -e "$TARGET_FILE" ] || [ -L "$TARGET_FILE" ]; then
+      echo "  (would remove existing at $TARGET_FILE)"
+    fi
+  fi
+done < <(find "$PROMPTS_SOURCE_DIR" -type f -print0)
+
+# Same symlink to opencode commands
+while IFS= read -r -d '' FILE; do
+  REL_PATH="${FILE#$PROMPTS_SOURCE_DIR/}"
+
+  if [[ "$REL_PATH" == */* ]]; then
+    DIR_PREFIX=$(dirname "$REL_PATH" | tr '/' '_')
+    BASENAME=$(basename "$REL_PATH")
+    TARGET_NAME="${DIR_PREFIX}-${BASENAME}"
+  else
+    TARGET_NAME="$REL_PATH"
+  fi
+
+  TARGET_FILE="$OPENCODE_COMMANDS_TARGET_DIR/$TARGET_NAME"
+
+  if [ $DRY_RUN -eq 0 ]; then
+    if [ -e "$TARGET_FILE" ] || [ -L "$TARGET_FILE" ]; then
+      rm -f "$TARGET_FILE"
+    fi
+    ln -s "$FILE" "$TARGET_FILE"
+    echo "Symlinked $FILE to $TARGET_FILE"
+  else
+    echo "Would symlink: $FILE -> $TARGET_FILE"
     if [ -e "$TARGET_FILE" ] || [ -L "$TARGET_FILE" ]; then
       echo "  (would remove existing at $TARGET_FILE)"
     fi
@@ -86,7 +117,7 @@ done < <(find "$PROMPTS_SOURCE_DIR" -type f -print0)
 # Print completion message (only if not dry run)
 if [ $DRY_RUN -eq 0 ]; then
   echo "All top-level folders in $SOURCE_DIR have been symlinked to $TARGET_DIR."
-  echo "All files in $PROMPTS_SOURCE_DIR have been copied to $PROMPTS_TARGET_DIR."
+  echo "All files in $PROMPTS_SOURCE_DIR have been symlinked to $PROMPTS_TARGET_DIR and $OPENCODE_COMMANDS_TARGET_DIR."
 else
   echo ""
   echo "Dry run complete. Run without --dry-run to execute changes."
