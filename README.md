@@ -84,6 +84,7 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 * [JSON Editor](https://namuan.github.io/jsonify/)
 * [Video Conversion using FFMPEG](https://namuan.github.io/namuan/tools/video-conversion.html)
 * [Audio Conversion using FFMPEG](https://namuan.github.io/namuan/tools/audio-conversion.html)
+* [FFMPEG CLI](https://namuan.github.io/ffmpeg-webCLI/)
 
 ### Kitchen
 
