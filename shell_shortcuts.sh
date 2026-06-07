@@ -79,6 +79,12 @@ function open-llama() {
 
 # +++++ Define custom bash functions
 
+function optimize-for-twitter() {
+  local input="$1"
+  local output="${2:-${input%.*}-twitter.mp4}"
+  ffmpeg -i "$input" -vf "scale=1920:-2" -r 30 -c:v libx264 -preset slow -profile:v high -crf 19 -pix_fmt yuv420p -movflags +faststart "$output" -y
+}
+
 function pingme() {
   osascript -e 'display notification "Command finished" with title "Ping"'
 }
