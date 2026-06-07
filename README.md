@@ -32,6 +32,7 @@ path:*.properties
 | [Z.ai](https://chat.z.ai)
 | [Qwen](https://chat.qwen.ai)
 | [Kimi](https://www.kimi.com)
+| [NotebookLM](notebooklm.google.com)
 
 ## Book Notes
 
