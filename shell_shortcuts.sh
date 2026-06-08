@@ -79,6 +79,18 @@ function open-llama() {
 
 # +++++ Define custom bash functions
 
+claude_ds() {
+  ANTHROPIC_BASE_URL="https://api.deepseek.com/anthropic" \
+  ANTHROPIC_AUTH_TOKEN="$DEEPSEEK_API_KEY" \
+  ANTHROPIC_MODEL="deepseek-v4-pro[1m]" \
+  ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-v4-pro[1m]" \
+  ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-v4-pro[1m]" \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-v4-flash[1m]" \
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1" \
+  CLAUDE_CODE_EFFORT_LEVEL="max" \
+  claude "$@"
+}
+
 function optimize-for-twitter() {
   local input="$1"
   local output="${2:-${input%.*}-twitter.mp4}"
