@@ -168,7 +168,7 @@ Since renderer.js loads in `<head>`, you can also call `renderDiff(target, lines
 
 ### Style notes
 
-- Dark theme: `#1a1a1a` background, Inter body font, IBM Plex Mono for code
+- Light theme: `#f6f8fa` page background, white (`#ffffff`) card surfaces, Inter body font, IBM Plex Mono for code
 - Use `var(--warning)` for orange, `var(--success)` for green, `var(--danger)` for red, `var(--accent)` for blue
 - Sticky file headers (`position: sticky; top: 0`) and notes (`top: 35px`) pin while scrolling
 - Core files expanded by default (`.file-body.open`), mechanical files collapsed
