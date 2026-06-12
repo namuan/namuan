@@ -9,49 +9,36 @@ Continuously iterate on the current branch until all CI checks pass and review f
 
 **Requires**: GitHub CLI (`gh`) authenticated.
 
-**Important**: All scripts must be run from the repository root directory (where `.git` is located), not from the skill directory. Use the path `skills/iterate-pr/scripts/` to reference the scripts.
+## Tooling Setup
 
-## Bundled Scripts
+**Before starting the workflow, ask the user** how they'd like to handle the two data-fetching tasks:
 
-### `scripts/fetch_pr_checks.py`
+### CI Checks & Log Snippets
 
-Fetches CI check status and extracts failure snippets from logs.
+*Needed for:* checking which CI checks failed and extracting log output to understand failures.
 
-```bash
-uv run skills/iterate-pr/scripts/fetch_pr_checks.py [--pr NUMBER]
-```
+Ask the user which approach to use:
+1. **Use `gh` CLI directly** — run `gh pr checks` for status and `gh run view <run-id> --log-failed` for failure logs
+2. **Write a shell helper** — create a small script wrapping `gh` commands into structured output
+3. **Use the GitHub API** — call `gh api repos/{owner}/{repo}/commits/{ref}/check-runs` directly
 
-Returns JSON:
-```json
-{
-  "pr": {"number": 123, "branch": "feat/foo"},
-  "summary": {"total": 5, "passed": 3, "failed": 2, "pending": 0},
-  "checks": [
-    {"name": "tests", "status": "fail", "log_snippet": "...", "run_id": 123},
-    {"name": "lint", "status": "pass"}
-  ]
-}
-```
+### PR Feedback Categorization (LOGAF Scale)
 
-### `scripts/fetch_pr_feedback.py`
+*Needed for:* fetching reviewer comments and classifying them by priority (`high`, `medium`, `low`, `bot`, `resolved`).
 
-Fetches and categorizes PR review feedback using the LOGAF scale.
+Ask the user which approach to use:
+1. **Use `gh api` directly** — call the PR comments/reviews APIs and classify the output manually
+2. **Write a shell script** — use `gh api` with `jq` to extract and categorize comments
 
-```bash
-uv run skills/iterate-pr/scripts/fetch_pr_feedback.py [--pr NUMBER]
-```
+**Categorization rules (LOGAF scale) to apply regardless of method:**
+- `high` — blockers, security issues, "changes requested", prefixed with `h:`
+- `medium` — standard feedback, prefixed with `m:`
+- `low` — nits, style suggestions, prefixed with `l:`
+- `bot` — informational automated comments (Codecov, Dependabot, etc.)
+- `resolved` — threads already marked as resolved
+- Review bot feedback (Warden, Cursor, Bugbot, CodeQL, etc.) is classified as `high`/`medium`/`low` (NOT `bot`) and tagged with `review_bot: true`
 
-Returns JSON with feedback categorized as:
-- `high` - Must address before merge (`h:`, blocker, changes requested)
-- `medium` - Should address (`m:`, standard feedback)
-- `low` - Optional (`l:`, nit, style, suggestion)
-- `bot` - Informational automated comments (Codecov, Dependabot, etc.)
-- `resolved` - Already resolved threads
-
-Review bot feedback (from Warden, Cursor, Bugbot, CodeQL, etc.) appears in `high`/`medium`/`low` with `review_bot: true` — it is NOT placed in the `bot` bucket.
-
-Each feedback item may also include:
-- `thread_id` - GraphQL node ID for inline review comments (used for replies)
+Each inline review comment has a `thread_id` (GraphQL node ID) used for replies.
 
 ## Workflow
 
@@ -65,7 +52,7 @@ Stop if no PR exists for the current branch.
 
 ### 2. Gather Review Feedback
 
-Run `skills/iterate-pr/scripts/fetch_pr_feedback.py` to get categorized feedback already posted on the PR.
+Using the method chosen in the Tooling Setup, fetch and categorize all review feedback already posted on the PR.
 
 ### 3. Handle Feedback by LOGAF Priority
 
@@ -99,32 +86,14 @@ Which would you like to address? (e.g., "1,3" or "all" or "none")
 - `resolved` threads
 - `bot` comments (informational only — Codecov, Dependabot, etc.)
 
-#### Replying to Comments
-
-After processing each inline review comment, reply on the PR thread to acknowledge the action taken. Only reply to items with a `thread_id` (inline review comments).
-
-**When to reply:**
-- `high` and `medium` items — whether fixed or determined to be false positives
-- `low` items — whether fixed or declined by the user
-
-**How to reply:** Use the `addPullRequestReviewThreadReply` GraphQL mutation with `pullRequestReviewThreadId` and `body` inputs.
-
-**Reply format:**
-- 1-2 sentences: what was changed, why it's not an issue, or acknowledgment of declined items
-- End every reply with `\n\n*— Claude Code*`
-- Before replying, check if the thread already has a reply ending with `*- Claude Code*` or `*— Claude Code*` to avoid duplicates on re-loops
-- If the `gh api` call fails, log and continue — do not block the workflow
-
 ### 4. Check CI Status
 
-Run `skills/iterate-pr/scripts/fetch_pr_checks.py` to get structured failure data.
-
-**Wait if pending:** If review bot checks (warden, cursor, bugbot, seer, codeql) are still running, wait before proceeding—they post actionable feedback that must be evaluated. Informational bots (codecov) are not worth waiting for.
+Using the method chosen in the Tooling Setup, fetch structured CI check data (status, log snippets, run IDs) for the current PR.
 
 ### 5. Fix CI Failures
 
-For each failure in the script output:
-1. Read the `log_snippet` and trace backwards from the error to understand WHY it failed — not just what failed
+For each failure in the CI check data:
+1. Read the logs and trace backwards from the error to understand WHY it failed — not just what failed
 2. Read the relevant code and check for related issues (e.g., if a type error in one call site, check other call sites)
 3. Fix the root cause with minimal, targeted changes
 4. Find existing tests for the affected code and run them. If the fix introduces behavior not covered by existing tests, extend them to cover it (add a test case, not a whole new test file)
@@ -140,25 +109,19 @@ Before committing, verify your fixes locally:
 
 If local verification fails, fix before proceeding — do not push known-broken code.
 
-```bash
-git add <files>
-git commit -m "fix: <descriptive message>"
-git push
-```
-
 ### 7. Monitor CI and Address Feedback
 
 Poll CI status and review feedback in a loop instead of blocking:
 
-1. Run `uv run skills/iterate-pr/scripts/fetch_pr_checks.py` to get current CI status
+1. Fetch current CI status using the method chosen in Tooling Setup
 2. If all checks passed → proceed to exit conditions
 3. If any checks failed (none pending) → return to step 5
 4. If checks are still pending:
-   Run `uv run skills/iterate-pr/scripts/fetch_pr_feedback.py` for new review feedback
+   a. Fetch any new review feedback using the method chosen in Tooling Setup
    b. Address any new high/medium feedback immediately (same as step 3)
    c. If changes were needed, commit and push (this restarts CI), then continue polling
    d. Sleep 30 seconds, then repeat from sub-step 1
-5. After all checks pass, do a final feedback check: `sleep 10`, then run `uv run skills/iterate-pr/scripts/fetch_pr_feedback.py`. Address any new high/medium feedback — if changes are needed, return to step 6.
+5. After all checks pass, do a final feedback check: `sleep 10`, then fetch feedback again. Address any new high/medium feedback — if changes are needed, return to step 6.
 
 ### 8. Repeat
 
@@ -172,9 +135,13 @@ If step 7 required code changes (from new feedback after CI passed), return to s
 
 **Stop:** No PR exists, branch needs rebase.
 
-## Fallback
+## Reference: Useful `gh` Commands
 
-If scripts fail, use `gh` CLI directly:
-- `gh pr checks name,state,bucket,link`
-- `gh run view <run-id> --log-failed`
-- `gh api repos/{owner}/{repo}/pulls/{number}/comments`
+If using the CLI approach, these commands are the building blocks:
+
+- `gh pr checks --watch` or `gh pr checks name,state,bucket,link` — list CI check statuses
+- `gh run view <run-id> --log-failed` — get failure logs for a specific run
+- `gh api repos/{owner}/{repo}/pulls/{number}/comments` — get PR review comments
+- `gh api repos/{owner}/{repo}/pulls/{number}/reviews` — get PR review summaries
+- `gh api repos/{owner}/{repo}/commits/{ref}/check-runs` — get detailed check run data
+- `gh api graphql -f query='...'` — GraphQL queries (e.g., for thread replies)
