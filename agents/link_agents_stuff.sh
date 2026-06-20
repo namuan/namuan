@@ -11,7 +11,7 @@ fi
 # Define the source and target directories
 SOURCE_DIR="$(pwd)/skills"
 TARGET_DIR="$HOME/.agents/skills"
-PROMPTS_SOURCE_DIR="$(pwd)/agents/prompts"
+PROMPTS_SOURCE_DIR="$(pwd)/prompts"
 PROMPTS_TARGET_DIR="$HOME/Library/Application Support/Code/User/prompts"
 OPENCODE_COMMANDS_TARGET_DIR="$HOME/.config/opencode/commands"
 
