@@ -1,17 +1,28 @@
 #!/bin/bash
 
-# Dry run option
+# Options
 DRY_RUN=0
-if [[ "$1" == "--dry-run" ]] || [[ "$1" == "-n" ]]; then
-  DRY_RUN=1
+PRUNE=0
+
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run|-n) DRY_RUN=1 ;;
+    --prune|-p)   PRUNE=1  ;;
+  esac
+done
+
+if [ $DRY_RUN -eq 1 ]; then
   echo "DRY RUN MODE - no changes will be made"
   echo ""
 fi
 
+# Determine script location regardless of where it's invoked from
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Define the source and target directories
-SOURCE_DIR="$(pwd)/skills"
+SOURCE_DIR="$SCRIPT_DIR/skills"
 TARGET_DIR="$HOME/.agents/skills"
-PROMPTS_SOURCE_DIR="$(pwd)/prompts"
+PROMPTS_SOURCE_DIR="$SCRIPT_DIR/prompts"
 PROMPTS_TARGET_DIR="$HOME/Library/Application Support/Code/User/prompts"
 OPENCODE_COMMANDS_TARGET_DIR="$HOME/.config/opencode/commands"
 
@@ -113,6 +124,32 @@ while IFS= read -r -d '' FILE; do
     fi
   fi
 done < <(find "$PROMPTS_SOURCE_DIR" -type f -print0)
+
+# ── Prune orphaned symlinks ───────────────────────────────────────────────
+prune_orphans() {
+  local target_dir="$1"
+  echo ""
+  echo "Pruning orphans in $target_dir ..."
+  for entry in "$target_dir"/*; do
+    [ -e "$entry" ] || [ -L "$entry" ] || continue
+    if [ -L "$entry" ] && [ ! -e "$entry" ]; then
+      local name
+      name=$(basename "$entry")
+      if [ $DRY_RUN -eq 0 ]; then
+        rm -f "$entry"
+        echo "  Removed broken symlink: $name"
+      else
+        echo "  Would remove broken symlink: $name"
+      fi
+    fi
+  done
+}
+
+if [ $PRUNE -eq 1 ]; then
+  prune_orphans "$TARGET_DIR"
+  prune_orphans "$PROMPTS_TARGET_DIR"
+  prune_orphans "$OPENCODE_COMMANDS_TARGET_DIR"
+fi
 
 # Print completion message (only if not dry run)
 if [ $DRY_RUN -eq 0 ]; then
