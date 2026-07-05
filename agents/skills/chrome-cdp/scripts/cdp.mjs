@@ -299,6 +299,10 @@ async function evalStr(cdp, sid, expression) {
 }
 
 async function shotStr(cdp, sid, filePath, targetId) {
+  // Bring page to front so background tabs can be captured
+  try { await cdp.send('Page.bringToFront', {}, sid); } catch {}
+  await sleep(500);
+
   // Get device scale factor so we can report coordinate mapping
   let dpr = 1;
   try {
