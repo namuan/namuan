@@ -108,17 +108,43 @@ A `PRODUCT_TOUR.md` file that mirrors the images. Each feature gets:
 - An inline `![name](fXX-name.png)` reference.
 - The same description text from the image banner.
 
-### 6. Bundle as a reproducible script
+### 6. Bundle as a reproducible script (JSON-driven)
 
-See [`scripts/generate-product-tour.sh`](scripts/generate-product-tour.sh) for a working template. To adapt it for a new app:
+Keep the coordinates and descriptions in a **single editable JSON file**; the script just reads it and renders. Never edit the script once it's set up — only edit the JSON.
 
-1. Replace `APP_NAME` with the app's process name (the one in `System Events → process`).
-2. Set `DEFAULT_WIN_X`, `DEFAULT_WIN_Y` to the window's default logical position.
-3. Set `SCREEN_W` to the screenshot pixel width.
-4. Fill in each `gen` call with the feature's screen-pixel coordinates and description.
-5. Regenerate coordinates if the app's layout changes.
+**`product-tour/annotations.json`** — the only file you touch:
 
-Run it: `bash scripts/generate-product-tour.sh`.
+```json
+{
+  "appName": "MyApp",
+  "defaultWinX": 0, "defaultWinY": 39,
+  "scale": 2,
+  "screenWidth": 3600,
+  "bannerHeight": 260,
+  "fontSize": 60,
+  "font": "/System/Library/Fonts/Helvetica.ttc",
+  "features": [
+    {
+      "file": "f01-toolbar",
+      "title": "Toolbar",
+      "color": "#FF3B30",
+      "x": 180, "y": 78, "width": 430, "height": 104,
+      "desc": "Filter Active, Add Project — one-line description."
+    }
+  ]
+}
+```
+
+Each feature entry:
+- `file` — output PNG basename (no `.png`).
+- `title` — section heading in the generated `PRODUCT_TOUR.md`.
+- `color` — hex outline color.
+- `x`, `y`, `width`, `height` — screen-pixel rectangle around the feature.
+- `desc` — banner text on the image **and** body text in the markdown.
+
+**`scripts/generate-product-tour.sh`** reads `annotations.json` with `jq`, loops `.features[]`, and calls `magick` once per feature. It also regenerates `PRODUCT_TOUR.md` from the same JSON. To adapt for a new app you only change the top-level metadata and the `features` array.
+
+See [`scripts/generate-product-tour.sh`](scripts/generate-product-tour.sh) for the working template (requires `jq`).
 
 ## ImageMagick reference
 
@@ -197,8 +223,9 @@ A small palette keeps the tour consistent:
 - [ ] Source-code or README survey → feature list (8–12 items).
 - [ ] AX tree dump → precise pixel coordinates for each feature.
 - [ ] Full-screen screenshot of the running app (no clicks).
+- [ ] `annotations.json` — the single editable metadata file (coordinates, colors, descriptions).
+- [ ] `scripts/generate-product-tour.sh` — reads the JSON, captures/re-renders/md-regenerates in one step.
 - [ ] One annotated image per feature: colored outline + centered bottom caption (number-free, white on tinted grey).
 - [ ] `PRODUCT_TOUR.md` referencing each image with the same description.
-- [ ] `scripts/generate-product-tour.sh` that regenerates everything in one step.
 - [ ] Script handles window-position offset for reproducibility.
 - [ ] Old artifact files from earlier approaches removed.

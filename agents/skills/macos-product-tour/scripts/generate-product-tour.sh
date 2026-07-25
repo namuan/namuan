@@ -2,122 +2,120 @@
 #
 # generate-product-tour.sh
 #
-# Regenerates a macOS app product tour in a single step:
-#   1. Activates the target app and reads its live window position.
-#   2. Captures a full-screen screenshot.
-#   3. Renders one full-screen image per feature (colored outline + centered
-#      description band at the bottom).
-#   4. Regenerates product-tour/PRODUCT_TOUR.md.
+# Reads product-tour/annotations.json and regenerates the full tour in one step:
+#   1. Captures the running app.
+#   2. Renders one full-screen annotated image per feature.
+#   3. Regenerates product-tour/PRODUCT_TOUR.md.
 #
-# No feature buttons are clicked — this only captures and annotates.
+# To adjust a box or change a description, edit annotations.json and re-run.
 #
 # Usage:
 #   bash scripts/generate-product-tour.sh
 #
 # Env overrides:
-#   SCALE=2            Display scale factor (default 2 for Retina).
-#   KEEP_SOURCE=1      Keep the raw screenshot as product-tour/source.png.
+#   KEEP_SOURCE=1   Keep the raw screenshot as product-tour/source.png.
 
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TOUR_DIR="$REPO_ROOT/product-tour"
-mkdir -p "$TOUR_DIR"
+CFG="$TOUR_DIR/annotations.json"
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Per-app configuration — update these for each application
-# ═══════════════════════════════════════════════════════════════════════════
+if [ ! -f "$CFG" ]; then
+  echo "error: $CFG not found — create it from annotations.example.json" >&2
+  exit 1
+fi
 
-APP_NAME="{{APP_PROCESS_NAME}}"             # System Events process name
-DEFAULT_WIN_X={{DEFAULT_WINDOW_X}}          # default window logical x (pixels / SCALE)
-DEFAULT_WIN_Y={{DEFAULT_WINDOW_Y}}          # default window logical y (pixels / SCALE)
-SCREEN_W={{SCREENSHOT_PIXEL_WIDTH}}         # full-screen capture pixel width
+command -v jq      >/dev/null 2>&1 || { echo "error: jq not found (brew install jq)" >&2; exit 1; }
+command -v magick  >/dev/null 2>&1 || { echo "error: ImageMagick ('magick') not found" >&2; exit 1; }
+command -v screencapture >/dev/null 2>&1 || { echo "error: screencapture not found" >&2; exit 1; }
 
-# Feature annotation coordinates are authored as screen pixels for the
-# window in its default position.  They will be offset automatically when
-# the user has moved the window.
-#
-# gen  filename   color    x1   y1   x2   y2   "Description — explanatory text."
-#      ^out.png   ^hex     ^--- pixel coordinates of the outline ---^
-#
-# ── replace the lines below with your app's features ──────────────────────
-gen() { :; }  # placeholder — remove and add your own gen calls below
-# gen f01-toolbar   "#FF3B30" 180  78  610 182  "Toolbar — Filter Active, Add Project, ..."
-# gen f02-search    "#FF9500"  36 200  554 256  "Search — Filter by name or path."
-# ...
+# --- Read metadata from JSON ------------------------------------------------
+APP_NAME="$(jq -r '.appName' "$CFG")"
+DEFX="$(jq -r '.defaultWinX' "$CFG")"
+DEFY="$(jq -r '.defaultWinY' "$CFG")"
+SCALE="$(jq -r '.scale' "$CFG")"
+SCREEN_W="$(jq -r '.screenWidth' "$CFG")"
+BH="$(jq -r '.bannerHeight' "$CFG")"
+FS="$(jq -r '.fontSize' "$CFG")"
+FONT="$(jq -r '.font' "$CFG")"
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Infrastructure — do not edit below unless extending the tool
-# ═══════════════════════════════════════════════════════════════════════════
-
-# --- Font selection (ImageMagick needs an explicit font on macOS) -----------
-FONT=""
-for candidate in \
-  /System/Library/Fonts/Helvetica.ttc \
-  /System/Library/Fonts/Supplemental/Arial.ttf \
-  /System/Library/Fonts/Menlo.ttc \
-  /System/Library/Fonts/Monaco.ttf; do
-  if [ -f "$candidate" ]; then FONT="$candidate"; break; fi
-done
-if [ -z "$FONT" ]; then
+# Fallback font search if the configured font is missing
+if [ ! -f "$FONT" ]; then
+  for f in /System/Library/Fonts/Helvetica.ttc /System/Library/Fonts/Supplemental/Arial.ttf /System/Library/Fonts/Menlo.ttc; do
+    [ -f "$f" ] && FONT="$f" && break
+  done
+fi
+if [ ! -f "$FONT" ]; then
   echo "error: no suitable font found for ImageMagick" >&2
   exit 1
 fi
 
-command -v magick >/dev/null 2>&1 || { echo "error: ImageMagick ('magick') not found" >&2; exit 1; }
-command -v screencapture >/dev/null 2>&1 || { echo "error: screencapture not found" >&2; exit 1; }
-
-SCALE="${SCALE:-2}"
-BH=260
-
 # --- Capture ----------------------------------------------------------------
-echo "Activating ${APP_NAME}..."
+echo "Activating $APP_NAME..."
 osascript -e "tell application \"${APP_NAME}\" to activate" >/dev/null 2>&1 || true
 sleep 1
 
-# Read actual window position so annotations track the window if it was moved.
-POS="$(osascript -e "tell application \"System Events\" to tell process \"${APP_NAME}\" to get position of window 1" 2>/dev/null || echo "{$DEFAULT_WIN_X, $DEFAULT_WIN_Y}")"
+# Read the live window position so annotations track if the user moved it.
+POS="$(osascript -e "tell application \"System Events\" to tell process \"${APP_NAME}\" to get position of window 1" 2>/dev/null || echo "{$DEFX, $DEFY}")"
 WX="$(echo "$POS" | tr -d '{}' | cut -d, -f1 | tr -d ' ')"
 WY="$(echo "$POS" | tr -d '{}' | cut -d, -f2 | tr -d ' ')"
-WX="${WX:-$DEFAULT_WIN_X}"; WY="${WY:-$DEFAULT_WIN_Y}"
-DX=$(( WX * SCALE - DEFAULT_WIN_X * SCALE ))
-DY=$(( WY * SCALE - DEFAULT_WIN_Y * SCALE ))
+WX="${WX:-$DEFX}"; WY="${WY:-$DEFY}"
+DX=$(( WX * SCALE - DEFX * SCALE ))
+DY=$(( WY * SCALE - DEFY * SCALE ))
 echo "Window at logical ($WX,$WY); annotation offset = ($DX,$DY) px"
 
 SOURCE="$TOUR_DIR/source.png"
 echo "Capturing screenshot -> $SOURCE"
 screencapture -x "$SOURCE"
 
-# --- Render one annotated full-screen shot per feature ----------------------
-gen() {
-  local name="$1" col="$2" x1="$3" y1="$4" x2="$5" y2="$6" desc="$7"
-  local X1=$(( x1 + DX )) Y1=$(( y1 + DY )) X2=$(( x2 + DX )) Y2=$(( y2 + DY ))
-  local tmp; tmp="$(mktemp "${TMPDIR:-/tmp}/pt.XXXXXX.png")"
-  magick "$SOURCE" -stroke "$col" -strokewidth 10 -fill none \
-    -draw "rectangle $X1,$Y1 $X2,$Y2" "$tmp"
-  magick -size "${SCREEN_W}x${BH}" -background 'rgba(28,28,30,0.85)' -fill white \
-    -font "$FONT" -pointsize 60 -gravity Center caption:"$desc" "${tmp}.banner.png"
-  magick "$tmp" "${tmp}.banner.png" -gravity South -composite "$TOUR_DIR/$name.png"
-  rm -f "$tmp" "${tmp}.banner.png"
-  echo "  wrote $name.png"
-}
-
+# --- Render each feature from JSON ------------------------------------------
 echo "Rendering feature shots..."
-# ═══════════════════════════════════════════════════════════════════════════
-# Feature definitions — paste your gen calls here (replacing the placeholder)
-# ═══════════════════════════════════════════════════════════════════════════
 
-# --- Regenerate markdown ---------------------------------------------------
+jq -c '.features[]' "$CFG" | while read -r feat; do
+  file="$(echo "$feat" | jq -r '.file')"
+  col="$(echo "$feat"  | jq -r '.color')"
+  x="$(echo "$feat"    | jq -r '.x')"
+  y="$(echo "$feat"    | jq -r '.y')"
+  w="$(echo "$feat"    | jq -r '.width')"
+  h="$(echo "$feat"    | jq -r '.height')"
+  desc="$(echo "$feat" | jq -r '.desc')"
+
+  x1=$(( x + DX ));       y1=$(( y + DY ))
+  x2=$(( x + w + DX ));   y2=$(( y + h + DY ))
+
+  tmp="$(mktemp "${TMPDIR:-/tmp}/pt.XXXXXX.png")"
+  magick "$SOURCE" -stroke "$col" -strokewidth 10 -fill none \
+    -draw "rectangle $x1,$y1 $x2,$y2" "$tmp"
+  magick -size "${SCREEN_W}x${BH}" -background 'rgba(28,28,30,0.85)' -fill white \
+    -font "$FONT" -pointsize "$FS" -gravity Center caption:"$desc" "${tmp}.banner.png"
+  magick "$tmp" "${tmp}.banner.png" -gravity South -composite "$TOUR_DIR/$file.png"
+  rm -f "$tmp" "${tmp}.banner.png"
+  echo "  wrote $file.png"
+done
+
+# --- Regenerate markdown from JSON ------------------------------------------
 echo "Writing $TOUR_DIR/PRODUCT_TOUR.md"
-cat > "$TOUR_DIR/PRODUCT_TOUR.md" <<'MD'
+
+cat > "$TOUR_DIR/PRODUCT_TOUR.md" <<'HEADER'
 # Product Tour
 
-*Replace this file with your app's feature descriptions. Each section should match a gen call above.*
+Each feature is shown on a full-screen shot of the running app, with a single colored outline marking the control and a large white description centered at the bottom on a tinted grey bar. No buttons were clicked or states changed — these are captures of the live window.
 
-![Feature](f01-toolbar.png)
+HEADER
 
-Description.
+jq -c '.features[]' "$CFG" | while read -r feat; do
+  file="$(echo "$feat"  | jq -r '.file')"
+  title="$(echo "$feat" | jq -r '.title')"
+  desc="$(echo "$feat"  | jq -r '.desc')"
+  cat >> "$TOUR_DIR/PRODUCT_TOUR.md" <<MD
+
+### $title
+![$title]($file.png)
+
+$desc
 MD
+done
 
 # --- Cleanup ----------------------------------------------------------------
 if [ "${KEEP_SOURCE:-0}" = "1" ]; then
@@ -125,6 +123,6 @@ if [ "${KEEP_SOURCE:-0}" = "1" ]; then
 else
   rm -f "$SOURCE"
 fi
-rm -f "$TOUR_DIR"/01-annotated.png "$TOUR_DIR"/0[2-8]-*.png
+rm -f "$TOUR_DIR"/01-annotated.png "$TOUR_DIR"/0[2-8]-*.png "$TOUR_DIR"/01-main-window.png
 
 echo "Product tour regenerated in $TOUR_DIR"
