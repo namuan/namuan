@@ -146,6 +146,16 @@ Each feature entry:
 
 See [`scripts/generate-product-tour.sh`](scripts/generate-product-tour.sh) for the working template (requires `jq`).
 
+### 7. Live GUI editor (optional but recommended)
+
+Keep the JSON single-source-of-truth, but let the user edit it visually with [`assets/editor.html`](assets/editor.html) — one self-contained file, no build step, opens in any browser:
+
+- Auto-loads `source.png` and `annotations.json` from the same folder when served (e.g. `python3 -m http.server` in `product-tour/`). From `file://` it falls back to **Load screenshot…** / **Load annotations.json…** buttons.
+- Drag a box to move it; drag a corner handle to resize; or edit x/y/w/h/title/color/description in the side panel — all update the preview live.
+- **Save annotations.json** downloads the edited file; re-run the render script to regenerate the PNGs.
+
+Workflow: edit in `editor.html` → save → `bash scripts/generate-product-tour.sh`.
+
 ## ImageMagick reference
 
 ### caption vs annotate
@@ -224,6 +234,7 @@ A small palette keeps the tour consistent:
 - [ ] AX tree dump → precise pixel coordinates for each feature.
 - [ ] Full-screen screenshot of the running app (no clicks).
 - [ ] `annotations.json` — the single editable metadata file (coordinates, colors, descriptions).
+- [ ] `assets/editor.html` — optional single-file GUI to drag/resize boxes and edit text live, then export `annotations.json`.
 - [ ] `scripts/generate-product-tour.sh` — reads the JSON, captures/re-renders/md-regenerates in one step.
 - [ ] One annotated image per feature: colored outline + centered bottom caption (number-free, white on tinted grey).
 - [ ] `PRODUCT_TOUR.md` referencing each image with the same description.

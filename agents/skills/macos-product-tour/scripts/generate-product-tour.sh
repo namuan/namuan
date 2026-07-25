@@ -94,6 +94,12 @@ jq -c '.features[]' "$CFG" | while read -r feat; do
   echo "  wrote $file.png"
 done
 
+# --- Optimize for web -------------------------------------------------------
+echo "Optimizing images for web..."
+for f in "$TOUR_DIR"/f*.png; do
+  magick "$f" -resize 1800x -strip -define png:compression-level=9 "$f"
+done
+
 # --- Regenerate markdown from JSON ------------------------------------------
 echo "Writing $TOUR_DIR/PRODUCT_TOUR.md"
 
@@ -118,11 +124,7 @@ MD
 done
 
 # --- Cleanup ----------------------------------------------------------------
-if [ "${KEEP_SOURCE:-0}" = "1" ]; then
-  echo "Kept raw screenshot at $SOURCE"
-else
-  rm -f "$SOURCE"
-fi
+# source.png is kept so the live editor can load it in Edit mode.
 rm -f "$TOUR_DIR"/01-annotated.png "$TOUR_DIR"/0[2-8]-*.png "$TOUR_DIR"/01-main-window.png
 
 echo "Product tour regenerated in $TOUR_DIR"
