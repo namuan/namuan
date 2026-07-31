@@ -7,3 +7,7 @@ venv/
 *.bkp
 *.dtmp
 .aider*
+
+# Node.js dependencies and lock files
+node_modules/
+package-lock.json

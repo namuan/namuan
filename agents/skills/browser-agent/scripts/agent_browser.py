@@ -2,6 +2,7 @@
 # /// script
 # dependencies = [
 #   "playwright>=1.45.0",
+#   "playwright-stealth>=1.0.0",
 # ]
 # ///
 """
@@ -10,76 +11,34 @@ everything the DevTools protocol exposes.
 
 Why: agents need to see what a browser sees. This tool launches a real
 Chromium browser (via Playwright) and relays every DevTools event back to
-the caller as JSON, so an AI agent can steer the page and observe the
-results - network, console, logs, exceptions, websockets, dialogs,
-downloads and performance metrics.
+the caller as JSON, so an AI agent can observe the results - network,
+console, logs, exceptions, websockets, dialogs, downloads and performance
+metrics.
 
-Three usage modes:
+Usage:
 
-  1. One-shot capture (navigate, settle, dump everything):
-       ./agent_browser.py -u https://example.com -o traffic.json
-       ./agent_browser.py -u https://example.com --stream
-
-  2. Interactive command mode (JSON commands in, JSON events out).
-     Useful when an agent wants to drive the page step by step:
-       ./agent_browser.py -i
-       {"cmd": "navigate", "url": "https://example.com"}
-       {"cmd": "snapshot"}
-       {"cmd": "click", "selector": "#submit"}
-       {"cmd": "close"}
-
-  3. Watch / session mode (agent starts it, a human drives the browser,
-     and everything is kept for the agent after the browser is closed):
-       ./agent_browser.py --watch -u https://example.com --session demo
-       # A visible browser opens for a human to drive. Every DevTools
-       # event is captured live. When the browser window is closed the
-       # session ends and the full record is stored for the agent.
+  ./agent_browser.py -u https://example.com --session demo
+  # A visible browser opens for a human to drive. Every DevTools event is
+  # captured live and streamed to stdout as NDJSON. When the browser window
+  # is closed the session ends and the full record is stored for the agent.
 
 Sessions
-    --watch  records everything until the browser is closed (or
-             --max-duration seconds elapse). Data is stored under
-             <tmpdir>/agent_browser_sessions/<name>/ (override with
-             --sessions-dir):
-               session.json   manifest: status, timings, summary, errors
-               events.ndjson  every event as it happened (live append)
-               dump.json      full DevTools dump (network/console/logs/...)
+    Data is stored under <tmpdir>/agent_browser_sessions/<name>/ (override
+    with --sessions-dir):
+      session.json   manifest: status, timings, summary, errors
+      events.ndjson  every event as it happened (live append)
+      dump.json      full DevTools dump (network/console/logs/...)
     --list-sessions          print all recorded session manifests (JSON)
     --show-session <name>    print a session's full dump.json (JSON)
-    Session data is relayed live to stdout as NDJSON while --watch runs.
+    Session data is relayed live to stdout as NDJSON while the browser is open.
 
 Requirements
     uv (https://docs.astral.sh/uv/)
     Once:  uvx playwright install chromium
 
 Output
-    - One-shot mode without -o prints the full JSON dump to stdout.
-    - One-shot mode with -o writes the dump to the file and prints a
-      short summary to stderr.
-    - --stream prints every DevTools event as NDJSON on stdout in real time.
-    - Interactive mode (-i) prints NDJSON events and command results on
-      stdout; steering commands are read as NDJSON from stdin.
-    - Watch mode (--watch) relays every event as NDJSON on stdout in real
-      time; the full record is also saved to the session directory.
-
-Interactive command reference (one JSON object per line on stdin)
-    {"cmd": "navigate", "url": "..."}     open a URL (alias: goto)
-    {"cmd": "snapshot"}                  url, title, body text
-    {"cmd": "status"}                    current url + title
-    {"cmd": "click", "selector": "..."}  click an element
-    {"cmd": "type", "selector": "...", "text": "..."}   fill an input
-    {"cmd": "press", "key": "Enter"}     send a keyboard key
-    {"cmd": "evaluate", "expression": "..."}            run JS, get result
-    {"cmd": "extract", "selector": "...", "attribute": "..."}  read text/attr
-    {"cmd": "content"}                   current page HTML (capped)
-    {"cmd": "wait", "ms": 1000}          sleep
-    {"cmd": "wait_for", "selector": "..."}   wait until visible
-    {"cmd": "screenshot", "path": "...", "full_page": true}
-    {"cmd": "scroll", "x": 0, "y": 500}
-    {"cmd": "select", "selector": "...", "value": "..."}  (or label/index)
-    {"cmd": "check", "selector": "...", "checked": true}
-    {"cmd": "reload"} / {"cmd": "back"} / {"cmd": "forward"}
-    {"cmd": "cookies"}                   all cookies for the context
-    {"cmd": "close"}                     end the session
+    Every DevTools event is relayed as NDJSON on stdout in real time.
+    The full record is also saved to the session directory.
 """
 
 import asyncio
@@ -92,6 +51,8 @@ import time
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from datetime import datetime, timezone
 from pathlib import Path
+
+from playwright_stealth import Stealth
 
 
 def setup_logging(verbosity):
@@ -133,30 +94,6 @@ def parse_args():
         help="Navigation timeout in seconds (default 30).",
     )
     parser.add_argument(
-        "--settle",
-        type=float,
-        default=3.0,
-        help="Seconds to wait for late network/console events in one-shot mode "
-        "(default 3).",
-    )
-    parser.add_argument(
-        "--headed",
-        action="store_true",
-        help="Show a visible browser window (default is headless).",
-    )
-    parser.add_argument(
-        "-i",
-        "--interactive",
-        action="store_true",
-        help="Read steering commands (NDJSON) from stdin and print captured "
-        "events + command results (NDJSON) to stdout.",
-    )
-    parser.add_argument(
-        "--stream",
-        action="store_true",
-        help="Print every DevTools event to stdout as NDJSON while running.",
-    )
-    parser.add_argument(
         "--capture-bodies",
         action="store_true",
         help="Capture response bodies through the CDP Network domain.",
@@ -182,17 +119,18 @@ def parse_args():
     parser.add_argument(
         "--watch",
         action="store_true",
-        help="Watch mode: open a visible browser and record all DevTools "
-        "events until the user closes the browser (or --max-duration). "
-        "The session is stored under <tmpdir>/agent_browser_sessions/<name>/.",
+        help="(Default and only mode.) Open a visible browser and record "
+        "all DevTools events until the user closes the browser "
+        "(or --max-duration). The session is stored under "
+        "<tmpdir>/agent_browser_sessions/<name>/.",
     )
     parser.add_argument(
         "--session",
         metavar="NAME",
         help="Session name. Creates <tmpdir>/agent_browser_sessions/NAME/ "
         "(override with --sessions-dir) and writes session.json, "
-        "events.ndjson and dump.json there. Implied (with an "
-        "auto-generated name) by --watch.",
+        "events.ndjson and dump.json there. If omitted, a timestamped "
+        "name is generated automatically.",
     )
     parser.add_argument(
         "--list-sessions",
@@ -217,6 +155,26 @@ def parse_args():
         "--sessions-dir",
         metavar="DIR",
         help="Where sessions are stored (default: <tmpdir>/agent_browser_sessions).",
+    )
+    parser.add_argument(
+        "--no-stealth",
+        action="store_true",
+        help="Disable playwright-stealth anti-detection (enabled by default).",
+    )
+    parser.add_argument(
+        "--proxy",
+        metavar="URL",
+        help="Proxy server URL (e.g., http://proxy:8080 or socks5://proxy:1080).",
+    )
+    parser.add_argument(
+        "--locale",
+        metavar="LOCALE",
+        help="Browser locale (e.g., en-US, de-DE).",
+    )
+    parser.add_argument(
+        "--timezone",
+        metavar="TIMEZONE",
+        help="Browser timezone (e.g., America/New_York, Europe/Berlin).",
     )
     parser.add_argument(
         "-v",
@@ -284,9 +242,7 @@ def start_session(args):
     manifest = {
         "id": sid,
         "url": args.url,
-        "mode": "watch" if args.watch else (
-            "interactive" if args.interactive else "oneshot"
-        ),
+        "mode": "watch",
         "started": datetime.now(timezone.utc).isoformat(),
         "status": "running",
         "session_dir": str(sess_dir),
@@ -709,7 +665,7 @@ class DevToolsCapture:
 
 
 class BrowserDriver:
-    """Executes agent commands against a real browser page."""
+    """Minimal browser wrapper for watch mode."""
 
     def __init__(self, browser, context, page, capture):
         self.browser = browser
@@ -751,269 +707,12 @@ class BrowserDriver:
         except Exception:
             return ""
 
-    async def snapshot(self, max_chars=200000):
-        try:
-            body_text = await self.page.inner_text("body")
-        except Exception:
-            body_text = ""
-        return {
-            "url": self.page.url,
-            "title": await self._safe_title(),
-            "body_text": body_text[:max_chars],
-            "body_text_length": len(body_text),
-        }
-
-    async def run_command(self, cmd):
-        """Dispatch a command dict to its handler. Raises on errors."""
-        name = cmd.get("cmd")
-        handler = self._handlers().get(name)
-        if handler is None:
-            raise ValueError(f"unknown command: {name!r}")
-        return await handler(cmd)
-
-    def _handlers(self):
-        return {
-            "navigate": self._cmd_navigate,
-            "goto": self._cmd_navigate,
-            "snapshot": self._cmd_snapshot,
-            "status": self._cmd_status,
-            "click": self._cmd_click,
-            "type": self._cmd_type,
-            "press": self._cmd_press,
-            "evaluate": self._cmd_evaluate,
-            "extract": self._cmd_extract,
-            "content": self._cmd_content,
-            "wait": self._cmd_wait,
-            "wait_for": self._cmd_wait_for,
-            "screenshot": self._cmd_screenshot,
-            "scroll": self._cmd_scroll,
-            "select": self._cmd_select,
-            "check": self._cmd_check,
-            "reload": self._cmd_reload,
-            "back": self._cmd_back,
-            "forward": self._cmd_forward,
-            "cookies": self._cmd_cookies,
-            "close": self._cmd_close,
-        }
-
-    # -- command implementations -----------------------------------------
-
-    async def _cmd_navigate(self, cmd):
-        url = cmd.get("url")
-        if not url:
-            raise ValueError("navigate requires a 'url' field")
-        timeout_ms = int(cmd.get("timeout", self._default_timeout) * 1000)
-        return await self.navigate(url, timeout_ms)
-
-    async def _cmd_snapshot(self, cmd):
-        return await self.snapshot(int(cmd.get("max_chars", 200000)))
-
-    async def _cmd_status(self, cmd):
-        return {"url": self.page.url, "title": await self._safe_title()}
-
-    async def _cmd_click(self, cmd):
-        sel = cmd.get("selector")
-        if not sel:
-            raise ValueError("click requires a 'selector' field")
-        await self.page.click(sel, timeout=int(cmd.get("timeout_ms", 5000)))
-        return {"selector": sel, "url": self.page.url}
-
-    async def _cmd_type(self, cmd):
-        sel = cmd.get("selector")
-        if not sel:
-            raise ValueError("type requires a 'selector' field")
-        text = cmd.get("text", "")
-        await self.page.fill(sel, text)
-        return {"selector": sel, "chars": len(text)}
-
-    async def _cmd_press(self, cmd):
-        key = cmd.get("key")
-        if not key:
-            raise ValueError("press requires a 'key' field")
-        await self.page.keyboard.press(key)
-        return {"key": key}
-
-    async def _cmd_evaluate(self, cmd):
-        expr = cmd.get("expression")
-        if not expr:
-            raise ValueError("evaluate requires an 'expression' field")
-        try:
-            result = await self.page.evaluate(expr)
-        except Exception as exc:
-            return {"expression": expr, "error": str(exc)}
-        return {"expression": expr, "result": result}
-
-    async def _cmd_extract(self, cmd):
-        sel = cmd.get("selector")
-        if not sel:
-            raise ValueError("extract requires a 'selector' field")
-        text = await self.page.inner_text(sel)
-        attr = None
-        if cmd.get("attribute"):
-            attr = await self.page.get_attribute(sel, cmd["attribute"])
-        return {"selector": sel, "text": text, "attribute": attr}
-
-    async def _cmd_content(self, cmd):
-        html = await self.page.content()
-        limit = int(cmd.get("max_chars", 500000))
-        return {
-            "html": html[:limit],
-            "length": len(html),
-            "truncated": len(html) > limit,
-        }
-
-    async def _cmd_wait(self, cmd):
-        ms = int(cmd.get("ms", 1000))
-        await asyncio.sleep(ms / 1000.0)
-        return {"waited_ms": ms}
-
-    async def _cmd_wait_for(self, cmd):
-        sel = cmd.get("selector")
-        if not sel:
-            raise ValueError("wait_for requires a 'selector' field")
-        try:
-            el = await self.page.wait_for_selector(
-                sel, timeout=int(cmd.get("timeout_ms", 10000)), state="visible"
-            )
-            return {"selector": sel, "found": el is not None}
-        except Exception as exc:
-            return {"selector": sel, "found": False, "error": str(exc)}
-
-    async def _cmd_screenshot(self, cmd):
-        path = cmd.get("path") or f"screenshot_{int(time.time() * 1000)}.png"
-        full = bool(cmd.get("full_page", False))
-        await self.page.screenshot(path=path, full_page=full)
-        return {"path": path, "full_page": full}
-
-    async def _cmd_scroll(self, cmd):
-        x = int(cmd.get("x", 0))
-        y = int(cmd.get("y", 0))
-        await self.page.evaluate(f"window.scrollBy({x}, {y})")
-        return {"x": x, "y": y}
-
-    async def _cmd_select(self, cmd):
-        sel = cmd.get("selector")
-        if not sel:
-            raise ValueError("select requires a 'selector' field")
-        if cmd.get("value") is not None:
-            values = await self.page.select_option(sel, value=cmd["value"])
-        elif cmd.get("label") is not None:
-            values = await self.page.select_option(sel, label=cmd["label"])
-        elif cmd.get("index") is not None:
-            values = await self.page.select_option(sel, index=cmd["index"])
-        else:
-            raise ValueError("select requires 'value', 'label', or 'index'")
-        return {"selector": sel, "selected_values": values}
-
-    async def _cmd_check(self, cmd):
-        sel = cmd.get("selector")
-        if not sel:
-            raise ValueError("check requires a 'selector' field")
-        if bool(cmd.get("checked", True)):
-            await self.page.check(sel)
-        else:
-            await self.page.uncheck(sel)
-        return {"selector": sel, "checked": bool(cmd.get("checked", True))}
-
-    async def _cmd_reload(self, cmd):
-        await self.page.reload(wait_until="load")
-        return {"url": self.page.url}
-
-    async def _cmd_back(self, cmd):
-        await self.page.go_back(wait_until="load")
-        return {"url": self.page.url}
-
-    async def _cmd_forward(self, cmd):
-        await self.page.go_forward(wait_until="load")
-        return {"url": self.page.url}
-
-    async def _cmd_cookies(self, cmd):
-        return {"cookies": await self.context.cookies()}
-
-    async def _cmd_close(self, cmd):
-        return {"message": "closing"}
-
 
 def make_emitter(args):
-    relay_live = args.interactive or args.stream or args.watch
-
     def emit(entry):
-        if relay_live:
-            print(json.dumps(entry, default=str), flush=True)
+        print(json.dumps(entry, default=str), flush=True)
 
     return emit
-
-
-async def run_interactive(driver, capture, args):
-    """Read NDJSON commands from stdin and emit NDJSON results to stdout."""
-    seq = 0
-    logging.info("Interactive mode: reading JSON commands from stdin")
-    while True:
-        try:
-            line = await asyncio.to_thread(sys.stdin.readline)
-        except Exception as exc:
-            capture.emit(
-                {"event": "result", "ok": False, "error": f"stdin read failed: {exc}"}
-            )
-            break
-        if not line:
-            break  # EOF
-        line = line.strip()
-        if not line:
-            continue
-        seq += 1
-        try:
-            cmd = json.loads(line)
-        except json.JSONDecodeError as exc:
-            capture.emit(
-                {
-                    "event": "result",
-                    "id": seq,
-                    "ok": False,
-                    "error": f"invalid JSON: {exc}",
-                    "raw": line,
-                }
-            )
-            continue
-        if not isinstance(cmd, dict) or "cmd" not in cmd:
-            capture.emit(
-                {
-                    "event": "result",
-                    "id": seq,
-                    "ok": False,
-                    "error": "expected an object with a 'cmd' field",
-                }
-            )
-            continue
-        name = cmd["cmd"]
-        if name == "close":
-            capture.emit(
-                {
-                    "event": "result",
-                    "id": seq,
-                    "cmd": name,
-                    "ok": True,
-                    "data": {"message": "closing"},
-                }
-            )
-            capture.emit({"event": "done", "ok": True, "summary": capture.summary()})
-            return
-        try:
-            data = await driver.run_command(cmd)
-            capture.emit(
-                {"event": "result", "id": seq, "cmd": name, "ok": True, "data": data}
-            )
-        except Exception as exc:
-            capture.emit(
-                {
-                    "event": "result",
-                    "id": seq,
-                    "cmd": name,
-                    "ok": False,
-                    "error": str(exc),
-                }
-            )
-    capture.emit({"event": "done", "ok": True, "summary": capture.summary()})
 
 
 async def watch_until_closed(browser, context, args):
@@ -1059,13 +758,12 @@ async def build_dump(driver, capture, args, started):
         metrics = got.get("metrics", [])
     except Exception as exc:
         logging.debug("Performance.getMetrics failed: %s", exc)
-    mode = "watch" if args.watch else ("interactive" if args.interactive else "oneshot")
     meta = {
         "command": " ".join(sys.argv),
         "started": started.isoformat(),
         "finished": datetime.now(timezone.utc).isoformat(),
         "browser": "chromium (playwright)",
-        "mode": mode,
+        "mode": "watch",
     }
     if getattr(args, "_session_id", None):
         meta["session"] = args._session_id
@@ -1101,21 +799,26 @@ async def amain(args):
     capture = None
     session = None
     try:
-        if args.watch:
-            args.headed = True  # a human needs to see and drive the browser
+        # Watch mode is the only mode — always headed, always records a session.
+        args.headed = True
+        mode_label = "watch"
 
-        if args.watch or args.session:
-            try:
-                session = start_session(args)
-            except FileExistsError as exc:
-                print(f"error: {exc}", file=sys.stderr)
-                return 2
-            args._session_id = session[0]
-            print(
-                f"[session] {session[0]} -> {session[1]}",
-                file=sys.stderr,
-            )
-            logging.info("Session %s started -> %s", session[0], session[1])
+        # ----- session -----
+        # Always persist a session (auto-name if not given).
+        if not args.session:
+            args.session = new_session_id()
+
+        try:
+            session = start_session(args)
+        except FileExistsError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+        args._session_id = session[0]
+        print(
+            f"[session] {session[0]} -> {session[1]}",
+            file=sys.stderr,
+        )
+        logging.info("Session %s started -> %s", session[0], session[1])
 
         from playwright.async_api import async_playwright
 
@@ -1140,9 +843,18 @@ async def amain(args):
                 logging.warning("Bad --viewport %r; ignoring", args.viewport)
         if args.user_agent:
             ctx_kwargs["user_agent"] = args.user_agent
+        if args.locale:
+            ctx_kwargs["locale"] = args.locale
+        if args.timezone:
+            ctx_kwargs["timezone_id"] = args.timezone
+        if args.proxy:
+            ctx_kwargs["proxy"] = {"server": args.proxy}
 
         context = await browser.new_context(**ctx_kwargs)
         page = await context.new_page()
+        if not args.no_stealth:
+            stealth = Stealth()
+            await stealth.apply_stealth_async(page)
         cdp = await context.new_cdp_session(page)
 
         ndjson_path = None
@@ -1158,10 +870,9 @@ async def amain(args):
             download_dir=args.save_downloads,
             emit=make_emitter(args),
             ndjson_path=ndjson_path,
-            leave_dialogs=args.watch,
+            leave_dialogs=True,
         )
         driver = BrowserDriver(browser, context, page, capture)
-        driver._default_timeout = args.timeout
 
         await capture.setup()
 
@@ -1171,9 +882,7 @@ async def amain(args):
                     "event": "session.started",
                     "session": session[0],
                     "url": args.url,
-                    "mode": "watch" if args.watch else (
-                        "interactive" if args.interactive else "oneshot"
-                    ),
+                    "mode": mode_label,
                     "note": "browser opened; drive it or wait for it to close",
                 }
             )
@@ -1181,76 +890,43 @@ async def amain(args):
         if args.url:
             await driver.navigate(args.url, args.timeout * 1000)
 
-        if args.watch:
-            print(
-                f"[watch] session {session[0]} open - drive the browser, "
-                "close the window when done",
-                file=sys.stderr,
-            )
-            status = await watch_until_closed(browser, context, args)
-            await asyncio.sleep(0.5)  # let late events flush
-            dump = await build_dump(driver, capture, args, started)
-            if args.output:
-                write_dump(dump, args)
-            if session:
-                dump_path = session[1] / "dump.json"
-                dump_path.write_text(json.dumps(dump, indent=2, default=str))
-                finish_session(
-                    session[2],
-                    session[3],
-                    status,
-                    summary=dump["summary"],
-                    extra={
-                        "duration_s": round(
-                            (datetime.now(timezone.utc) - started).total_seconds(), 2
-                        ),
-                        "console": console_summary(dump["events"]),
-                    },
-                )
-            capture.record(
-                {
-                    "event": "session.ended",
-                    "session": session[0],
-                    "status": status,
-                    "summary": dump["summary"],
-                }
-            )
-            print(
-                f"[watch] session {session[0]} ended ({status}). "
-                f"Dump: {session[1] / 'dump.json'}",
-                file=sys.stderr,
-            )
-        elif args.interactive:
-            await run_interactive(driver, capture, args)
-            if args.output or session:
-                dump = await build_dump(driver, capture, args, started)
-                if args.output:
-                    write_dump(dump, args)
-                if session:
-                    dump_path = session[1] / "dump.json"
-                    dump_path.write_text(json.dumps(dump, indent=2, default=str))
-                    finish_session(
-                        session[2],
-                        session[3],
-                        "closed",
-                        summary=dump["summary"],
-                        extra={"console": console_summary(dump["events"])},
-                    )
-        else:
-            logging.info("Settling for %.1fs to collect late events...", args.settle)
-            await asyncio.sleep(args.settle)
-            dump = await build_dump(driver, capture, args, started)
+        print(
+            f"[watch] session {session[0]} open - drive the browser, "
+            "close the window when done",
+            file=sys.stderr,
+        )
+        status = await watch_until_closed(browser, context, args)
+        await asyncio.sleep(0.5)  # let late events flush
+        dump = await build_dump(driver, capture, args, started)
+        if args.output:
             write_dump(dump, args)
-            if session:
-                dump_path = session[1] / "dump.json"
-                dump_path.write_text(json.dumps(dump, indent=2, default=str))
-                finish_session(
-                    session[2],
-                    session[3],
-                    "closed",
-                    summary=dump["summary"],
-                    extra={"console": console_summary(dump["events"])},
-                )
+        dump_path = session[1] / "dump.json"
+        dump_path.write_text(json.dumps(dump, indent=2, default=str))
+        finish_session(
+            session[2],
+            session[3],
+            status,
+            summary=dump["summary"],
+            extra={
+                "duration_s": round(
+                    (datetime.now(timezone.utc) - started).total_seconds(), 2
+                ),
+                "console": console_summary(dump["events"]),
+            },
+        )
+        capture.record(
+            {
+                "event": "session.ended",
+                "session": session[0],
+                "status": status,
+                "summary": dump["summary"],
+            }
+        )
+        print(
+            f"[watch] session {session[0]} ended ({status}). "
+            f"Dump: {session[1] / 'dump.json'}",
+            file=sys.stderr,
+        )
 
     finally:
         if capture is not None:
@@ -1274,9 +950,6 @@ def main(args):
         raise SystemExit(list_sessions(args))
     if args.show_session:
         raise SystemExit(show_session(args))
-    if args.watch and args.interactive:
-        print("error: --watch and --interactive cannot be combined", file=sys.stderr)
-        raise SystemExit(2)
     if sys.platform == "win32":
         asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
     try:
