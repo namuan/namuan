@@ -1,17 +1,25 @@
 ---
 name: chrome-cdp
-description: Interact with local Chrome browser session (only on explicit user approval after being asked to inspect, debug, or interact with a page open in Chrome)
+description: Interact with local Vivaldi browser session via CDP (Chrome DevTools Protocol). Primary browser is Vivaldi, but also supports Chrome/Chromium/Brave/Edge. Use for inspecting, debugging, or interacting with pages.
 ---
 
-# Chrome CDP
+# Vivaldi CDP
 
-Lightweight Chrome DevTools Protocol CLI. Connects directly via WebSocket — no Puppeteer, works with 100+ tabs, instant connection.
+Lightweight Chrome DevTools Protocol CLI for Vivaldi (primary) and other Chromium-based browsers. Connects directly via WebSocket — no Puppeteer, works with 100+ tabs, instant connection.
 
 ## Prerequisites
 
-- Chrome (or Chromium, Brave, Edge, Vivaldi) with remote debugging enabled: open `chrome://inspect/#remote-debugging` and toggle the switch
+- **Vivaldi** (primary) with remote debugging enabled: open `vivaldi://inspect/#remote-debugging` and toggle the switch
 - Node.js 22+ (uses built-in WebSocket)
-- If your browser's `DevToolsActivePort` is in a non-standard location, set `CDP_PORT_FILE` to its full path
+- Auto-detects browser port file in: `~/Library/Application Support/Vivaldi/` (macOS), `~/.config/vivaldi/` (Linux)
+- For other browsers or custom paths, set `CDP_PORT_FILE` to the full path of `DevToolsActivePort`
+
+### Vivaldi-Specific Notes
+
+- Vivaldi exposes only the browser-level WebSocket (no `/json` HTTP endpoint)
+- Auto-detection searches Vivaldi first, then Chrome/Chromium/Brave/Edge
+- Each new tab requires one-time "Allow debugging" approval (persistent via background daemon)
+- Daemons auto-exit after 20 minutes of inactivity
 
 ## Commands
 
@@ -60,6 +68,54 @@ scripts/cdp.mjs open    [url]                  # open new tab (each triggers All
 scripts/cdp.mjs stop    [target]               # stop daemon(s)
 ```
 
+## Event Capture
+
+Record a full debug session (console, network, exceptions, WebSocket) to a JSONL file while browsing:
+
+```bash
+scripts/capture.mjs <target> [options]
+```
+
+**Options:**
+- `--output <file>` — JSONL output (default: `cdp-<target>-<timestamp>.jsonl`)
+- `--no-bodies` — skip request/response bodies
+- `--max-body <bytes>` — max body size to capture (default: 1MB)
+- `--domains <list>` — comma-separated CDP domains (default: Network,Runtime,Console,Page,Log,Debugger)
+
+**Example:**
+```bash
+# Start capture in background
+scripts/capture.mjs ABC123 --output debug.jsonl &
+
+# Browse in Vivaldi...
+
+# Stop capture (prints summary)
+kill %1
+```
+
+**Captured events:**
+- Console logs (`console.log`, errors)
+- Network requests/responses (URLs, headers, **bodies**)
+- WebSocket frames
+- JavaScript exceptions (with stack traces)
+- Page lifecycle events (navigation, load, DOMContentLoaded)
+
+**Analyze captures:**
+```bash
+# Quick summary (recommended)
+scripts/capture-summary.mjs debug.jsonl
+
+# Or use jq for custom queries
+# Count events by type
+jq -r '.type' debug.jsonl | sort | uniq -c
+
+# Show console messages
+jq -r 'select(.type == "console") | .params.args[0].value' debug.jsonl
+
+# List all network requests
+jq -r 'select(.type == "network_request") | "\(.params.request.method) \(.params.request.url)"' debug.jsonl
+```
+
 ## Coordinates
 
 `shot` saves an image at native resolution: image pixels = CSS pixels × DPR. CDP Input events (`clickxy` etc.) take **CSS pixels**.
@@ -74,4 +130,6 @@ CSS px = screenshot image px / DPR
 
 - Prefer `snap --compact` over `html` for page structure.
 - Use `type` (not eval) to enter text in cross-origin iframes — `click`/`clickxy` to focus first, then `type`.
-- Chrome shows an "Allow debugging" modal once per tab on first access. A background daemon keeps the session alive so subsequent commands need no further approval. Daemons auto-exit after 20 minutes of inactivity.
+- Vivaldi shows an "Allow debugging" modal once per tab on first access. A background daemon keeps the session alive so subsequent commands need no further approval. Daemons auto-exit after 20 minutes of inactivity.
+- For long debugging sessions, use `capture.mjs` to record all events to JSONL, then analyze offline.
+- Vivaldi's DevToolsActivePort is at `~/Library/Application Support/Vivaldi/DevToolsActivePort` on macOS.

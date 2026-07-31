@@ -39,6 +39,7 @@ function getWsUrl() {
   const home = homedir();
   // macOS: ~/Library/Application Support/<name>/DevToolsActivePort
   const macBrowsers = [
+    'Vivaldi',
     'Google/Chrome', 'Google/Chrome Beta', 'Google/Chrome for Testing',
     'Chromium', 'BraveSoftware/Brave-Browser', 'Microsoft Edge',
   ];
