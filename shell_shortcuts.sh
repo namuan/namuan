@@ -139,9 +139,6 @@ function fnote() { grep "$@" ~/notes.txt ;}
 function pskill() { ps -ef | grep "$@" | awk '{print "kill -9 "$2}' | sh ;}
 function h() { history | grep "$@" ;}
 
-# Visual Studio Code
-code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
-
 function cht() {
 	curl -s https://cht.sh/"$1" | less
 }
