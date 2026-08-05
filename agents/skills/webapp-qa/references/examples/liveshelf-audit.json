@@ -1,0 +1,17 @@
+{
+  "url": "http://localhost:5173",
+  "colorSchemes": ["light", "dark"],
+  "waitFor": ".track__row",
+  "settle": 600,
+  "checks": [
+    { "label": "page bg is warm paper", "css": "body", "prop": "backgroundColor", "eq": "rgb(246, 241, 231)" },
+    { "label": "page bg is not pure white", "css": "body", "prop": "backgroundColor", "ne": "rgb(255, 255, 255)" },
+    { "label": "sidebar is warm ink, not pure black", "css": ".sidebar", "prop": "backgroundColor", "eq": "rgb(36, 29, 21)" },
+    { "label": "heading uses Fraunces", "css": ".page__title", "prop": "fontFamily", "contains": "Fraunces" },
+    { "label": "body font is Instrument Sans", "css": "body", "prop": "fontFamily", "contains": "Instrument Sans" },
+    { "label": "primary button accent is vermilion family", "css": ".btn--primary", "prop": "backgroundColor", "ne": "rgba(0, 0, 0, 0)" }
+  ],
+  "noOverflow": true,
+  "noArtifacts": true,
+  "noErrors": true
+}

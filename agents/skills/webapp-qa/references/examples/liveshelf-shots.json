@@ -1,0 +1,11 @@
+{
+  "url": "http://localhost:5173",
+  "out": "/tmp/webapp-qa-shots",
+  "viewport": { "width": 1440, "height": 900 },
+  "colorScheme": "light",
+  "shots": [
+    { "name": "01-library", "steps": [{ "wait": ".track__row" }, { "sleep": 600 }] },
+    { "name": "02-detail", "steps": [{ "click": ".track__row" }, { "wait": ".detail" }] },
+    { "name": "03-paper-trail", "steps": [{ "click": "nav >> text=Paper trail" }, { "wait": ".trail__row" }] }
+  ]
+}

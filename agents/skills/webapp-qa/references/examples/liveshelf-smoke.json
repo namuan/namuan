@@ -1,0 +1,39 @@
+{
+  "url": "http://localhost:5173",
+  "timeout": 30000,
+  "dialogs": "accept",
+  "steps": [
+    { "wait": ".track__row", "timeout": 30000 },
+    { "expect": { "label": "seeded library shows 8 local tracks", "count": { "sel": ".track__row", "eq": 8 } } },
+
+    { "fill": { "sel": ".search", "value": "Noori" } },
+    { "sleep": 400 },
+    { "expect": { "label": "search narrows to 1 row", "count": { "sel": ".track__row", "eq": 1 } } },
+    { "fill": { "sel": ".search", "value": "" } },
+    { "sleep": 300 },
+
+    { "click": "button:has-text(\"Import from Spotify\")" },
+    { "wait": ".preview", "timeout": 10000 },
+    { "expect": { "label": "import preview lists external tracks", "count": { "sel": ".preview__list li", "gt": 0 } } },
+    { "click": ".preview__foot .btn--primary" },
+    { "sleep": 600 },
+    { "expect": { "label": "library grew after import", "count": { "sel": ".track__row", "gt": 8 } } },
+
+    { "click": ".track__row >> nth=0" },
+    { "wait": ".detail" },
+    { "fill": { "sel": ".tag-editor__input", "value": "late-night" } },
+    { "press": { "sel": ".tag-editor__input", "key": "Enter" } },
+    { "sleep": 400 },
+    { "expect": { "label": "tag committed and rendered", "count": { "sel": ".tag:has-text(\"late-night\")", "eq": 1 } } },
+
+    { "click": "nav >> text=Paper trail" },
+    { "wait": ".trail__row" },
+    { "expect": { "label": "paper trail lists events", "count": { "sel": ".trail__row", "gt": 10 } } },
+    { "click": ".trail__rowmain >> nth=0" },
+    { "wait": ".trail__json" },
+
+    { "click": "button:has-text(\"Replay from scratch\")" },
+    { "sleep": 1200 },
+    { "expect": { "label": "replay finished clean", "noErrors": true } }
+  ]
+}
