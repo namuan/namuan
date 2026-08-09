@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACOUSTIC LINK — Sound Data Transmission</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060912;
+    --bg-2: #0a0e1a;
+    --bg-3: #0f1428;
+    --fg: #e0f7fa;
+    --muted: #6b7a99;
+    --accent: #00f5d4;
+    --accent-glow: rgba(0, 245, 212, 0.4);
+    --accent-2: #ff006e;
+    --accent-2-glow: rgba(255, 0, 110, 0.4);
+    --accent-3: #ffbe0b;
+    --border: rgba(0, 245, 212, 0.15);
+    --border-strong: rgba(0, 245, 212, 0.35);
+    --card: rgba(15, 20, 40, 0.5);
+  }
+  
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: 
+      radial-gradient(ellipse at 20% 0%, rgba(0, 245, 212, 0.08), transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(255, 0, 110, 0.06), transparent 50%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    background-attachment: fixed;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0, 245, 212, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 212, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+  }
+  
+  .display { font-family: 'Orbitron', sans-serif; letter-spacing: 0.05em; }
+  
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+  }
+  
+  .panel-bracketed::before,
+  .panel-bracketed::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--accent);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .panel-bracketed::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+  }
+  .panel-bracketed::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+  }
+  
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent 0px, transparent 2px,
+      rgba(0, 245, 212, 0.018) 2px, rgba(0, 245, 212, 0.018) 3px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #00d9b8);
+    color: #001a16;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+  .btn-primary:hover::after { left: 100%; }
+  .btn-primary:hover {
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled {
+    opacity: 0.4; cursor: not-allowed;
+    transform: none; box-shadow: none;
+  }
+  .btn-primary:disabled::after { display: none; }
+  
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border-strong);
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+  .btn-secondary:hover {
+    background: rgba(0, 245, 212, 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent-glow);
+  }
+  .btn-secondary.active {
+    background: rgba(255, 0, 110, 0.12);
+    border-color: var(--accent-2);
+    color: var(--accent-2);
+    box-shadow: 0 0 20px var(--accent-2-glow);
+  }
+  
+  .term-input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    padding: 12px;
+    resize: none;
+    width: 100%;
+    outline: none;
+    transition: all 0.2s;
+    border-radius: 0;
+  }
+  .term-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 0 20px var(--accent-glow);
+  }
+  
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border: 1px solid var(--border-strong);
+    background: rgba(0, 0, 0, 0.5);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+  .status-dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--muted);
+    box-shadow: 0 0 10px currentColor;
+  }
+  .status-dot.idle { background: var(--muted); color: var(--muted); }
+  .status-dot.listening { background: var(--accent); color: var(--accent); animation: pulse 1.5s infinite; }
+  .status-dot.transmitting { background: var(--accent-3); color: var(--accent-3); animation: pulse 0.7s infinite; }
+  .status-dot.receiving { background: var(--accent-2); color: var(--accent-2); animation: pulse 0.4s infinite; }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+  }
+  
+  .char-cell {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 38px; height: 38px;
+    border: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    color: var(--muted);
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+  .char-cell .freq { font-size: 8px; opacity: 0.6; margin-top: 1px; }
+  .char-cell.active {
+    color: var(--accent-3);
+    border-color: var(--accent-3);
+    background: rgba(255, 190, 11, 0.1);
+    box-shadow: 0 0 12px rgba(255, 190, 11, 0.5);
+    transform: scale(1.08);
+  }
+  
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  
+  .log-entry {
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0, 245, 212, 0.05);
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+    animation: slideIn 0.3s;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-5px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .log-entry .time { color: var(--accent); opacity: 0.6; }
+  
+  .received-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--accent);
+    min-height: 80px;
+    word-break: break-all;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    text-shadow: 0 0 12px var(--accent-glow);
+  }
+  .received-display .new-char {
+    animation: flash 0.6s;
+  }
+  @keyframes flash {
+    0% { color: var(--accent-3); text-shadow: 0 0 25px var(--accent-3); transform: scale(1.2); display: inline-block; }
+    100% { color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); transform: scale(1); }
+  }
+  
+  .viz-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .viz-container canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .chip {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 11px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .chip:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(0, 245, 212, 0.05);
+  }
+  
+  .title-main {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 46px);
+    letter-spacing: 0.08em;
+    background: linear-gradient(135deg, var(--accent) 0%, #00d9b8 40%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+  }
+  
+  .receiving-glow {
+    box-shadow: 0 0 30px var(--accent-2-glow), inset 0 0 30px rgba(255, 0, 110, 0.08);
+    border-color: var(--accent-2) !important;
+  }
+  
+  .freq-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-height: 70px;
+    overflow-y: auto;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .freq-token {
+    padding: 2px 6px;
+    background: rgba(0, 245, 212, 0.08);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .freq-token .freq {
+    color: var(--muted);
+    margin-left: 4px;
+    font-size: 10px;
+    font-weight: 400;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 245, 212, 0.1);
+    overflow: hidden;
+    transition: opacity 0.3s;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-3));
+    box-shadow: 0 0 10px var(--accent-glow);
+    transition: width 0.1s linear;
+  }
+  
+  .header-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.4;
+  }
+  
+  .corner-deco {
+    position: absolute;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    opacity: 0.4;
+  }
+  
+  @media (max-width: 1024px) {
+    .main-grid { grid-template-columns: 1fr !important; }
+    .bottom-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
+</head>
+<body>
+<div class="relative z-10 max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8">
+  
+  <header class="mb-6">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-3">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-2.5 h-2.5 rounded-full bg-[var(--accent)]" style="box-shadow: 0 0 12px var(--accent-glow);"></div>
+          <span class="text-xs text-[var(--muted)] tracking-[0.3em]">PROTOCOL v1.0 · CLIENT-SIDE</span>
+        </div>
+        <h1 class="title-main">ACOUSTIC LINK</h1>
+        <p class="text-sm text-[var(--muted)] mt-2 max-w-xl leading-relaxed">
+          Transmit and receive data through sound. Text is encoded as audio frequencies, 
+          played through speakers, and decoded from microphone input in real-time.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="status-badge">
+          <span class="status-dot idle" id="status-dot"></span>
+          <span id="status-text">IDLE</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-line"></div>
+  </header>
+  
+  <div class="main-grid grid grid-cols-1 lg:grid-cols-[1fr_1.4fr_1fr] gap-4 mb-4">
+    
+    <section class="panel panel-bracketed scanlines p-5 flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="display text-sm font-bold text-[var(--accent)]">TRANSMIT</h2>
+        <span class="text-xs text-[var(--muted)]" id="char-count">0 / 100</span>
+      </div>
+      
+      <textarea 
+        id="message-input"
+        class="term-input flex-1 mb-3"
+        rows="4"
+        placeholder="Type message to transmit..."
+        maxlength="100">HELLO WORLD</textarea>
+      
+      <div class="mb-3">
+        <div class="text-xs text-[var(--muted)] mb-1 tracking-wider">FREQUENCY ENCODING</div>
+        <div class="freq-preview" id="freq-preview"></div>
+      </div>
+      
+      <div class="progress-bar mb-3" id="progress-container" style="opacity: 0;">
+        <div class="progress-bar-fill" id="progress-fill" style="width: 0%;"></div>
+      </div>
+      
+      <button id="send-btn" class="btn-primary w-full">
+        ▶ TRANSMIT
+      </button>
+      
+      <div class="mt-3 flex flex-wrap">
+        <span class="chip" data-example="HELLO WORLD">HELLO WORLD</span>
+        <span class="chip" data-example="TEST 123">TEST 123</span>
+        <span class="chip" data-example="SOUND PROTOCOL">SOUND PROTOCOL</span>
+        <span class="chip" data-example="OVER AND OUT">OVER AND OUT</span>
+      </div>
+    </section>
+    
+    <section class="panel panel-bracketed scanlines p-5 flex flex-col items-center justify-center">
+      <div class="w-full flex items-center justify-between mb-3">
+        <h2 class="display text-sm font-bold text-[var(--accent)]">SPECTRUM</h2>
+        <div class="text-xs text-[var(--muted)] font-mono" id="viz-info">— Hz</div>
+      </div>
+      
+      <div class="viz-container">
+        <canvas id="viz-canvas" width="520" height="520"></canvas>
+      </div>
+      
+      <div class="w-full mt-3 grid grid-cols-3 gap-2 text-center">
+        <div>
+          <div class="text-[10px] text-[var(--muted)] tracking-wider">DOMINANT</div>
+          <div class="text-sm font-mono text-[var(--accent)] font-bold" id="dom-freq">— Hz</div>
+        </div>
+        <div>
+          <div class="text-[10px] text-[var(--muted)] tracking-wider">SYMBOL</div>
+          <div class="text-sm font-mono text-[var(--accent-3)] font-bold" id="dom-symbol">—</div>
+        </div>
+        <div>
+          <div class="text-[10px] text-[var(--muted)] tracking-wider">AMPLITUDE</div>
+          <div class="text-sm font-mono text-[var(--accent-2)] font-bold" id="dom-amp">—</div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="panel panel-bracketed scanlines p-5 flex flex-col" id="receive-panel">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="display text-sm font-bold text-[var(--accent)]">RECEIVE</h2>
+        <button id="clear-btn" class="text-xs text-[var(--muted)] hover:text-[var(--accent)] transition tracking-wider">CLEAR</button>
+      </div>
+      
+      <div class="mb-4">
+        <div class="text-xs text-[var(--muted)] mb-1 tracking-wider">DECODED MESSAGE</div>
+        <div class="received-display" id="received-display">[awaiting transmission...]</div>
+      </div>
+      
+      <div class="flex-1 flex flex-col min-h-0">
+        <div class="text-xs text-[var(--muted)] mb-1 tracking-wider">ACTIVITY LOG</div>
+        <div class="flex-1 overflow-y-auto" id="log-output" style="max-height: 200px; min-height: 120px;">
+        </div>
+      </div>
+    </section>
+    
+  </div>
+  
+  <div class="bottom-grid grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-4">
+    
+    <div class="panel panel-bracketed p-4 flex items-center gap-4">
+      <button id="listen-btn" class="btn-secondary">
+        ◉ ACTIVATE MIC
+      </button>
+      <div class="text-xs text-[var(--muted)] leading-relaxed">
+        <div>Start listening for acoustic signals</div>
+        <div class="text-[10px] mt-1 opacity-70">Requires microphone permission · Tip: transmit & listen simultaneously to test loopback</div>
+      </div>
+    </div>
+    
+    <div class="panel panel-bracketed p-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs text-[var(--muted)] tracking-wider">CHARACTER → FREQUENCY MAP</span>
+        <span class="text-[10px] text-[var(--muted)]">1000–3000 Hz · 50 Hz spacing · SIG: 3500/4000/4500 Hz</span>
+      </div>
+      <div class="flex flex-wrap gap-1" id="char-map"></div>
+    </div>
+    
+  </div>
+  
+  <footer class="mt-6 pt-4 border-t border-[var(--border)] text-xs text-[var(--muted)] flex flex-wrap justify-between gap-2">
+    <div>ACOUSTIC LINK · Client-side sound data transmission</div>
+    <div>FFT 2048 in · 4096 out · 50Hz spacing · 120ms tones · Start/End signatures</div>
+  </footer>
+  
+</div>
+
+<script>
+// ============================================================
+// CONSTANTS
+// ============================================================
+const CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,?!";
+const BASE_FREQ = 1000;
+const FREQ_SPACING = 50;
+const TONE_DURATION = 0.12;
+const TONE_GAP = 0.04;
+const SIG_TONE_DURATION = 0.09;
+const SIG_TONE_GAP = 0.03;
+const START_SIG = [3500, 4000, 4500];
+const END_SIG = [4500, 4000, 3500];
+const BASE_AMP_THRESHOLD = 35;
+const FREQ_TOLERANCE = 28;
+const MIN_SYMBOL_DURATION = 45;
+const RECEIVE_TIMEOUT = 2000;
+const MAX_MSG_LENGTH = 100;
+
+// ============================================================
+// STATE
+// ============================================================
+let audioContext = null;
+let outputAnalyser = null;
+let inputAnalyser = null;
+let activeAnalyser = null;
+let mediaStream = null;
+
+let isListening = false;
+let isTransmitting = false;
+let transmitStartTime = 0;
+let transmitTotalDuration = 0;
+let transmitChars = [];
+
+let receiverState = 'idle';
+let receivedText = '';
+let symbolBuffer = [];
+let currentSymbol = null;
+let symbolStartTime = 0;
+let lastActivityTime = 0;
+
+let ampThreshold = BASE_AMP_THRESHOLD;
+let micStarting = false;
+
+let particles = [];
+let freqData = null;
+let timeData = null;
+
+let idleAnimTime = 0;
+
+// ============================================================
+// DOM REFERENCES
+// ============================================================
+const $ = (id) => document.getElementById(id);
+const messageInput = $('message-input');
+const sendBtn = $('send-btn');
+const listenBtn = $('listen-btn');
+const clearBtn = $('clear-btn');
+const receivedDisplay = $('received-display');
+const logOutput = $('log-output');
+const statusDot = $('status-dot');
+const statusText = $('status-text');
+const charCount = $('char-count');
+const freqPreview = $('freq-preview');
+const progressContainer = $('progress-container');
+const progressFill = $('progress-fill');
+const vizCanvas = $('viz-canvas');
+const vizCtx = vizCanvas.getContext('2d');
+const vizInfo = $('viz-info');
+const domFreq = $('dom-freq');
+const domSymbol = $('dom-symbol');
+const domAmp = $('dom-amp');
+const charMap = $('char-map');
+const receivePanel = $('receive-panel');
+
+// ============================================================
+// AUDIO INITIALIZATION
+// ============================================================
+function initAudio() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    outputAnalyser = audioContext.createAnalyser();
+    outputAnalyser.fftSize = 4096;
+    outputAnalyser.smoothingTimeConstant = 0.4;
+    outputAnalyser.connect(audioContext.destination);
+    activeAnalyser = outputAnalyser;
+    freqData = new Uint8Array(outputAnalyser.frequencyBinCount);
+    timeData = new Uint8Array(outputAnalyser.frequencyBinCount);
+  }
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+}
+
+// ============================================================
+// SEND
+// ============================================================
+function scheduleTone(freq, startTime, duration) {
+  const osc = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  
+  gain.gain.setValueAtTime(0, startTime);
+  gain.gain.linearRampToValueAtTime(0.3, startTime + 0.008);
+  gain.gain.setValueAtTime(0.3, startTime + duration - 0.015);
+  gain.gain.linearRampToValueAtTime(0, startTime + duration);
+  
+  osc.connect(gain).connect(outputAnalyser);
+  osc.start(startTime);
+  osc.stop(startTime + duration + 0.01);
+}
+
+function sendMessage() {
+  if (isTransmitting) return;
+  
+  initAudio();
+  
+  const text = messageInput.value.toUpperCase();
+  if (!text.trim()) {
+    log('ERROR: Empty message', 'error');
+    return;
+  }
+  
+  isTransmitting = true;
+  sendBtn.disabled = true;
+  sendBtn.textContent = '◉ TRANSMITTING...';
+  updateStatus('TRANSMITTING');
+  log(`Transmission started: "${text}"`);
+  
+  transmitChars = [];
+  for (const ch of text) {
+    if (CHAR_SET.includes(ch)) transmitChars.push(ch);
+  }
+  
+  const ctx = audioContext;
+  let t = ctx.currentTime + 0.15;
+  transmitStartTime = t;
+  
+  // Start signature
+  for (const f of START_SIG) {
+    scheduleTone(f, t, SIG_TONE_DURATION);
+    t += SIG_TONE_DURATION + SIG_TONE_GAP;
+  }
+  
+  // Message characters
+  for (let i = 0; i < transmitChars.length; i++) {
+    const ch = transmitChars[i];
+    const idx = CHAR_SET.indexOf(ch);
+    const f = BASE_FREQ + idx * FREQ_SPACING;
+    scheduleTone(f, t, TONE_DURATION);
+    t += TONE_DURATION + TONE_GAP;
+  }
+  
+  // End signature
+  for (const f of END_SIG) {
+    scheduleTone(f, t, SIG_TONE_DURATION);
+    t += SIG_TONE_DURATION + SIG_TONE_GAP;
+  }
+  
+  transmitTotalDuration = (t - transmitStartTime) * 1000;
+  progressContainer.style.opacity = '1';
+  
+  // Schedule character highlighting
+  let charTime = transmitStartTime + (START_SIG.length * (SIG_TONE_DURATION + SIG_TONE_GAP));
+  for (let i = 0; i < transmitChars.length; i++) {
+    const delay = (charTime - ctx.currentTime) * 1000;
+    setTimeout(() => {
+      if (!isTransmitting) return;
+      highlightCharInMap(transmitChars[i]);
+      spawnParticles(transmitChars[i], 'send');
+    }, Math.max(0, delay));
+    charTime += TONE_DURATION + TONE_GAP;
+  }
+  
+  // End
+  setTimeout(() => {
+    isTransmitting = false;
+    sendBtn.disabled = false;
+    sendBtn.textContent = '▶ TRANSMIT';
+    progressContainer.style.opacity = '0';
+    progressFill.style.width = '0%';
+    updateStatus(isListening ? 'LISTENING' : 'IDLE');
+    log(`Transmission complete (${transmitChars.length} chars)`);
+    highlightCharInMap(null);
+  }, (t - ctx.currentTime) * 1000 + 100);
+  
+  // Progress animation
+  const updateProgress = () => {
+    if (!isTransmitting) return;
+    const elapsed = (audioContext.currentTime - transmitStartTime) * 1000;
+    const pct = Math.min(100, Math.max(0, (elapsed / transmitTotalDuration) * 100));
+    progressFill.style.width = pct + '%';
+    requestAnimationFrame(updateProgress);
+  };
+  updateProgress();
+}
+
+// ============================================================
+// RECEIVE
+// ============================================================
+async function toggleListening() {
+  if (micStarting) return;
+  if (isListening) {
+    stopListening();
+  } else {
+    micStarting = true;
+    try {
+      await startListening();
+    } finally {
+      micStarting = false;
+    }
+  }
+}
+
+async function startListening() {
+  if (isListening) return;
+  try {
+    initAudio();
+    mediaStream = await navigator.mediaDevices.getUserMedia({ 
+      audio: { 
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: false
+      } 
+    });
+    
+    const source = audioContext.createMediaStreamSource(mediaStream);
+    inputAnalyser = audioContext.createAnalyser();
+    // 2048-point FFT (~46ms window at 44.1kHz) — shorter than the 40ms tone gap,
+    // so silence between repeated characters actually registers. Zero smoothing
+    // so detection sees raw frames (the FFT window already averages).
+    inputAnalyser.fftSize = 2048;
+    inputAnalyser.smoothingTimeConstant = 0;
+    source.connect(inputAnalyser);
+    
+    isListening = true;
+    activeAnalyser = inputAnalyser;
+    freqData = new Uint8Array(inputAnalyser.frequencyBinCount);
+    timeData = new Uint8Array(inputAnalyser.frequencyBinCount);
+    
+    receiverState = 'idle';
+    receivedText = '';
+    symbolBuffer = [];
+    currentSymbol = null;
+    
+    updateStatus('LISTENING');
+    listenBtn.textContent = '○ DEACTIVATE MIC';
+    listenBtn.classList.add('active');
+    log('Microphone activated · calibrating noise floor...');
+
+    // Calibrate the detection threshold against ambient noise (skipped while
+    // transmitting so our own tones don't inflate the noise floor).
+    if (!isTransmitting) {
+      const noiseFloor = await calibrateNoiseFloor();
+      ampThreshold = Math.max(BASE_AMP_THRESHOLD, Math.round(noiseFloor * 1.2));
+      log(`Noise floor ${Math.round(noiseFloor)} → detection threshold ${ampThreshold}`);
+    } else {
+      ampThreshold = BASE_AMP_THRESHOLD;
+    }
+
+    updateReceivedDisplay();
+  } catch (e) {
+    log(`ERROR: ${e.message}`, 'error');
+    console.error(e);
+  }
+}
+
+function stopListening() {
+  if (mediaStream) {
+    mediaStream.getTracks().forEach(t => t.stop());
+    mediaStream = null;
+  }
+  isListening = false;
+  activeAnalyser = outputAnalyser;
+  if (outputAnalyser) {
+    freqData = new Uint8Array(outputAnalyser.frequencyBinCount);
+    timeData = new Uint8Array(outputAnalyser.frequencyBinCount);
+  }
+  receiverState = 'idle';
+  receivePanel.classList.remove('receiving-glow');
+  
+  updateStatus(isTransmitting ? 'TRANSMITTING' : 'IDLE');
+  listenBtn.textContent = '◉ ACTIVATE MIC';
+  listenBtn.classList.remove('active');
+  log('Microphone deactivated');
+}
+
+// ============================================================
+// DECODING
+// ============================================================
+function calibrateNoiseFloor() {
+  return new Promise((resolve) => {
+    const calFreq = new Uint8Array(inputAnalyser.frequencyBinCount);
+    const binWidth = audioContext.sampleRate / inputAnalyser.fftSize;
+    const minBin = Math.floor(800 / binWidth);
+    const maxBin = Math.floor(5000 / binWidth);
+    let peak = 0;
+    let samples = 0;
+    const timer = setInterval(() => {
+      inputAnalyser.getByteFrequencyData(calFreq);
+      for (let i = minBin; i <= maxBin; i++) {
+        if (calFreq[i] > peak) peak = calFreq[i];
+      }
+      if (++samples >= 15) { // ~500ms at 33ms interval
+        clearInterval(timer);
+        resolve(peak);
+      }
+    }, 33);
+  });
+}
+
+function identifySymbol(freq) {
+  if (Math.abs(freq - 3500) < FREQ_TOLERANCE) return 'S1';
+  if (Math.abs(freq - 4000) < FREQ_TOLERANCE) return 'S2';
+  if (Math.abs(freq - 4500) < FREQ_TOLERANCE) return 'S3';
+  
+  const idx = Math.round((freq - BASE_FREQ) / FREQ_SPACING);
+  if (idx >= 0 && idx < CHAR_SET.length) {
+    const expectedFreq = BASE_FREQ + idx * FREQ_SPACING;
+    if (Math.abs(freq - expectedFreq) < FREQ_TOLERANCE) {
+      return CHAR_SET[idx];
+    }
+  }
+  return null;
+}
+
+function processAudioFrame(freq, amp) {
+  const now = performance.now();
+  
+  if (amp < ampThreshold) {
+    if (currentSymbol) {
+      const duration = now - symbolStartTime;
+      if (duration >= MIN_SYMBOL_DURATION) {
+        handleSymbol(currentSymbol);
+        lastActivityTime = now;
+      }
+      currentSymbol = null;
+    }
+    // Recovery: if the signal died mid-message, don't stay stuck in RECEIVING
+    if (receiverState === 'receiving' && now - lastActivityTime > RECEIVE_TIMEOUT) {
+      abortReceiving();
+    }
+    return;
+  }
+  
+  const symbol = identifySymbol(freq);
+  
+  if (symbol !== currentSymbol) {
+    if (currentSymbol) {
+      const duration = now - symbolStartTime;
+      if (duration >= MIN_SYMBOL_DURATION) {
+        handleSymbol(currentSymbol);
+      }
+    }
+    currentSymbol = symbol;
+    symbolStartTime = now;
+  }
+}
+
+function handleSymbol(symbol) {
+  if (!symbol) return;
+  
+  lastActivityTime = performance.now();
+  symbolBuffer.push(symbol);
+  if (symbolBuffer.length > 8) symbolBuffer.shift();
+  
+  if (receiverState === 'idle') {
+    const last3 = symbolBuffer.slice(-3);
+    if (last3.length === 3 && last3[0] === 'S1' && last3[1] === 'S2' && last3[2] === 'S3') {
+      receiverState = 'receiving';
+      receivedText = '';
+      log('▸ Start signature detected', 'success');
+      updateStatus('RECEIVING');
+      receivePanel.classList.add('receiving-glow');
+      updateReceivedDisplay();
+      spawnParticles('START', 'receive-start');
+    }
+  } else if (receiverState === 'receiving') {
+    const last3 = symbolBuffer.slice(-3);
+    if (last3.length === 3 && last3[0] === 'S3' && last3[1] === 'S2' && last3[2] === 'S1') {
+      receiverState = 'idle';
+      log(`◂ End signature · Message: "${receivedText}"`, 'success');
+      updateStatus('LISTENING');
+      receivePanel.classList.remove('receiving-glow');
+      spawnParticles('END', 'receive-end');
+    } else if (CHAR_SET.includes(symbol)) {
+      receivedText += symbol;
+      updateReceivedDisplay(true);
+      spawnParticles(symbol, 'receive');
+    }
+  }
+}
+
+function abortReceiving() {
+  receiverState = 'idle';
+  receivePanel.classList.remove('receiving-glow');
+  updateStatus('LISTENING');
+  log(`⚠ Transmission interrupted after ${receivedText.length} chars — reset to idle`, 'error');
+  updateReceivedDisplay();
+}
+
+function updateReceivedDisplay(flash = false) {
+  if (receivedText) {
+    if (flash) {
+      const lastChar = receivedText.slice(-1);
+      const rest = receivedText.slice(0, -1);
+      receivedDisplay.innerHTML = `${escapeHtml(rest)}<span class="new-char">${escapeHtml(lastChar)}</span>`;
+    } else {
+      receivedDisplay.textContent = receivedText;
+    }
+  } else {
+    receivedDisplay.textContent = '[awaiting transmission...]';
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============================================================
+// VISUALIZATION
+// ============================================================
+function drawVisualization(dominantFreq, amplitude) {
+  const w = vizCanvas.width;
+  const h = vizCanvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+  
+  // Fade trail
+  vizCtx.fillStyle = 'rgba(6, 9, 18, 0.22)';
+  vizCtx.fillRect(0, 0, w, h);
+  
+  // Background glow
+  const bgGrad = vizCtx.createRadialGradient(cx, cy, 0, cx, cy, w * 0.5);
+  bgGrad.addColorStop(0, 'rgba(0, 245, 212, 0.05)');
+  bgGrad.addColorStop(0.7, 'rgba(0, 0, 0, 0)');
+  vizCtx.fillStyle = bgGrad;
+  vizCtx.fillRect(0, 0, w, h);
+  
+  drawCommonElements(cx, cy, w, h, dominantFreq, amplitude, true);
+}
+
+function drawIdleVisualization() {
+  const w = vizCanvas.width;
+  const h = vizCanvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+  
+  idleAnimTime += 0.016;
+  
+  vizCtx.fillStyle = 'rgba(6, 9, 18, 0.15)';
+  vizCtx.fillRect(0, 0, w, h);
+  
+  const bgGrad = vizCtx.createRadialGradient(cx, cy, 0, cx, cy, w * 0.5);
+  bgGrad.addColorStop(0, 'rgba(0, 245, 212, 0.04)');
+  bgGrad.addColorStop(0.7, 'rgba(0, 0, 0, 0)');
+  vizCtx.fillStyle = bgGrad;
+  vizCtx.fillRect(0, 0, w, h);
+  
+  drawCommonElements(cx, cy, w, h, 0, 0, false);
+  
+  // Idle ambient waves
+  const baseRadius = Math.min(w, h) * 0.22;
+  for (let i = 0; i < 3; i++) {
+    const r = baseRadius + 30 + i * 25 + Math.sin(idleAnimTime + i) * 8;
+    vizCtx.strokeStyle = `rgba(0, 245, 212, ${0.08 - i * 0.02})`;
+    vizCtx.lineWidth = 1;
+    vizCtx.beginPath();
+    vizCtx.arc(cx, cy, r, 0, Math.PI * 2);
+    vizCtx.stroke();
+  }
+}
+
+function drawCommonElements(cx, cy, w, h, dominantFreq, amplitude, isActive) {
+  // Concentric guide circles
+  for (let r = 60; r < w * 0.45; r += 50) {
+    vizCtx.strokeStyle = `rgba(0, 245, 212, ${0.04 + (r / w) * 0.04})`;
+    vizCtx.lineWidth = 1;
+    vizCtx.beginPath();
+    vizCtx.arc(cx, cy, r, 0, Math.PI * 2);
+    vizCtx.stroke();
+  }
+  
+  // Crosshair
+  vizCtx.strokeStyle = 'rgba(0, 245, 212, 0.05)';
+  vizCtx.lineWidth = 1;
+  vizCtx.beginPath();
+  vizCtx.moveTo(0, cy); vizCtx.lineTo(w, cy);
+  vizCtx.moveTo(cx, 0); vizCtx.lineTo(cx, h);
+  vizCtx.stroke();
+  
+  const baseRadius = Math.max(40, Math.min(w, h) * 0.22);
+  const maxBarLen = Math.min(w, h) * 0.22;
+  
+  // Frequency spectrum bars (circular)
+  if (isActive && freqData) {
+    const numBars = 180;
+    const sampleRate = audioContext.sampleRate;
+    const binWidth = sampleRate / activeAnalyser.fftSize;
+    const minBin = Math.floor(800 / binWidth);
+    const maxBin = Math.floor(5000 / binWidth);
+    const binRange = maxBin - minBin;
+    
+    for (let i = 0; i < numBars; i++) {
+      const angle = (i / numBars) * Math.PI * 2 - Math.PI / 2;
+      const dataIdx = minBin + Math.floor((i / numBars) * binRange);
+      const value = freqData[dataIdx] / 255;
+      
+      const barLen = Math.max(0, value * maxBarLen);
+      const x1 = cx + Math.cos(angle) * baseRadius;
+      const y1 = cy + Math.sin(angle) * baseRadius;
+      const x2 = cx + Math.cos(angle) * (baseRadius + barLen);
+      const y2 = cy + Math.sin(angle) * (baseRadius + barLen);
+      
+      const freq = dataIdx * binWidth;
+      let r, g, b;
+      if (freq >= 3400 && freq <= 4600) {
+        r = 255; g = 0; b = 110;
+      } else if (freq >= 1000 && freq <= 3000) {
+        r = 0; g = 245; b = 212;
+      } else {
+        r = 255; g = 190; b = 11;
+      }
+      const alpha = 0.35 + value * 0.65;
+      
+      vizCtx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      vizCtx.lineWidth = 2.2;
+      vizCtx.lineCap = 'round';
+      vizCtx.beginPath();
+      vizCtx.moveTo(x1, y1);
+      vizCtx.lineTo(x2, y2);
+      vizCtx.stroke();
+      
+      // Glow for strong signals
+      if (value > 0.45) {
+        vizCtx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${value * 0.25})`;
+        vizCtx.lineWidth = 6;
+        vizCtx.beginPath();
+        vizCtx.moveTo(x1, y1);
+        vizCtx.lineTo(x2, y2);
+        vizCtx.stroke();
+      }
+    }
+  } else {
+    // Idle: draw faint static bars
+    const numBars = 120;
+    for (let i = 0; i < numBars; i++) {
+      const angle = (i / numBars) * Math.PI * 2 - Math.PI / 2;
+      const noise = Math.sin(idleAnimTime * 0.5 + i * 0.3) * 0.5 + 0.5;
+      const barLen = noise * 8 + 4;
+      const x1 = cx + Math.cos(angle) * baseRadius;
+      const y1 = cy + Math.sin(angle) * baseRadius;
+      const x2 = cx + Math.cos(angle) * (baseRadius + barLen);
+      const y2 = cy + Math.sin(angle) * (baseRadius + barLen);
+      vizCtx.strokeStyle = `rgba(0, 245, 212, ${0.1 + noise * 0.1})`;
+      vizCtx.lineWidth = 1.5;
+      vizCtx.beginPath();
+      vizCtx.moveTo(x1, y1);
+      vizCtx.lineTo(x2, y2);
+      vizCtx.stroke();
+    }
+  }
+  
+  // Base circle
+  vizCtx.strokeStyle = receiverState === 'receiving' 
+    ? 'rgba(255, 0, 110, 0.4)' 
+    : 'rgba(0, 245, 212, 0.3)';
+  vizCtx.lineWidth = 1;
+  vizCtx.beginPath();
+  vizCtx.arc(cx, cy, baseRadius, 0, Math.PI * 2);
+  vizCtx.stroke();
+  
+  // Waveform (time domain) - wavy circle
+  if (isActive && timeData) {
+    vizCtx.strokeStyle = receiverState === 'receiving' 
+      ? 'rgba(255, 0, 110, 0.75)' 
+      : 'rgba(0, 245, 212, 0.75)';
+    vizCtx.lineWidth = 1.5;
+    vizCtx.beginPath();
+    const waveRadius = baseRadius * 0.6;
+    const wavePoints = 128;
+    for (let i = 0; i <= wavePoints; i++) {
+      const t = i / wavePoints;
+      const angle = t * Math.PI * 2 - Math.PI / 2;
+      const dataIdx = Math.floor(t * timeData.length);
+      const v = (timeData[dataIdx] - 128) / 128;
+      const r = Math.max(10, waveRadius + v * 28);
+      const x = cx + Math.cos(angle) * r;
+      const y = cy + Math.sin(angle) * r;
+      if (i === 0) vizCtx.moveTo(x, y);
+      else vizCtx.lineTo(x, y);
+    }
+    vizCtx.closePath();
+    vizCtx.stroke();
+  } else {
+    // Idle wave
+    vizCtx.strokeStyle = 'rgba(0, 245, 212, 0.3)';
+    vizCtx.lineWidth = 1;
+    vizCtx.beginPath();
+    const waveRadius = baseRadius * 0.6;
+    const wavePoints = 64;
+    for (let i = 0; i <= wavePoints; i++) {
+      const t = i / wavePoints;
+      const angle = t * Math.PI * 2 - Math.PI / 2;
+      const v = Math.sin(idleAnimTime * 2 + t * Math.PI * 4) * 0.15;
+      const r = Math.max(10, waveRadius + v * 28);
+      const x = cx + Math.cos(angle) * r;
+      const y = cy + Math.sin(angle) * r;
+      if (i === 0) vizCtx.moveTo(x, y);
+      else vizCtx.lineTo(x, y);
+    }
+    vizCtx.closePath();
+    vizCtx.stroke();
+  }
+  
+  // Sweep line (radar)
+  const sweepAngle = (performance.now() / 3000) * Math.PI * 2;
+  const sweepLen = baseRadius + maxBarLen + 10;
+  const sweepGrad = vizCtx.createLinearGradient(
+    cx, cy,
+    cx + Math.cos(sweepAngle) * sweepLen,
+    cy + Math.sin(sweepAngle) * sweepLen
+  );
+  sweepGrad.addColorStop(0, 'rgba(0, 245, 212, 0.25)');
+  sweepGrad.addColorStop(1, 'rgba(0, 245, 212, 0)');
+  vizCtx.strokeStyle = sweepGrad;
+  vizCtx.lineWidth = 2;
+  vizCtx.beginPath();
+  vizCtx.moveTo(cx, cy);
+  vizCtx.lineTo(
+    cx + Math.cos(sweepAngle) * sweepLen,
+    cy + Math.sin(sweepAngle) * sweepLen
+  );
+  vizCtx.stroke();
+  
+  // Frequency labels around circle
+  const labels = [
+    { freq: '1k', angle: -Math.PI / 2 },
+    { freq: '2k', angle: 0 },
+    { freq: '3k', angle: Math.PI / 2 },
+    { freq: '4k', angle: Math.PI }
+  ];
+  vizCtx.font = '9px "JetBrains Mono"';
+  vizCtx.textAlign = 'center';
+  vizCtx.textBaseline = 'middle';
+  labels.forEach(({ freq, angle }) => {
+    const r = baseRadius + maxBarLen + 18;
+    const x = cx + Math.cos(angle) * r;
+    const y = cy + Math.sin(angle) * r;
+    vizCtx.fillStyle = 'rgba(107, 122, 153, 0.6)';
+    vizCtx.fillText(freq, x, y);
+  });
+  
+  // Center display
+  const pulseR = Math.max(30, 48 + Math.sin(performance.now() / 350) * 3);
+  
+  // Outer pulse ring
+  vizCtx.strokeStyle = amplitude > ampThreshold 
+    ? `rgba(255, 190, 11, ${0.3 + (amplitude / 255) * 0.5})` 
+    : 'rgba(0, 245, 212, 0.2)';
+  vizCtx.lineWidth = 1;
+  vizCtx.beginPath();
+  vizCtx.arc(cx, cy, pulseR, 0, Math.PI * 2);
+  vizCtx.stroke();
+  
+  // Inner dark circle
+  vizCtx.fillStyle = 'rgba(6, 9, 18, 0.85)';
+  vizCtx.beginPath();
+  vizCtx.arc(cx, cy, 42, 0, Math.PI * 2);
+  vizCtx.fill();
+  
+  vizCtx.strokeStyle = receiverState === 'receiving' 
+    ? 'rgba(255, 0, 110, 0.5)' 
+    : 'rgba(0, 245, 212, 0.4)';
+  vizCtx.lineWidth = 1;
+  vizCtx.beginPath();
+  vizCtx.arc(cx, cy, 42, 0, Math.PI * 2);
+  vizCtx.stroke();
+  
+  // Center content
+  if (isActive && amplitude > ampThreshold) {
+    const symbol = identifySymbol(dominantFreq);
+    
+    let displaySymbol = symbol;
+    if (symbol === 'S1') displaySymbol = '◇';
+    else if (symbol === 'S2') displaySymbol = '◆';
+    else if (symbol === 'S3') displaySymbol = '◈';
+    else if (symbol === ' ') displaySymbol = '␣';
+    
+    vizCtx.fillStyle = '#ffbe0b';
+    vizCtx.font = '700 22px "JetBrains Mono"';
+    vizCtx.textAlign = 'center';
+    vizCtx.textBaseline = 'middle';
+    vizCtx.fillText(displaySymbol || '?', cx, cy - 8);
+    
+    vizCtx.fillStyle = 'rgba(0, 245, 212, 0.8)';
+    vizCtx.font = '600 10px "JetBrains Mono"';
+    vizCtx.fillText(`${Math.round(dominantFreq)}Hz`, cx, cy + 9);
+    vizCtx.fillStyle = 'rgba(255, 0, 110, 0.7)';
+    vizCtx.font = '9px "JetBrains Mono"';
+    vizCtx.fillText(`amp ${amplitude}`, cx, cy + 21);
+  } else {
+    vizCtx.fillStyle = 'rgba(107, 122, 153, 0.6)';
+    vizCtx.font = '11px "JetBrains Mono"';
+    vizCtx.textAlign = 'center';
+    vizCtx.textBaseline = 'middle';
+    vizCtx.fillText(isActive ? '— SILENT —' : '— STANDBY —', cx, cy);
+  }
+  
+  // State indicator at top
+  vizCtx.font = '600 11px "Orbitron"';
+  vizCtx.textAlign = 'center';
+  vizCtx.textBaseline = 'top';
+  if (receiverState === 'receiving') {
+    vizCtx.fillStyle = 'rgba(255, 0, 110, 0.95)';
+    vizCtx.fillText('◀ RECEIVING', cx, 18);
+  } else if (isTransmitting) {
+    vizCtx.fillStyle = 'rgba(255, 190, 11, 0.95)';
+    vizCtx.fillText('▶ TRANSMITTING', cx, 18);
+  } else if (isListening) {
+    vizCtx.fillStyle = 'rgba(0, 245, 212, 0.8)';
+    vizCtx.fillText('◉ LISTENING', cx, 18);
+  } else {
+    vizCtx.fillStyle = 'rgba(107, 122, 153, 0.7)';
+    vizCtx.fillText('○ STANDBY', cx, 18);
+  }
+  
+  // Update particles
+  updateParticles();
+}
+
+// ============================================================
+// PARTICLES
+// ============================================================
+function spawnParticles(symbol, type) {
+  const cx = vizCanvas.width / 2;
+  const cy = vizCanvas.height / 2;
+  const count = (type === 'receive-start' || type === 'receive-end') ? 35 : 10;
+  
+  let color;
+  if (type === 'send') color = '255, 190, 11';
+  else if (type === 'receive') color = '0, 245, 212';
+  else if (type === 'receive-start') color = '255, 0, 110';
+  else if (type === 'receive-end') color = '255, 190, 11';
+  else color = '0, 245, 212';
+  
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 1.5 + Math.random() * 3.5;
+    particles.push({
+      x: cx, y: cy,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 1,
+      decay: 0.012 + Math.random() * 0.012,
+      size: 1.5 + Math.random() * 2.5,
+      color: color
+    });
+  }
+  
+  // Limit particles
+  if (particles.length > 300) {
+    particles = particles.slice(-300);
+  }
+}
+
+function updateParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life -= p.decay;
+    p.vx *= 0.97;
+    p.vy *= 0.97;
+    
+    if (p.life <= 0) {
+      particles.splice(i, 1);
+      continue;
+    }
+    
+    const r = Math.max(0.1, p.size * p.life);
+    
+    // Glow
+    vizCtx.fillStyle = `rgba(${p.color}, ${p.life * 0.25})`;
+    vizCtx.beginPath();
+    vizCtx.arc(p.x, p.y, r * 3.5, 0, Math.PI * 2);
+    vizCtx.fill();
+    
+    // Core
+    vizCtx.fillStyle = `rgba(${p.color}, ${p.life})`;
+    vizCtx.beginPath();
+    vizCtx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    vizCtx.fill();
+  }
+}
+
+// ============================================================
+// UI HELPERS
+// ============================================================
+function updateStatus(status) {
+  statusText.textContent = status;
+  statusDot.className = 'status-dot';
+  if (status === 'IDLE') statusDot.classList.add('idle');
+  else if (status === 'LISTENING') statusDot.classList.add('listening');
+  else if (status === 'TRANSMITTING') statusDot.classList.add('transmitting');
+  else if (status === 'RECEIVING') statusDot.classList.add('receiving');
+}
+
+function log(msg, type = 'info') {
+  const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  let color = 'var(--fg)';
+  if (type === 'error') color = 'var(--accent-2)';
+  else if (type === 'success') color = 'var(--accent)';
+  entry.innerHTML = `<span class="time">${timestamp}</span> <span style="color: ${color}">${escapeHtml(msg)}</span>`;
+  logOutput.insertBefore(entry, logOutput.firstChild);
+  while (logOutput.children.length > 40) {
+    logOutput.removeChild(logOutput.lastChild);
+  }
+}
+
+function updateFreqPreview() {
+  const text = messageInput.value.toUpperCase();
+  freqPreview.innerHTML = '';
+  let count = 0;
+  for (const ch of text) {
+    const idx = CHAR_SET.indexOf(ch);
+    if (idx !== -1) {
+      const f = BASE_FREQ + idx * FREQ_SPACING;
+      const token = document.createElement('span');
+      token.className = 'freq-token';
+      const display = ch === ' ' ? '␣' : ch;
+      token.innerHTML = `${escapeHtml(display)}<span class="freq">${f}Hz</span>`;
+      freqPreview.appendChild(token);
+      count++;
+    }
+    if (count >= 24) {
+      const more = document.createElement('span');
+      more.style.cssText = 'color: var(--muted); font-size: 11px; padding: 2px 6px;';
+      more.textContent = '...';
+      freqPreview.appendChild(more);
+      break;
+    }
+  }
+  if (count === 0) {
+    freqPreview.innerHTML = '<span style="color: var(--muted); font-size: 11px; padding: 4px;">Type to see frequency encoding...</span>';
+  }
+}
+
+function buildCharMap() {
+  charMap.innerHTML = '';
+  for (const ch of CHAR_SET) {
+    const idx = CHAR_SET.indexOf(ch);
+    const f = BASE_FREQ + idx * FREQ_SPACING;
+    const cell = document.createElement('div');
+    cell.className = 'char-cell';
+    cell.dataset.char = ch;
+    cell.title = `${f} Hz`;
+    const display = ch === ' ' ? '␣' : ch;
+    cell.innerHTML = `<span>${escapeHtml(display)}</span><span class="freq">${f}</span>`;
+    charMap.appendChild(cell);
+  }
+  // Add signature markers
+  const sigInfo = [
+    { label: 'S1', freq: 3500 },
+    { label: 'S2', freq: 4000 },
+    { label: 'S3', freq: 4500 }
+  ];
+  sigInfo.forEach(({ label, freq }) => {
+    const cell = document.createElement('div');
+    cell.className = 'char-cell';
+    cell.style.borderColor = 'rgba(255, 0, 110, 0.3)';
+    cell.style.color = 'var(--accent-2)';
+    cell.title = `${freq} Hz (signature)`;
+    cell.innerHTML = `<span>${label}</span><span class="freq">${freq}</span>`;
+    charMap.appendChild(cell);
+  });
+}
+
+function highlightCharInMap(ch) {
+  document.querySelectorAll('.char-cell').forEach(c => c.classList.remove('active'));
+  if (ch) {
+    const cell = document.querySelector(`.char-cell[data-char="${CSS.escape(ch)}"]`);
+    if (cell) cell.classList.add('active');
+  }
+}
+
+function updateCharCount() {
+  const len = messageInput.value.length;
+  charCount.textContent = `${len} / ${MAX_MSG_LENGTH}`;
+  charCount.style.color = len > MAX_MSG_LENGTH * 0.8 ? 'var(--accent-3)' : 'var(--muted)';
+}
+
+// ============================================================
+// CANVAS RESIZE
+// ============================================================
+function resizeCanvas() {
+  const container = vizCanvas.parentElement;
+  const rect = container.getBoundingClientRect();
+  const size = Math.max(200, Math.min(rect.width, rect.height));
+  vizCanvas.width = size;
+  vizCanvas.height = size;
+}
+
+// ============================================================
+// MAIN LOOP
+// ============================================================
+function mainLoop() {
+  if (audioContext && activeAnalyser && freqData && timeData) {
+    activeAnalyser.getByteFrequencyData(freqData);
+    activeAnalyser.getByteTimeDomainData(timeData);
+    
+    const sampleRate = audioContext.sampleRate;
+    const binWidth = sampleRate / activeAnalyser.fftSize;
+    const minBin = Math.floor(800 / binWidth);
+    const maxBin = Math.floor(5000 / binWidth);
+    
+    let maxVal = 0;
+    let maxBinIdx = minBin;
+    for (let i = minBin; i <= maxBin; i++) {
+      if (freqData[i] > maxVal) {
+        maxVal = freqData[i];
+        maxBinIdx = i;
+      }
+    }
+    
+    const dominantFreq = maxBinIdx * binWidth;
+    
+    if (maxVal > ampThreshold) {
+      domFreq.textContent = `${Math.round(dominantFreq)} Hz`;
+      domAmp.textContent = maxVal;
+      const sym = identifySymbol(dominantFreq);
+      domSymbol.textContent = sym || '?';
+      vizInfo.textContent = `${Math.round(dominantFreq)} Hz · ${maxVal}`;
+    } else {
+      domFreq.textContent = '— Hz';
+      domAmp.textContent = '—';
+      domSymbol.textContent = '—';
+      vizInfo.textContent = 'silent';
+    }
+    
+    if (isListening) {
+      processAudioFrame(dominantFreq, maxVal);
+    }
+    
+    drawVisualization(dominantFreq, maxVal);
+  } else {
+    drawIdleVisualization();
+  }
+  
+  requestAnimationFrame(mainLoop);
+}
+
+// ============================================================
+// EVENT LISTENERS
+// ============================================================
+sendBtn.addEventListener('click', sendMessage);
+listenBtn.addEventListener('click', toggleListening);
+clearBtn.addEventListener('click', () => {
+  receivedText = '';
+  symbolBuffer = [];
+  receiverState = 'idle';
+  receivePanel.classList.remove('receiving-glow');
+  updateReceivedDisplay();
+  if (isListening) updateStatus('LISTENING');
+  else updateStatus(isTransmitting ? 'TRANSMITTING' : 'IDLE');
+  log('Received text cleared');
+});
+
+messageInput.addEventListener('input', () => {
+  updateCharCount();
+  updateFreqPreview();
+});
+
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    messageInput.value = chip.dataset.example;
+    updateCharCount();
+    updateFreqPreview();
+    messageInput.focus();
+  });
+});
+
+window.addEventListener('resize', resizeCanvas);
+
+// ============================================================
+// INIT
+// ============================================================
+buildCharMap();
+updateCharCount();
+updateFreqPreview();
+resizeCanvas();
+updateStatus('IDLE');
+log('System initialized');
+log('Ready to transmit or receive');
+
+// Start the visualization loop
+mainLoop();
+</script>
+</body>
+</html>

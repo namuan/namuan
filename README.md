@@ -73,6 +73,7 @@ for i in docs/*.html; do FNAME=`basename $i ".html"`; echo "[$FNAME](https://nam
 * [Architecture Diagrams](https://namuan.github.io/namuan/tools/arch-dsl.html)
 * [Chaikins Algorithm Demo](https://namuan.github.io/namuan/tools/chaikins_algorithm_demo.html)
 * [Peripheral Vision Test](https://namuan.github.io/namuan/tools/peripheral-vision-test.html)
+* [Sound Data Transmission](https://namuan.github.io/namuan/tools/sound-data-transmission.html)
 * [Image Stitch/CanvasCraft](https://namuan.github.io/CanvasCraft/)
 * [Canvas](https://namuan.github.io/namuan/tools/canvas.html)
 
