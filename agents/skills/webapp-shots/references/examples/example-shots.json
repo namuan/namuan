@@ -1,0 +1,15 @@
+{
+  "url": "http://localhost:5173",
+  "out": "/tmp/webapp-shots",
+  "viewport": { "width": 1440, "height": 900 },
+  "colorScheme": "light",
+  "settle": 300,
+  "shots": [
+    { "name": "01-home", "steps": [{ "wait": ".app" }], "fullPage": true },
+    { "name": "02-home-dark", "steps": [{ "wait": ".app" }], "colorScheme": "dark" },
+    { "name": "03-detail", "steps": [{ "click": ".book__row" }, { "wait": ".detail" }] },
+    { "name": "04-responsive", "steps": [{ "wait": ".app" }], "viewports": [390, 768] },
+    { "name": "05-hero-element", "steps": [{ "wait": ".hero" }], "element": ".hero", "padding": 16, "background": "#0b0f19" },
+    { "name": "06-iphone", "steps": [{ "wait": ".app" }], "device": "iPhone 13", "fullPage": true }
+  ]
+}

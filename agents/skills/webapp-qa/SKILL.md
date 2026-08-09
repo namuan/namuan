@@ -1,6 +1,6 @@
 ---
 name: webapp-qa
-description: Automated browser QA for any web project via reusable Playwright scripts — spec-driven end-to-end smoke tests, design-system audits (fonts/colors/overflow/template-brace artifacts), responsive viewport checks, and screenshot capture. Use when asked to "verify", "test", "audit", "QA", or "screenshot" a web app, or before declaring a UI done. Scripts take a URL + a small JSON spec, so they work against any project (dev server, preview deploy, or file).
+description: Automated browser QA for any web project via reusable Playwright scripts — spec-driven end-to-end smoke tests, design-system audits (fonts/colors/overflow/template-brace artifacts), and responsive viewport checks. Use when asked to "verify", "test", "audit", or "QA" a web app, or before declaring a UI done. Scripts take a URL + a small JSON spec, so they work against any project (dev server, preview deploy, or file). For screenshots and visual review, use the sibling webapp-shots skill.
 ---
 
 # Webapp QA — verify any web UI in a browser
@@ -11,33 +11,55 @@ bugs (a stale reactive UI, an IndexedDB key collision) before the user ever saw
 them. Every script runs a real Chromium, captures console errors + uncaught page
 errors, and prints PASS/FAIL lines.
 
+Screenshots are **not** handled here — the sibling **webapp-shots** skill owns
+all capture work (full-page, element, responsive sets, device emulation,
+light/dark, HTML contact sheets). See "Screenshots" below.
+
 ## Requirements
 
 - `node` ≥ 20
-- A chromium build somewhere on disk. Discovery is automatic:
-  1. `$PLAYWRIGHT_CHROMIUM` env var / `--executable <path>` flag
-  2. Playwright's browser cache (`~/Library/Caches/ms-playwright`,
-     `~/.cache/ms-playwright`, or Windows equivalent) — newest build wins
-  3. playwright's default registry (if `playwright` is installed)
-- `playwright-core`. Resolved automatically from, in order: `$PLAYWRIGHT_CORE_PATH`,
-  `<project>/node_modules/playwright-core`, `<skill>/scripts/node_modules/playwright-core`
-  (one-time `cd scripts && npm i playwright-core`), then a bare import.
-  No global install needed.
+- A chromium build somewhere on disk. Discovery is automatic and lives in the
+  sibling webapp-shots skill's `lib.mjs` (the single copy of the browser
+  plumbing). Order: `$PLAYWRIGHT_CHROMIUM` env var / `--executable <path>`
+  flag, then the Playwright browser cache (`~/Library/Caches/ms-playwright`,
+  `~/.cache/ms-playwright`, or Windows equivalent), then playwright's default
+  registry. Headless runs prefer a headless-shell build.
+- `playwright-core`. Resolved by webapp-shots' `lib.mjs` from, in order:
+  `$PLAYWRIGHT_CORE_PATH`, `<project>/node_modules/playwright-core`,
+  `<webapp-shots>/scripts/node_modules/playwright-core` (already installed
+  there), then a bare import. No global install needed.
 
 ## Commands
 
-All scripts live in `scripts/`. They share `qa-lib.mjs` (browser resolution,
-reporter, overflow/artifact detectors) — import it in your own custom scripts.
+All scripts live in `scripts/`. They share `qa-lib.mjs` (which re-exports the
+browser plumbing from webapp-shots and adds the QA-specific helpers:
+error capture, reporter, overflow/artifact detectors) — import it in your own
+custom scripts.
 
-| Script              | Purpose                                                                                                   | Invocation                                                   |
+| Script | Purpose                                                                                                   | Invocation                                                   |
 | ------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
 | `qa-smoke.mjs`      | End-to-end walk of the critical user journey, PASS/FAIL per step                                          | `node scripts/qa-smoke.mjs spec.json`                        |
 | `qa-audit.mjs`      | Verify the design system is _applied_: colors, fonts, overflow, artifacts, errors — in light **and** dark | `node scripts/qa-audit.mjs audit.json`                       |
 | `qa-responsive.mjs` | Overflow + sticky-nav checks at 390/768/1024/1440px                                                       | `node scripts/qa-responsive.mjs <url> [widths] [--sel .toc]` |
-| `qa-shots.mjs`      | Screenshot key views for visual inspection                                                                | `node scripts/qa-shots.mjs shots.json`                       |
 
 All scripts accept `--headed` (visible browser) and `--executable <path>`
 (pin a specific chromium).
+
+## Screenshots
+
+For screenshots, use the sibling **webapp-shots** skill:
+
+```
+node <webapp-shots>/scripts/capture.mjs shots.json
+```
+
+It captures full-page, element-clipped, responsive multi-width, and
+device-emulated views in light/dark, writes an HTML contact sheet, and reuses
+the same playwright-core + chromium discovery. The webapp-qa `qa-shots.mjs`
+script was removed in favor of it — don't recreate it here.
+
+The smoke-test DSL keeps one inline `screenshot` step (in `qa-smoke.mjs`) for
+capturing evidence mid-run; bulk capture is webapp-shots' job.
 
 ## Workflow
 
@@ -52,7 +74,8 @@ All scripts accept `--headed` (visible browser) and `--executable <path>`
    See `references/examples/liveshelf-audit.json`.
 4. **Run.** `node scripts/qa-smoke.mjs spec.json` and
    `node scripts/qa-audit.mjs audit.json`. Fix whatever FAILs, then re-run.
-5. **Responsive + screenshots** once the primary flow is green.
+5. **Responsive** once the primary flow is green. When you need visual review
+   (screenshots, contact sheets), switch to the `webapp-shots` skill.
 
 ## Reading the output
 
