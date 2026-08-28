@@ -40,7 +40,7 @@ Font stacks: sans `-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", H
 
 Diagram margin 16. Every lane: constant content width **372**, radius 12, left padding 16, gap 20 between lanes, bottom padding 20. Header: 44 tall, label baseline 68, label 10px with 0.12 tracking in the muted colour. Content starts at y 92.
 
-Place lanes left to right by `order` (ties fall back to array order); `layout.direction` says which way the graph reads (default `right`). These are hints, not instructions: you own final placement, and a stale hint must never break the picture.
+Place lanes left to right by `layout.laneOrder` when the document carries one (it lists every lane exactly once), otherwise by `order` (ties fall back to array order); `layout.direction` says which way the graph reads (default `right`). `layout.rank` is a node-placement hint: prefer its order within a lane when the edges do not fight it. These are hints, not instructions: you own final placement, and a stale hint must never break the picture.
 
 ## Node cards
 
@@ -70,7 +70,7 @@ Title 13px (small step 11.5, floor 10.5 — step the title down a size before cu
 
 Orthogonal routing between card edges, one elbow at a time. Edges sharing a run separate into parallel tracks (6px clearance, pitch between 10 and 16px) so crossings happen inside corridors and read as wiring, not spaghetti. A label (pill: 15px tall, 8px padding, 9.5px text) sits on the middle of the run, clear of every line. An arrowhead marks the end.
 
-Emphasis changes the stroke, never the geometry: `hero` is thicker and carries the animated train; `muted` is thinner and recessive so context recedes; `normal` is in between. One hero, two at the outside — the emphasis stops meaning anything beyond that. Delta colours apply as above; an `animated: true` edge carries a pulse.
+Emphasis changes the stroke, never the geometry: `hero` is thicker and carries the animated train; `muted` is thinner and recessive so context recedes; `normal` is in between. One hero, two at the outside — the emphasis stops meaning anything beyond that. Delta colours apply as above; an `animated: true` edge carries a pulse. An edge's `summary` renders in the view's section of the page, beside the node summaries — it is where "the change in one edge" claims belong.
 
 ## Animation
 
@@ -86,13 +86,15 @@ A hero edge runs a train: three dots of radius 3, spread evenly around the 2.1s 
 
 ## The data-flow lens
 
-Participants are real node cards across the top in array order, lifelines (the muted border colour) dropping from them; only waited-on work lights an activation bar. Messages in array order, which is also the animation order — there is no step number field, so the document cannot disagree with its own animation:
+Participants are real node cards across the top in array order — a participant's `label` replaces the node's label for that flow — with lifelines (the muted border colour) dropping from them; only waited-on work lights an activation bar. Messages in array order, which is also the animation order — there is no step number field, so the document cannot disagree with its own animation:
 
 - `sync` — filled arrowhead; the called lifeline shows an activation bar while the caller waits.
 - `async` — open arrowhead; fire-and-forget, no activation bar.
 - `return` — dashed line, no head.
 - `self` — a loop back to the same lifeline.
 - `repeat` — the step happens more than once per run; show the count (e.g. ×4) by the label.
+- `note` — renders muted beside the step's label.
+- `animated: false` — keeps one step static while the shared clock runs the others.
 
 ## The final page
 

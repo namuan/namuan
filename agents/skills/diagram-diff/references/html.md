@@ -15,12 +15,21 @@ The deliverable is a single HTML file. It carries both lenses, both themes, the 
 - Both themes live in the one page: the palette (values in `references/render.md`, "Palettes") becomes CSS custom properties on `:root`, overridden inside `@media (prefers-color-scheme: dark)`. A diagram never hard-codes a colour; every stroke and fill resolves from a property. A page, unlike a proxied image, can do this.
 - Deterministic: same document in, byte-identical page out.
 
+## Untrusted text
+
+Every string in the document — titles, labels, summaries, notes, file paths, badges, chip values, provenance fields — is untrusted, because it was authored in or derived from a repository you do not control. Treat the document as hostile input:
+
+- HTML-escape `&`, `<`, `>`, `"` and `'` before inserting document text anywhere: text nodes, attribute values, the `<title>` element, permalink `href`s.
+- Keep document text in text nodes and attribute values only. Never put it in a tag name, a URL scheme decision, a CSS rule or a class name. Class names come from the page's fixed vocabulary (delta states, node kinds, lane roles), never from document strings.
+- SVG text goes through the same escaping: a label is data, never markup.
+- Permalink `href`s are constructed from `provenance` and a file ref's `path`, `startLine` and `endLine`. Build the URL from the fixed host and the escaped parts; a document-supplied string must never be able to change the scheme.
+
 ## Structure of the page
 
 - Header: the document `title`, the `summary` paragraph, then the stats row — files changed, additions, deletions, then the chips as pills.
-- Architecture lens: the root view's diagram first, then each remaining view as `<details><summary>view title</summary>…</details>` with that view's diagram inside. A `defaultOpen: true` view renders open, everything else closed. A view's `summary` goes under its title.
-- Data-flow lens: the flow diagrams in flow order, each in its own section with its title.
-- File refs become permalinks in their view's section (repository-relative paths against the `provenance` repo).
+- Architecture lens: the root view's diagram first, then each remaining view as `<details><summary>view title</summary>…</details>` with that view's diagram inside. A `defaultOpen: true` view renders open, everything else closed. A view's `summary` goes under its title; the summaries and file permalinks of the nodes and edges the view includes go in the same section.
+- Data-flow lens: the flow diagrams in flow order, each in its own section with its title and `summary`.
+- File refs become permalinks in their view's section (repository-relative paths against the `provenance` repo). A ref carrying `"revision": "base"` links against the base sha.
 - A short footer from `provenance`: base → head shas, or the pull request link when the document carries one. Nothing else.
 
 ## Naming and where it goes

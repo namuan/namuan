@@ -7,15 +7,15 @@ description: Draw a code change as animated architecture and data-flow diagrams.
 
 A diff becomes one JSON document (lanes, nodes, edges, ordered flows), and that document renders as a single self-contained HTML page of animated diagrams — both lenses, both themes, the stats row and the drill-down tree in one file that opens from disk. The document is the whole contract: if it passes every rule, it renders.
 
-You are the model and the tooling. Read the diff, write the document, check it against the contract yourself, and draw the page yourself. Nothing on this path needs a model key, a package, or anything installed. Everything is in the reference pages and the example beside this one.
+You are the model and the tooling. Read the diff, write the document, check it against the contract yourself, and draw the page yourself. Nothing on this path needs a model key or a package; the validator needs only a Python 3 interpreter. Everything is in the reference pages and the example beside this one.
 
 ## The loop
 
-1. **Read the diff.** `git diff --find-renames <base>...<head>`. The base is the merge base, not the tip of the base branch.
-2. **Write the document** to `.diagram/graph.json`, following `references/graph-document.md`. That page is the whole shape: every field, every enum, every limit, and the rules a field list cannot express. `references/example.graph.json` is a document that passes every rule — three lanes, all four delta states, a hero edge, a seven-step flow, a nested drill-down tree. Read it before you write your first one; it is quicker than reading the reference.
-3. **Check it.** Run the document through the four rules in `references/graph-document.md` and fix every problem before rendering. Do not "work around" a failure by deleting the element it names.
-4. **Render.** Follow `references/render.md` to draw the diagrams and `references/html.md` for the page around them, and produce the final output yourself: **one self-contained HTML page** per document — both lenses, both themes, the stats row and the drill-down tree in a single file that opens from disk with no network. Name it `<slug>.html` (the document title in kebab-case) and write it, plus `drawn.graph.json` (the document with any corrections applied — the picture must match the `.github/diagram-map.yml` overlay, not your first draft), into `.diagram/`, and add `.diagram/` to the repository's `.gitignore`. Do not commit any of it: these files are a preview, rebuilt from the diff whenever anyone wants them again; the HTML page is the thing you are making.
-5. **Hand it over.** Open the page (`open .diagram/<slug>.html` on macOS) and read it as a reviewer would before anyone else does — one diagram at a time, drill-downs working, both themes readable, pulses moving. Then send the one file wherever the review happens. The rule: the page must describe only what the diagrams show.
+1. **Read the diff** by the analysis contract in `references/analysis.md`: choose the input the user named (default: `git diff --find-renames <base>...<head>`, where base is the merge base), inspect it read-only, inventory the change, chunk when it does not fit, and settle moves before you write anything.
+2. **Write the document** to `.diagram/graph.json`, following `references/graph-document.md` for the shape and `references/analysis.md` for what it may claim. `references/graph-document.md` is the whole shape: every field, every enum, every limit, and the rules a field list cannot express. `references/example.graph.json` is a document that passes every rule — three lanes, all four delta states, a hero edge, a seven-step flow, a nested drill-down tree. Read it before you write your first one; it is quicker than reading the reference.
+3. **Check it.** Run `python3 references/validate.py .diagram/graph.json` and fix every error before rendering. Read the warnings, then re-read `references/graph-document.md` for the rules only a reader can judge. Do not "work around" a failure by deleting the element it names.
+4. **Render.** Follow `references/render.md` to draw the diagrams and `references/html.md` for the page around them, and produce the final output yourself: **one self-contained HTML page** per document — both lenses, both themes, the stats row and the drill-down tree in a single file that opens from disk with no network. Name it `<slug>.html` (the document title in kebab-case) and write it, plus `drawn.graph.json` (the document with any corrections applied — the picture must match the `.github/diagram-map.yml` overlay, not your first draft; validate it the same way), into `.diagram/`, and add `.diagram/` to the repository's `.gitignore`. Do not commit any of it: these files are a preview, rebuilt from the diff whenever anyone wants them again; the HTML page is the thing you are making.
+5. **Hand it over.** Open the page (`open .diagram/<slug>.html` on macOS) and read it as a reviewer would before anyone else does — one diagram at a time, drill-downs working, both themes readable, pulses moving. Then run the verification checklist in `references/analysis.md` and send the one file wherever the review happens. The rule: the page must describe only what the diagrams show.
 
 
 ## What makes a document worth reading
@@ -37,14 +37,16 @@ Keep data-flow views as separate roots rather than nesting them in the architect
 
 ## The four rules that catch nearly everything
 
+Run `python3 references/validate.py .diagram/graph.json` on the draft and again on `drawn.graph.json`. Every rule below is a validator error:
+
 | What fails | How it shows |
 | --- | --- |
 | Referential integrity | an edge, a flow step or a view names an id you never declared |
 | Strict keys | an invented field; the shape is strict, unknown keys are rejected |
-| Duplicate ids | two nodes, edges or views sharing an id |
+| Duplicate ids | any two elements sharing an id |
 | Version | `schemaVersion` is not the contract version this skill ships |
 
-Four rules cannot be expressed as shapes and are checked by hand: referential integrity, a line range that ends before it starts, a `self` message whose endpoints disagree, and a patch whose two commits are the same. Always check.
+The validator also checks what a shape cannot: line ranges that end before they start, `self` messages whose endpoints disagree, patches whose two commits are the same — and reports the judgment calls it can detect (more than two hero edges, a document whose every node is added, a declared data-flow lens with no flows) as warnings. The judgment calls it cannot detect — delta words restated in labels, duplicate-feeling views, stats that do not match the diff — are still yours. Always check.
 
 ## Fixing a map instead of writing one
 
@@ -71,8 +73,10 @@ Everything you need is beside this page. Nothing here asks you to install a pack
 
 | | |
 | --- | --- |
+| `references/analysis.md` | the analysis contract: choosing the diff input, read-only inspection, inventory and chunking, moves, and what the document may claim |
 | `references/graph-document.md` | the document, field by field: enums, limits, and where documents actually go wrong |
 | `references/render.md` | the picture, measurement by measurement: palettes, lanes, cards, edges, pulses |
 | `references/html.md` | the page: the self-contained HTML contract, its structure and its checks |
 | `references/config.md` | `.github/diagram-map.yml`, the correction overlay, in full |
 | `references/example.graph.json` | one complete document that passes every rule, to read and to copy the shape of |
+| `references/validate.py` | the offline validator — `python3 references/validate.py <document>`: every shape and reference rule, plus the judgment calls it can detect as warnings |
