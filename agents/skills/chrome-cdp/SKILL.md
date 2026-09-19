@@ -1,6 +1,7 @@
 ---
 name: chrome-cdp
 description: Interact with local Vivaldi browser session via CDP (Chrome DevTools Protocol). Primary browser is Vivaldi, but also supports Chrome/Chromium/Brave/Edge. Use for inspecting, debugging, or interacting with pages.
+disable-model-invocation: true
 ---
 
 # Vivaldi CDP

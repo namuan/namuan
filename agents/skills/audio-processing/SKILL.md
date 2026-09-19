@@ -1,6 +1,7 @@
 ---
 name: audio-processing
 description: Extract vocals from audio files using Demucs with Apple GPU acceleration, and cut/trim audio to a specified duration. Use when the user asks to separate or extract vocals/voice from music or remove vocals from a song or cut or trim an audio file to a shorter length or extract vocals AND trim them in one step. Handles MP3, WAV, and other common formats. Requires macOS with Apple Silicon (M-series) for GPU acceleration and the `uv` tool.
+disable-model-invocation: true
 ---
 
 # Audio Processing

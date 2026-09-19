@@ -1,6 +1,7 @@
 ---
 name: macos-product-tour
 description: Create annotated product-tour screenshots for any running macOS desktop application. Use when the user asks to generate a product tour, walkthrough, feature overview, or annotated screenshots of a macOS app.
+disable-model-invocation: true
 ---
 
 # macOS Product Tour Generator

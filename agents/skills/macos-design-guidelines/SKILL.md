@@ -5,6 +5,7 @@ license: MIT
 metadata:
   author: platform-design-skills
   version: "1.0.0"
+disable-model-invocation: true
 ---
 
 # macOS Human Interface Guidelines

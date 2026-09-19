@@ -1,6 +1,7 @@
 ---
 name: panel
 description: Use to gather independent perspectives from multiple configured panelists and, when requested, synthesize them without forcing consensus.
+disable-model-invocation: true
 ---
 
 # Panel

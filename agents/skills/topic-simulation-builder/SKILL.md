@@ -5,6 +5,7 @@ description: >
   translate the topic into an interactive low-poly RollerCoaster Tycoon-like simulation,
   make it responsive and controllable, then publish it to a new GitHub repository
   with GitHub Pages enabled.
+disable-model-invocation: true
 ---
 
 # Topic Simulation Builder

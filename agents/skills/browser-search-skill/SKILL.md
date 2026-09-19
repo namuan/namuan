@@ -1,6 +1,7 @@
 ---
 name: "browser-search"
 description: "Browsing/scraping for sites with anti-bot protection (Cloudflare, Akamai, etc.) using CloakBrowser. Use whenever you need to access protected sites."
+disable-model-invocation: true
 ---
 
 # Browser Search

@@ -1,6 +1,7 @@
 ---
 name: webapp-shots
 description: Spec-driven screenshot capture for any web project — full-page, element-clipped, and responsive viewport sets in light/dark color schemes, retina DPR, and device-emulated mobile views, all with an auto-generated HTML contact sheet for visual review. Use when asked to "screenshot", "capture screenshots", "take a screenshot of the app", "show me what the UI looks like", "visual check", or before declaring a UI done. Scripts take a URL + a small JSON spec, so they work against any project (dev server, preview deploy, or file).
+disable-model-invocation: true
 ---
 
 # Webapp Shots — screenshot any web UI

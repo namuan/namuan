@@ -1,6 +1,7 @@
 ---
 name: apple-container
 description: User-facing reference for Apple’s lightweight Linux container runtime `container`, which runs on Apple Silicon Macs. Covers everyday command usage including `container run`, `container build`, `container image pull/push`, `container machine`, volumes, networks, DNS, configuration files, and troubleshooting for the `container` command.
+disable-model-invocation: true
 ---
 
 # apple-container (`container` CLI)

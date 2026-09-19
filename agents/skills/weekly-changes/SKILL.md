@@ -1,6 +1,7 @@
 ---
 name: weekly-changes
 description: Curate recent merged changes into a small set of high-value engineering learning topics.
+disable-model-invocation: true
 ---
 
 # Weekly Change Curator

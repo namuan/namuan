@@ -1,6 +1,7 @@
 ---
 name: gameblocks
 description: Use when building or revising browser-based 3D games with GameBlocks modules, especially for coordinate systems, actor motion, camera rigs, collision-aware movement, gameplay state, and world building.
+disable-model-invocation: true
 ---
 
 # GameBlocks

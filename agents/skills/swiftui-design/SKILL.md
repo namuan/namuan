@@ -1,6 +1,7 @@
 ---
 name: swiftui-design
 description: Create distinctive, production-grade SwiftUI interfaces with high design quality for Apple platforms. Use this skill when the user asks to build iOS, iPadOS, macOS, watchOS, or tvOS interfaces. Generates creative, polished code that follows Apple Human Interface Guidelines.
+disable-model-invocation: true
 ---
 
 This skill guides creation of distinctive, production-grade SwiftUI interfaces that follow Apple Human Interface Guidelines and avoid generic aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.

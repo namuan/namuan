@@ -1,6 +1,7 @@
 ---
 name: apple-notes
 description: Use this skill when the task involves writing notes into the "Wiki" folder of Apple Notes on macOS or appending to existing Wiki notes. Creates a note in Wiki (auto-appending if a note with the same title already exists), and appends content to an existing Wiki note by ID. All commands are hard-pinned to the Wiki folder — no other folder can be listed, read, or written.
+disable-model-invocation: true
 ---
 
 # Apple Notes Skill (v0.5.0 — Wiki-only)

@@ -1,6 +1,7 @@
 ---
 name: diagram-diff
 description: Draw a code change as animated architecture and data-flow diagrams. Author a graph document from a diff, check it against the contract, and render it as one self-contained HTML page; or correct a repository's map in .github/diagram-map.yml. Use when asked to diagram, visualise or explain the shape of a change, when attaching a diagram to a pull request you opened, or when an existing diagram names things wrongly.
+disable-model-invocation: true
 ---
 
 # Diagramming a diff

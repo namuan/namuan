@@ -5,6 +5,7 @@ compatibility: Requires file read/write access to the target repository where ar
 metadata:
   author: namuan
   version: "0.1.0"
+disable-model-invocation: true
 ---
 
 # SpecOps

@@ -1,6 +1,7 @@
 ---
 name: autoresearch
 description: Set up and run an autonomous experiment loop for any optimization target. Use when asked to start autoresearch, run experiments, resume an existing loop, or regenerate the dashboard.
+disable-model-invocation: true
 ---
 
 # Autoresearch

@@ -3,6 +3,7 @@ name: image-to-threejs
 description: Turn a reference image into a code-only procedural Three.js model in one self-contained HTML file, with a built-in wipe-comparison viewer for checking against the reference. Use for quick image-to-3D jobs — props, tools, furniture, vehicles, stylized characters, low-poly game objects.
 version: 1.0.0
 license: Apache-2.0
+disable-model-invocation: true
 ---
 
 # image-to-threejs — image → procedural Three.js, no pipeline

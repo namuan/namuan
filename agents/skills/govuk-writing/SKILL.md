@@ -1,6 +1,7 @@
 ---
 name: govuk-style
 description: Write and edit in GOV.UK / GDS house style — plain English, active voice, front-loaded content, sentence case, and no bold or italics for emphasis. Use when writing or editing reports, research write-ups, guidance, documentation, summaries, or any prose where clarity and accessibility matter.
+disable-model-invocation: true
 ---
 
 Open the content up so anyone can understand it the first time they read it — without losing any of the substance, nuance or precision. The goal is to open up, not to dumb down. This skill applies the GOV.UK style guide and the Government Digital Service (GDS) content design principles. It is based on the GOV.UK A to Z style guide and writing guidelines (guidance.publishing.service.gov.uk).

@@ -1,6 +1,7 @@
 ---
 name: browser-agent
 description: Drive a real Chromium browser from the command line and capture everything the DevTools protocol exposes (network, console, logs, exceptions, websockets, dialogs, downloads, performance). Use when an agent needs to open a visible browser so a human can drive it while the agent records everything and polls until the window is closed.
+disable-model-invocation: true
 ---
 
 # Browser Agent — Drive & Observe

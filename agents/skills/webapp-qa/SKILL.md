@@ -1,6 +1,7 @@
 ---
 name: webapp-qa
 description: Automated browser QA for any web project via reusable Playwright scripts — spec-driven end-to-end smoke tests, design-system audits (fonts/colors/overflow/template-brace artifacts), and responsive viewport checks. Use when asked to "verify", "test", "audit", or "QA" a web app, or before declaring a UI done. Scripts take a URL + a small JSON spec, so they work against any project (dev server, preview deploy, or file). For screenshots and visual review, use the sibling webapp-shots skill.
+disable-model-invocation: true
 ---
 
 # Webapp QA — verify any web UI in a browser

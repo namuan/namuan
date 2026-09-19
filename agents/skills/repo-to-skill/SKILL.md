@@ -6,6 +6,7 @@ description: |
   generates a SKILL.md, and presents it to the user for review.
   Use when asked to "turn this repo into a skill", "convert repo to skill", "make a
   skill from this repo", or "package this as a coding-agent skill".
+disable-model-invocation: true
 ---
 
 ## Preamble (run first)

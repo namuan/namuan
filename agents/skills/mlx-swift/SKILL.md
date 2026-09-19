@@ -1,6 +1,7 @@
 ---
 name: mlx-swift
 description: Development and debugging guide for MLX Swift apps on Apple Silicon. Use when building, debugging, or troubleshooting apps that depend on mlx-swift, speech-swift, or any MLX-based inference (TTS, ASR, LLM). Covers metallib compilation, cache management, tokenizer issues, silent crashes, threading, and memory diagnosis.
+disable-model-invocation: true
 ---
 
 # MLX Swift — Development & Debugging

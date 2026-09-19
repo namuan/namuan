@@ -1,6 +1,7 @@
 ---
 name: swift-style
 description: Swift code style conventions for clean, readable code. Use when writing Swift code to ensure consistent formatting, naming, organization, and idiomatic patterns.
+disable-model-invocation: true
 ---
 
 # Swift Style Guide

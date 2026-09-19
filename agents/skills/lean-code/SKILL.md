@@ -1,6 +1,7 @@
 ---
 name: lean-code
 description: Solve coding, debugging, research, and planning work with the smallest verified result — use when asked for "lean-code", fewer tokens or less code, or to stop over-engineering.
+disable-model-invocation: true
 ---
 
 # /lean-code

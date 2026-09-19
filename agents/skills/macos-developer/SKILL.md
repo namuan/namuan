@@ -1,6 +1,7 @@
 ---
 name: macos-developer
 description: Expert in macOS app development using AppKit, SwiftUI for Mac, and XPC. Specializes in system extensions, menu bar apps, and deep OS integration.
+disable-model-invocation: true
 ---
 
 # macOS Developer
