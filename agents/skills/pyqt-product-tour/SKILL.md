@@ -1,9 +1,9 @@
 ---
-name: automated-product-tour
-description: Build deterministic, fixture-driven product tours for desktop applications by driving the real UI, capturing feature screenshots, and generating linked Markdown documentation. Use when a product tour, feature walkthrough, screenshot documentation, or repeatable UI showcase is requested.
+name: pyqt-product-tour
+description: Build deterministic, fixture-driven product tours for PyQt and PySide desktop applications by driving the real UI, capturing feature screenshots, and generating linked Markdown documentation. Use when a product tour, feature walkthrough, screenshot documentation, or repeatable UI showcase is requested.
 ---
 
-# Automated Product Tour
+# PyQt Product Tour
 
 Create a product tour that can be regenerated after UI changes with one project command. The tour must exercise the real application UI, use stable fixture data, capture screenshots, and generate its documentation from the same manifest used by the capture script.
 
