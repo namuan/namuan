@@ -1,6 +1,7 @@
 ---
 name: pyqt-product-tour
 description: Build deterministic, fixture-driven product tours for PyQt and PySide desktop applications by driving the real UI, capturing feature screenshots, and generating linked Markdown documentation. Use when a product tour, feature walkthrough, screenshot documentation, or repeatable UI showcase is requested.
+disable-model-invocation: true
 ---
 
 # PyQt Product Tour
