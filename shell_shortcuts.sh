@@ -58,11 +58,6 @@ alias tx="tmux attach -t"
 
 # llama
 HF_HUB=$HOME/.cache/huggingface/hub
-alias qwen3="llama-server -m $HF_HUB/models--bartowski--Qwen_Qwen3-4B-Instruct-2507-GGUF/snapshots/ae44f08e1392f39c0e474af10c3ff8355c8b6688/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --cache-type-k q4_0 --cache-type-v q4_0 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
-alias qwen35="llama-server -m $HF_HUB/models--unsloth--Qwen3.5-27B-GGUF/snapshots/3221f178a6b842d04f1fb42f1c413534adcc0a6a/Qwen3.5-27B-Q6_K.gguf --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
-alias qwen36moe="llama-server -m $HF_HUB/models--bartowski--Qwen_Qwen3.6-35B-A3B-GGUF/snapshots/d98fa7286daa6544d050929df95e436741ee739b/Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap --chat-template-kwargs '{\"preserve_thinking\": true}'"
-alias qwen36moe_heavy="llama-server -m $HF_HUB/models--bartowski--Qwen_Qwen3.6-35B-A3B-GGUF/snapshots/d98fa7286daa6544d050929df95e436741ee739b/Qwen_Qwen3.6-35B-A3B-Q6_K.gguf --port 9090 -ngl 999 -t 4 -c 131072 -b 512 -ub 1024 --parallel 1 -fa on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap --chat-template-kwargs '{\"preserve_thinking\": true}'"
-alias qwen36="llama-server -m $HF_HUB/models--bartowski--Qwen_Qwen3.6-27B-GGUF/snapshots/f73b625d7ceedbd05d14a93874387cd3bcd673b7/Qwen_Qwen3.6-27B-Q4_K_M.gguf --port 9090 -ngl 999 -t 4 --ctx-size 131072 -b 512 -ub 1024 --parallel 1 --flash-attn on --cache-type-k q8_0 --cache-type-v q8_0 --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap"
 
 function open-llama() {
   local selected=$(find "$HF_HUB" -maxdepth 4 -name '*.gguf' ! -name 'mmproj*' | awk -F/ '{print $NF, $0}' OFS='\t' | fzf --delimiter='\t' --with-nth=1 --prompt="Model> " | cut -f2)
@@ -71,7 +66,16 @@ function open-llama() {
   local name=$(basename "$selected" .gguf)
   echo "==> Starting $name..."
 
-  llama-server -m "$selected" --port 9090 -ngl 999 -t 4 --ctx-size 131072 -b 512 -ub 1024 --parallel 1 --flash-attn on --jinja --keep 1024 --swa-full --no-context-shift --reasoning off --mlock --no-mmap
+  llama-server -m "$selected" --port 9090 \
+    -ngl 999 \
+    -t 4 \
+    --ctx-size 200000 \
+    -b 512 \
+    -ub 1024 \
+    --parallel 1 \
+    --flash-attn on \
+    --jinja \
+    --reasoning off
 }
 
 # ----- Define Aliases
